@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>用户管理</title>
+<link href="/dist/css/user/index.css" rel="stylesheet"><script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/user/index.js"></script></head>
+<body>
+<div class="mini-fit">
+    <div class="mini-toolbar" style="border-bottom:0;padding:0px">
+        <table id="search-box">
+            <tr>
+                <td>姓名:<input name="name$LIKE" class="mini-textbox"></td>
+                <td>用户名:<input name="username$LIKE" class="mini-textbox"></td>
+                <td>
+                    <a class="mini-button search-button" plain="true" iconcls="icon-search">搜索</a>
+                    <a class="mini-button add-button" plain="true" iconcls="icon-add">添加用户</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="datagrid" class="mini-datagrid" style="width:100%;height:100%;margin: auto" showpager="true">
+        <div property="columns">
+            <div type="indexcolumn" name="index" width="60" align="center" headeralign="center">#</div>
+            <div field="name" width="100" headeralign="center" allowsort="true" align="center">姓名</div>
+            <div field="username" width="100" headeralign="center" allowsort="true" align="center">用户名</div>
+            <div field="enabled" renderer="renderStatus" headeralign="center" align="center">是否启用</div>
+            <div name="action" renderer="renderAction" headeralign="center" align="center">操作</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

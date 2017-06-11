@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>菜单管理</title>
+<link href="/dist/css/menu/index.css" rel="stylesheet"><script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/menu/index.js"></script></head>
+<body>
+<div class="mini-fit">
+    <div class="mini-toolbar" style="border-bottom:0;padding:0px">
+        <table id="search-box">
+            <tr>
+                <td>关键字:<input name="keyword" class="mini-textbox"></td>
+                <td><a class="mini-button search-button" plain="true" iconcls="icon-search">搜索</a></td>
+                <td><a onclick="mini.get('menu-grid').addNode({enable:true,sortIndex:grid.getData().length+1})" plain="true" class="mini-button add-menu-button" iconcls="icon-add">添加菜单</a></td>
+
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="menu-grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto" idfield="id" parentfield="parentId" resultastree="false" iconfield="icon" allowcellvalid="true" allowresize="true" expandonload="true" allowleafdropin="true" allowcelledit="true" allowcellselect="true" sortfield="sortIndex" allowdrag="true" allowdrop="true" treecolumn="icon">
+            <div property="columns">
+                <div type="indexcolumn" width="50" align="center" headeralign="center">拖动可排序</div>
+                <div field="icon" name="icon" headeralign="center" align="left" width="100">图标
+                    <input property="editor" required emptytext="e.g. icon-add" class="mini-textbox">
+                </div>
+                <div field="permissionId" name="permissionId" headeralign="center" align="center" width="100">权限ID
+                    <input property="editor" required emptytext="e.g. user" class="mini-buttonedit">
+                </div>
+                <div field="name" headeralign="center" align="center" width="100">菜单名称
+                    <input property="editor" required emptytext="e.g. 权限管理" class="mini-textbox">
+                </div>
+                <div field="url" headeralign="center" align="center" width="200">URL
+                    <input property="editor" emptytext="e.g. /menu/index.html" class="mini-textbox">
+                </div>
+                <div field="enabled" width="50" headeralign="center" align="center">是否启用</div>
+                <div field="sortIndex" width="80" headeralign="center" align="center">排序序号</div>
+                <div field="describe" width="120" headeralign="center" align="center">描述
+                    <input property="editor" class="mini-textarea">
+                </div>
+                <div renderer="renderAction" width="80" headeralign="center" align="center">
+                    操作
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

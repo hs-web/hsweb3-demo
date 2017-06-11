@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>角色管理</title>
+<link href="/dist/css/role/save.css" rel="stylesheet"><script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/role/save.js"></script></head>
+<body>
+<div class="mini-fit">
+    <table id="basic-info" class="basic-info">
+        <tr>
+            <td class="label">角色标识(ID):</td>
+            <td>
+                <input required emptytext="只能由字母数字下划线组成" style="width: 100%" name="id" class="mini-textbox">
+            </td>
+            <td class="label">角色名称:</td>
+            <td>
+                <input required style="width: 100%" name="name" class="mini-textbox">
+            </td>
+        </tr>
+        <tr>
+            <td class="label">备注:</td>
+            <td colspan="3">
+                <input name="describe" style="width: 100%" class="mini-textarea">
+            </td>
+        </tr>
+    </table>
+    <div class="mini-fit" style="display: none">
+        <div id="action-grid" class="mini-datagrid" style="width:100%;height:100%;margin: auto" idfield="action" allowcelledit="true" allowcellselect="true" showpager="false" editnextonenterkey="true" editnextrowcell="true" naveditmode="true">
+            <div property="columns">
+                <div name="permissionId" field="permissionId" headeralign="center" align="center" width="100">
+                    权限ID
+                    <input property="editor" emptytext="e.g. user" class="mini-textbox">
+                </div>
+                <div field="actions" renderer="renderOperationAction" width="120" headeralign="center" align="center">可操作类型
+                    <div property="editor" allowinput="true" valuefromselect="true" id="actionsBox" class="mini-combobox" style="width:100%" popupwidth="100%" textfield="describe" valuefield="action" multiselect="true">
+                        <div property="columns">
+                            <div header="类型" field="action"></div>
+                            <div header="说明" field="describe"></div>
+                        </div>
+                    </div>
+                </div>
+                <div field="dataAccesses" renderer="renderDataAccess" width="120" headeralign="center" align="left">
+                    数据权限控制
+                </div>
+                <div renderer="renderAction" width="40" headeralign="center" align="center">
+                    操作<span class="title-button icon-add" onclick="mini.get('action-grid').addRow({})"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scriptEditorWindow" class="mini-window" title="脚本编辑器" style="width:600px;height:500px" showmaxbutton="true" showcollapsebutton="true" showshadow="true" showtoolbar="true" showfooter="false" showmodal="false" allowresize="true" allowdrag="true">
+        <div property="toolbar" style="padding:5px">
+            <a class="mini-button script-ok" plain="true" iconcls="icon-ok">完成编辑</a>
+            语言:<input class="mini-combobox" value="javascript" name="script-language" valuefield="text" data="[{text:'javascript'},{text:'groovy'}]">
+        </div>
+        <pre id="editor"></pre>
+    </div>
+
+    <div id="dataAccessWindow" class="mini-window" title="数据权限配置" style="width:80%;height:80%" showmaxbutton="true" showcollapsebutton="true" showshadow="true" showtoolbar="false" showfooter="true" showmodal="false" allowresize="true" allowdrag="true">
+        <div property="footer" style="padding:0px;text-align: center">
+            <a class="mini-button data-access-edit-ok" plain="true" iconcls="icon-ok">完成编辑</a>
+        </div>
+        <table id="data-access-form" style="width: 100%;margin: auto">
+            <span style="font-size: 14px">只能[<span class="action_box"></span>]自己创建的数据</span>
+            <br>
+            <a class="mini-button" onclick="mini.get('deny_fields_grid').addRow({})" iconcls="icon-add" plain="true">不能操作的字段</a>
+            <br>
+            <div id="deny_fields_grid" class="mini-datagrid" style="width:100%;height:300px;margin: auto" allowcelledit="true" idfield="field" allowcellselect="true" showpager="false" editnextonenterkey="true" editnextrowcell="true" naveditmode="true">
+                <div property="columns">
+                    <div field="action" headeralign="center" align="center" width="80">
+                        操作类型
+                        <input property="editor" data="" class="mini-combobox">
+                    </div>
+                    <div field="describe" headeralign="center" align="center" width="100">
+                        说明
+                        <input property="editor" class="mini-textbox">
+                    </div>
+                    <div field="config.fields" renderer="renderFields" width="200" headeralign="center" align="center">字段
+                        <div property="editor" data="permission_actions" allowinput="true" valuefromselect="true" id="denyActionsBox" class="mini-combobox" style="width:100%" popupwidth="100%" textfield="describe" valuefield="name" multiselect="true">
+                            <div property="columns">
+                                <div header="字段" field="name"></div>
+                                <div header="说明" field="describe"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div renderer="renderAction" headeralign="center" align="center" width="80">操作
+                    </div>
+                </div>
+            </div>
+    </table></div>
+
+    <div style="width: 100px;margin: auto">
+        <a class="mini-button save-button" plain="true" iconcls="icon-save">保存</a>
+    </div>
+    <div style="display: none" class="editor-contain">
+        <input name="config-custom" emptytext="请输入类全名或spring bean name" class="mini-textbox">
+    </div>
+</div>
+</body>
+</html>

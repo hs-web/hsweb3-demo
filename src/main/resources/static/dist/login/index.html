@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>登录</title>
+<link href="/dist/css/login/index.css" rel="stylesheet"><script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/login/index.js"></script></head>
+<body>
+<div id="loginWindow" class="mini-window" title="用户登录" style="width:350px;height:205px" showmodal="true" showclosebutton="false">
+    <div id="loginForm" style="padding:15px;padding-top:10px">
+        <table>
+            <tr>
+                <td style="width:60px"><label for="username$text">帐号：</label></td>
+                <td>
+                    <input id="username" name="username" class="mini-textbox" value="admin" required="true" style="width:150px">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px"><label for="pwd$text">密码：</label></td>
+                <td>
+                    <input id="password" name="password" class="mini-password" value="admin" required="true" requirederrortext="密码不能为空" required="true" style="width:150px" onenter="onLoginClick">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top:5px">
+                    <a class="mini-button login-button" style="width:60px">登录</a>
+                    <a class="mini-button reset-button" style="width:60px">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

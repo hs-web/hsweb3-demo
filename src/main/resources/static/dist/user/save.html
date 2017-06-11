@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>角色管理</title>
+<link href="/dist/css/user/save.css" rel="stylesheet"><script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/user/save.js"></script></head>
+<body>
+<div class="mini-fit">
+    <table id="basic-info" class="basic-info">
+        <tr>
+            <td class="label">姓名:</td>
+            <td colspan="3">
+                <input required style="width: 100%" name="name" class="mini-textbox">
+            </td>
+        </tr>
+        <tr>
+            <td class="label">用户名:</td>
+            <td>
+                <input required style="width: 100%" name="username" class="mini-textbox">
+            </td>
+            <td class="label">密码:</td>
+            <td>
+                <input required style="width: 100%" name="password" class="mini-password">
+            </td>
+        </tr>
+        <tr>
+            <td class="label">备注:</td>
+            <td colspan="3">
+                <input name="describe" style="width: 100%" class="mini-textarea">
+            </td>
+        </tr>
+    </table>
+    <div id="datagrid" class="mini-datagrid" style="width:100%;height:200px;margin: auto" multiselect="true" idfield="id" showpager="false">
+        <div property="columns">
+            <div type="checkcolumn" name="index" width="30" align="center" headeralign="center"></div>
+            <div field="name" width="100" headeralign="center" allowsort="true" align="center">角色名</div>
+        </div>
+    </div>
+    <div style="width: 100px;margin: auto">
+        <a class="mini-button save-button" plain="true" iconcls="icon-save">保存</a>
+    </div>
+</div>
+</body>
+</html>

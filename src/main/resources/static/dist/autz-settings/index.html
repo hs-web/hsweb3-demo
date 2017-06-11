@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>权限设置</title>
+<link href="/dist/css/autz-settings/index.css" rel="stylesheet"><script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/autz-settings/index.js"></script></head>
+<body>
+<div class="mini-fit">
+    <div id="tabs" class="mini-tabs" activeindex="0" style="width:100%;height:90%" plain="true">
+        <div title="菜单设置">
+            <div class="mini-fit">
+                <div class="mini-splitter" style="width:100%;height:100%">
+                    <div size="300px" showcollapsebutton="true" style="padding:5px">
+                        <div class="mini-toolbar" style="padding:0px">
+                            <table id="search-box">
+                                <tr>
+                                    <td>已选菜单信息,搜索:<input name="keyword" emptytext="输入关键字,按回车." class="mini-textbox">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="menu-setting-grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto" idfield="id" parentfield="parentId" resultastree="false" iconfield="icon" allowcellvalid="true" allowresize="false" expandonload="true" treecolumn="icon" allowcelledit="true" allowcellselect="true" allowdrag="true" allowdrop="true" allowleafdropin="true">
+                            <div property="columns">
+                                <div type="indexcolumn" width="50" align="center" headeralign="center">#</div>
+                                <div field="menu.icon" name="icon" headeralign="center" align="left" width="60">
+                                    图标
+                                </div>
+                                <div field="menu.name" headeralign="center" align="center" width="120">菜单名称
+                                </div>
+                                <div renderer="renderSettingMenuAction" width="50" headeralign="center" align="center">
+                                    操作
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div showcollapsebutton="true" style="padding:5px">
+                        <table id="search-menu-box">
+                            <tr>
+                                <td>全部菜单信息,搜索:<input name="keyword" emptytext="输入关键字,按回车." class="mini-textbox">
+                                    <a class="mini-button" iconcls="icon-find" plain="true">隐藏已选菜单</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="menu-grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto" idfield="id" parentfield="parentId" resultastree="false" iconfield="icon" allowcellvalid="true" allowresize="false" expandonload="true" treecolumn="icon" allowcelledit="true" allowcellselect="true" allowdrag="true" allowdrop="true" allowleafdropin="true">
+                            <div property="columns">
+                                <div renderer="renderMenuAction" width="60" headeralign="center" align="center">
+                                    操作
+                                </div>
+                                <div field="icon" name="icon" headeralign="center" align="left" width="60">图标</div>
+                                <div field="name" headeralign="center" align="center" width="120">菜单名称</div>
+                                <div field="describe" width="120" headeralign="center" align="center">描述</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div name="permissionSetting" title="权限设置" showcollapsebutton="true">
+            <div class="mini-fit">
+                <div class="mini-splitter" style="width:100%;height:100%">
+                    <div size="300px" showcollapsebutton="true" style="padding:5px">
+                        <div class="mini-toolbar" style="padding:0px;border-bottom: 0px">
+                            <table id="search-permission-box">
+                                <tr>
+                                    <td>搜索:<input name="keyword" emptytext="输入关键字,按回车." class="mini-textbox"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="permission-setting-grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto" expandondblclick="false" resultastree="false" allowresize="false" expandonload="0" treecolumn="text" checkedfield="checked" allowcelledit="true" allowcellselect="true" showcheckbox="true" checkrecursive="true">
+                            <div property="columns">
+                                <div field="text" name="text" headeralign="center" align="left" width="60">
+                                    权限信息
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div showcollapsebutton="true" style="padding:5px;font-size: 16px">
+                        <div class="mini-toolbar" style="padding:0px">
+                            <table>
+                                <tr>
+                                    <td><a class="mini-button" iconcls="icon-save" plain="true">将该设置配置到全部权限</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="mini-fit" id="data-accesses">
+                            <table class="data-access-table" style="width: 100%">
+                                <tr class="access_all">
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="detail-check">全部
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="own_created">
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="detail-check">仅限本人
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="own_position org-setting">
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="detail-check">仅限本人及下属
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="own_department org-setting">
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="detail-check">所在部门
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="own_org org-setting">
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="detail-check">所在机构
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="custom_department org-setting">
+                                    <td>
+                                        <label>
+                                            <input type="radio" name="detail-check">自定义设置
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="mini-fit custom_department org-setting">
+                                <div id="department_grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto" expandondblclick="false" resultastree="false" allowresize="false" expandonload="0" treecolumn="text" checkedfield="checked" allowcelledit="true" allowcellselect="true" showcheckbox="true" checkrecursive="true">
+                                    <div property="columns">
+                                        <div field="text" name="text" headeralign="center" align="left" width="60">
+                                            机构信息
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="scriptEditorWindow" class="mini-window" title="脚本编辑器" style="width:600px;height:500px" showmaxbutton="true" showcollapsebutton="true" showshadow="true" showtoolbar="true" showfooter="false" showmodal="false" allowresize="true" allowdrag="true">
+    <div property="toolbar" style="padding:5px">
+        <a class="mini-button script-ok" plain="true" iconcls="icon-ok">完成编辑</a>
+        语言:<input class="mini-combobox" value="javascript" name="script-language" valuefield="text" data="[{text:'javascript'},{text:'groovy'}]">
+    </div>
+    <pre id="editor"></pre>
+</div>
+
+<div style="width: 100px;margin: auto">
+    <a class="mini-button save-button" plain="true" iconcls="icon-save">保存</a>
+</div>
+<div style="display: none" class="editor-contain">
+    <input name="config-custom" emptytext="请输入类全名或spring bean name" class="mini-textbox">
+</div>
+
+</body>
+</html>
