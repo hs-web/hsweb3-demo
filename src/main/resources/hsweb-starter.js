@@ -32,7 +32,7 @@ var menus = [
         "path": "sOrB",
         "sort_index": 1,
         "describe": "父菜单 ",
-        "url": "/",
+        "url": "",
         "icon": "",
         "status": 1
     },
