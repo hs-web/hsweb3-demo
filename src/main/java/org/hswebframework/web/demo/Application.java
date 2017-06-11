@@ -54,7 +54,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -85,14 +88,16 @@ import java.util.stream.Stream;
  */
 @SpringBootApplication
 @Configuration
-@EnableSwagger2
-@EnableCaching
+@EnableSwagger2 // swagger2
+@EnableCaching //开启缓存
 @EnableAspectJAutoProxy
-@EnableAccessLogger
+@EnableAccessLogger //开启访问日志
+@Controller
 public class Application {
 
     @Bean
     public AccessLoggerListener accessLoggerListener() {
+        //自定义访问日志监听器
         Class excludes[] = {
                 ServletRequest.class,
                 ServletResponse.class,
@@ -110,7 +115,7 @@ public class Application {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("example")
+                .groupName("demo")
                 .ignoredParameterTypes(HttpSession.class, Authentication.class, HttpServletRequest.class, HttpServletResponse.class)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.hswebframework.web"))
@@ -128,6 +133,10 @@ public class Application {
                 .build();
     }
 
+    @GetMapping("/")
+    public RedirectView index() {
+        return new RedirectView("/dist/index.html");
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
