@@ -1,0 +1,46 @@
+.action-check-button {
+    width: 100px;
+    height: 40px;
+    line-height: 40px
+}
+
+.action-check-button:hover * {
+    color: black;
+}
+
+.action-check-button.check {
+    background-color: #0099CC;
+    color: white;
+}
+
+.mini-checkboxlist-td input {
+    width: 20px;
+    height: 20px;
+
+}
+
+fieldset {
+    border: solid 1px #aaa;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.field-set-body {
+    display: none;
+}
+
+.hide-field-set {
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.hide-field-set .field-set-body {
+    display: none;
+}
+
+.data-access-table td {
+    padding: 5px;
+    border-bottom: 1px solid gainsboro;
+}

@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        url : jdbc:h2:file:./data/h2db
+        username : sa
+        password :
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name : org.h2.Driver
+    cache:
+       type: simple
+logging:
+  level:
+    org.hswebframework: DEBUG
+    org.hswebframework.expands: ERROR
+    access-logger: INFO

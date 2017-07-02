@@ -6,7 +6,14 @@
 
     <groupId>org.hswebframework.web</groupId>
     <artifactId>hsweb-demo</artifactId>
+    <packaging>pom</packaging>
     <version>3.0-SNAPSHOT</version>
+    <modules>
+        <module>hsweb-ui-boot</module>
+        <module>hsweb-ui-plugins</module>
+        <module>hsweb-ui-admin</module>
+        <module>hsweb-demo-starter</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
@@ -14,6 +21,10 @@
 
         <java.version>1.8</java.version>
         <project.build.jdk>${java.version}</project.build.jdk>
+
+        <hsweb.framework.version>3.0-SNAPSHOT</hsweb.framework.version>
+        <hsweb.expands.version>3.0.0-SNAPSHOT</hsweb.expands.version>
+
     </properties>
 
     <build>
@@ -82,101 +93,9 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-                <configuration>
-                    <mainClass>org.hswebframework.web.demo.Application</mainClass>
-                    <layout>ZIP</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.0.26</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!--访问日志-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-access-logging-aop</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!--权限管理-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-system-authorization-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!--使用shiro实现权限控制-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-authorization-shiro</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!--组织架构-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-system-organizational-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!--swagger-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -187,7 +106,52 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.0.26</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc14</artifactId>
+                <version>10.2.0.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-spring-boot-starter</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
+
+            <!--访问日志-->
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-access-logging-aop</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
+
+            <!--权限管理-->
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-system-authorization-starter</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
+            <!--使用shiro实现权限控制-->
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-authorization-shiro</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
+
+            <!--组织架构-->
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-system-organizational-starter</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
     <repositories>
         <repository>
@@ -196,6 +160,7 @@
             <url>http://nexus.hsweb.me/content/groups/public/</url>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>interval:480</updatePolicy>
             </snapshots>
         </repository>
         <repository>
@@ -205,4 +170,11 @@
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-nexus</id>
+            <name>aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
