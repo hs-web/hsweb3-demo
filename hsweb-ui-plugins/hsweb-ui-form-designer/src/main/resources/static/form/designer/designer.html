@@ -14,6 +14,9 @@
             height: 100%;
             overflow: hidden;
         }
+        .widget-editor-container{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -26,7 +29,7 @@
                         <a class="mini-button" iconCls="icon-save" plain="true">保存</a>
                         <a class="mini-button" iconCls="icon-find" plain="true">预览</a>
                         <span class="separator"></span>
-                        <a class="mini-button" iconCls="icon-html-go" plain="true" onclick="createHtml()">生成源代码</a>
+                        <a class="mini-button write-source-button" iconCls="icon-html-go" plain="true">生成源代码</a>
                     </td>
                 </tr>
             </table>
@@ -34,26 +37,27 @@
     </div>
     <div title="south" region="east" showSplit="true" showHeader="false" width="300" bodyStyle="border:0px;">
         <div class="mini-fit" style="height:100px;">
-            <div id="properties-table" class="mini-datagrid" style="width:100%;height: 100%;border: 0px"
-                 idField="key" allowCellEdit="true" showPager="false" onCelldblclick="showEditor"
+            <div id="properties-grid" class="mini-datagrid" style="width:100%;height: 100%;border: 0px"
+                 idField="key" allowCellEdit="true" showPager="false"
                  allowCellSelect="true" allowAlternating="true" editNextOnEnterKey="true"
-                 editNextRowCell="true" oncellendedit="submitProperties" oncellbeginedit="cellbeginedit">
+                 editNextRowCell="true">
                 <div property="columns">
                     <div field="text" width="50" headerAlign="center" allowSort="false">属性</div>
-                    <div field="value" width="80" headerAlign="center" allowSort="false">值</div>
+                    <div field="value" width="80"  headerAlign="center" allowSort="false">值</div>
                 </div>
             </div>
         </div>
     </div>
     <div showHeader="false" region="west" width="180" maxWidth="250" minWidth="100">
-        <div id="leftTree" class="mini-tree"
-             onnodedblclick="nodedblclick" idField="id" resultAsTree="false"
-             parentField="parentId" textField="text" borderStyle="border:0"
+        <div id="leftTree" class="mini-tree" idField="id" resultAsTree="false"
+             parentField="parentId" textField="name" borderStyle="border:0"
              expandOnNodeClick="true" expandOnLoad="0">
         </div>
     </div>
     <div title="center" region="center" bodyStyle="overflow-y:auto;overflow-x:hidden;">
-        <script id="container" name="content" type="text/plain" style="align:center;width: 100%;height:80%;border: 0px;"></script>
+        <textarea  id="container" name="content" type="text/html" style="align:center;width: 100%;height:80%;border: 0px;">
+
+        </textarea>
         <div id="editorWindow" class="mini-window" title="" style="width:600px;height:500px;"
              showMaxButton="false" showCollapseButton="false" showShadow="true"
              showToolbar="false" showFooter="true" showModal="true" allowResize="true" allowDrag="true">
@@ -65,6 +69,13 @@
             </div>
         </div>
     </div>
+
+</div>
+<div class="widget-editor-container">
+    <input id="widget-editor-text" class="mini-textbox"/>
+    <input id="widget-editor-select" class="mini-combobox"/>
+    <input id="widget-editor-textarea" style="height: 300px" class="mini-textarea"/>
+
 </div>
 </body>
 </html>
