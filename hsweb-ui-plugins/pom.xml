@@ -14,6 +14,8 @@
     <modules>
         <module>hsweb-ui-tools</module>
         <module>hsweb-ui-miniui</module>
+        <module>hsweb-ui-form-designer</module>
+        <module>hsweb-ui-ueditor</module>
         <module>hsweb-ui-editor</module>
     </modules>
 
