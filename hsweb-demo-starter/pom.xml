@@ -82,6 +82,11 @@
              <artifactId>hsweb-system-organizational-starter</artifactId>
          </dependency> -->
 
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-dictionary-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
 
         <!--访问日志-->
         <dependency>
