@@ -80,6 +80,11 @@
             <artifactId>font-awesome</artifactId>
             <version>4.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-ui-form-designer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 

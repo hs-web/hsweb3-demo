@@ -11,7 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Created by zhouhao on 2017/7/2.
+ * @author zhouhao
  */
 @EnableAspectJAutoProxy
 @SpringBootApplication
