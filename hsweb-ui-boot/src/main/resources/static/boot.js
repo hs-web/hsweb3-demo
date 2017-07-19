@@ -124,13 +124,17 @@ function importMiniui(callback) {
         importResource("/plugins/miniui/themes/icons.css");
         importResource('/plugins/miniui/themes/' + theme + '/skin.css');
         importResource("/plugins/miniui/themes/default/" + mode + "-mode.css");
-        $("head").append('<script src="/plugins/miniui/miniui.js" type="text/javascript" ></script>');
-
-        $(window).resize(function () {
-            mini.layout();
-        })
-        if (callback)
-            callback();
+        $.ajax({
+            url: "/plugins/miniui/miniui.js",
+            async:false,
+            cache:true,
+            dataType: "script",
+            success: callback
+        });
+        if($(window))
+            $(window).resize(function () {
+                mini.layout();
+            })
     }
 
     if (!window.jQuery && !window.$) {
