@@ -9,7 +9,7 @@ function getDefaultProperties(other) {
             "id": "require",
             "text": "不能为空",
             "editor": "select",
-            "value ":"否",
+            "value ": "否",
             "data": [
                 {text: "是", id: "是"},
                 {text: "否", id: "否"}
@@ -103,19 +103,19 @@ function initEditor() {
         //}
     });
 }
-function getEditor(row){
-    var editor = mini.get('widget-editor-'+row.editor);
-    if(editor){
-        if(editor.setData&&row.data){
+function getEditor(row) {
+    var editor = mini.get('widget-editor-' + row.editor);
+    if (editor) {
+        if (editor.setData && row.data) {
             editor.setData(row.data);
         }
         return editor;
     }
-    return {type:"textbox"};
+    return {type: "textbox"};
 }
 function initPropertiesGrid() {
     var grid = mini.get("properties-grid");
-    grid.on("cellbeginedit",function (e) {
+    grid.on("cellbeginedit", function (e) {
         if (e.field == "value") {
             var editor = getEditor(e.record);
             e.editor = editor;
@@ -123,10 +123,10 @@ function initPropertiesGrid() {
         }
     });
 }
-function initWidgetProperties(){
+function initWidgetProperties() {
     var grid = mini.get("properties-grid");
-    if(!nowEditId)grid.setData([]);
-    else{
+    if (!nowEditId) grid.setData([]);
+    else {
         var wg = chooseWidgets[nowEditId];
         grid.setData(wg.properties);
     }
@@ -134,10 +134,10 @@ function initWidgetProperties(){
 }
 importMiniui(function () {
     mini.parse();
-    window.UEDITOR_HOME_URL = "/ueditor/";
+    window.UEDITOR_HOME_URL = "/plugins/ueditor/";
     initPropertiesGrid();
-    require(["ueditor.config.js", "/ueditor/ueditor.all.min.js"], function () {
-        require(["/ueditor/lang/zh-cn/zh-cn.js"]);
+    require(["ueditor.config.js", "plugin/ueditor/ueditor.all.min"], function () {
+        require(["plugin/ueditor/lang/zh-cn/zh-cn"]);
         editor = UE.getEditor("container");
         initEditor();
     });
@@ -149,11 +149,16 @@ importMiniui(function () {
         var node = e.node;
         insertWidget(node);
     });
-    $('.write-source-button').on("click",function () {
+    $('.write-source-button').on("click", function () {
         var html = editor.getContent();
-        require(["../parser/parser-miniui"],function (parser) {
-            console.log(parser.parse(html,mini.clone(chooseWidgets)));
-        });
+        require(["jquery", "../parser/parser-miniui", "plugin/formatter/html-formatter"],
+            function ($, parser, formatter) {
+                var win = window.open("about:blank");
+                var textarea = $("<textarea>")
+                    .val(formatter(parser.parse(html, mini.clone(chooseWidgets))));
+                textarea.css({width: window.innerWidth, height: window.innerHeight});
+                $(win.document.body).append(textarea);
+            });
     });
 });
 

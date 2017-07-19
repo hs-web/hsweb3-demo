@@ -17,6 +17,7 @@
         <module>hsweb-ui-form-designer</module>
         <module>hsweb-ui-ueditor</module>
         <module>hsweb-ui-editor</module>
+        <module>hsweb-ui-formatter</module>
     </modules>
 
 

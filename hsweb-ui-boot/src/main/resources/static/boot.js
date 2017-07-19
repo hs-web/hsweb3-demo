@@ -101,7 +101,8 @@ function initRequireJs() {
             "auth": ["/authorize/auth"], //权限管理
             "request": ["/tools/request"], //ajax请求工具
             "miniui-tools": ["/plugins/miniui/tools"],
-            "message": ["/plugins/miniui/message"]
+            "message": ["/plugins/miniui/message"],
+            "plugin": ["/plugins"]
         }
     });
 }

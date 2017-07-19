@@ -29,5 +29,10 @@
             <artifactId>hsweb-ui-miniui</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-ui-formatter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
