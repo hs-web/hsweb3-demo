@@ -1242,15 +1242,15 @@
   };
   _globalConfig.hoverClass = "zeroclipboard-is-hover";
   _globalConfig.activeClass = "zeroclipboard-is-active";
-  if (typeof define === "function" && define.amd) {
-    define(function() {
-      return ZeroClipboard;
-    });
-  } else if (typeof module === "object" && module && typeof module.exports === "object" && module.exports) {
-    module.exports = ZeroClipboard;
-  } else {
+  // if (typeof define === "function" && define.amd) {
+  //   define(function() {
+  //     return ZeroClipboard;
+  //   });
+  // } else if (typeof module === "object" && module && typeof module.exports === "object" && module.exports) {
+  //   module.exports = ZeroClipboard;
+  // } else {
     window.ZeroClipboard = ZeroClipboard;
-  }
+  // }
 })(function() {
   return this;
 }());
