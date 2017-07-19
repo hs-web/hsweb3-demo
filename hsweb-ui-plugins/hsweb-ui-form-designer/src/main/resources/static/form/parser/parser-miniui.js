@@ -7,6 +7,10 @@ define(["jquery"], function ($) {
             {id: "class", value: "mini-combobox"}
         ], textarea: [
             {id: "class", value: "mini-textarea"}
+        ], radio: [
+            {id: "class", value: "mini-radiobuttonlist"}
+        ], checkbox: [
+            {id: "class", value: "mini-checkboxlist"}
         ]
     }
     var widgetParserConfig = {};
@@ -53,7 +57,10 @@ define(["jquery"], function ($) {
         }
         if (js.length)
             html.append($("<script type='text/javascript'>").html(js.join("\n")));
-        return html.prop("outerHTML");
+        html.find("p").each(function () {
+            $(this).replaceWith('<span>' + $(this).html() + '</span>');
+        });
+        return $("<div></div>").append(html).html();
     }
 
     return {parse: parse};

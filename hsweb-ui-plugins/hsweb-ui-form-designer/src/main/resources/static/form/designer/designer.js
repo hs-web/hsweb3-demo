@@ -54,7 +54,7 @@ var widgets = [
     },
     {
         "name": "多选框",
-        "type": "radio",
+        "type": "checkbox",
         "properties": getDefaultProperties([
             {
                 "id": "data",
@@ -159,6 +159,18 @@ importMiniui(function () {
                 textarea.css({width: window.innerWidth, height: window.innerHeight});
                 $(win.document.body).append(textarea);
             });
+    });
+    $(".preview-button").on("click",function () {
+        require(["jquery", "../parser/parser-miniui"],function ($, parser) {
+            var win = window.open("preview.html");
+
+            $(win.document).ready(function () {
+                win.ready=function () {
+                    win.init("miniui",parser.parse(editor.getContent(), mini.clone(chooseWidgets)));
+                }
+            })
+
+        });
     });
 });
 
