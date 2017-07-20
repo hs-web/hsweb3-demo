@@ -24,6 +24,18 @@ function getDefaultProperties(other) {
 
 var widgets = [
     {
+        "name": "文本标签",
+        "type": "label",
+        "html": "<span>新建标签</span>",
+        "properties": [
+            {
+                "id": "type",
+                "text": "控件类型",
+                "value": "文本标签"
+            }
+        ]
+    },
+    {
         "name": "文本输入框",
         "type": "text",
         "properties": getDefaultProperties([])
@@ -88,8 +100,10 @@ function insertWidget(widget) {
     var id = randomChar(5);
     var newWidget = mini.clone(widget);
     newWidget.id = id;
-    chooseWidgets[id] = newWidget;
-    var html = "<input widget-id='" + id + "'/>";
+    chooseWidgets[id] = newWidget
+    var html = newWidget.html ? newWidget.html : "<input>"
+
+    html = $("<div>").append($(html).attr("widget-id", id)).html();
     editor.execCommand('insertHtml', html);
 }
 
@@ -118,8 +132,12 @@ function initPropertiesGrid() {
     grid.on("cellbeginedit", function (e) {
         if (e.field == "value") {
             var editor = getEditor(e.record);
-            e.editor = editor;
-            e.column.editor = editor;
+            if (!editor) {
+                e.cancel = true;
+            } else {
+                e.editor = editor;
+                e.column.editor = editor;
+            }
         }
     });
 }
@@ -160,16 +178,15 @@ importMiniui(function () {
                 $(win.document.body).append(textarea);
             });
     });
-    $(".preview-button").on("click",function () {
-        require(["jquery", "../parser/parser-miniui"],function ($, parser) {
+    $(".preview-button").on("click", function () {
+        require(["jquery", "../parser/parser-miniui"], function ($, parser) {
             var win = window.open("preview.html");
 
             $(win.document).ready(function () {
-                win.ready=function () {
-                    win.init("miniui",parser.parse(editor.getContent(), mini.clone(chooseWidgets)));
+                win.ready = function () {
+                    win.init("miniui", parser.parse(editor.getContent(), mini.clone(chooseWidgets)));
                 }
             })
-
         });
     });
 });

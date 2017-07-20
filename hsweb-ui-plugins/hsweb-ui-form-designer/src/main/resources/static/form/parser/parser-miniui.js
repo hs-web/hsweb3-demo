@@ -1,5 +1,6 @@
 define(["jquery"], function ($) {
 
+    //默认的控件属性
     var defaultProperties = {
         text: [
             {id: "class", value: "mini-textbox"}
@@ -12,23 +13,34 @@ define(["jquery"], function ($) {
         ], checkbox: [
             {id: "class", value: "mini-checkboxlist"}
         ]
-    }
-    var widgetParserConfig = {};
+    };
+
+    var customWidgetParserConfig = {
+        "upload-file": function ($html, properties, id, js) {
+            $html.css("display", "none");
+            defaultParser($html, properties, id, js);
+            var fileUploadGrid = $("<div>");
+            fileUploadGrid.addClass("file-uploader")
+
+            var file = $("<input class='upload-file' type='file'>").attr("upload-to", id);
+            fileUploadGrid.append(file);
+            $html.parent().append(fileUploadGrid);
+        }
+    };
 
     function defaultParser($html, properties, id, js) {
         $(properties).each(function () {
             if (this.value === '是') {
                 this.value = true;
             }
-            if (this.value === '否') {
+            else if (this.value === '否') {
                 this.value = false;
             }
             if (this.id === "data" && this.value) {
                 if (this.value.indexOf("[") !== 0) {
                     var obj = [];
-                    var arr = this.value.split(/[\n,]/g);
+                    var arr = this.value.split(/[\n,，]/g);
                     $(arr).each(function () {
-
                         obj.push({text: this + "", id: this + ""});
                     });
                     this.value = mini.encode(obj);
@@ -47,7 +59,7 @@ define(["jquery"], function ($) {
             var el = html.find("[widget-id=" + id + "]");
             var confObj = config[id];
             var parser;
-            if (!(parser = widgetParserConfig[confObj.type])) {
+            if (!(parser = customWidgetParserConfig[confObj.type])) {
                 parser = defaultParser;
             }
             if (defaultProperties[confObj.type]) {
