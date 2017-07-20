@@ -12,20 +12,32 @@ define(["jquery"], function ($) {
             {id: "class", value: "mini-radiobuttonlist"}
         ], checkbox: [
             {id: "class", value: "mini-checkboxlist"}
+        ],"upload-file":[
+            {
+                id:"class",value:"upload-file"
+            },{
+                id:"type",value:"file"
+            }
         ]
     };
 
     var customWidgetParserConfig = {
-        "upload-file": function ($html, properties, id, js) {
-            $html.css("display", "none");
-            defaultParser($html, properties, id, js);
-            var fileUploadGrid = $("<div>");
-            fileUploadGrid.addClass("file-uploader")
-
-            var file = $("<input class='upload-file' type='file'>").attr("upload-to", id);
-            fileUploadGrid.append(file);
-            $html.parent().append(fileUploadGrid);
-        }
+        // "upload-file": function ($html, properties, id, js) {
+        //     $html.css("display", "none");
+        //     defaultParser($html, properties, id, js);
+        //     var fileUploadGrid = $("<div>");
+        //     fileUploadGrid.addClass("file-uploader-container")
+        //
+        //     var file = $("<input class='upload-file' type='file'>").attr("upload-to", id);
+        //     $html.attr("type","file");
+        //     $(properties).each(function () {
+        //         if(this.id='multiple'&&this.value===true){
+        //             file.attr("multiple","multiple");
+        //         }
+        //     });
+        //     fileUploadGrid.append(file);
+        //     $html.parent().append(fileUploadGrid);
+        // }
     };
 
     function defaultParser($html, properties, id, js) {
@@ -69,10 +81,16 @@ define(["jquery"], function ($) {
         }
         if (js.length)
             html.append($("<script type='text/javascript'>").html(js.join("\n")));
-        html.find("p").each(function () {
+        var tmp = $("<div></div>")
+            .css("display","none")
+            .append(html);
+        tmp.appendTo(document.body);
+        tmp.find("p").each(function () {
             $(this).replaceWith('<span>' + $(this).html() + '</span>');
         });
-        return $("<div></div>").append(html).html();
+         html = tmp.html();
+         tmp.remove();
+        return html;
     }
 
     return {parse: parse};
