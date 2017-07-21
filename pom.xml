@@ -160,7 +160,7 @@
             <url>http://nexus.hsweb.me/content/groups/public/</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>interval:480</updatePolicy>
+                <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
         <repository>
