@@ -85,9 +85,13 @@ define(["jquery"], function ($) {
             .css("display","none")
             .append(html);
         tmp.appendTo(document.body);
-        tmp.find("p").each(function () {
-            $(this).replaceWith('<span>' + $(this).html() + '</span>');
-        });
+        // tmp.find("p").each(function () {
+        //     var $this=$(this);
+        //
+        //     var span = $("<span>").attr("style",$this.attr("style")).html($this.html());
+        //
+        //     $this.replaceWith(span).append("<br>");
+        // });
          html = tmp.html();
          tmp.remove();
         return html;
