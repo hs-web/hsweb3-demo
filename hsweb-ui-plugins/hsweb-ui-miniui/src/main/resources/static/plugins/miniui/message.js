@@ -24,6 +24,16 @@ define(function () {
                 timeout: timeout || 3000
             });
         },
+        prompt:function (msg,title,call,isMulti) {
+            mini.prompt(title, msg,
+                function (action, value) {
+                    if (action == "ok") {
+                        call(value);
+                    }
+                },
+                isMulti===true
+            );
+        },
         confirm: function (message, onOk, onCancel) {
             mini.confirm(message, "确定？",
                 function (action) {
