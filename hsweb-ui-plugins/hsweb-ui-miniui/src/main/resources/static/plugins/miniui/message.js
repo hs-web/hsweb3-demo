@@ -15,6 +15,9 @@ define(function () {
                 hide: hide
             };
         },
+        alert:function (msg) {
+          mini.alert(msg);
+        },
         showTips: function (msg, state, timeout) {
             mini.showTips({
                 content: msg,
