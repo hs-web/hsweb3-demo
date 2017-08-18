@@ -15,6 +15,9 @@ define(function () {
                 hide: hide
             };
         },
+        alert:function (msg) {
+          mini.alert(msg);
+        },
         showTips: function (msg, state, timeout) {
             mini.showTips({
                 content: msg,
@@ -23,6 +26,16 @@ define(function () {
                 y: 'top',
                 timeout: timeout || 3000
             });
+        },
+        prompt:function (msg,title,call,isMulti) {
+            mini.prompt(title, msg,
+                function (action, value) {
+                    if (action == "ok") {
+                        call(value);
+                    }
+                },
+                isMulti===true
+            );
         },
         confirm: function (message, onOk, onCancel) {
             mini.confirm(message, "确定？",

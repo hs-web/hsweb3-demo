@@ -29,21 +29,48 @@ var widgets = [
         "html": "<span>新建标签</span>",
         "properties": [
             {
-                "id": "type",
+                "id": "widget-type",
                 "text": "控件类型",
                 "value": "文本标签"
             }
         ]
     },
+    // {
+    //     "name": "按钮",
+    //     "type": "button",
+    //     "html": "<button>新建按钮</button>",
+    //     "properties": [
+    //         {
+    //             "id": "widget-type",
+    //             "text": "控件类型",
+    //             "value": "按钮"
+    //         }, {
+    //             "id": "onclick",
+    //             "text": "点击事件",
+    //             "editor": "textarea"
+    //         }
+    //     ]
+    // },
     {
         "name": "文本输入框",
         "type": "text",
-        "properties": getDefaultProperties([])
+        "properties": getDefaultProperties([
+            {
+                "id": "widget-type",
+                "text": "控件类型",
+                "value": "文本输入框"
+            }
+        ])
     },
     {
         "name": "下拉列表",
         "type": "select",
         "properties": getDefaultProperties([
+            {
+                "id": "widget-type",
+                "text": "控件类型",
+                "value": "下拉列表"
+            },
             {
                 "id": "data",
                 "text": "可选项目",
@@ -57,6 +84,12 @@ var widgets = [
         "type": "radio",
         "properties": getDefaultProperties([
             {
+                "id": "widget-type",
+                "text": "控件类型",
+                "value": "单选框"
+            },
+            {
+
                 "id": "data",
                 "text": "可选项目",
                 "editor": "textarea",
@@ -68,6 +101,11 @@ var widgets = [
         "name": "多选框",
         "type": "checkbox",
         "properties": getDefaultProperties([
+            {
+                "id": "widget-type",
+                "text": "控件类型",
+                "value": "多选框"
+            },
             {
                 "id": "data",
                 "text": "可选项目",
@@ -81,12 +119,17 @@ var widgets = [
         "type": "upload-file",
         "properties": getDefaultProperties([
             {
+                "id": "widget-type",
+                "text": "控件类型",
+                "value": "文件上传"
+            },
+            {
                 "id": "multiple",
                 "text": "可上传多个文件",
                 "editor": "select",
                 "data": [
-                    {text: "是", id: true},
-                    {text: "否", id: false}
+                    {text: "是", id: "是"},
+                    {text: "否", id: "否"}
                 ]
             }
         ])
@@ -116,6 +159,7 @@ function initEditor() {
         initWidgetProperties();
         //}
     });
+
 }
 function getEditor(row) {
     var editor = mini.get('widget-editor-' + row.editor);
@@ -129,17 +173,18 @@ function getEditor(row) {
 }
 function initPropertiesGrid() {
     var grid = mini.get("properties-grid");
-    grid.on("cellbeginedit", function (e) {
-        if (e.field == "value") {
-            var editor = getEditor(e.record);
-            if (!editor) {
-                e.cancel = true;
-            } else {
-                e.editor = editor;
-                e.column.editor = editor;
+    if (grid)
+        grid.on("cellbeginedit", function (e) {
+            if (e.field == "value") {
+                var editor = getEditor(e.record);
+                if (!editor) {
+                    e.cancel = true;
+                } else {
+                    e.editor = editor;
+                    e.column.editor = editor;
+                }
             }
-        }
-    });
+        });
 }
 function initWidgetProperties() {
     var grid = mini.get("properties-grid");
@@ -150,9 +195,35 @@ function initWidgetProperties() {
     }
 
 }
+
+function initClp() {
+    require(["clipboard.min.js"],function (Clipboard) {
+        var clipboard = new Clipboard('.copy-button', {
+            text: function (trigger) {
+
+                return JSON.stringify({"html": editor.getContent(), "config": chooseWidgets});
+            }
+        });
+
+        clipboard.on('success', function (e) {
+            require(["message"], function (message) {
+                message.showTips("复制成功");
+            });
+            // console.log(e);
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    });
+
+}
 importMiniui(function () {
     mini.parse();
-    window.UEDITOR_HOME_URL = "/plugins/ueditor/";
+    window.UEDITOR_HOME_URL = window.BASE_PATH + "plugins/ueditor/";
+
     initPropertiesGrid();
     require(["ueditor.config.js", "plugin/ueditor/ueditor.all.min"], function () {
         require(["plugin/ueditor/lang/zh-cn/zh-cn"]);
@@ -188,6 +259,20 @@ importMiniui(function () {
                 }
             })
         });
+    });
+    initClp();
+    $(".paste-button").on("click", function () {
+        require(["message"], function (message) {
+            message.prompt("请输入要粘贴的内容", " ", function (text) {
+                try {
+                    var cfg = JSON.parse(text);
+                    editor.setContent(cfg.html);
+                    chooseWidgets = cfg.config;
+                } catch (e) {
+                    message.alert("内容格式错误");
+                }
+            }, true);
+        })
     });
 });
 
