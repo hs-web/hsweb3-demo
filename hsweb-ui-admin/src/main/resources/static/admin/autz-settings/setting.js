@@ -15,6 +15,7 @@ importMiniui(function () {
         initPermissionTabActive();
         $(".save-button").on("click", function () {
             var loading = message.loading("提交中...");
+            saveDataAccess();
             var data = getData(type, settingFor);
             request.patch("autz-setting", data, function (response) {
                 loading.hide();
@@ -26,17 +27,23 @@ importMiniui(function () {
             });
         });
     });
+    var customGrid = mini.get("custom_grid");
+
     mini.get("permission-setting-grid").on("nodeselect", initDataAccessSetting);
-    mini.get("custom_grid").setEnabled(false);
+    customGrid.setEnabled(false);
     $(".data-access-table input").on("click", function () {
         var tr = $(this).parents("tr");
         var input = $(this);
-        mini.get("custom_grid").setEnabled(false);
+        customGrid.setEnabled(false);
+        customGrid.setShowCheckBox(false)
+        customGrid.uncheckAllNodes();
         if (tr.hasClass("CUSTOM_SCOPE")) {
             if (input.prop("checked")) {
-                mini.get("custom_grid").setEnabled(true);
+                customGrid.setEnabled(true);
+                customGrid.setShowCheckBox(true);
             }
         }
+
     });
 });
 
@@ -324,32 +331,211 @@ function initPermissionTabActive() {
     });
 }
 var nowSelectPermission;
-function saveDataAccess() {
+function saveDataAccess(applyChildren) {
+    var allType = [];
+    $(".data-access-table input").each(function () {
+        var input = $(this);
+        allType.push(input.attr("access-type") + "_" + input.attr("scope-type"));
+    });
 
+    $(".data-access-table input:checked").each(function () {
+        var input = $(this);
+        if (nowSelectPermission) {
+            var accessType = input.attr("access-type");
+            var scopeType = input.attr("scope-type");
+
+            function applyDataAccess(per) {
+                if (!per.dataAccesses) {
+                    per.dataAccesses = [];
+                }
+                var newAccess = [];
+                for (var i = 0; i < per.dataAccesses.length; i++) {
+                    var old = per.dataAccesses;
+                    if (typeof(old.config) == "string") {
+                        old.config = mini.decode(old.config);
+                    }
+                    if (old.config && allType.indexOf(old.type + "_" + old.config.scopeType) == -1) {
+                        newAccess.push(old);
+                    }
+                }
+                if (per.type === "action") {
+                    var accessConfig = {config: {scopeType: scopeType}, type: accessType, action: per.action};
+                    if (accessType === "CUSTOM_SCOPE") {
+                        var customGrid = mini.get("custom_grid");
+                        var selecteds = [];
+                        $(customGrid.getList()).each(function () {
+                            if (this.checked === true) selecteds.add(this);
+                        });
+                        var tmp = {};
+                        $(selecteds).each(function () {
+                            if (!tmp[this.type]) {
+                                tmp[this.type] = [];
+                            }
+                            tmp[this.type].push(this.id);
+                        });
+                        //转为 [{type:"ORG_SCOPE",ids:["","",""]]
+                        var list = [];
+                        for (var type in tmp) {
+                            list.push({type: type, ids: tmp[type]});
+                        }
+                        accessConfig.config = {scope: list};
+                    }
+                    newAccess.push(accessConfig)
+                }
+                if (applyChildren && per.permission) {
+                    //选中的是权限节点,并且指定了要设置到所有子节点
+                    $(per.children).each(function () {
+                        applyDataAccess(this);
+                    });
+                }
+                per.dataAccesses = newAccess;
+
+            }
+
+            applyDataAccess(nowSelectPermission);
+            // console.log(nowSelectPermission);
+        }
+    });
+}
+function loadCustomSettingGrid() {
+    require(["request"], function (request) {
+        var list = [];
+        mini.get("custom_grid").loading();
+
+        function done() {
+            mini.get("custom_grid").loadList(list);
+        }
+
+        //加载机构
+        request.get("organizational", {paging: false}, function (response) {
+            if (response.status == 200) {
+                var orgIds = [];
+                var orgMap = {};
+                $(response.result.data).each(function () {
+                    var data = {type: "ORG_SCOPE", id: this.id, text: this.name, parentId: this.parentId};
+                    orgIds.push(this.id);
+                    orgMap[this.id] = data;
+                    data.children = [];
+                    list.push(data);
+                });
+                if (orgIds.length == 0)return;
+                //加载部门,一次性使用in查询出来
+                request.createQuery("department").where()
+                    .noPaging()
+                    .in("orgId", orgIds.join(","))
+                    .exec(function (depResponse) {
+                        if (depResponse.status == 200) {
+                            var deptIds = [];
+                            var depMap = {};
+                            $(depResponse.result.data).each(function () {
+                                var depData = {
+                                    type: "DEPARTMENT_SCOPE",
+                                    id: this.id,
+                                    text: this.name,
+                                    parentId: this.parentId && this.parentId !== "-1" ? this.parentId : this.orgId,
+                                    children: []
+                                };
+                                deptIds.push(this.id);
+                                depMap[this.id] = depData;
+                                // if (orgMap[this.orgId]) {
+                                list.push(depData);
+                                // }
+                            });
+                            if (deptIds.length > 0) {
+                                //加载岗位,一次性使用in查询出来
+                                request.createQuery("position").where()
+                                    .noPaging()
+                                    .in("departmentId", deptIds.join(","))
+                                    .exec(function (posResponse) {
+                                        if (posResponse.status == 200) {
+                                            $(posResponse.result.data).each(function () {
+                                                var depData = {
+                                                    type: "POSITION_SCOPE",
+                                                    id: this.id,
+                                                    text: this.name,
+                                                    parentId: this.parentId && this.parentId !== "-1" ? this.parentId : this.departmentId
+                                                };
+                                                //if (depMap[this.orgId]) {
+                                                list.push(depData);
+                                                //}
+                                            });
+                                            done();
+                                        }
+                                    });
+                            } else {
+                                done();
+                            }
+                        }
+                    });
+            }
+        });
+    });
 }
 function initDataAccessSetting(e) {
+    $(".apply-all").hide();
     var node = e.node;
     //先保存
     saveDataAccess();
     nowSelectPermission = e.node;
+    var customGrid = mini.get("custom_grid");
+    customGrid.setEnabled(false);
+    customGrid.setShowCheckBox(false)
+    customGrid.uncheckAllNodes();
+
     function init(permission) {
+        customGrid.clearFilter();
         var supportDataAccessTypes = permission.supportDataAccessTypes;
         $(".data-access-table tr").hide();
         $(".custom_setting").hide();
         $(supportDataAccessTypes).each(function () {
             $(".ALL").show();
-            if (this == "CUSTOM_SCOPE") {
+            var tmp = this + "";
+            if (tmp.indexOf("CUSTOM_SCOPE") != -1) {
+                $(".CUSTOM_SCOPE").show();
                 $(".custom_setting").show();
                 mini.layout();
+                //过滤可选项
             }
             if (this && "" != this)
                 $("." + this).show();
         });
+        customGrid.filter(function (row) {
+            for (var i = 0; i < supportDataAccessTypes.length; i++) {
+                if ((supportDataAccessTypes[i]).indexOf(row.type + "_") != -1) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
+    $("input[access-type]").prop("checked", false);
+    $("input[access-type=ALL]").prop("checked", true);
+    if (node.dataAccesses) {
+        $(node.dataAccesses).each(function () {
+            if (this.type) {
+                $("input[access-type=" + (this.type) + "]").prop("checked", true);
+                var type = this.type;
+                if (this.type.indexOf("CUSTOM_SCOPE") != -1) {
+                    customGrid.setEnabled(true);
+                    customGrid.setShowCheckBox(true);
+                    //加载选中的自定义信息
+                    $(mini.decode(this.config)).each(function () {
+                        $(this.scope).each(function () {
+                            customGrid.checkNodes(this.ids, false);
+                        });
+                    });
+                }
+            }
+        });
+    }
     //permission
     if (node.permission) {
         init(node.permission);
+        $(".apply-all").show();
+        $(".apply-all").unbind("click").on("click", function () {
+            saveDataAccess(true);
+        });
     } else if (node.type == 'action') {
         var parent = e.sender.getParentNode(node);
         if (parent && parent.permission) {
@@ -363,6 +549,7 @@ function initDataAccessSetting(e) {
 
 }
 function initData(type, settingFor) {
+    loadCustomSettingGrid();
     require(["request", "miniui-tools", "message"], function (request, tools, message) {
         var loading = message.loading("加载数据中...");
 

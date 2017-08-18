@@ -98,7 +98,7 @@ function initRequireJs() {
         paths: {
             "jquery": ["/webjars/jquery/1.10.2/jquery.min"],
             "logger": ["/logger"], //日志
-            "auth": ["/authorize/auth"], //权限管理
+            "authorize": ["/admin/commons/authorize"], //权限管理
             "request": ["/tools/request"], //ajax请求工具
             "miniui-tools": ["/plugins/miniui/tools"],
             "message": ["/plugins/miniui/message"],

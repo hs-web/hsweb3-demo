@@ -14,8 +14,10 @@
             <tr>
                 <td>关键字:<input name="keyword" class="mini-textbox"/></td>
                 <td><a class="mini-button search-button" plain="true" iconCls="icon-search">搜索</a></td>
-                <td><a onclick="mini.get('data-grid').addNode({sortIndex:grid.getData().length+1})"
+                <td autz="hasPermission('organizational','add')">
+                    <a onclick="mini.get('data-grid').addNode({sortIndex:grid.getData().length+1})"
                        plain="true" class="mini-button add-menu-button" iconCls="icon-add">添加机构</a></td>
+                <td autz="hasPermission('organizational','add')||hasPermission('organizational','update')"><a class="mini-button save-all-button" plain="true" iconCls="icon-save">保存全部</a></td>
             </tr>
         </table>
     </div>
@@ -28,7 +30,7 @@
              allowDrag="true" allowDrop="true" treeColumn="index">
             <div property="columns">
                 <div type="indexcolumn" name="index" width="50" align="center" headerAlign="center">拖动可排序</div>
-                <div field="name" headerAlign="center" align="center" width="100">机构名称
+                <div autz="hasFieldAccess('organizational','query','name')" field="name" headerAlign="center" align="center" width="100">机构名称
                     <input property="editor" required emptyText="机构名称" class="mini-textbox"/>
                 </div>
                 <div field="fullName" headerAlign="center" align="center" width="200">机构全称
@@ -37,7 +39,7 @@
                 <div field="code" width="50" headerAlign="center" align="center">机构编码
                     <input property="editor" emptyText="机构编码" class="mini-textbox"/>
                 </div>
-                <div renderer="renderAction" width="80" headerAlign="center" align="center">
+                <div autz="hasPermission('organizational','add')||hasPermission('organizational','update')" renderer="renderAction" width="80" headerAlign="center" align="center">
                     操作
                 </div>
             </div>

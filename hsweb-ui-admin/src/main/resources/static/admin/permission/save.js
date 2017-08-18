@@ -1,11 +1,14 @@
 importResource("/admin/css/common.css");
 
 var allSupportDataAccessTypes = [
+    {id: "DENY_FIELDS", text: "禁止访问字段"},
     {id: "ONLY_SELF", text: "仅限本人"},
     {id: "POSITION_SCOPE", text: "仅限本人及下属"},
     {id: "DEPARTMENT_SCOPE", text: "所在部门"},
     {id: "ORG_SCOPE", text: "所在机构"},
-    {id: "CUSTOM_SCOPE", text: "自定义设置"}
+    {id: "CUSTOM_SCOPE_ORG_SCOPE_", text: "自定义设置-机构"},
+    {id: "CUSTOM_SCOPE_DEPARTMENT_SCOPE_", text: "自定义设置-部门"},
+    {id: "CUSTOM_SCOPE_POSITION_SCOPE_", text: "自定义设置-岗位"}
 ];
 var defaultActionData = [
     {"action": "query", "describe": "查询列表", defaultCheck: true},

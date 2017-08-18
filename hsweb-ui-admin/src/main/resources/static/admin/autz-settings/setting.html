@@ -104,9 +104,11 @@
                         <div class="mini-toolbar" style="padding:0px;">
                             <table>
                                 <tr>
-                                    <td>
+                                    <td style="height: 30px;">
                                         数据权限设置
-                                        <!--<a class="mini-button" iconCls="icon-save" plain="true">将该设置配置到全部权限</a>-->
+                                        <a class="mini-button apply-all" iconCls="icon-save" style="display: none" plain="true">
+                                            应用到所有操作
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
@@ -115,42 +117,42 @@
                             <tr class="ALL">
                                 <td>
                                     <label>
-                                        <input type="radio" name="detail-check"/>全部
+                                        <input scope-type="ALL" access-type="ALL" type="radio" checked name="detail-check"/>全部
                                     </label>
                                 </td>
                             </tr>
                             <tr class="OWN_CREATED">
                                 <td>
                                     <label>
-                                        <input type="radio" name="detail-check"/>仅限本人
+                                        <input scope-type="ONY_SELF" access-type="OWN_CREATED" type="radio" name="detail-check"/>仅限本人
                                     </label>
                                 </td>
                             </tr>
                             <tr class="POSITION_SCOPE org-setting">
                                 <td>
                                     <label>
-                                        <input type="radio" name="detail-check"/>仅限本人及下属
+                                        <input scope-type="CHILDREN" access-type="POSITION_SCOPE" type="radio" name="detail-check"/>仅限本人及下属
                                     </label>
                                 </td>
                             </tr>
                             <tr class="DEPARTMENT_SCOPE org-setting">
                                 <td>
                                     <label>
-                                        <input type="radio" name="detail-check"/>所在部门
+                                        <input scope-type="CHILDREN" access-type="DEPARTMENT_SCOPE" type="radio" name="detail-check"/>所在部门
                                     </label>
                                 </td>
                             </tr>
                             <tr class="ORG_SCOPE org-setting">
                                 <td>
                                     <label>
-                                        <input type="radio" name="detail-check"/>所在机构
+                                        <input scope-type="CHILDREN" access-type="ORG_SCOPE" type="radio" name="detail-check"/>所在机构
                                     </label>
                                 </td>
                             </tr>
                             <tr class="CUSTOM_SCOPE org-setting">
                                 <td>
                                     <label>
-                                        <input type="radio" name="detail-check"/>自定义设置
+                                        <input scope-type="CUSTOM_SCOPE" access-type="CUSTOM_SCOPE" type="radio" name="detail-check"/>自定义设置
                                     </label>
                                 </td>
                             </tr>
@@ -161,7 +163,10 @@
                                  expandOnDblClick="false" resultAsTree="false"
                                  allowResize="false" expandOnLoad="0" treeColumn="text" checkedField="checked"
                                  allowCellEdit="true" allowCellSelect="true" showCheckBox="true"
-                                 checkRecursive="true">
+                                 checkRecursive="false"
+                                 parentField="parentId" >
+                                 <!--autoCheckParent="true" checkRecursive="true"-->
+
                                 <div property="columns">
                                     <div field="text" name="text" headerAlign="center" align="left" width="60">
                                         自定义信息

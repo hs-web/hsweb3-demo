@@ -83,6 +83,41 @@ var menus = [
         "url": "/admin/user/list.html",
         "icon": null,
         "status": 1
+    },
+    {
+        "u_id": "org-01",
+        "name": "组织架构",
+        "parent_id": "-1",
+        "permission_id": "",
+        "path": "a2o0",
+        "sort_index": 2,
+        "describe": null,
+        "url": "",
+        "icon": null,
+        "status": 1
+    },
+    {
+        "u_id": "org-01-01",
+        "name": "机构管理",
+        "parent_id": "org-01",
+        "permission_id": "organizational",
+        "path": "a2o0-asqwe",
+        "sort_index": 201,
+        "describe": null,
+        "url": "/admin/org/list.html",
+        "icon": null,
+        "status": 1
+    }, {
+        "u_id": "org-01-02",
+        "name": "综合设置",
+        "parent_id": "org-01",
+        "permission_id": "organizational,department,position,person",
+        "path": "a2o0-qweq",
+        "sort_index": 202,
+        "describe": null,
+        "url": "/admin/org/manager/index.html",
+        "icon": null,
+        "status": 1
     }
 ];
 var permissions = [
@@ -128,10 +163,34 @@ var permissions = [
         "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"查询列表\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":true,\"describe\":\"新增\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":false,\"describe\":\"删除\"}]",
         "data_access": null,
         "optional_fields": "[{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"姓名\",\"name\":\"name\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"用户名\",\"name\":\"username\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"密码\",\"name\":\"password\"}]"
+    }, {
+        "u_id": "organizational",
+        "name": "组织架构",
+        "describe": "",
+        "status": 1,
+        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
+    }, {
+        "u_id": "department",
+        "name": "部门管理",
+        "describe": "",
+        "status": 1,
+        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
+    }, {
+        "u_id": "position",
+        "name": "岗位管理",
+        "describe": "",
+        "status": 1,
+        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
+    }, {
+        "u_id": "person",
+        "name": "人员管理",
+        "describe": "",
+        "status": 1,
+        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
     }
 ];
 
-var user=[
+var user = [
     {
         "u_id": "4291d7da9005377ec9aec4a71ea837f",
         "name": "超级管理员",
@@ -146,7 +205,7 @@ var user=[
     }
 ];
 
-var autz_setting=[
+var autz_setting = [
     {
         "u_id": "98d74130b3cb06afc0ae8e5b57a6c052",
         "type": "user",
@@ -155,7 +214,40 @@ var autz_setting=[
         "status": 1
     }
 ];
-var autz_menu=[
+var autz_menu = [
+    {
+        "u_id": "asdasdqweqwe",
+        "parent_id": null,
+        "menu_id": "org-01",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "path": "opyM",
+        "sort_index": 1,
+        "status": 1,
+        "level": 1,
+        "config": null
+    },
+    {
+        "u_id": "qweqweqweqwe",
+        "parent_id": null,
+        "menu_id": "org-01-01",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "path": "opyM",
+        "sort_index": 1,
+        "status": 1,
+        "level": 1,
+        "config": null
+    },
+    {
+        "u_id": "qweqweqwe",
+        "parent_id": null,
+        "menu_id": "org-01-02",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "path": "opyM",
+        "sort_index": 1,
+        "status": 1,
+        "level": 1,
+        "config": null
+    },
     {
         "u_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
         "parent_id": null,
@@ -213,7 +305,37 @@ var autz_menu=[
     }
 ]
 
-var autz_detail=[
+var autz_detail = [
+    {
+        "u_id": "asdasdasdas",
+        "permission_id": "organizational",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
+        "data_accesses": "[]",
+        "status": 1
+    },
+    {
+        "u_id": "qweqweqweqwe",
+        "permission_id": "department",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
+        "data_accesses": "[]",
+        "status": 1
+    }, {
+        "u_id": "asdqweqweasdasd",
+        "permission_id": "position",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
+        "data_accesses": "[]",
+        "status": 1
+    }, {
+        "u_id": "asgdfgwertwetr",
+        "permission_id": "person",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
+        "data_accesses": "[]",
+        "status": 1
+    },
     {
         "u_id": "67e15b9dd48462bcd5892fd902fafa16",
         "permission_id": "permission",
