@@ -75,6 +75,12 @@
             <artifactId>hsweb-authorization-basic</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-authorization-jwt</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
+
         <!--组织架构-->
          <dependency>
              <groupId>org.hswebframework.web</groupId>
