@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>权限设置</title>
+    <script data-main="setting.js" src="../boot.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="mini-fit">
+    <div id="tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:90%;" plain="true">
+        <div title="菜单设置">
+
+            <div class="mini-splitter" style="width:100%;height:100%;">
+
+                <div size="340px" showCollapseButton="true" style="padding:5px;">
+                    <div class="mini-toolbar" style="padding:0px;">
+                        <table id="search-box">
+                            <tr>
+                                <td>已选菜单信息,搜索:<input name="keyword" emptyText="输入关键字,按回车." class="mini-textbox"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mini-fit">
+                        <div id="menu-setting-grid" class="mini-treegrid"
+                             style="width:100%;height:100%;margin: auto;"
+                             idField="id" parentField="parentId" resultAsTree="false"
+                             iconField="icon" allowCellValid="true" checkRecursive="true"
+                             allowResize="false" expandOnLoad="true" treeColumn="icon" allowCellSelect="true"
+                             allowDrag="true" allowDrop="true" allowLeafDropIn="true">
+                            <div property="columns">
+                                <div type="indexcolumn" width="50" align="center" headerAlign="center">#</div>
+                                <div field="menu.icon" name="icon" headerAlign="center" align="left" width="60">
+                                    图标
+                                </div>
+                                <div field="menu.name" headerAlign="center" align="center" width="120">菜单名称
+                                </div>
+                                <div renderer="renderSettingMenuAction" width="50" headerAlign="center" align="center">
+                                    操作
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div showCollapseButton="true" style="padding:5px;">
+                    <div class="mini-toolbar" style="padding:0px;border-bottom: 0px">
+                        <table id="search-menu-box">
+                            <tr>
+                                <td>全部菜单信息,搜索:
+                                    <input name="keyword" emptyText="输入关键字,按回车." class="mini-textbox"/>
+                                    <!--<a class="mini-button" iconCls="icon-find" plain="true">隐藏已选菜单</a>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="mini-fit">
+                        <div id="menu-grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto;"
+                             idField="id" parentField="parentId" resultAsTree="false"
+                             iconField="icon" allowCellValid="true"
+                             allowResize="false" expandOnLoad="true" treeColumn="icon"
+                             allowCellEdit="true" allowCellSelect="true">
+                            <div property="columns">
+                                <div renderer="renderMenuAction" width="60" headerAlign="center" align="center">
+                                    操作
+                                </div>
+                                <div field="icon" name="icon" headerAlign="center" align="left" width="60">图标</div>
+                                <div field="name" headerAlign="center" align="center" width="120">菜单名称</div>
+                                <div field="describe" width="120" headerAlign="center" align="center">描述</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div name="permissionSetting" title="权限设置" showCollapseButton="true">
+            <div class="mini-fit">
+                <div class="mini-splitter" style="width:100%;height:100%;">
+                    <div size="300px" showCollapseButton="true" style="padding:5px;">
+                        <div class="mini-toolbar" style="padding:0px;border-bottom: 0px">
+                            <table id="search-permission-box">
+                                <tr>
+                                    <td>搜索:<input name="keyword" emptyText="输入关键字,按回车." class="mini-textbox"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="mini-fit">
+                            <div id="permission-setting-grid" class="mini-treegrid"
+                                 style="width:100%;height:100%;margin: auto;"
+                                 expandOnDblClick="false" resultAsTree="false"
+                                 allowResize="false" expandOnLoad="0" treeColumn="text"
+                                 allowCellEdit="true" allowCellSelect="true" checkedField="checked" showCheckBox="true" checkRecursive="true">
+                                <div property="columns">
+                                    <div field="text" name="text" headerAlign="center" align="left" width="60">
+                                        权限信息
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div showCollapseButton="true" style="padding:5px;font-size: 16px">
+                        <div class="mini-toolbar" style="padding:0px;">
+                            <table>
+                                <tr>
+                                    <td style="height: 30px;">
+                                        数据权限设置
+                                        <a class="mini-button apply-all" iconCls="icon-save" style="display: none" plain="true">
+                                            应用到所有操作
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class="data-access-table" style="width: 100%;">
+                            <tr class="ALL">
+                                <td>
+                                    <label>
+                                        <input scope-type="ALL" access-type="ALL" type="radio" checked name="detail-check"/>全部
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class="OWN_CREATED">
+                                <td>
+                                    <label>
+                                        <input scope-type="ONY_SELF" access-type="OWN_CREATED" type="radio" name="detail-check"/>仅限本人
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class="POSITION_SCOPE org-setting">
+                                <td>
+                                    <label>
+                                        <input scope-type="CHILDREN" access-type="POSITION_SCOPE" type="radio" name="detail-check"/>仅限本人及下属
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class="DEPARTMENT_SCOPE org-setting">
+                                <td>
+                                    <label>
+                                        <input scope-type="CHILDREN" access-type="DEPARTMENT_SCOPE" type="radio" name="detail-check"/>所在部门
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class="ORG_SCOPE org-setting">
+                                <td>
+                                    <label>
+                                        <input scope-type="CHILDREN" access-type="ORG_SCOPE" type="radio" name="detail-check"/>所在机构
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class="CUSTOM_SCOPE org-setting">
+                                <td>
+                                    <label>
+                                        <input scope-type="CUSTOM_SCOPE" access-type="CUSTOM_SCOPE" type="radio" name="detail-check"/>自定义设置
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="custom_setting" class="mini-fit custom_setting">
+                            <div id="custom_grid" class="mini-treegrid"
+                                 style="width:100%;height:100%;margin: auto;"
+                                 expandOnDblClick="false" resultAsTree="false"
+                                 allowResize="false" expandOnLoad="0" treeColumn="text" checkedField="checked"
+                                 allowCellEdit="true" allowCellSelect="true" showCheckBox="true"
+                                 checkRecursive="false"
+                                 parentField="parentId" >
+                                 <!--autoCheckParent="true" checkRecursive="true"-->
+
+                                <div property="columns">
+                                    <div field="text" name="text" headerAlign="center" align="left" width="60">
+                                        自定义信息
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100px;margin: auto">
+        <a class="mini-button save-button" plain="true" iconCls="icon-save">保存</a>
+    </div>
+</div>
+</body>
+</html>

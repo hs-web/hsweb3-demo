@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>定时调度任务配置</title>
+    <script data-main="index.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        #script-editor {
+            margin: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+<div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+    <table id="search-box">
+        <tr>
+            <td>
+                <a class="mini-button add-button" plain="true" iconCls="icon-add">添加任务</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height: 100%">
+        <div size="200px" showCollapseButton="true" style="padding:5px;">
+            <div id="leftTree" class="mini-tree" style="height: 100%"
+                 expandOnLoad="true" resultAsTree="false" ajaxOptions="{type:'GET'}" showTreeIcon="true" iconField="icon"
+                 idField="id" parentField="parentId" textField="name" borderStyle="border:0">
+            </div>
+        </div>
+        <div showCollapseButton="true">
+            <table id="basic-info" style="width: 100%" class="basic-info">
+                <tr>
+                    <td class="label" align="right">任务名称:</td>
+                    <td><input name="name" style="width: 100%" required class="mini-textbox"/></td>
+                    <td class="label" align="right">任务类型:</td>
+                    <td><input name="type" style="width: 100%" class="mini-textbox"/></td>
+                </tr>
+                <tr>
+                    <td class="label" align="right">定时配置:</td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td><input value="cron" name="quartz-config-type" checked type="radio"/>cron表达式:</td>
+                                <td>
+                                    <input style="width: 200px" class="mini-buttonedit" name="cron"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label" align="right">说明:</td>
+                    <td colspan="3"><input style="width: 100%" name="remark" class="mini-textarea"/></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="4" class="buttons">
+                        <input class="mini-hidden" name="id"/>
+                        <a class="mini-button save-button" plain="true" iconCls="icon-save">保存</a>
+                        <a class="mini-button delete-button" plain="true" style="margin: 1em" iconCls="icon-remove">删除</a>
+                        <a class="mini-button disable-button" plain="true" style="margin: 1em" iconCls="icon-delete">禁用</a>
+                        <a class="mini-button enable-button" plain="true" style="margin: 1em" iconCls="icon-ok">启用</a>
+                        <a class="mini-button execute-button" plain="true" iconCls="icon-application">立即运行</a>
+                    </td>
+                </tr>
+            </table>
+            <span style="font-size: 16px">脚本语言:</span>
+            <input name="language" class="mini-combobox" data="[{'id':'js','text':'javascript'},{'id':'groovy','text':'groovy'}]"/>
+            <a class="mini-button" iconCls="icon-help" plain="true"></a>
+            <div class="mini-fit">
+                <pre id="script-editor"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="execute-window" class="mini-window" title="运行" style="width:800px;height:500px;"
+     showMaxButton="true" showCollapseButton="true" showShadow="true"
+     showToolbar="true" showFooter="false" showModal="false" allowResize="true" allowDrag="true">
+    <div property="toolbar" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <span class="execute-url"></span>
+        <a class="mini-button do-execute-button" plain="true" iconCls="icon-application">运行</a>
+        <a class="mini-button" plain="true" onclick="mini.get('parameter-grid').addRow([]);" iconCls="icon-add">添加参数</a>
+    </div>
+    <div id="result-div" class="mini-fit">
+        <div id="parameter-grid" class="mini-datagrid" style="width:100%;height:50%;margin: auto;"
+             allowCellEdit="true" allowCellSelect="true" idField="id" showPager="false">
+            <div property="columns">
+                <div field="parameter" width="100" headerAlign="center" allowSort="true" align="center">参数名
+                    <input property="editor" class="mini-textbox"/>
+                </div>
+                <div field="value" width="120" headerAlign="center" align="center">参数值
+                    <input property="editor" class="mini-textbox"/>
+                </div>
+                <div name="action" width="50" renderer="renderParameterAction" headerAlign="center" align="center">操作</div>
+            </div>
+        </div>
+        <div class="console" style="width: 100%;height:48%;overflow: auto">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

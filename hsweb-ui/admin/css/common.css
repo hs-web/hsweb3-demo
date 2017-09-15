@@ -1,0 +1,49 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.basic-info {
+    margin: auto;
+}
+
+.basic-info .label {
+    font-size: 16px;
+    /*text-align: right;*/
+}
+
+.title-button {
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    margin: auto;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.action-button {
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 16px;
+    margin-left: 1em;
+    width: 16px;
+    height: 16px;
+    background-position: 50% 50%;
+}
+
+.mini-grid-headerCell-inner {
+    font-weight: bold;
+}
+
+.label {
+    text-align: right;
+}
+.search-container{
+    margin: auto;
+}

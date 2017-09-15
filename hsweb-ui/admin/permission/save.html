@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>权限管理</title>
+    <!--加载后执行save.js-->
+    <script data-main="save.js" src="../boot.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="mini-fit">
+    <div id="tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:90%;margin: auto" plain="true">
+        <div title="基本信息">
+            <table id="basic-info" class="basic-info">
+                <tr>
+                    <td class="label">权限标识(ID):</td>
+                    <td>
+                        <input required emptyText="只能由字母数字下划线组成" style="width: 100%" name="id" class="mini-textbox"/>
+                    </td>
+                    <td class="label">权限名称:</td>
+                    <td>
+                        <input required style="width: 100%" name="name" class="mini-textbox"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">备注:</td>
+                    <td colspan="3">
+                        <input name="describe" style="width: 100%" class="mini-textarea"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">支持的数据权限控制方式:</td>
+                    <td colspan="3">
+                        <input data="allSupportDataAccessTypes" name="supportDataAccessTypes"
+                               multiSelect="true" style="width: 100%" class="mini-combobox"/>
+                    </td>
+                </tr>
+            </table>
+            <div class="mini-fit">
+                <div id="action-grid" class="mini-datagrid" style="width:100%;height:100%;margin: auto;"
+                     idField="action"
+                     allowCellEdit="true" allowCellSelect="true" showPager="false"
+                     editNextOnEnterKey="true" editNextRowCell="true" navEditMode="true">
+                    <div property="columns">
+                        <div name="action" field="action" headerAlign="center" align="center" width="100">操作类型
+                            <input property="editor" emptyText="e.g. query update" class="mini-textbox"/>
+                        </div>
+                        <div field="describe" width="120" headerAlign="center" align="center">描述
+                            <input property="editor" class="mini-textarea"/>
+                        </div>
+                        <div field="defaultCheck" renderer="rendererTrueFalse" width="60" headerAlign="center"
+                             align="center">默认选中
+                            <input property="editor" data="[{text:'是',id:true},{text:'否',id:false}]" class="mini-combobox"/>
+                        </div>
+                        <div renderer="renderAction" width="40" headerAlign="center" align="center">
+                            操作<span class="title-button icon-add" onclick="mini.get('action-grid').addRow({})"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div title="数据视图">
+            <div class="mini-fit">
+                <div id="field-accesses-grid" class="mini-datagrid" style="width:100%;height:100%;margin: auto;"
+                     idField="action" allowCellEdit="true" allowCellSelect="true" showPager="false"
+                     editNextOnEnterKey="true" editNextRowCell="true" navEditMode="true">
+                    <div property="columns">
+                        <div name="name" field="name" headerAlign="center" align="center" width="80">字段
+                            <input property="editor" emptyText="e.g name" class="mini-textbox"/>
+                        </div>
+                        <div field="describe" width="80" headerAlign="center" align="center">描述
+                            <input property="editor" class="mini-textarea"/>
+                        </div>
+                        <div renderer="renderAction" width="40" headerAlign="center" align="center">
+                            操作<span class="title-button icon-add" onclick="mini.get('field-accesses-grid').addRow({})"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100px;margin: auto"><a class="mini-button save-button" iconCls="icon-save">保存</a></div>
+</div>
+</body>
+</html>

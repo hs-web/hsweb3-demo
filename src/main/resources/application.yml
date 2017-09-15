@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+    aop:
+        auto: true
+        proxy-target-class: true
+    profiles:
+      active: dev
+    datasource:
+      filters: stat
+      maxActive: 1000
+      initialSize: 5
+      minIdle: 5
+      maxWait: 5000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 1 from dual
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 200
+    resources:
+      static-locations: file:./hsweb-ui/,file:./static/,/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/, classpath:/public/
+    http:
+      multipart:
+        enabled: true
+        max-file-size: 100MB
+        max-request-size: 120MB
+hsweb:
+    app:
+      name: hsweb-demo
+      version: 3.0.0
+
+mybatis:
+#  mapper-location-excludes: classpath*:**/UserMapper.xml  # 不加载的配置
+  mapper-locations: classpath*:org/hswebframework/web/demo/**/*Mapper.xml
+fastjson:
+  features: WriteDateUseDateFormat

@@ -1,0 +1,14 @@
+spring:
+    datasource:
+#        url: jdbc:mysql://localhost:3306/hsweb3?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+        url : jdbc:h2:file:./data/h2db
+        username : sa
+        password :
+        type: com.alibaba.druid.pool.DruidDataSource
+    cache:
+       type: simple
+logging:
+  level:
+    org.hswebframework: DEBUG
+    org.hswebframework.expands: ERROR
+    access-logger: INFO

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script data-main="index.js" src="../../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mini-splitter" style="width:100%;height:100%;min-width: 1200px;">
+    <div size="340px;" style="padding:2px;">
+        <div id="org-grid" class="mini-treegrid" style="width:100%;height:100%;" showTreeIcon="true"
+             treeColumn="name" idField="id" sortField="sortIndex" parentField="parentId" resultAsTree="false"
+             expandOnLoad="0">
+            <div property="columns">
+                <div type="indexcolumn" width="20" align="center" headerAlign="center">#</div>
+                <div name="name" field="name" width="60" headerAlign="center">机构</div>
+                <!--<div name="action" renderer="renderOrgAction" width="40" align="center" headerAlign="center">操作</div>-->
+            </div>
+        </div>
+    </div>
+    <div style="padding:2px;border: hidden;">
+        <div class="mini-splitter" vertical="true" style="width:100%;height:100%;border: hidden;">
+            <div size="40%;" style="padding:1px;border: hidden;">
+                <div class="mini-splitter" style="width:100%;height:100%;">
+                    <div style="padding:5px;border: hidden;border-right: 1px solid #cacaca">
+                        <div class="mini-toolbar">
+                            <a autz="hasPermission('department','add')" class="mini-button department-add" iconCls="icon-add" plain="true">新建部门</a>
+                            <a class="mini-button" iconCls="icon-save" plain="true">保存全部</a>
+                        </div>
+                        <div class="mini-fit">
+                            <div id="department-grid" class="mini-treegrid" style="width:100%;height:100%;" showTreeIcon="true"
+                                 treeColumn="name" idField="id" sortField="sortIndex" parentField="parentId" resultAsTree="false"
+                                 allowDrag="true" allowDrop="true" expandOnLoad="0" allowLeafDropIn="true">
+                                <div property="columns">
+                                    <div type="indexcolumn" width="20" align="center" headerAlign="center">#</div>
+                                    <div name="name" field="name" width="100" headerAlign="center">部门</div>
+                                    <div name="action" renderer="renderDepAction" width="40" align="center" headerAlign="center">操作</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding:5px;border: hidden;border-left: 1px solid #cacaca">
+                        <div class="mini-toolbar">
+                            <a class="mini-button position-add" iconCls="icon-add" plain="true">新建职位</a>
+                            <a class="mini-button" iconCls="icon-save" plain="true">保存全部</a>
+                        </div>
+                        <div class="mini-fit">
+                            <div id="position-grid" class="mini-treegrid" style="width:100%;height:100%;" showTreeIcon="true"
+                                 treeColumn="name" idField="id" sortField="sortIndex" parentField="parentId" resultAsTree="false"
+                                 allowDrag="true" allowDrop="true" expandOnLoad="0" allowLeafDropIn="true">
+                                <div property="columns">
+                                    <div type="indexcolumn" width="20" align="center" headerAlign="center">#</div>
+                                    <div name="name" field="name" width="100" headerAlign="center">职位</div>
+                                    <div name="action" renderer="renderPosAction" width="40" align="center" headerAlign="center">操作</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:1px;border: hidden;">
+                <div class="mini-toolbar">
+                    <a class="mini-button add-person" iconCls="icon-add" plain="true">新建人员</a>
+                </div>
+                <div class="mini-fit">
+                    <div id="person-grid" showPager="false" class="mini-datagrid" style="width:100%;height:100%;"
+                         sizeList="[20,50,100,300]" pageSize="20" allowDrag="true" allowDrop="true"
+                         idField="id" sortField="sortIndex">
+                        <div property="columns">
+                            <div type="indexcolumn" width="20" align="center" headerAlign="center">#</div>
+                            <div name="name" field="name" width="80" align="center" headerAlign="center">姓名</div>
+                            <div name="sex" field="sex" renderer="renderSex" align="center" width="50" headerAlign="center">性别</div>
+                            <div name="phone" field="phone" width="90" align="center" headerAlign="center">联系电话</div>
+                            <div name="action"  field="action" align="center" width="80" headerAlign="center">操作</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
