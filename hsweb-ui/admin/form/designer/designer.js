@@ -24,14 +24,14 @@ function getDefaultProperties(other) {
 
 var widgets = [
     {
-        "name": "文本标签",
-        "type": "label",
-        "html": "<span>新建标签</span>",
-        "properties": [
+        "name": "文本标签", //组件名称
+        "type": "label",  //组件类型
+        "html": "<span>新建标签</span>", //组件html内容
+        "properties": [     //组件的配置内容
             {
-                "id": "widget-type",
+                "id": "widget-type",  //配置id
                 "text": "控件类型",
-                "value": "文本标签"
+                "value": "文本标签"     //配置值
             }
         ]
     },
@@ -73,7 +73,7 @@ var widgets = [
             {
                 "id": "format",
                 "text": "日期格式",
-                "editor": "text",
+                "editor": "text",       //配置的编辑器类型
                 "value": "yyyy-MM-dd"
             }
         ])
@@ -118,7 +118,7 @@ var widgets = [
                 "id": "data",
                 "text": "可选项目",
                 "editor": "textarea",
-                "column": [{title: "项目名称"}]
+                "column": [{title: "项目名称"}]     //使用表格时 表格的列配置(暂时未使用此功能)
             }
         ])
     },
@@ -170,7 +170,7 @@ var widgets = [
                 "id": "multiple",
                 "text": "可上传多个文件",
                 "editor": "select",
-                "data": [
+                "data": [                   //编辑器为下拉列表时，下拉列表的选项
                     {text: "是", id: "是"},
                     {text: "否", id: "否"}
                 ]
@@ -179,7 +179,7 @@ var widgets = [
     }
 ];
 
-var chooseWidgets = {};
+var chooseWidgets = {}; //当前已经选择列的组件格式为{id:widget}. id为键，组件对象为值。
 var editor;
 var nowEditId;
 window.getWidgetByType = function (type) {
@@ -188,12 +188,13 @@ window.getWidgetByType = function (type) {
     }
     return null;
 };
+
 window.insertWidget = function (widget) {
     var id = randomChar(5);
     var newWidget = mini.clone(widget);
     newWidget.id = id;
     chooseWidgets[id] = newWidget
-    var html = newWidget.html ? newWidget.html : "<input>"
+    var html = newWidget.html ? newWidget.html : "<input>";
 
     html = $("<div>").append($(html).attr("widget-id", id)).html();
     editor.execCommand('insertHtml', html);
@@ -255,6 +256,7 @@ window.setConfig = function (text) {
 };
 
 window.getConfig = function () {
+    // 返回整个表单的元数据,json格式
     return JSON.stringify({"html": editor.getContent(), "config": chooseWidgets});
 };
 
