@@ -292,7 +292,9 @@ importMiniui(function () {
             initEditor();
         });
     });
-
+    require(["md5"],function (md5) {
+        window.md5=md5;
+    });
     var tree = mini.get("leftTree");
     tree.loadList(widgets);
 
@@ -346,11 +348,11 @@ importMiniui(function () {
 });
 
 function randomChar(len) {
-    var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    var s = "";
-    for (var i = 0; i < len; i++) {
-        var rand = Math.floor(Math.random() * str.length);
-        s += str.charAt(rand);
-    }
-    return s;
+    // var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    // var s = "";
+    // for (var i = 0; i < len; i++) {
+    //     var rand = Math.floor(Math.random() * str.length);
+    //     s += str.charAt(rand);
+    // }
+    return md5(new Date().getTime()+""+Math.random());
 }
