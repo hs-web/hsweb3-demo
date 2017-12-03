@@ -12,3 +12,7 @@ logging:
     org.hswebframework: DEBUG
     org.hswebframework.expands: ERROR
     access-logger: INFO
+hsweb:
+  authorize:
+    auto-parse: true
+    sync: true

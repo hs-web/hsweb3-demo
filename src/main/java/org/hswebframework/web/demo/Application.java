@@ -18,7 +18,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableAspectJAutoProxy
 @SpringBootApplication
-@EnableSwagger2 // swagger2
 @EnableCaching //开启缓存
 @EnableAccessLogger //开启访问日志
 @ComponentScan("org.hswebframework.web.demo")
