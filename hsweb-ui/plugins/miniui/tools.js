@@ -1,4 +1,181 @@
 define(function () {
+
+    var MultiSort = function (grid, onSort) {
+        var me = this;
+        me.grid = grid;
+        me.sortFields = [];
+        me.onSort = onSort;
+        grid.on("headercellclick", function (e) {
+
+            var column = e.column,
+                field = column.field;
+
+            if (column.allowSort) {
+
+                var o = me.getSort(field);
+                if (!o) {
+                    o = {field: field, dir: "asc"};
+                } else {
+                    if (o.dir === "asc") {
+                        o.dir = "desc";
+                    } else {
+                        me.removeSort(o);
+                        return;
+                    }
+                }
+                me.addSort(o);
+            }
+        });
+
+        grid.on("update", function () {
+            me.syncGridSortIcon();
+        });
+        grid.on("loaderror", function () {
+            me.syncGridSortIcon();
+        });
+
+        grid.on("load", function () {
+            me.syncGridSortIcon();
+        });
+    };
+
+    MultiSort.prototype = {
+
+        sortFieldsParam: "sortFields",
+
+        getSortParam: function () {
+            var fields = this.sortFields;
+
+            var sortParam = {};
+            var i = 0;
+            $(fields).each(function () {
+                sortParam["sorts[" + i + "].name"] = this.field;
+                sortParam["sorts[" + i + "].order"] = this.dir;
+                i++;
+            });
+            return sortParam;
+        },
+        sort: function (fields) {
+            this.sortFields = fields;
+
+            var sortParam = {};
+            var i = 0;
+            $(fields).each(function () {
+                sortParam["sorts[" + i + "].name"] = this.field;
+                sortParam["sorts[" + i + "].order"] = this.dir;
+                i++;
+            });
+            if (this.onSort) {
+                this.onSort(sortParam)
+            } else {
+                this.grid.load(sortParam);
+            }
+            this.syncGridSortIcon();
+        },
+
+        addSort: function (field, dir) {
+
+            var me = this,
+                fields = me.sortFields;
+
+            if (typeof field == "object") {
+                dir = field.dir;
+                field = field.field;
+            }
+
+            var o = me.getSort(field);
+            if (o) {
+                o.dir = dir;
+            } else {
+                o = {field: field, dir: dir};
+            }
+
+            fields.remove(o);
+            //fields.insert(0, o);
+            fields.push(o);
+            me.sort(fields);
+        },
+
+        removeSort: function (field) {
+            var o = this.getSort(field);
+            if (o) {
+                this.sortFields.remove(o);
+                this.sort(this.sortFields);
+            }
+        },
+
+        getSort: function (field) {
+            if (typeof field === "object") return field;
+            for (var i = 0, l = this.sortFields.length; i < l; i++) {
+                var o = this.sortFields[i];
+                if (o.field === field) return o;
+            }
+        },
+
+        clearSort: function () {
+            this.sort([]);
+        },
+
+        syncGridSortIcon: function () {
+            var me = this,
+                grid = me.grid,
+                sortFields = me.sortFields,
+                columns = grid.getBottomColumns();
+
+            function createHeaderCellId(column, index) {
+                var id = grid._id + "$headerCell" + index + "$" + column._id;
+                return id;
+            }
+
+            function getHeaderCellEl(column) {
+                var el = document.getElementById(createHeaderCellId(column, 1));
+                if (!el) el = document.getElementById(createHeaderCellId(column, 2));
+                return el;
+            }
+
+            function getColumnByField(field) {
+                for (var i = 0, l = columns.length; i < l; i++) {
+                    var col = columns[i];
+                    if (col.field === field) return col;
+                }
+            }
+
+            function syncSortIcon() {
+                me.syncSortIconTimer = null;
+                $(columns).each(function () {
+                    var el = getHeaderCellEl(this);
+                    $(el).removeClass("mini-grid-asc mini-grid-desc");
+                    $(el).find(".mini-grid-sortIcon").remove();
+                });
+                for (var i = 0, l = sortFields.length; i < l; i++) {
+                    var o = sortFields[i];
+                    var column = getColumnByField(o.field);
+                    if (!column) continue;
+                    var el = getHeaderCellEl(column);
+                    if (!el) {
+                        continue;
+                    }
+                    var sortCls = o.dir == "asc" ? "mini-grid-asc" : "mini-grid-desc";
+
+                    $(el).removeClass("mini-grid-asc mini-grid-desc").addClass(sortCls);
+
+                    $(el).find(".mini-grid-sortIcon").remove();
+
+                    $(el).find(".mini-grid-headerCell-inner").append('<span class="mini-grid-sortIcon"></span>');
+                }
+            }
+
+            //                if (me.syncSortIconTimer) {
+            //                    clearTimeout(me.syncSortIconTimer);
+            //                    me.syncSortIconTimer = null;
+            //                }
+            //                me.syncSortIconTimer = setTimeout(syncSortIcon, 100);
+
+            syncSortIcon();
+        }
+
+    };
+
     /**
      * 打开窗口
      * @param url 窗口的URL
@@ -27,6 +204,9 @@ define(function () {
     };
 
     return {
+        multiSort: function (grid, onSort) {
+            return new MultiSort(grid, onSort);
+        },
         /**
          * 给表单绑定回车事件
          * @param formEl 表单选择器,如:#search-box
@@ -42,12 +222,15 @@ define(function () {
                 }
             }
         },
+        setFromReadyOny: function (formEl) {
+
+        },
         /**
          * 查询表格
          * @param formEL 查询条件表单选择器,如:#search-box
          * @param grid 表格对象
          */
-        searchGrid: function (formEL, grid, defaultParam) {
+        searchGrid: function (formEL, grid, parameter, defaultParam) {
             require(["request"], function (request) {
                 var param = new mini.Form(formEL).getData(true, false);
                 if (defaultParam) {
@@ -55,7 +238,10 @@ define(function () {
                         param[field] = defaultParam[field];
                     }
                 }
-                var param = request.encodeQueryParam(param);
+                param = request.encodeQueryParam(param);
+                for (var f in parameter) {
+                    param[f] = parameter[f];
+                }
                 grid.load(param);
             });
         },
@@ -127,7 +313,7 @@ define(function () {
             //加载失败进行提示
             grid.on("loaderror", function (e) {
                 //#115 修复ie8下 require回调获取的e为undefined
-                 var xhr = e.xhr;
+                var xhr = e.xhr;
                 require(["message", "logger"], function (message, logger) {
                     try {
                         var res = mini.decode(xhr.responseText);//#115
@@ -141,7 +327,7 @@ define(function () {
                                 window.top.doLogin(function () {
                                     grid.reload()
                                 });
-                            }else {
+                            } else {
                                 message.showTips("请登录", "danger");
                             }
                         } else if (res.status == 403) {
@@ -168,10 +354,33 @@ define(function () {
         getFormData: function (formEl, validate) {
             var form = new mini.Form(formEl);
             form.validate();
-            if (validate && form.isValid() == false) {
+            if (validate && form.isValid() === false) {
                 return;
             }
             return form.getData();
+        },
+        downloadZip: function (data, fileName) {
+            var form = $("<form style='display: none'></form>");
+            form.attr({
+                action: API_BASE_PATH + "file/download-zip/" + fileName,
+                target: "_blank",
+                method: "POST"
+            });
+            form.append($("<input name='data' />").val(mini.encode(data)));
+            form.appendTo(document.body);
+            form.submit();
+        },
+        downloadText: function (data, fileName) {
+            var form = $("<form style='display: none'></form>");
+            form.attr({
+                action: API_BASE_PATH + "file/download-text/" + fileName,
+                target: "_blank",
+                method: "POST"
+            });
+            form.append($("<input name='text' />").val(data));
+            form.appendTo(document.body);
+            form.submit();
         }
+
     };
 });

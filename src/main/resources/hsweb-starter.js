@@ -27,7 +27,7 @@ var menus = [
     {
         "u_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "name": "系统设置",
-        "PARENT_ID": null,
+        "parent_id": null,
         "permission_id": "",
         "path": "sOrB",
         "sort_index": 1,
@@ -107,7 +107,8 @@ var menus = [
         "url": "/admin/org/list.html",
         "icon": null,
         "status": 1
-    }, {
+    },
+    {
         "u_id": "org-01-02",
         "name": "综合设置",
         "parent_id": "org-01",
@@ -116,6 +117,29 @@ var menus = [
         "sort_index": 202,
         "describe": null,
         "url": "/admin/org/manager/index.html",
+        "icon": null,
+        "status": 1
+    }
+    ,
+    {
+        "u_id": "dev-01",
+        "name": "开发人员工具",
+        "parent_id": "-1",
+        "permission_id": "",
+        "path": "abcd",
+        "sort_index": 3,
+        "url": "",
+        "icon": null,
+        "status": 1
+    },
+    {
+        "u_id": "code-gen",
+        "name": "代码生成器",
+        "parent_id": "dev-01",
+        "permission_id": "file",
+        "path": "abcd",
+        "sort_index": 301,
+        "url": "/admin/code-generator/index.html",
         "icon": null,
         "status": 1
     }
@@ -214,98 +238,137 @@ var autz_setting = [
         "status": 1
     }
 ];
-var autz_menu = [
+// var autz_menu = [
+//     {
+//         "u_id": "asdasdqweqweasdas",
+//         "parent_id": null,
+//         "menu_id": "org-01",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM",
+//         "sort_index": 1,
+//         "status": 1,
+//         "level": 1,
+//         "config": null
+//     },{
+//         "u_id": "asdasdqweqweasdas",
+//         "parent_id": null,
+//         "menu_id": "org-01",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM",
+//         "sort_index": 1,
+//         "status": 1,
+//         "level": 1,
+//         "config": null
+//     },
+//     {
+//         "u_id": "asdasdqweqwe",
+//         "parent_id": null,
+//         "menu_id": "org-01",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM",
+//         "sort_index": 1,
+//         "status": 1,
+//         "level": 1,
+//         "config": null
+//     },
+//     {
+//         "u_id": "qweqweqweqwe",
+//         "parent_id": null,
+//         "menu_id": "org-01-01",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM",
+//         "sort_index": 1,
+//         "status": 1,
+//         "level": 1,
+//         "config": null
+//     },
+//     {
+//         "u_id": "qweqweqwe",
+//         "parent_id": null,
+//         "menu_id": "org-01-02",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM",
+//         "sort_index": 1,
+//         "status": 1,
+//         "level": 1,
+//         "config": null
+//     },
+//     {
+//         "u_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
+//         "parent_id": null,
+//         "menu_id": "e9dc96d6b677cbae865670e6813f5e8b",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM",
+//         "sort_index": 1,
+//         "status": 1,
+//         "level": 1,
+//         "config": null
+//     },
+//     {
+//         "u_id": "ac6fda029dfa955f99bd50e1ca0a7e4b",
+//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
+//         "menu_id": "a52df62b69e21fd756523faf8f0bd986",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM-XE9I",
+//         "sort_index": 101,
+//         "status": 1,
+//         "level": 2,
+//         "config": null
+//     },
+//     {
+//         "u_id": "3e19194f865ed24d624c509d0ce0a1a9",
+//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
+//         "menu_id": "8db17b9ba28dd949c926b329af477a08",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM-UWVv",
+//         "sort_index": 102,
+//         "status": 1,
+//         "level": 2,
+//         "config": null
+//     },
+//     {
+//         "u_id": "e6b5aeceaf82ea52f991cb94b6f5c44c",
+//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
+//         "menu_id": "42fc4f83d12cc172e4690937eb15752a",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM-f4iK",
+//         "sort_index": 103,
+//         "status": 1,
+//         "level": 2,
+//         "config": null
+//     },
+//     {
+//         "u_id": "15e45349d9c6f09ef7fd6fba180a60e2",
+//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
+//         "menu_id": "58eba1a4371dd3c0da24fac5da8cadc2",
+//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+//         "path": "opyM-d8eW",
+//         "sort_index": 104,
+//         "status": 1,
+//         "level": 2,
+//         "config": null
+//     }
+// ]
+var autz_menu = [];
+menus.forEach(function (menu) {
+    autz_menu.push({
+        u_id: org.hswebframework.web.id.IDGenerator.MD5.generate(),
+        parent_id: "-1",
+        menu_id: menu.u_id,
+        status: 1,
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "path": "-"
+    });
+});
+var autz_detail = [
     {
         "u_id": "asdasdqweqwe",
-        "parent_id": null,
-        "menu_id": "org-01",
+        "permission_id": "file",
         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM",
-        "sort_index": 1,
-        "status": 1,
-        "level": 1,
-        "config": null
+        "actions": "Set[\"download\",\"static\",\"upload\"]",
+        "data_accesses": "[]",
+        "status": 1
     },
-    {
-        "u_id": "qweqweqweqwe",
-        "parent_id": null,
-        "menu_id": "org-01-01",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM",
-        "sort_index": 1,
-        "status": 1,
-        "level": 1,
-        "config": null
-    },
-    {
-        "u_id": "qweqweqwe",
-        "parent_id": null,
-        "menu_id": "org-01-02",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM",
-        "sort_index": 1,
-        "status": 1,
-        "level": 1,
-        "config": null
-    },
-    {
-        "u_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-        "parent_id": null,
-        "menu_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM",
-        "sort_index": 1,
-        "status": 1,
-        "level": 1,
-        "config": null
-    },
-    {
-        "u_id": "ac6fda029dfa955f99bd50e1ca0a7e4b",
-        "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-        "menu_id": "a52df62b69e21fd756523faf8f0bd986",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM-XE9I",
-        "sort_index": 101,
-        "status": 1,
-        "level": 2,
-        "config": null
-    },
-    {
-        "u_id": "3e19194f865ed24d624c509d0ce0a1a9",
-        "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-        "menu_id": "8db17b9ba28dd949c926b329af477a08",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM-UWVv",
-        "sort_index": 102,
-        "status": 1,
-        "level": 2,
-        "config": null
-    },
-    {
-        "u_id": "e6b5aeceaf82ea52f991cb94b6f5c44c",
-        "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-        "menu_id": "42fc4f83d12cc172e4690937eb15752a",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM-f4iK",
-        "sort_index": 103,
-        "status": 1,
-        "level": 2,
-        "config": null
-    },
-    {
-        "u_id": "15e45349d9c6f09ef7fd6fba180a60e2",
-        "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-        "menu_id": "58eba1a4371dd3c0da24fac5da8cadc2",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "opyM-d8eW",
-        "sort_index": 104,
-        "status": 1,
-        "level": 2,
-        "config": null
-    }
-]
-
-var autz_detail = [
     {
         "u_id": "asdasdasdas",
         "permission_id": "organizational",
@@ -387,6 +450,7 @@ var versions = [
     // }
 ];
 var JDBCType = java.sql.JDBCType;
+
 function install(context) {
     var database = context.database;
 
@@ -402,6 +466,7 @@ function initialize(context) {
     database.getTable("s_autz_menu").createInsert().values(autz_menu).exec();
     database.getTable("s_user").createInsert().values(user).exec();
 }
+
 //设置依赖
 dependency.setup(info)
     .onInstall(install)
