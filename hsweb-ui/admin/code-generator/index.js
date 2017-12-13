@@ -619,10 +619,10 @@ importMiniui(function () {
         }
 
         $(".download-code").on("click", function () {
-            tools.downloadZip(buildFtpDownloadContent("", resultTree.getData()), "代码生成结果" + (mini.formatDate(new Date(), 'yyyyMMddHHmmss')) + ".zip");
+            tools.downloadZip(buildZipDownloadContent("", resultTree.getData()), "代码生成结果" + (mini.formatDate(new Date(), 'yyyyMMddHHmmss')) + ".zip");
         });
 
-        function buildFtpDownloadContent(path, result) {
+        function buildZipDownloadContent(path, result) {
             var newList = [];
             var ogPath = path;
 
