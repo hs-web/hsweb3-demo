@@ -16,3 +16,9 @@ hsweb:
   authorize:
     auto-parse: true
     sync: true
+read:
+  datasource:
+        url : jdbc:h2:file:./data/readDb
+        username : sa
+        password :
+        type: com.alibaba.druid.pool.DruidDataSource

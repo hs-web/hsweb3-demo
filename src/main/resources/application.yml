@@ -39,5 +39,21 @@ hsweb:
 mybatis:
 #  mapper-location-excludes: classpath*:**/UserMapper.xml  # 不加载的配置
   mapper-locations: classpath*:org/hswebframework/web/demo/**/*Mapper.xml
+  dynamic-datasource: true #开启mybatis动态数据源支持
 fastjson:
   features: WriteDateUseDateFormat
+read:
+   datasource:
+        filters: stat
+        maxActive: 1000
+        initialSize: 5
+        minIdle: 5
+        maxWait: 5000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 1 from dual
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 200

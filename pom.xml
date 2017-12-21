@@ -123,6 +123,26 @@
             <version>${hsweb.framework.version}</version>
         </dependency>
 
+        <!--数据库管理-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-database-manager-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
+
+        <!--数据源-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-datasource-api</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-datasource-web</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.hswebframework.web</groupId>
             <artifactId>hsweb-spring-boot-starter</artifactId>
@@ -132,6 +152,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
+
 
         <!--swagger-->
         <dependency>
