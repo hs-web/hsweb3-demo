@@ -136,7 +136,7 @@ var menus = [
         "u_id": "code-gen",
         "name": "代码生成器",
         "parent_id": "dev-01",
-        "permission_id": "file",
+        "permission_id": "file,database-manager,datasource",
         "path": "abcd",
         "sort_index": 301,
         "url": "/admin/code-generator/index.html",

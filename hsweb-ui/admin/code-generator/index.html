@@ -102,7 +102,8 @@
             </ul>
 
             <div class="mini-fit">
-                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false"></div>
+                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;"
+                     plain="false"></div>
             </div>
         </div>
     </div>
@@ -116,14 +117,46 @@
         <li class="remove-review-file" iconCls="fa fa-remove">删除(delete)</li>
         <li class="rename-review-file" iconCls="fa fa-edit">重命名</li>
     </ul>
-    <div title="变量" showFooter="true" allowResize="true" class="mini-window" id="var-window" style="width: 800px;height: 600px">
+    <div title="变量" showFooter="true" allowResize="true" class="mini-window" id="var-window"
+         style="width: 800px;height: 600px">
         <div property="footer" style="padding:5px;text-align: right">
             <a class="mini-button do-generate" plain="true" iconCls="fa fa-check red">生成代码</a>
         </div>
         <div id="var-container"></div>
     </div>
 
-    <div title="代码预览" showFooter="true" showCloseButton="false" showModal="false" allowResize="true" class="mini-window" id="review-window"
+    <div title="选择数据库表" showFooter="true" showToolBar="true" allowResize="true" class="mini-window" id="database-window"
+         style="width: 800px;height: 600px">
+        <div property="footer" style="padding:5px;text-align: right">
+            <a class="mini-button choose-database" plain="true" iconCls="fa fa-check">确定</a>
+        </div>
+        <div property="toolbar" style="padding: 5px">
+            数据源:<input class="mini-combobox" style="width: 400px" allowInput="true" name="datasource"/>
+        </div>
+        <div class="mini-fit">
+            <div id="database-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
+                 editNextOnEnterKey="true"showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
+                <div property="columns">
+                    <div name="name" field="name" width="120" headerAlign="center" align="left">名称
+                        <input id="nameFilter" emptyText="按名称搜索" property="filter" class="mini-textbox" style="width:100%;"
+                               onvaluechanged="onFilterChanged"
+                        />
+                    </div>
+                    <div name="dataType" field="dataType" width="120" headerAlign="center" align="center">类型
+                    </div>
+                    <div field="comment" width="120" headerAlign="center" align="center">备注
+                        <input id="commentFilter" emptyText="按备注搜索" property="filter" class="mini-textbox" style="width:100%;"
+                               onvaluechanged="onFilterChanged"/>
+                    </div>
+                    <div name="action" width="50" headerAlign="center" align="center">操作
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div title="代码预览" showFooter="true" showCloseButton="false" showModal="false" allowResize="true" class="mini-window"
+         id="review-window"
          style="width: 80%;height: 80%">
         <div class="mini-toolbar" style="text-align: right">
             <a class="mini-button review-done" plain="true" iconCls="fa fa-check">完成</a>
@@ -135,7 +168,8 @@
                     <div class="mini-fit">
                         <ul id="review-tree" class="mini-tree" style="width:100%;height:100%;"
                             showTreeIcon="true" textField="file" parentField="parentId" resultAsTree="true"
-                            showArrow="true" allowDrag="true" allowDrop="true" allowLeafDropIn="true" expandOnLoad="true"
+                            showArrow="true" allowDrag="true" allowDrop="true" allowLeafDropIn="true"
+                            expandOnLoad="true"
                             contextMenu="#reviewTreeMenu">
                         </ul>
                     </div>

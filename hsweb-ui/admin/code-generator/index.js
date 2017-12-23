@@ -235,7 +235,7 @@ importMiniui(function () {
                 var el = tabs.getTabBodyEl(tab);
                 el.innerHTML = createGridHtml(this);
             });
-            var height = obj.vars.length * 20 + 150;
+            var height = obj.vars.length * 20 + 50;
 
             $("#var-container").html("").append(createSettingForm());
             mini.parse();
@@ -531,6 +531,84 @@ importMiniui(function () {
             })
         });
 
+        var datasource;
+        $(".select-from-database").on("click", function () {
+            if (!datasource) {
+                request.get("datasource", function (response) {
+                    datasource = [{"id": "", "text": "默认数据源"}];
+                    if (response.status === 200) {
+                        $(response.result).each(function () {
+                            this.text = this.id + "(" + this.name + ")";
+                            datasource.push(this);
+                        });
+                    }
+                    mini.getbyName("datasource").setData(datasource);
+                    mini.getbyName("datasource").select(0);
+                    mini.getbyName("datasource").doValueChanged();
+                })
+            }
+            mini.get("database-window").show();
+        });
+        mini.get("database-datagrid").on("drawcell", function (e) {
+            var field = e.field;
+            if (field === 'name') {
+                if (e.node.dataType !== "TABLE") {
+                    e.iconCls = "fa fa-columns";
+                } else {
+                    e.iconCls = "fa fa-table";
+                }
+            }
+        });
+
+        mini.get("database-datagrid").getColumn("dataType").renderer = function (e) {
+            var node = e.node;
+            if (node.dataType !== "TABLE") {
+                return node.dataType + "(" + node.precision + (node.scale > 0 ? "," + node.scale : "") + ")";
+            }
+
+            return e.value;
+        };
+        mini.get("database-datagrid").getColumn("action").renderer = function (e) {
+            var node = e.node;
+            if (node.dataType !== "TABLE") {
+                return "";
+            }
+
+            return tools.createActionButton("选择", "fa fa-check green", function () {
+                var data = mini.clone(node);
+                var tab = mini.get("code-tabs").getActiveTab();
+                var id = tab.id;
+                var newColumns= [];
+                $(data.columns).each(function () {
+                    if(this.name.toLowerCase()==='u_id'){
+                        this.name="id";
+                    }
+                    newColumns.push({comment:this.comment,column:this.name.toLowerCase(),name:templateUtils.string.ul2ca(this.name.toLowerCase()),dataType:this.dataType})
+                })
+                mini.get(id + "-grid").setData(newColumns);
+
+            });
+        };
+
+
+        mini.getbyName("datasource").on("valuechanged", function (e) {
+            var id = e.value;
+            var loading = message.loading("加载中...");
+
+            request.get("database/manager/metas/" + id, function (response) {
+                loading.hide();
+                if (response.status === 200) {
+                    var table = response.result.TABLE;
+                    $(table).each(function () {
+                        this.dataType = "TABLE";
+                    });
+                    mini.get("database-datagrid").loadData(table);
+                } else {
+                    message.alert("加载表结构失败", e.message);
+                }
+            });
+        });
+
         function saveSetting(column) {
             request.patch("user-setting/me/code-gen-set" + nowTemplateId, {
                 name: name,
@@ -551,6 +629,7 @@ importMiniui(function () {
         $(".download-template").on('click', function () {
             tools.downloadText(JSON.stringify(templateMap[nowTemplateId]), templateMap[nowTemplateId].name + ".template.json")
         });
+
         function getSetting(column) {
             var tabs = mini.get("code-tabs").getTabs();
             var formData = tools.getFormData("#" + nowTemplateId + "-form", false);
@@ -658,4 +737,27 @@ function onBeforeOpen(e) {
         e.cancel = true;
         return;
     }
+}
+
+function onFilterChanged(e) {
+
+    var name = mini.get("nameFilter").getValue().toLowerCase();
+    var comment = mini.get("commentFilter").getValue().toLowerCase();
+
+    //多条件组合过滤
+    mini.get("database-datagrid").filter(function (row) {
+
+        //name
+        var r1 = true;
+        if (name) {
+            r1 = String(row.name).toLowerCase().indexOf(name) !== -1;
+        }
+        var r2 = true;
+        if (comment) {
+            r2 = String(row.comment).toLowerCase().indexOf(comment) !== -1;
+        }
+
+
+        return r1 && r2;
+    });
 }
