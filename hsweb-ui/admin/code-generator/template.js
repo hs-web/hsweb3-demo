@@ -152,10 +152,12 @@ importMiniui(function () {
             });
             $(".remove-table-column").on("click", function () {
                 var node = tableColumn.getSelectedNode();
-                var all = tableColumn.getData();
+                var all = tableColumn.getList();
                 if (node) {
                     var index = tableColumn.indexOf(node);
                     tableColumn.removeNode(node);
+                    var nextNode = all[index + 1];
+                    tableColumn.selectNode(nextNode);
                 }
             });
         }
@@ -168,7 +170,14 @@ importMiniui(function () {
                 varGrid.accept();
             });
             $(".remove-var").on("click", function () {
-                varGrid.removeNode(varGrid.getSelectedNode());
+                var node = varGrid.getSelectedNode();
+                var all = varGrid.getList();
+                if (node) {
+                    var index = varGrid.indexOf(node);
+                    varGrid.removeNode(node);
+                    var nextNode = all[index + 1];
+                    varGrid.selectNode(nextNode);
+                }
             });
         }
 
