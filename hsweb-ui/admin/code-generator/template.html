@@ -67,7 +67,7 @@
         <li onclick="mini.get('basic-window').show()" iconCls="fa fa-newspaper-o">
             基础设置
         </li>
-        <li  onclick="mini.get('var-window').show()" iconCls="fa fa-cog">
+        <li onclick="mini.get('var-window').show()" iconCls="fa fa-cog">
             变量模板
         </li>
         <li onclick="mini.get('table-window').show()" iconCls="fa fa-table">
@@ -108,9 +108,10 @@
             <a class="mini-button remove-var" plain="true" iconCls="fa fa-minus"></a>
         </div>
         <div class="mini-fit">
-            <div id="vars-datagrid" class="mini-datagrid" style="width:100%;height:98%;" showPager="false" allowCellEdit="true" allowCellSelect="true"
-                 editNextOnEnterKey="true" editNextRowCell="true">
+            <div id="vars-datagrid" class="mini-treegrid" style="width:100%;height:98%;" showPager="false" allowCellEdit="true" allowCellSelect="true"
+                 editNextOnEnterKey="true" treeColumn="index"  allowDrag="true" allowDrop="true"  editNextRowCell="true">
                 <div property="columns">
+                    <div name="index" width="50" type="indexcolumn">序号</div>
                     <div field="var" width="120" headerAlign="center" align="center">变量名
                         <input property="editor" class="mini-textbox" style="width:100%;"/>
                     </div>
@@ -135,8 +136,9 @@
                     </div>
                     <div class="mini-fit">
                         <div id="table-tree" class="mini-datagrid" style="width:100%;height:98%;" showPager="false" allowCellEdit="true" allowCellSelect="true"
-                             editNextOnEnterKey="true" editNextRowCell="true">
+                             editNextOnEnterKey="true" treeColumn="index"  allowDrag="true" allowDrop="true" editNextRowCell="true">
                             <div property="columns">
+
                                 <div field="name" width="120" headerAlign="center" align="center">名称
                                     <input property="editor" class="mini-textbox" style="width:100%;"/>
                                 </div>
@@ -153,9 +155,11 @@
                         <a class="mini-button remove-table-column" plain="true" iconCls="fa fa-minus"></a>
                     </div>
                     <div class="mini-fit">
-                        <div id="table-datagrid" class="mini-datagrid" style="width:100%;height:98%;" showPager="false" allowCellEdit="true" allowCellSelect="true"
-                             editNextOnEnterKey="true" editNextRowCell="true">
+                        <div id="table-datagrid" class="mini-treegrid" style="width:100%;height:98%;" showPager="false"
+                             allowCellEdit="true" allowCellSelect="true" allowDrag="true" allowDrop="true"
+                             editNextOnEnterKey="true" treeColumn="index" editNextRowCell="true">
                             <div property="columns">
+                                <div name="index" width="50" type="indexcolumn">序号</div>
                                 <div field="name" width="120" headerAlign="center" align="center">列名
                                     <input property="editor" class="mini-textbox" style="width:100%;"/>
                                 </div>

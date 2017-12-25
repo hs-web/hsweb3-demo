@@ -147,11 +147,16 @@ importMiniui(function () {
                 tableTree.removeRow(nowSelectRow, true);
             });
             $(".add-table-column").on("click", function () {
-                tableColumn.addRow({"name": "new_column", "title": "新建列"});
+                tableColumn.addNode({"name": "new_column", "title": "新建列"}, 'after', tableColumn.getSelectedNode());
                 tableColumn.accept();
             });
             $(".remove-table-column").on("click", function () {
-                tableColumn.removeRow(tableColumn.getSelected(), true);
+                var node = tableColumn.getSelectedNode();
+                var all = tableColumn.getData();
+                if (node) {
+                    var index = tableColumn.indexOf(node);
+                    tableColumn.removeNode(node);
+                }
             });
         }
 
@@ -159,11 +164,11 @@ importMiniui(function () {
         {
             var varGrid = mini.get("vars-datagrid");
             $(".add-var").on("click", function () {
-                varGrid.addRow({"var": "new_var", "name": "新建变量"});
+                varGrid.addNode({"var": "new_var", "name": "新建变量"}, 'after', varGrid.getSelectedNode());
                 varGrid.accept();
             });
             $(".remove-var").on("click", function () {
-                varGrid.removeRow(varGrid.getSelected(), true);
+                varGrid.removeNode(varGrid.getSelectedNode());
             });
         }
 
