@@ -34,7 +34,7 @@ importMiniui(function () {
     require(["miniui-tools", "message", "request"], function (tools, message, request) {
         request.get("user-setting/me/code-generator/all", function (res) {
             if (res.status === 200) {
-                if (res.result) {
+                if (res.status === 200 && res.result && res.result.setting) {
                     initTemplate(JSON.parse(res.result.setting));
                 } else {
                     require(["text!template.json"], function (json) {
@@ -183,7 +183,7 @@ importMiniui(function () {
             mini.get("button-" + id).setText(tmp.name);
             nowTemplateId = id;
             request.get("user-setting/me/code-gen-set" + nowTemplateId + "/latest", function (res) {
-                if (res.status === 200) {
+                if (res.status === 200 && res.result && res.result.setting) {
                     var conf = JSON.parse(res.result.setting);
                     new mini.Form("#" + nowTemplateId + "-form").setData(conf.vars);
                     var table = conf.table;
@@ -235,7 +235,7 @@ importMiniui(function () {
                 var el = tabs.getTabBodyEl(tab);
                 el.innerHTML = createGridHtml(this);
             });
-            var height = obj.vars.length * 20 + 50;
+            var height = obj.vars.length * 22 + 50;
 
             $("#var-container").html("").append(createSettingForm());
             mini.parse();
@@ -578,15 +578,15 @@ importMiniui(function () {
                 var data = mini.clone(node);
                 var tab = mini.get("code-tabs").getActiveTab();
                 var id = tab.id;
-                var newColumns= [];
+                var newColumns = [];
                 $(data.columns).each(function () {
-                    if(this.name.toLowerCase()==='u_id'){
-                        this.name="id";
+                    if (this.name.toLowerCase() === 'u_id') {
+                        this.name = "id";
                     }
-                    newColumns.push({comment:this.comment,column:this.name.toLowerCase(),name:templateUtils.string.ul2ca(this.name.toLowerCase()),dataType:this.dataType})
+                    newColumns.push({comment: this.comment, column: this.name.toLowerCase(), name: templateUtils.string.ul2ca(this.name.toLowerCase()), dataType: this.dataType})
                 })
                 mini.get(id + "-grid").setData(newColumns);
-
+                mini.get("database-window").hide();
             });
         };
 
