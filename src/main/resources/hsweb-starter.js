@@ -362,6 +362,22 @@ menus.forEach(function (menu) {
 });
 var autz_detail = [
     {
+        "u_id": "adasdasdasd",
+        "permission_id": "database-manager",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "actions": "Set[\"execute\",\"query\"]",
+        "data_accesses": "[]",
+        "status": 1
+    },
+    {
+        "u_id": "123123123",
+        "permission_id": "datasource",
+        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "actions": "Set[\"query\"]",
+        "data_accesses": "[]",
+        "status": 1
+    },
+    {
         "u_id": "asdasdqweqwe",
         "permission_id": "file",
         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
