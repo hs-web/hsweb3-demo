@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 90%;
+        }
+    </style>
+    <script data-main="addPosition.js" src="../../boot.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="data-form" style="margin-top:20px">
+    <table data-sort="sortDisabled" style="width: 90%;margin: auto;">
+        <tbody>
+        <tr class="firstRow">
+            <th style="border-color: rgb(221, 221, 221); word-break: break-all;" rowspan="1"
+                colspan="4">
+				<span style="font-size: 20px;">
+					岗位管理
+				</span>
+            </th>
+        </tr>
+        <tr>
+            <td valign="middle" style="border-color: rgb(221, 221, 221); word-break: break-all;"
+                width="127" align="right">
+                岗位名称
+                <br>
+            </td>
+            <td valign="top" style="border-color: rgb(221, 221, 221); word-break: break-all;"
+                width="362">
+                <input class="mini-textbox" name="name" required="true" style="width:100%">
+            </td>
+            <td valign="middle" style="border-color: rgb(221, 221, 221); word-break: break-all;"
+                width="136" align="right">
+				<span style="text-align: -webkit-right;">
+					所在部门
+				</span>
+            </td>
+            <td valign="top" style="border-color: rgb(221, 221, 221); word-break: break-all;"
+                width="359">
+                <input class="mini-buttonedit get-department-tree" name="departmentId" valuefield="id" required="true"
+                       textfield="name" pinyinfield="namePinYin"
+                       parentfield="parentId" clearonload="true" ajaxtype="GET"
+                       required="required" allowinput="false" style="width:100%" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" style="border-color: rgb(221, 221, 221); word-break: break-all;"
+                width="127" align="right">
+				<span style="text-align: -webkit-right;">
+					上级岗位
+				</span>
+            </td>
+            <td colspan="3" valign="top" style="border-color: rgb(221, 221, 221);" width="362">
+                <input class="mini-combobox" name="parentId" valuefield="id" textfield="name"
+                       multiselect="false" shownullitem="false" clearonload="true" style="width:100%">
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" style="border-color: rgb(221, 221, 221);" width="127"
+                align="right">
+                备注
+            </td>
+            <td valign="top" style="border-color: rgb(221, 221, 221);" rowspan="1"
+                colspan="3" width="109">
+                <input class="mini-textarea" name="remark" style="width:100%">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="width: 100%;height: 20px;text-align: center">
+    <a class="mini-button save-button" iconCls="icon-save" plain="true">保存</a>
+    <a class="mini-button back-button" iconCls="icon-undo" plain="true">返回</a>
+</div>
+</body>
+</html>

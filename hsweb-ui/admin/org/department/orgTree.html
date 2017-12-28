@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script data-main="orgTree.js" src="../../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="mini-toolbar" style="text-align:center;line-height:30px;"
+     borderStyle="border-left:0;border-top:0;border-right:0;">
+    <label >名称：</label>
+    <input id="key" class="mini-textbox" style="width:150px;" onenter="onKeyEnter"/>
+    <a class="mini-button" style="width:60px;" onclick="search()">查询</a>
+</div>
+
+<div class="mini-fit">
+    <ul id="org-grid" class="mini-tree dblclick" style="width:100%;height:100%;"
+        showTreeIcon="true" textField="name" idField="id" parentField="parentId" resultAsTree="false"
+        expandOnLoad="true" expandOnDblClick="false">
+    </ul>
+</div>
+<div class="mini-toolbar" style="text-align:center;padding-top:8px;padding-bottom:8px;"
+     borderStyle="border-left:0;border-bottom:0;border-right:0;">
+    <a class="mini-button ok-button" style="width:60px;">确定</a>
+    <span style="display:inline-block;width:25px;"></span>
+    <a class="mini-button on-concel-button" style="width:60px;">取消</a>
+</div>
+</body>
+</html>

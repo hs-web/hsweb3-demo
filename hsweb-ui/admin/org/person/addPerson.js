@@ -70,6 +70,7 @@ importMiniui(function () {
     function initAction() {
         mini.getbyName("orgId").on("valueChanged", changeOrg);
         mini.getbyName("departmentId").on("valueChanged", changeDep);
+        mini.getbyName("positionId").on("valueChanged", addPosToGrid);
         $(".add-position").on("click", addPosToGrid);
         require(["miniui-tools"], function (tools) {
             mini.get("position-grid").getColumn("action").renderer = function (e) {

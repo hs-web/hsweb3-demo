@@ -2,6 +2,26 @@ importResource("/admin/css/common.css");
 
 importMiniui(function () {
     mini.parse();
+    $(".get-org-tree").on("click",function () {
+        var btnEdit = mini.getbyName("orgId");
+        mini.open({
+            url: "org/department/orgTree.html",
+            showMaxButton: false,
+            title: "选择机构",
+            width: 350,
+            height: 350,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.onInit();
+                    if (data) {
+                        btnEdit.setValue(data.id);
+                        btnEdit.setText(data.name);
+                    }
+                }
+            }
+        });
+    });
     require(["plugin/ueditor/ueditor.parse"], function () {
         uParse('#data-form', {
             rootPath: BASE_PATH + 'ui/plugins/ueditor',
@@ -17,11 +37,10 @@ importMiniui(function () {
         org.setText(area.name);
         org.setEnabled(false);
     };
-    exp.setParent = function (dep) {
+    exp.setParent = function () {
         var parentIdEl = mini.getbyName("parentId");
-        if (!dep) {
-            dep = {id: "-1", name: "/"};
-        }
+        var  dep = {id: "-1", name: "/"};
+
         parentIdEl.setValue(dep.id);
         parentIdEl.setText(dep.name);
         parentIdEl.setEnabled(false);

@@ -36,7 +36,7 @@ importMiniui(function () {
         } else {
             require(["request"], function (request) {
                 request.get("position/" + old.parentId, function (d) {
-                    exp.setParent(d.data);
+                    exp.setParent(d.result);
                 });
             });
         }

@@ -9,30 +9,28 @@ require(["authorize"], function (authorize) {
             window.tools = tools;
             var grid = window.grid = mini.get("data-grid");
             tools.initGrid(grid);
+            var position_grid = mini.get("position-grid");
+            //加载查询职位选择项
+            require(["request"], function (request) {
+                request.get("position?paging=false",function (response) {
+                    position_grid.loadList(response.result.data,"id","parentId");
+                });
+            });
             grid.setUrl(API_BASE_PATH + "person?paging=false");
             $(".search-button").on("click", function () {
-                var keyword = mini.getbyName("keyword").getValue();
-                var param = {};
-                if (keyword && keyword.length > 0) {
-                    require(["request"], function (request) {
-                        param = request.createQuery().where()
-                            .like("name", "%" + keyword + "%")
-                            .or().like("phone", "%" + keyword + "%")
-                            .getParams();
-                        grid.load(param);
-                    });
-                } else {
-                    grid.load(param);
-                }
+                tools.searchGrid("#search-box", grid, null);
             });
+            $(".add-button").on("click", function () {
+                tools.openWindow("admin/org/person/addPerson.html", "新建人员", 800, 650, loadPerson, function () {
+                });
+            });
+            /**
+             * 加载人员数据
+             */
+            function loadPerson() {
+                grid.reload();
+            }
         });
-       /* initPerson();
-        function initPerson() {
-            var grid = window.grid = mini.get("data-grid");
-            grid.getColumn("sex").renderer = function (e) {
-                return e.valueOf === 1 ? "男" : "女";
-            };
-        }*/
         window.renderSex = function (e) {
             var name = '';
             if (e.value == 1) {
@@ -55,28 +53,14 @@ require(["authorize"], function (authorize) {
         }
     });
 });
-function loadPerson() {
-    if (window.nowSelectedPostion) {
-        require(["request", "message"], function (request, message) {
-            person_grid.loading("加载中");
-            request.get("person/in-position/" + window.nowSelectedPostion.id, function (response) {
-                person_grid.unmask();
-                if (response.status == 200) {
-                    person_grid.setData(response.result);
-                } else {
-                    message.showTips("加载失败:" + response.message);
-                }
-            });
-        });
-    }
-    grid.reload();
-}
 
 window.renderAction = function (e) {
     var html = [];
     var row = e.record;
     html.push(tools.createActionButton("编辑", "icon-edit", function () {
-        tools.openWindow("admin/org/manager/person/save.html?id=" + e.record.id, "编辑人员", 800, 650, loadPerson);
+        tools.openWindow("admin/org/manager/person/save.html?id=" + e.record.id, "编辑人员", 800, 650, function (e) {
+            grid.reload();
+        });
     }));
     html.push(tools.createActionButton("删除人员", "icon-remove", function (){
         if (row._state == "added" || row._state == "modified") {

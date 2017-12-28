@@ -9,7 +9,7 @@ require(["authorize"], function (authorize) {
             window.tools = tools;
             var grid = window.grid = mini.get("data-grid");
             tools.initGrid(grid);
-            grid.setUrl(API_BASE_PATH + "organizational?paging=false");
+            grid.setUrl(API_BASE_PATH + "district?paging=false");
             $(".search-button").on("click", function () {
                 var keyword = mini.getbyName("keyword").getValue();
                 var param = {};
@@ -28,9 +28,9 @@ require(["authorize"], function (authorize) {
             });
             $(".save-all-button").on("click", function () {
                 require(["request", "message"], function (request, message) {
-                    message.confirm("确认保存全部机构数据", function () {
+                    message.confirm("确认保存全部行政区划数据", function () {
                         grid.loading("保存中...");
-                        request.patch("organizational/batch", grid.getData(), function (response) {
+                        request.patch("district/batch", grid.getData(), function (response) {
                             if (response.status == 200) {
                                 message.showTips("保存成功");
                                 grid.reload();
@@ -48,15 +48,15 @@ require(["authorize"], function (authorize) {
 window.renderAction = function (e) {
     var html = [];
     var row = e.record;
-    if (authorize.hasPermission("organizational", "add")) {
-        html.push(tools.createActionButton("添加子机构", "icon-add", function () {
+    if (authorize.hasPermission("district", "add")) {
+        html.push(tools.createActionButton("添加子级行政区划", "icon-add", function () {
             var sortIndex = row.sortIndex ? (row.sortIndex + "0" + (row.chidren ? row.chidren.length + 1 : 1)) : 1;
             grid.addNode({sortIndex: sortIndex}, row.chidren ? row.chidren.length : 0, row);
         }));
     }
     if (row._state == "added" || row._state == "modified") {
         html.push(tools.createActionButton("保存", "icon-save", function () {
-            var api = "organizational/";
+            var api = "district/";
             require(["request", "message"], function (request, message) {
                 var loading = message.loading("保存中...");
                 request.patch(api, row, function (res) {
