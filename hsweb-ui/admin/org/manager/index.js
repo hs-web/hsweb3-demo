@@ -89,7 +89,7 @@ importMiniui(function () {
                     goSaveDepartmentPage(null, e.record);
                 }));
                 html.push(tools.createActionButton("编辑", "icon-edit", function () {
-                    goSaveDepartmentPage(e.record, e.sender.getParent(e.record));
+                    goSaveDepartmentPage(e.record, e.sender.getParentNode(e.record));
                 }));
                 return html.join("");
             };
@@ -200,7 +200,9 @@ importMiniui(function () {
 
         function initPerson() {
             person_grid.getColumn("sex").renderer = function (e) {
-                return e.valueOf === 1 ? "男" : "女";
+                // fix #4
+                return e.value === 1 ? "男" : "女";
+                // return e.valueOf === 1 ? "男" : "女";
             };
             person_grid.getColumn("action").renderer = function (e) {
                 var html = [];
