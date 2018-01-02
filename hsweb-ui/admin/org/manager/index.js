@@ -217,7 +217,7 @@ importMiniui(function () {
                 require(["message"], function (message) {
                     if (!window.nowSelectedOrg) {
                         message.showTips("请先选择机构", "danger");
-                        return;
+                        return;o
                     }
                     if (!window.nowSelectedDepartment) {
                         message.showTips("请先选择部门", "danger");

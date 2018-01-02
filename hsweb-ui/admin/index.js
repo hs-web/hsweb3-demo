@@ -104,7 +104,11 @@ function initLogin() {
     });
     initAuthorize();
     $(".settings").on("click", function () {
-        alert("建设中..");
+        require(["miniui-tools"],function (tools) {
+            tools.openWindow("admin/me/info.html","个人信息","800","600",function () {
+
+            });
+        });
     });
 }
 window.doLogin = function (callback) {
