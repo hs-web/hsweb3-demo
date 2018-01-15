@@ -126,7 +126,7 @@ var menus = [
         "name": "开发人员工具",
         "parent_id": "-1",
         "permission_id": "",
-        "path": "abcd",
+        "path": "d010",
         "sort_index": 3,
         "url": "",
         "icon": null,
@@ -137,9 +137,31 @@ var menus = [
         "name": "代码生成器",
         "parent_id": "dev-01",
         "permission_id": "file,database-manager,datasource",
-        "path": "abcd",
+        "path": "d010-001",
         "sort_index": 301,
         "url": "/admin/code-generator/index.html",
+        "icon": null,
+        "status": 1
+    },
+    {
+        "u_id": "dyn-form",
+        "name": "动态表单",
+        "parent_id": "dev-01",
+        "permission_id": "form",
+        "path": "d010-002",
+        "sort_index": 302,
+        "url": "/admin/form/list.html",
+        "icon": null,
+        "status": 1
+    },
+    {
+        "u_id": "quartz",
+        "name": "定时任务",
+        "parent_id": "dev-01",
+        "permission_id": "schedule",
+        "path": "d010-003",
+        "sort_index": 303,
+        "url": "/admin/schedule/index.html",
         "icon": null,
         "status": 1
     }

@@ -112,6 +112,31 @@ importMiniui(function () {
             });
         });
 
+    $(".delete-button").on("click", function () {
+        if(!selected){
+            return;
+        }
+        require(["request", "message"], function (request, message) {
+            message.confirm("确认删除此任务?",function () {
+                if(!selected.id){
+                    jobTree.removeNode(selected);
+                    return;
+                }
+                var loading = message.loading("...");
+                request['delete']("schedule/job/" + selected.id, {}, function (response) {
+                    loading.hide();
+                    if (response.status === 200) {
+                        message.showTips("删除成功");
+                        jobTree.removeNode(selected);
+                    } else {
+                        message.showTips("删除失败:" + response.message, "danger");
+                    }
+                });
+            });
+
+        });
+    });
+
         $(".execute-button").on("click", function () {
             if (selected) {
                 require(["request", "message"], function (request, message) {
