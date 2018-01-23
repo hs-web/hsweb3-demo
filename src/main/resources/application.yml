@@ -35,6 +35,11 @@ hsweb:
     app:
       name: hsweb-demo
       version: 3.0.0
+    cors:
+      allowed-headers: "*"
+      allowed-methods: "*"
+      allowed-origins: "*"
+      enable: true
 
 mybatis:
 #  mapper-location-excludes: classpath*:**/UserMapper.xml  # 不加载的配置
