@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>模板设置</title>
+    <script data-main="template.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        #script-editor, #main-script-editor {
+            margin: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div size="360" showCollapseButton="true" style="padding:5px;">
+            <div class="mini-toolbar">
+                <a class="mini-menubutton" plain="true" menu="#toolbar-menu" iconCls="fa fa-file">操作</a>
+                <a class="mini-menubutton" plain="true" menu="#setting-menu" iconCls="fa fa-cogs">设置</a>
+                <a class="mini-button ok" plain="true" iconCls="fa fa-check green">完成</a>
+                <a class="mini-button cancel" plain="true" iconCls="fa fa-sign-out red">放弃</a>
+            </div>
+            <div class="mini-fit">
+                <ul id="template-tree" class="mini-tree" style="width:100%;height:100%;"
+                    showTreeIcon="true" textField="name" parentField="parentId" resultAsTree="true"
+                    showArrow="true" allowDrag="true" allowDrop="true" allowLeafDropIn="true" expandOnLoad="true"
+                    contextMenu="#treeMenu">
+                </ul>
+            </div>
+        </div>
+        <div showCollapseButton="true">
+            <div class="mini-toolbar">
+                模板名:<input class="mini-textbox" style="width: 150px" name="name">
+                重复处理方式:<input class="mini-combobox" data="repeat" style="width: 100px" name="repeat">
+                <br>
+                文件名:<input class="mini-textbox" style="width: 80%" name="file">
+            </div>
+            <div class="mini-fit">
+                <pre class="script-editor" id="script-editor"></pre>
+            </div>
+        </div>
+    </div>
+
+    <ul id="setting-menu" class="mini-menu">
+        <li onclick="mini.get('basic-window').show()" iconCls="fa fa-newspaper-o">
+            基础设置
+        </li>
+        <li onclick="mini.get('var-window').show()" iconCls="fa fa-cog">
+            变量模板
+        </li>
+        <li onclick="mini.get('table-window').show()" iconCls="fa fa-table">
+            列表模板
+        </li>
+    </ul>
+
+    <ul id="toolbar-menu" class="mini-menu">
+        <li class="add-folder" iconCls="fa fa-folder">
+            新增目录(insert+f)
+        </li>
+        <li class="add-template" iconCls="fa fa-file-code-o">
+            新增模板(insert)
+        </li>
+    </ul>
+    <ul id="treeMenu" class="mini-contextmenu " onbeforeopen="onBeforeOpen">
+        <li>
+            <span iconCls="fa fa-file">操作</span>
+            <ul>
+                <li iconCls="fa fa-copy">复制(ctrl+c)</li>
+                <li iconCls="fa fa-paste">粘贴(ctrl+v)</li>
+                <li class="rename" iconCls="fa fa-reply-all">重命名(ctrl+r)</li>
+            </ul>
+        </li>
+        <li class="separator"></li>
+        <li class="add-folder" iconCls="fa fa-folder">
+            新增目录(insert+f)
+        </li>
+        <li class="add-template" iconCls="fa fa-file-code-o">
+            新增模板(insert)
+        </li>
+        <li name="remove" class="remove-button" iconCls="fa fa-remove">删除(delete)</li>
+    </ul>
+
+    <div id="var-window" allowResize="true" style="width:80%;height: 80%;" title="变量模板" showClose="true" class="mini-window">
+        <div class="mini-toolbar">
+            <a class="mini-button add-var" plain="true" iconCls="fa fa-plus"></a>
+            <a class="mini-button remove-var" plain="true" iconCls="fa fa-minus"></a>
+        </div>
+        <div class="mini-fit">
+            <div id="vars-datagrid" class="mini-treegrid" style="width:100%;height:98%;" showPager="false" allowCellEdit="true" allowCellSelect="true"
+                 editNextOnEnterKey="true" treeColumn="index"  allowDrag="true" allowDrop="true"  editNextRowCell="true">
+                <div property="columns">
+                    <div name="index" width="50" type="indexcolumn">序号</div>
+                    <div field="var" width="120" headerAlign="center" align="center">变量名
+                        <input property="editor" class="mini-textbox" style="width:100%;"/>
+                    </div>
+                    <div field="name" width="120" headerAlign="center" align="center">名称
+                        <input property="editor" class="mini-textbox" style="width:100%;"/>
+                    </div>
+                    <div field="editor" width="120" headerAlign="center" align="center">编辑器配置
+                        <input property="editor" class="mini-buttonedit" style="width:100%;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="table-window" allowResize="true" style="width:80%;height: 80%;" title="表格模板" showClose="true" class="mini-window">
+        <div class="mini-fit">
+            <div class="mini-splitter" style="width:100%;height:100%;">
+                <div size="300" showCollapseButton="true" style="padding:5px;">
+                    <div class="mini-toolbar">
+                        <a class="mini-button add-table" plain="true" iconCls="fa fa-plus"></a>
+                        <a class="mini-button remove-table" plain="true" iconCls="fa fa-minus"></a>
+                    </div>
+                    <div class="mini-fit">
+                        <div id="table-tree" class="mini-datagrid" style="width:100%;height:98%;" showPager="false" allowCellEdit="true" allowCellSelect="true"
+                             editNextOnEnterKey="true" treeColumn="index"  allowDrag="true" allowDrop="true" editNextRowCell="true">
+                            <div property="columns">
+
+                                <div field="name" width="120" headerAlign="center" align="center">名称
+                                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                                </div>
+                                <div field="var" width="120" headerAlign="center" align="center">变量名
+                                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div showCollapseButton="true">
+                    <div class="mini-toolbar" style="text-align: right">
+                        <a class="mini-button add-table-column" plain="true" iconCls="fa fa-plus"></a>
+                        <a class="mini-button remove-table-column" plain="true" iconCls="fa fa-minus"></a>
+                    </div>
+                    <div class="mini-fit">
+                        <div id="table-datagrid" class="mini-treegrid" style="width:100%;height:98%;" showPager="false"
+                             allowCellEdit="true" allowCellSelect="true" allowDrag="true" allowDrop="true"
+                             editNextOnEnterKey="true" treeColumn="index" editNextRowCell="true">
+                            <div property="columns">
+                                <div name="index" width="50" type="indexcolumn">序号</div>
+                                <div field="name" width="120" headerAlign="center" align="center">列名
+                                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                                </div>
+                                <div field="header" width="120" headerAlign="center" align="center">标题
+                                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                                </div>
+                                <div field="editor" width="120" headerAlign="center" align="center">编辑器配置
+                                    <input property="editor" class="mini-buttonedit" style="width:100%;"/>
+                                </div>
+                                <div field="renderer" width="120" headerAlign="center" align="center">渲染事件
+                                    <input property="editor" class="mini-buttonedit" style="width:100%;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="basic-window" allowResize="true" style="width:80%;height:80%;" title="基础设置" showClose="true" class="mini-window">
+        模<span style="margin-left: 1em"></span>板ID:<input style="width: 70%" name="template-id" class="mini-textbox"/><br>
+        模板名称:<input style="width: 70%" name="template-name" class="mini-textbox"/><br>
+        说<span style="margin-left: 2em"></span>明:<input name="template-comment" style="width: 70%" class="mini-textbox"/>
+        <div class="mini-fit">
+            <pre id="main-script-editor"></pre>
+        </div>
+    </div>
+</div>
+</body>
+</html>

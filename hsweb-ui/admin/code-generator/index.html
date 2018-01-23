@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>代码生成器</title>
+    <script data-main="index.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        #script-editor {
+            margin: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+
+        .selected-template {
+
+        }
+
+        .var-table {
+            width: 90%;
+            margin: auto;
+        }
+
+        .title {
+            text-align: right;
+        }
+
+        .editor {
+            text-align: left;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="mini-fit">
+    <div id="main" class="mini-layout" style="width:100%;height:100%;">
+        <div title="模板列表" showProxyText="true" region="west" width="200" expanded="true" showSplitIcon="true">
+            <div class="template-container" style="text-align: center"></div>
+        </div>
+        <div title="生成结果" showProxyText="true" region="east" width="260px" showCloseButton="true" showSplitIcon="true">
+            <div class="mini-toolbar" style="padding: 0px">
+                <!--<a class="mini-button review" plain="true" iconCls="fa fa-eye">预览</a>-->
+                <a class="mini-button download-code" plain="true" iconCls="fa fa-cloud-download">下载</a>
+                <a class="mini-button" plain="true" iconCls="fa fa-laptop">写出</a>
+            </div>
+            <div class="mini-fit">
+                <ul id="result" class="mini-tree" style="width:100%;height:100%;"
+                    showTreeIcon="true" textField="file" parentField="parentId" resultAsTree="true"
+                    showArrow="true" allowDrag="true" allowDrop="true" allowLeafDropIn="true"
+                    expandOnLoad="true" expandOnDblClick="false" contextMenu="#treeMenu">
+                </ul>
+            </div>
+        </div>
+        <div title="center" region="center">
+            <div class="mini-toolbar">
+                <a class="mini-menubutton" plain="true" menu="#file-menu" iconCls="fa fa-file">模板</a>
+                <a class="mini-menubutton" plain="true" menu="#operation-menu" iconCls="fa fa-cogs">配置</a>
+                <a class="mini-menubutton" plain="true" menu="#add-field-menu" iconCls="fa fa-plus">添加字段</a>
+
+                <!--<a class="mini-button mini-button-primary select-from-database" iconCls="fa fa-database" plain="true">从数据库中选择</a>-->
+                <!--<a class="mini-button mini-button-primary select-from-generated" iconCls="fa fa-file-code-o" plain="true">从已生成的代码中选择</a>-->
+                <!--<a class="mini-button mini-button-primary add-column-button" iconCls="fa fa-plus" plain="true">添加字段</a>-->
+                <a class="mini-button mini-button-primary nex-step" iconCls="fa fa-table green" plain="true">开始生成</a>
+            </div>
+            <ul id="add-field-menu" class="mini-menu">
+                <li class="add-column-button" iconCls="fa fa-plus" plain="true">添加字段(insert)</li>
+                <li class="select-from-database" iconCls="fa fa-database" plain="true">从数据库中选择</li>
+                <li class="select-from-generated" iconCls="fa fa-file-code-o" plain="true">从已生成的代码中选择</li>
+            </ul>
+            <ul id="operation-menu" class="mini-menu">
+                <li class="save-setting" iconCls="fa fa-save" plain="true">保存变量配置</li>
+                <li class="save-all-setting" iconCls="fa fa-table" plain="true">保存全部配置</li>
+                <li class="save-new-setting" iconCls="fa fa-file-text-o" plain="true">另存为</li>
+                <li class="download-setting" iconCls="fa fa-cloud-download" plain="true">下载当前配置</li>
+            </ul>
+            <ul id="file-menu" class="mini-menu">
+                <li class="save-template" iconCls="fa fa-save" plain="true">保存模板</li>
+                <li class="edit-template" iconCls="fa fa-edit" plain="true">编辑模板</li>
+                <li class="add-template" iconCls="fa fa-plus" plain="true">添加模板</li>
+                <li class="copy-template" iconCls="fa fa-copy" plain="true">复制当前选中模板</li>
+                <li class="upload-template" iconCls="fa fa-cloud-upload" plain="true">上传模板</li>
+                <li class="download-template" iconCls="fa fa-cloud-download" plain="true">下载模板</li>
+                <li class="remove-template" iconCls="fa fa-remove red" plain="true">删除模板</li>
+            </ul>
+
+            <div class="mini-fit">
+                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;"
+                     plain="false"></div>
+            </div>
+        </div>
+    </div>
+
+    <ul id="treeMenu" class="mini-contextmenu " onbeforeopen="onBeforeOpen">
+        <li class="review-code" iconCls="fa fa-eye">预览(double click)</li>
+        <li class="rename-file" iconCls="fa fa-edit">重命名</li>
+        <li class="remove-file" iconCls="fa fa-remove">删除(delete)</li>
+    </ul>
+    <ul id="reviewTreeMenu" class="mini-contextmenu " onbeforeopen="onBeforeOpen">
+        <li class="remove-review-file" iconCls="fa fa-remove">删除(delete)</li>
+        <li class="rename-review-file" iconCls="fa fa-edit">重命名</li>
+    </ul>
+    <div title="变量" showFooter="true" allowResize="true" class="mini-window" id="var-window"
+         style="width: 800px;height: 600px">
+        <div property="footer" style="padding:5px;text-align: right">
+            <a class="mini-button do-generate" plain="true" iconCls="fa fa-check red">生成代码</a>
+        </div>
+        <div id="var-container"></div>
+    </div>
+
+    <div title="选择数据库表" showFooter="true" showToolBar="true" allowResize="true" class="mini-window" id="database-window"
+         style="width: 800px;height: 600px">
+        <div property="footer" style="padding:5px;text-align: right">
+            <a class="mini-button choose-database" plain="true" iconCls="fa fa-check">确定</a>
+        </div>
+        <div property="toolbar" style="padding: 5px">
+            数据源:<input class="mini-combobox" style="width: 400px" allowInput="true" name="datasource"/>
+        </div>
+        <div class="mini-fit">
+            <div id="database-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
+                 editNextOnEnterKey="true"showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
+                <div property="columns">
+                    <div name="name" field="name" width="120" headerAlign="center" align="left">名称
+                        <input id="nameFilter" emptyText="按名称搜索" property="filter" class="mini-textbox" style="width:100%;"
+                               onvaluechanged="onFilterChanged"
+                        />
+                    </div>
+                    <div name="dataType" field="dataType" width="120" headerAlign="center" align="center">类型
+                    </div>
+                    <div field="comment" width="120" headerAlign="center" align="center">备注
+                        <input id="commentFilter" emptyText="按备注搜索" property="filter" class="mini-textbox" style="width:100%;"
+                               onvaluechanged="onFilterChanged"/>
+                    </div>
+                    <div name="action" width="50" headerAlign="center" align="center">操作
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div title="代码预览" showFooter="true" showCloseButton="false" showModal="false" allowResize="true" class="mini-window"
+         id="review-window"
+         style="width: 80%;height: 80%">
+        <div class="mini-toolbar" style="text-align: right">
+            <a class="mini-button review-done" plain="true" iconCls="fa fa-check">完成</a>
+            <a class="mini-button review-cancel" plain="true" iconCls="fa fa-remove">取消</a>
+        </div>
+        <div class="mini-fit">
+            <div class="mini-splitter" style="width:100%;height:100%;">
+                <div size="360" showCollapseButton="true" style="padding:5px;">
+                    <div class="mini-fit">
+                        <ul id="review-tree" class="mini-tree" style="width:100%;height:100%;"
+                            showTreeIcon="true" textField="file" parentField="parentId" resultAsTree="true"
+                            showArrow="true" allowDrag="true" allowDrop="true" allowLeafDropIn="true"
+                            expandOnLoad="true"
+                            contextMenu="#reviewTreeMenu">
+                        </ul>
+                    </div>
+                </div>
+                <div showCollapseButton="true">
+                    <div class="mini-fit">
+                        <pre class="script-editor" id="script-editor"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

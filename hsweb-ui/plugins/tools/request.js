@@ -1,14 +1,15 @@
 define(["jquery"], function ($) {
     //fix #113 ie8不能使用patch方法的bug
-    if ( window.ActiveXObject ) {
-        $.ajaxPrefilter(function( options ) {
-            if ( /^patch$/i.test( options.type ) ) {
-                options.xhr = function() {
+    if (window.ActiveXObject) {
+        $.ajaxPrefilter(function (options) {
+            if (/^patch$/i.test(options.type)) {
+                options.xhr = function () {
                     return new window.ActiveXObject("Microsoft.XMLHTTP");
                 };
             }
         });
     }
+
     function doAjax(url, data, method, callback, syc, requestBody) {
         var data_tmp = data;
         if (requestBody == true) {
@@ -72,16 +73,24 @@ define(["jquery"], function ($) {
     return {
         basePath: window.API_BASE_PATH ? window.API_BASE_PATH : window.BASE_PATH,
         getParameter: function (name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
+            // 获取参数
+            var url = window.location.search;
+            // 正则筛选地址栏
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            // 匹配目标参数
+            var result = url.substr(1).match(reg);
+            //返回参数值
+            return result ? decodeURIComponent(result[2]) : null;
+            /* var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+             var r = window.location.search.substr(1).match(reg);
+             if (r != null) return unescape(r[2]);
+             return null;*/
         },
         encodeQueryParam: function (data) {
             var queryParam = {};
             var index = 0;
             for (var f in data) {
-                if (data[f] === "")continue;
+                if (data[f] === "") continue;
                 if (f.indexOf('$LIKE') != -1 && data[f].indexOf('%') == -1) data[f] = "%" + data[f] + "%";
                 if (f.indexOf('$START') != -1) data[f] = "%" + data[f];
                 if (f.indexOf('$END') != -1) data[f] = data[f] + "%";
@@ -95,7 +104,10 @@ define(["jquery"], function ($) {
             var query = {};
             query.param = {};
             query.terms = [];
+            query.sorts = [];
+
             query.nowType = "and";
+
             function bindOperate(operate) {
                 function accept(k, t, v) {
                     operate.terms.push({column: k, type: operate.nowType, termType: t, value: v});
@@ -113,7 +125,7 @@ define(["jquery"], function ($) {
                 });
                 var mapping2 = [
                     "isnull", "notnull", "empty", "nempty"
-                ]
+                ];
                 $(mapping2).each(function () {
                     var type = this + "";
                     operate[type] = function (k) {
@@ -123,7 +135,7 @@ define(["jquery"], function ($) {
 
                 operate.btw = operate.between = function (column, between, and) {
                     return accept(column, "btw", between + "," + and);
-                }
+                };
 
                 operate.nbtw = operate.notBetween = function (column, between, and) {
                     return accept(column, "nbtw", between + "," + and);
@@ -198,16 +210,16 @@ define(["jquery"], function ($) {
                     query.terms.push({column: k, termType: t ? "eq" : t, value: v, type: query.nowType});
                 return query;
             };
+            query.orderByDesc = function (f) {
+                query.sorts.push({"name": f, "order": "desc"});
+                return query;
+            };
             query.orderBy = function (f) {
-                query.param.sortField = f;
+                query.sorts.push({"name": f, "order": "asc"});
                 return query;
             };
-            query.desc = function () {
-                query.param.sortOrder = 'desc';
-                return query;
-            };
-            query.asc = function () {
-                query.param.sortOrder = 'asc';
+            query.orderByAsc = function (f) {
+                query.sorts.push({"name": f, "order": "asc"});
                 return query;
             };
             query.noPaging = function () {
@@ -215,20 +227,23 @@ define(["jquery"], function ($) {
                 return query;
             };
             query.limit = function (pageIndex, pageSize) {
-                query.param.pageIndex = start;
-                if (pageSize)
+                query.param.pageIndex = pageIndex;
+                if (pageSize){
                     query.param.pageSize = pageSize;
+                }
                 return query;
             };
-            function buildParam(terms) {
+
+            function buildSort(sorts) {
                 var tmp = {};
-                $(terms).each(function (i, e) {
+                $(sorts).each(function (i, e) {
                     for (var f in e) {
-                        if (f != 'terms')
-                            tmp["terms[" + i + "]." + f] = e[f]; else {
-                            var tmpTerms = buildParam(e[f]);
+                        if (f !== 'sorts')
+                            tmp["sorts[" + i + "]." + f] = e[f];
+                        else {
+                            var tmpTerms = buildSort(e[f]);
                             for (var f2 in tmpTerms) {
-                                tmp["terms[" + i + "]." + f2] = tmpTerms[f2];
+                                tmp["sorts[" + i + "]." + f2] = tmpTerms[f2];
                             }
                         }
                     }
@@ -236,10 +251,32 @@ define(["jquery"], function ($) {
                 return tmp
             }
 
+            function buildParam(terms) {
+                var tmp = {};
+                $(terms).each(function (i, e) {
+                    for (var f in e) {
+                        if (f !== 'terms')
+                            tmp["terms[" + i + "]." + f] = e[f]; else {
+                            var tmpTerms = buildParam(e[f]);
+                            for (var f2 in tmpTerms) {
+                                tmp["terms[" + i + "]." + f2] = tmpTerms[f2];
+                            }
+                        }
+                    }
+
+                });
+                return tmp
+            }
+
             query.exec = function (callback) {
                 var tmp = buildParam(query.terms);
+                var sorts = buildSort(query.sorts);
+
                 for (var f in tmp) {
                     query.param[f] = tmp[f];
+                }
+                for (var f in sorts) {
+                    query.param[f] = sorts[f];
                 }
                 return doAjax(getRequestUrl(api), query.param, "GET", callback, typeof(callback) != 'undefined', false);
             };

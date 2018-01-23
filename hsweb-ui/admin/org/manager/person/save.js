@@ -166,6 +166,10 @@ importMiniui(function () {
             var data = form.getData();
             data.sex = $('[name="sex"]:checked ').val();
             data.positionIds = [];
+            // fix #132
+            if(data.personUser&&data.personUser.password=='$default'){
+                delete data.personUser.password;
+            }
             $(mini.get("position-grid").getData()).each(function () {
                 data.positionIds.push(this.positionId);
             });

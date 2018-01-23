@@ -35,7 +35,7 @@ require(["authorize"], function (authorize) {
                                 message.showTips("保存成功");
                                 grid.reload();
                             } else {
-                                tools.showTips("保存失败:" + response.message);
+                                message.showTips("保存失败:" + response.message);
                             }
                         });
                     });

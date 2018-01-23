@@ -6,6 +6,7 @@ define(function () {
                 cls: 'mini-mask-loading',
                 html: message
             });
+
             function hide() {
                 mini.unmask(document.body);
             }
@@ -15,7 +16,7 @@ define(function () {
                 hide: hide
             };
         },
-        alert:function (msg) {
+        alert: function (msg) {
             mini.alert(msg);
         },
         showTips: function (msg, state, timeout) {
@@ -27,14 +28,14 @@ define(function () {
                 timeout: timeout || 3000
             });
         },
-        prompt:function (msg,title,call,isMulti) {
+        prompt: function (msg, title, call, isMulti) {
             mini.prompt(title, msg,
                 function (action, value) {
                     if (action == "ok") {
-                        call(value);
+                        return call(value);
                     }
                 },
-                isMulti===true
+                isMulti === true
             );
         },
         confirm: function (message, onOk, onCancel) {

@@ -77,6 +77,7 @@ function importResource(path, callback) {
 
 function initRequireJs() {
     require.config({
+        waitSeconds: 0,
         map: {
             '*': {
                 'css': '/plugins/require-css/0.1.10/css.js',
@@ -94,6 +95,7 @@ function initRequireJs() {
             "miniui-tools": ["/plugins/miniui/tools"],
             "message": ["/plugins/miniui/message"],
             "ace": ["/plugins/script-editor/ace"],
+            "art-template": ["/plugins/template/art-template"],
             "script-editor": ["/plugins/script-editor/script-editor"],
             "plugin": ["/plugins"]
         }

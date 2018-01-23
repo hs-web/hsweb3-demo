@@ -34,6 +34,11 @@ importMiniui(function () {
                 grid.reload();
             });
         });
+        $(".designer-button").on("click",function () {
+            tools.openWindow("admin/form/designer/designer.html", "表单设计器", "80%", "80%", function () {
+              //  grid.reload();
+            });
+        })
     });
 
 })
