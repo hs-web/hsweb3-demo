@@ -1,5 +1,5 @@
 define(["jquery"], function ($) {
-
+    var widgetIdIsElName = false;
     //默认的控件属性
     var defaultProperties = {
         text: [
@@ -16,11 +16,11 @@ define(["jquery"], function ($) {
             {id: "class", value: "mini-datepicker"}
         ], number: [
             {id: "class", value: "mini-spinner"}
-        ],"upload-file":[
+        ], "upload-file": [
             {
-                id:"class",value:"upload-file"
-            },{
-                id:"type",value:"file"
+                id: "class", value: "upload-file"
+            }, {
+                id: "type", value: "file"
             }
         ]
     };
@@ -66,6 +66,9 @@ define(["jquery"], function ($) {
             }
             $html.attr(this.id, this.value);
         });
+        if (widgetIdIsElName) {
+            $html.attr("name", id);
+        }
     }
 
     function parse(htmlText, config) {
@@ -84,7 +87,7 @@ define(["jquery"], function ($) {
             parser(el, confObj.properties, id, js);
         }
         var tmp = $("<div></div>")
-            .css("display","none")
+            .css("display", "none")
             .append(html);
         if (js.length)
             tmp.append($("<script type='text/javascript'>").html(js.join("\n")));
@@ -96,8 +99,8 @@ define(["jquery"], function ($) {
         //     $this.replaceWith(span).append("<br>");
         // });
 
-         html = tmp.html();
-         tmp.remove();
+        html = tmp.html();
+        tmp.remove();
         return html;
     }
 

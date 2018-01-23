@@ -32,6 +32,11 @@ var widgets = [
                 "id": "widget-type",  //配置id
                 "text": "控件类型",
                 "value": "文本标签"     //配置值
+            },
+            {
+                "id": "text",  //配置id
+                "text": "标签内容",
+                "value": "新建标签"     //配置值
             }
         ]
     },
