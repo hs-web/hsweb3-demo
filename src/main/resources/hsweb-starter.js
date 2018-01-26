@@ -27,7 +27,7 @@ var menus = [
     {
         "u_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "name": "系统设置",
-        "parent_id": null,
+        "parent_id": "",
         "permission_id": "",
         "path": "sOrB",
         "sort_index": 1,
