@@ -22,3 +22,16 @@ read:
         username : sa
         password :
         type: com.alibaba.druid.pool.DruidDataSource
+
+swagger:
+  title: hsweb 3.0 api
+  description: hsweb 企业后台管理基础框架
+  version: 3.0
+  license: Apache License, Version 2.0
+  licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfServiceUrl: http://www.hsweb.me/
+  contact:
+    name: zhouhao
+    url: https://github.com/zhou-hao
+    email: i@hsweb.me
+  base-package: org.hswebframework.web

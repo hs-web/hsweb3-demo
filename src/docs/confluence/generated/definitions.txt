@@ -1,0 +1,1880 @@
+
+h2. Definitions {anchor:definitions}
+
+h3. AccessTokenModel {anchor:accesstokenmodel}
+
+||Name||Schema||
+|*access_token*\\ \\ _optional_||string|
+|*expires_in*\\ \\ _optional_||integer (int32)|
+|*refresh_token*\\ \\ _optional_||string|
+|*scope*\\ \\ _optional_||string|
+|*token_type*\\ \\ _optional_||string|
+
+
+h3. ActionEntity {anchor:actionentity}
+
+||Name||Schema||
+|*action*\\ \\ _optional_||string|
+|*defaultCheck*\\ \\ _optional_||boolean|
+|*describe*\\ \\ _optional_||string|
+
+
+h3. ApplicationContext {anchor:applicationcontext}
+
+||Name||Schema||
+|*applicationName*\\ \\ _optional_||string|
+|*autowireCapableBeanFactory*\\ \\ _optional_||[AutowireCapableBeanFactory|#autowirecapablebeanfactory]|
+|*beanDefinitionCount*\\ \\ _optional_||integer (int32)|
+|*beanDefinitionNames*\\ \\ _optional_||< string > array|
+|*classLoader*\\ \\ _optional_||[ClassLoader|#classloader]|
+|*displayName*\\ \\ _optional_||string|
+|*environment*\\ \\ _optional_||[Environment|#environment]|
+|*id*\\ \\ _optional_||string|
+|*parent*\\ \\ _optional_||[ApplicationContext|#applicationcontext]|
+|*parentBeanFactory*\\ \\ _optional_||[BeanFactory|#beanfactory]|
+|*startupDate*\\ \\ _optional_||integer (int64)|
+
+
+h3. Authentication {anchor:authentication}
+
+||Name||Schema||
+|*attributes*\\ \\ _optional_||< string, [Serializable|#serializable] > map|
+|*permissions*\\ \\ _optional_||< [Permission|#permission] > array|
+|*roles*\\ \\ _optional_||< [Role|#role] > array|
+|*user*\\ \\ _optional_||[User|#user]|
+
+
+h3. AuthorizationCodeModel {anchor:authorizationcodemodel}
+
+||Name||Schema||
+|*code*\\ \\ _optional_||string|
+|*redirectUri*\\ \\ _optional_||string|
+|*state*\\ \\ _optional_||string|
+
+
+h3. AuthorizationSettingDetailEntity {anchor:authorizationsettingdetailentity}
+
+||Name||Description||Schema||
+|*actions*\\ \\ _optional_|| ||< string > array|
+|*dataAccesses*\\ \\ _optional_|| ||< [DataAccessEntity|#dataaccessentity] > array|
+|*id*\\ \\ _optional_|| ||string|
+|*merge*\\ \\ _optional_|| ||boolean|
+|*permissionId*\\ \\ _required_|| ||string|
+|*priority*\\ \\ _optional_|| ||integer (int64)|
+|*properties*\\ \\ _optional_|| ||object|
+|*settingId*\\ \\ _required_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. AuthorizationSettingEntity {anchor:authorizationsettingentity}
+
+||Name||Description||Schema||
+|*describe*\\ \\ _optional_|| ||string|
+|*details*\\ \\ _optional_|| ||< [AuthorizationSettingDetailEntity|#authorizationsettingdetailentity] > array|
+|*id*\\ \\ _optional_|| ||string|
+|*menus*\\ \\ _optional_|| ||< [AuthorizationSettingMenuEntity|#authorizationsettingmenuentity] > array|
+|*properties*\\ \\ _optional_|| ||object|
+|*settingFor*\\ \\ _required_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*type*\\ \\ _required_|| ||string|
+
+
+h3. AuthorizationSettingMenuEntity {anchor:authorizationsettingmenuentity}
+
+||Name||Description||Schema||
+|*children*\\ \\ _optional_|| ||< [AuthorizationSettingMenuEntity|#authorizationsettingmenuentity] > array|
+|*config*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*level*\\ \\ _optional_|| ||integer (int32)|
+|*menuId*\\ \\ _optional_|| ||string|
+|*parentId*\\ \\ _optional_|| ||string|
+|*path*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*settingId*\\ \\ _optional_|| ||string|
+|*sortIndex*\\ \\ _optional_|| ||integer (int64)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. AutowireCapableBeanFactory {anchor:autowirecapablebeanfactory}
+_Type_ : object
+
+
+h3. BeanFactory {anchor:beanfactory}
+_Type_ : object
+
+
+h3. BindRoleUserEntity {anchor:bindroleuserentity}
+
+||Name||Description||Schema||
+|*createTime*\\ \\ _optional_|| ||integer (int64)|
+|*creatorId*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*password*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*roles*\\ \\ _optional_|| ||< string > array|
+|*salt*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*username*\\ \\ _optional_|| ||string|
+
+
+h3. ClassLoader {anchor:classloader}
+
+||Name||Schema||
+|*parent*\\ \\ _optional_||[ClassLoader|#classloader]|
+
+
+h3. DataAccessConfig {anchor:dataaccessconfig}
+
+||Name||Schema||
+|*action*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||string|
+
+
+h3. DataAccessEntity {anchor:dataaccessentity}
+
+||Name||Schema||
+|*action*\\ \\ _optional_||string|
+|*config*\\ \\ _optional_||string|
+|*describe*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||string|
+
+
+h3. Department {anchor:department}
+
+||Name||Schema||
+|*code*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+|*org*\\ \\ _optional_||[Organization|#organization]|
+
+
+h3. DepartmentEntity {anchor:departmententity}
+
+||Name||Description||Schema||
+|*children*\\ \\ _optional_|| ||< [DepartmentEntity|#departmententity] > array|
+|*code*\\ \\ _optional_|| ||string|
+|*departmentId*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*level*\\ \\ _optional_|| ||integer (int32)|
+|*name*\\ \\ _optional_|| ||string|
+|*orgId*\\ \\ _optional_|| ||string|
+|*parentId*\\ \\ _optional_|| ||string|
+|*path*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*sortIndex*\\ \\ _optional_|| ||integer (int64)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. District {anchor:district}
+
+||Name||Schema||
+|*code*\\ \\ _optional_||string|
+|*fullName*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+
+
+h3. DistrictEntity {anchor:districtentity}
+
+||Name||Description||Schema||
+|*children*\\ \\ _optional_|| ||< [DistrictEntity|#districtentity] > array|
+|*code*\\ \\ _optional_|| ||string|
+|*describe*\\ \\ _optional_|| ||string|
+|*fullName*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*level*\\ \\ _optional_|| ||integer (int32)|
+|*levelCode*\\ \\ _optional_|| ||string|
+|*levelName*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*parentId*\\ \\ _optional_|| ||string|
+|*path*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*sortIndex*\\ \\ _optional_|| ||integer (int64)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. DynamicDataSourceConfig {anchor:dynamicdatasourceconfig}
+
+||Name||Schema||
+|*describe*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+
+
+h3. DynamicFormColumnBindEntity {anchor:dynamicformcolumnbindentity}
+
+||Name||Schema||
+|*columns*\\ \\ _optional_||< [DynamicFormColumnEntity|#dynamicformcolumnentity] > array|
+|*form*\\ \\ _optional_||[DynamicFormEntity|#dynamicformentity]|
+
+
+h3. DynamicFormColumnEntity {anchor:dynamicformcolumnentity}
+
+||Name||Schema||
+|*alias*\\ \\ _optional_||string|
+|*columnName*\\ \\ _required_||string|
+|*dataType*\\ \\ _optional_||string|
+|*describe*\\ \\ _optional_||string|
+|*dictConfig*\\ \\ _optional_||string|
+|*dictId*\\ \\ _optional_||string|
+|*dictParserId*\\ \\ _optional_||string|
+|*formId*\\ \\ _required_||string|
+|*id*\\ \\ _optional_||string|
+|*javaType*\\ \\ _required_||string|
+|*jdbcType*\\ \\ _required_||string|
+|*length*\\ \\ _optional_||integer (int32)|
+|*name*\\ \\ _required_||string|
+|*precision*\\ \\ _optional_||integer (int32)|
+|*properties*\\ \\ _optional_||object|
+|*scale*\\ \\ _optional_||integer (int32)|
+|*sortIndex*\\ \\ _optional_||integer (int64)|
+
+
+h3. DynamicFormDeployLogEntity {anchor:dynamicformdeploylogentity}
+
+||Name||Description||Schema||
+|*deployTime*\\ \\ _optional_|| ||integer (int64)|
+|*formId*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*metaData*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*version*\\ \\ _optional_|| ||integer (int64)|
+
+
+h3. DynamicFormEntity {anchor:dynamicformentity}
+
+||Name||Description||Schema||
+|*alias*\\ \\ _optional_||表别名.\\ \\ *Example* : {noformat}"testForm"{noformat}||string|
+|*correlations*\\ \\ _optional_|| ||string|
+|*createTime*\\ \\ _optional_||创建时间,新增时自动设置.||integer (int64)|
+|*creatorId*\\ \\ _optional_||创建人,根据当前用户自动获取.\\ \\ *Example* : {noformat}"1"{noformat}||string|
+|*dataSourceId*\\ \\ _optional_|| ||string|
+|*databaseTableName*\\ \\ _required_||数据库表名\\ \\ *Example* : {noformat}"f_test_form"{noformat}||string|
+|*deployed*\\ \\ _optional_||是否已发布,发布时自动设置.\\ \\ *Example* : {noformat}false{noformat}||boolean|
+|*describe*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _required_||表单名称\\ \\ *Example* : {noformat}"测试表单"{noformat}||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*triggers*\\ \\ _optional_||触发器.\\ \\ *Example* : {noformat}"[{\"language\":\"groovy\",\"script\":\" return true;\"}]"{noformat}||string|
+|*type*\\ \\ _optional_|| ||string|
+|*updateTime*\\ \\ _optional_||创建时间,修改时自动设置.||integer (int64)|
+|*version*\\ \\ _optional_||版本号,无需设置,每次保存自动自增.\\ \\ *Example* : {noformat}1{noformat}||integer (int64)|
+
+
+h3. Environment {anchor:environment}
+
+||Name||Schema||
+|*activeProfiles*\\ \\ _optional_||< string > array|
+|*defaultProfiles*\\ \\ _optional_||< string > array|
+
+
+h3. FileInfoEntity {anchor:fileinfoentity}
+
+||Name||Description||Schema||
+|*classified*\\ \\ _optional_|| ||string|
+|*createTime*\\ \\ _optional_|| ||integer (int64)|
+|*creatorId*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*location*\\ \\ _optional_|| ||string|
+|*md5*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*size*\\ \\ _optional_|| ||integer (int64)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*type*\\ \\ _optional_|| ||string|
+
+
+h3. ImplicitAccessTokenModel {anchor:implicitaccesstokenmodel}
+
+||Name||Schema||
+|*access_token*\\ \\ _optional_||string|
+|*expires_in*\\ \\ _optional_||integer (int32)|
+|*redirect_uri*\\ \\ _optional_||string|
+|*state*\\ \\ _optional_||string|
+|*token_type*\\ \\ _optional_||string|
+
+
+h3. Map«string,List«ObjectMetadata»» {anchor:319663d63a5163426e0a9ccab8e91f77}
+_Type_ : < string, [List|#list] > map
+
+
+h3. MenuEntity {anchor:menuentity}
+
+||Name||Description||Schema||
+|*children*\\ \\ _optional_|| ||< [MenuEntity|#menuentity] > array|
+|*describe*\\ \\ _optional_|| ||string|
+|*icon*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*level*\\ \\ _optional_|| ||integer (int32)|
+|*name*\\ \\ _optional_|| ||string|
+|*parentId*\\ \\ _optional_|| ||string|
+|*path*\\ \\ _optional_|| ||string|
+|*permissionId*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*sortIndex*\\ \\ _optional_|| ||integer (int64)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*url*\\ \\ _optional_|| ||string|
+
+
+h3. OAuth2Client {anchor:oauth2client}
+
+||Name||Description||Schema||
+|*createTime*\\ \\ _optional_|| ||integer (int64)|
+|*defaultGrantScope*\\ \\ _optional_|| ||< string > array|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*ownerId*\\ \\ _optional_|| ||string|
+|*redirectUri*\\ \\ _optional_|| ||string|
+|*secret*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*supportGrantTypes*\\ \\ _optional_|| ||< string > array|
+
+
+h3. OAuth2ClientEntity {anchor:oauth2cliententity}
+
+||Name||Description||Schema||
+|*createTime*\\ \\ _optional_|| ||integer (int64)|
+|*creatorId*\\ \\ _optional_|| ||string|
+|*defaultGrantScope*\\ \\ _optional_|| ||< string > array|
+|*describe*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*ownerId*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*redirectUri*\\ \\ _optional_|| ||string|
+|*secret*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*supportGrantTypes*\\ \\ _optional_|| ||< string > array|
+|*type*\\ \\ _optional_|| ||string|
+
+
+h3. OAuth2ServerConfigEntity {anchor:oauth2serverconfigentity}
+
+||Name||Description||Schema||
+|*accessTokenUrl*\\ \\ _optional_|| ||string|
+|*apiBaseUrl*\\ \\ _optional_|| ||string|
+|*authUrl*\\ \\ _optional_|| ||string|
+|*clientId*\\ \\ _optional_|| ||string|
+|*clientSecret*\\ \\ _optional_|| ||string|
+|*describe*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*provider*\\ \\ _optional_|| ||string|
+|*redirectUri*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. OAuth2UserTokenEntity {anchor:oauth2usertokenentity}
+
+||Name||Schema||
+|*accessToken*\\ \\ _optional_||string|
+|*clientId*\\ \\ _optional_||string|
+|*clientUserId*\\ \\ _optional_||string|
+|*createTime*\\ \\ _optional_||integer (int64)|
+|*expiresIn*\\ \\ _optional_||integer (int32)|
+|*grantType*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*properties*\\ \\ _optional_||object|
+|*refreshToken*\\ \\ _optional_||string|
+|*scope*\\ \\ _optional_||string|
+|*serverId*\\ \\ _optional_||string|
+|*serverUserId*\\ \\ _optional_||string|
+|*updateTime*\\ \\ _optional_||integer (int64)|
+
+
+h3. ObjectMetadata {anchor:objectmetadata}
+
+||Name||Schema||
+|*name*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||enum (TABLE, VIEW, SEQUENCES)|
+
+
+h3. OptionalField {anchor:optionalfield}
+
+||Name||Schema||
+|*describe*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+
+
+h3. Organization {anchor:organization}
+
+||Name||Schema||
+|*code*\\ \\ _optional_||string|
+|*district*\\ \\ _optional_||[District|#district]|
+|*fullName*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+
+
+h3. OrganizationalEntity {anchor:organizationalentity}
+
+||Name||Description||Schema||
+|*children*\\ \\ _optional_|| ||< [OrganizationalEntity|#organizationalentity] > array|
+|*code*\\ \\ _optional_|| ||string|
+|*districtId*\\ \\ _optional_|| ||string|
+|*fullName*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*level*\\ \\ _optional_|| ||integer (int32)|
+|*name*\\ \\ _optional_|| ||string|
+|*optionalRoles*\\ \\ _optional_|| ||< string > array|
+|*orgId*\\ \\ _optional_|| ||string|
+|*parentId*\\ \\ _optional_|| ||string|
+|*path*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*sortIndex*\\ \\ _optional_|| ||integer (int64)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. PagerResult«AuthorizationSettingEntity» {anchor:f8441b82a42771685acc229c7164da92}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [AuthorizationSettingEntity|#authorizationsettingentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«DepartmentEntity» {anchor:0167b0879b1a2fbf522f91fb37d3f628}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [DepartmentEntity|#departmententity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«DistrictEntity» {anchor:7ae352fc158747f08dd5eb90855a89f8}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [DistrictEntity|#districtentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«DynamicFormDeployLogEntity» {anchor:27fe728492934f59e88d33a2b3766933}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [DynamicFormDeployLogEntity|#dynamicformdeploylogentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«DynamicFormEntity» {anchor:e4260528def855a58a0656f691a7915f}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [DynamicFormEntity|#dynamicformentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«FileInfoEntity» {anchor:9d35a78643baac21c0fe6f107f9d2240}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [FileInfoEntity|#fileinfoentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«MenuEntity» {anchor:7e2ce4331019959450104bfb2dffd23f}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [MenuEntity|#menuentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«OAuth2ServerConfigEntity» {anchor:ebda22c7bc1513232ab81083e253e208}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [OAuth2ServerConfigEntity|#oauth2serverconfigentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«OAuth2UserTokenEntity» {anchor:a6a076d035327679df47051bad4a58ab}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [OAuth2UserTokenEntity|#oauth2usertokenentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«OrganizationalEntity» {anchor:ca90e82f68dd6bae04544c264662a182}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [OrganizationalEntity|#organizationalentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«PermissionEntity» {anchor:8630f4cda224d8ff5faf619fac8c9875}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [PermissionEntity|#permissionentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«PersonEntity» {anchor:8c2ab88d5455871f901a74e62b505b47}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [PersonEntity|#personentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«PositionEntity» {anchor:6e02dbdccfce51084450a2d632d0fe45}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [PositionEntity|#positionentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«RelationDefineEntity» {anchor:bd1d9065a052eddc01b75243abd873cd}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [RelationDefineEntity|#relationdefineentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«RelationInfoEntity» {anchor:720330473169ba94d7e5e1840dac11db}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [RelationInfoEntity|#relationinfoentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«RoleEntity» {anchor:6e67c47f04808732b2f0546672e9f4ca}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [RoleEntity|#roleentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«ScheduleJobEntity» {anchor:3c5582dff446edfec2b56a38e400f979}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [ScheduleJobEntity|#schedulejobentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«ScriptEntity» {anchor:8600a8255df0072a9ebdcef867f5c524}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [ScriptEntity|#scriptentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«UserEntity» {anchor:8c19b416cd9de9ffbed9082acff5fc80}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< [UserEntity|#userentity] > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. PagerResult«object» {anchor:87daa132c4ff15bc24c3702dd105f6c8}
+分页结果
+
+
+||Name||Description||Schema||
+|*data*\\ \\ _optional_||查询结果||< object > array|
+|*total*\\ \\ _optional_||数据总数量||integer (int32)|
+
+
+h3. ParentPermission {anchor:parentpermission}
+
+||Name||Schema||
+|*actions*\\ \\ _optional_||< string > array|
+|*permission*\\ \\ _optional_||string|
+
+
+h3. Permission {anchor:permission}
+
+||Name||Schema||
+|*actions*\\ \\ _optional_||< string > array|
+|*dataAccesses*\\ \\ _optional_||< [DataAccessConfig|#dataaccessconfig] > array|
+|*id*\\ \\ _optional_||string|
+
+
+h3. PermissionEntity {anchor:permissionentity}
+
+||Name||Description||Schema||
+|*actions*\\ \\ _optional_|| ||< [ActionEntity|#actionentity] > array|
+|*describe*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_||*Pattern* : {noformat}"[a-zA-Z0-9_\\-]+"{noformat}||string|
+|*name*\\ \\ _optional_|| ||string|
+|*optionalFields*\\ \\ _optional_|| ||< [OptionalField|#optionalfield] > array|
+|*parents*\\ \\ _optional_|| ||< [ParentPermission|#parentpermission] > array|
+|*properties*\\ \\ _optional_|| ||object|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*supportDataAccessTypes*\\ \\ _optional_|| ||< string > array|
+|*type*\\ \\ _optional_|| ||string|
+
+
+h3. PersonAuthBindEntity {anchor:personauthbindentity}
+
+||Name||Description||Schema||
+|*email*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*personUser*\\ \\ _optional_|| ||[PersonUserEntity|#personuserentity]|
+|*phone*\\ \\ _optional_|| ||string|
+|*photo*\\ \\ _optional_|| ||string|
+|*positionIds*\\ \\ _optional_|| ||< string > array|
+|*properties*\\ \\ _optional_|| ||object|
+|*remark*\\ \\ _optional_|| ||string|
+|*sex*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*userId*\\ \\ _optional_|| ||string|
+
+
+h3. PersonEntity {anchor:personentity}
+
+||Name||Description||Schema||
+|*email*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*phone*\\ \\ _optional_|| ||string|
+|*photo*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*remark*\\ \\ _optional_|| ||string|
+|*sex*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*userId*\\ \\ _optional_|| ||string|
+
+
+h3. PersonUserEntity {anchor:personuserentity}
+
+||Name||Schema||
+|*password*\\ \\ _optional_||string|
+|*username*\\ \\ _optional_||string|
+
+
+h3. Personnel {anchor:personnel}
+
+||Name||Schema||
+|*email*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+|*phone*\\ \\ _optional_||string|
+|*photo*\\ \\ _optional_||string|
+
+
+h3. PersonnelAuthorization {anchor:personnelauthorization}
+
+||Name||Schema||
+|*allDepartmentId*\\ \\ _optional_||< string > array|
+|*allDistrictId*\\ \\ _optional_||< string > array|
+|*allOrgId*\\ \\ _optional_||< string > array|
+|*allPositionId*\\ \\ _optional_||< string > array|
+|*departmentIds*\\ \\ _optional_||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*districtIds*\\ \\ _optional_||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*orgIds*\\ \\ _optional_||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*personnel*\\ \\ _optional_||[Personnel|#personnel]|
+|*positionIds*\\ \\ _optional_||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*positions*\\ \\ _optional_||< [Position|#position] > array|
+|*relations*\\ \\ _optional_||[Relations|#relations]|
+|*rootDepartmentId*\\ \\ _optional_||< string > array|
+|*rootDistrictId*\\ \\ _optional_||< string > array|
+|*rootOrgId*\\ \\ _optional_||< string > array|
+|*rootPositionId*\\ \\ _optional_||< string > array|
+
+
+h3. Position {anchor:position}
+
+||Name||Schema||
+|*code*\\ \\ _optional_||string|
+|*department*\\ \\ _optional_||[Department|#department]|
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+
+
+h3. PositionEntity {anchor:positionentity}
+
+||Name||Schema||
+|*children*\\ \\ _optional_||< [PositionEntity|#positionentity] > array|
+|*departmentId*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*level*\\ \\ _optional_||integer (int32)|
+|*name*\\ \\ _optional_||string|
+|*parentId*\\ \\ _optional_||string|
+|*path*\\ \\ _optional_||string|
+|*positionId*\\ \\ _optional_||string|
+|*properties*\\ \\ _optional_||object|
+|*remark*\\ \\ _optional_||string|
+|*roles*\\ \\ _optional_||< string > array|
+|*sortIndex*\\ \\ _optional_||integer (int64)|
+
+
+h3. RedirectView {anchor:redirectview}
+
+||Name||Schema||
+|*applicationContext*\\ \\ _optional_||[ApplicationContext|#applicationcontext]|
+|*attributesMap*\\ \\ _optional_||object|
+|*beanName*\\ \\ _optional_||string|
+|*contentType*\\ \\ _optional_||string|
+|*exposePathVariables*\\ \\ _optional_||boolean|
+|*hosts*\\ \\ _optional_||< string > array|
+|*propagateQueryProperties*\\ \\ _optional_||boolean|
+|*redirectView*\\ \\ _optional_||boolean|
+|*requestContextAttribute*\\ \\ _optional_||string|
+|*staticAttributes*\\ \\ _optional_||object|
+|*url*\\ \\ _optional_||string|
+
+
+h3. Relation {anchor:relation}
+
+||Name||Schema||
+|*direction*\\ \\ _optional_||enum (POSITIVE, REVERSE, ALL)|
+|*name*\\ \\ _optional_||string|
+|*relation*\\ \\ _optional_||string|
+|*target*\\ \\ _optional_||string|
+|*targetObject*\\ \\ _optional_||object|
+|*type*\\ \\ _optional_||string|
+
+
+h3. RelationDefineEntity {anchor:relationdefineentity}
+
+||Name||Description||Schema||
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*typeId*\\ \\ _optional_|| ||string|
+
+
+h3. RelationInfoEntity {anchor:relationinfoentity}
+
+||Name||Description||Schema||
+|*id*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*relationFrom*\\ \\ _optional_|| ||string|
+|*relationId*\\ \\ _optional_|| ||string|
+|*relationTo*\\ \\ _optional_|| ||string|
+|*relationTypeFrom*\\ \\ _optional_|| ||string|
+|*relationTypeTo*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. Relations {anchor:relations}
+
+||Name||Schema||
+|*all*\\ \\ _optional_||< [Relation|#relation] > array|
+
+
+h3. ResponseMessage {anchor:responsemessage}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||object|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«Authentication» {anchor:91e04724f2ad858185d5fc280d46daa4}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[Authentication|#authentication]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«AuthorizationSettingEntity» {anchor:c2f4413fddae73a407b1566ae2880d25}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[AuthorizationSettingEntity|#authorizationsettingentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«DepartmentEntity» {anchor:494d2e8ada457977fe25c668a34a06f7}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[DepartmentEntity|#departmententity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«DistrictEntity» {anchor:e9e4c971e48ff61d32412141df044f36}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[DistrictEntity|#districtentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«DynamicFormColumnBindEntity» {anchor:e7f4b98f55b7cb1bb5814471463d959a}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[DynamicFormColumnBindEntity|#dynamicformcolumnbindentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«DynamicFormDeployLogEntity» {anchor:a2d83137608215d878bebe740d227f8d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[DynamicFormDeployLogEntity|#dynamicformdeploylogentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«DynamicFormEntity» {anchor:3f6a79e1f3372ef93cbb9d8864461030}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[DynamicFormEntity|#dynamicformentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«FileInfoEntity» {anchor:dccd344201bca930cbb01c5576401ddd}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[FileInfoEntity|#fileinfoentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«AuthorizationSettingEntity»» {anchor:212938092e05225001462abfc2af0b7f}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [AuthorizationSettingEntity|#authorizationsettingentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«DepartmentEntity»» {anchor:27bd3061635415c4ea0c73c653f47acf}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [DepartmentEntity|#departmententity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«DistrictEntity»» {anchor:020e52a447243dd2c4d0bef080da4b24}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [DistrictEntity|#districtentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicDataSourceConfig»» {anchor:b5a7cbe033a2131fc198f225ddd71b9d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [DynamicDataSourceConfig|#dynamicdatasourceconfig] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicFormColumnEntity»» {anchor:7db23ee003946511961f3a7df29c6d8d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [DynamicFormColumnEntity|#dynamicformcolumnentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicFormDeployLogEntity»» {anchor:19f5d621630c200f26659affa8d245be}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [DynamicFormDeployLogEntity|#dynamicformdeploylogentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicFormEntity»» {anchor:26fa949c2addeecdfcd02861128889bd}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [DynamicFormEntity|#dynamicformentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«FileInfoEntity»» {anchor:ec6dc31ad20662480c1d124b03ac7a8d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [FileInfoEntity|#fileinfoentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«MenuEntity»» {anchor:ebcb301625271fb0be42fdd8ac1f9cd7}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [MenuEntity|#menuentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«OAuth2Client»» {anchor:04bd1f7c2172df55357d15dd7a4b020d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [OAuth2Client|#oauth2client] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«OAuth2ServerConfigEntity»» {anchor:7c0de841c030a56e36a3592bab2f4b70}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [OAuth2ServerConfigEntity|#oauth2serverconfigentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«OAuth2UserTokenEntity»» {anchor:19dfe8ccdff0ac64ffddf20e38f600c3}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [OAuth2UserTokenEntity|#oauth2usertokenentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«OrganizationalEntity»» {anchor:3dd66bd50330e0634288732801c6eae6}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [OrganizationalEntity|#organizationalentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«PermissionEntity»» {anchor:f416115c1aec36913d87bd83aa6b2323}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [PermissionEntity|#permissionentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«PersonEntity»» {anchor:7d0d15c646ed164f964fb8d2f6b3000a}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [PersonEntity|#personentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«PositionEntity»» {anchor:4a3d2505235b212b6d947baba2efb5e6}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [PositionEntity|#positionentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«RelationDefineEntity»» {anchor:ee6962a89a88ef309187bb871e9cdfd1}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [RelationDefineEntity|#relationdefineentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«RelationInfoEntity»» {anchor:dbc09948d0a6db8c21cecb87af87fa6f}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [RelationInfoEntity|#relationinfoentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«RoleEntity»» {anchor:6470682b8c8826c2502a362cccfb40a3}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [RoleEntity|#roleentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«ScheduleJobEntity»» {anchor:f93b73ff5f600449b044cf276a20c95d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [ScheduleJobEntity|#schedulejobentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«ScriptEntity»» {anchor:d6f39903f6ccd973fe4476e4bdd6b638}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [ScriptEntity|#scriptentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«SqlExecuteResult»» {anchor:ccb3581f1a83df607e130bbc2cc8649a}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [SqlExecuteResult|#sqlexecuteresult] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«TransactionInfo»» {anchor:9e1189b7efd061306fec6127a959452d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [TransactionInfo|#transactioninfo] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«UserEntity»» {anchor:7009b808a7062b09cd5057c748edf5ce}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [UserEntity|#userentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«UserMenuEntity»» {anchor:1eddb0f64b7f488855f93d644b623abe}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [UserMenuEntity|#usermenuentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«UserSettingEntity»» {anchor:8e2573283f33b25a5c607100d6cc3f8a}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [UserSettingEntity|#usersettingentity] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«UserToken»» {anchor:3a9a2f2c4c0680c5729862f4845492b2}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< [UserToken|#usertoken] > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«List«string»» {anchor:fc10708f9a97feca7dc9e38bed038c18}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< string > array|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«Map«string,List«ObjectMetadata»»» {anchor:b457b349a06a33514d97f779d275a74f}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||< string, < [ObjectMetadata|#objectmetadata] > array > map|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«Map«string,object»» {anchor:06af4f2009dab634c08e24b8b0f26c2c}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||object|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«MenuEntity» {anchor:70aebc08733114eb863389fdebbff05d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[MenuEntity|#menuentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«OAuth2Client» {anchor:ebb1050c759c13591fdd208d058d0332}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[OAuth2Client|#oauth2client]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«OAuth2ServerConfigEntity» {anchor:f49c55e99fe094081dd3c91f972f307a}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[OAuth2ServerConfigEntity|#oauth2serverconfigentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«OAuth2UserTokenEntity» {anchor:9ce3adcac2f6b56f6a853c19d034f501}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[OAuth2UserTokenEntity|#oauth2usertokenentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«OrganizationalEntity» {anchor:05d6cc19f6ee049e0ac5098efd85ec2d}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[OrganizationalEntity|#organizationalentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«AuthorizationSettingEntity»» {anchor:ab7d3745d6ceba77fc00d0bdf50dbd14}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«AuthorizationSettingEntity»|#f8441b82a42771685acc229c7164da92]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DepartmentEntity»» {anchor:2d642eb6e8bf8069ea7d8748f89a1953}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«DepartmentEntity»|#0167b0879b1a2fbf522f91fb37d3f628]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DistrictEntity»» {anchor:abaea98c9cec2051a3588b919068948f}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«DistrictEntity»|#7ae352fc158747f08dd5eb90855a89f8]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DynamicFormDeployLogEntity»» {anchor:af1a0c73ed9afec5c76ebf1dce361e01}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«DynamicFormDeployLogEntity»|#27fe728492934f59e88d33a2b3766933]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DynamicFormEntity»» {anchor:79912e82f1deb6279e26d7fd6a3b5046}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«DynamicFormEntity»|#e4260528def855a58a0656f691a7915f]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«FileInfoEntity»» {anchor:514595c8dda5f56bb0f5c31d0b5c3214}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«FileInfoEntity»|#9d35a78643baac21c0fe6f107f9d2240]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«MenuEntity»» {anchor:988c76f931d9e2f2511502e7d7e19ce1}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«MenuEntity»|#7e2ce4331019959450104bfb2dffd23f]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«OAuth2ServerConfigEntity»» {anchor:9418f129377a4c78a87d34891784b4ad}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«OAuth2ServerConfigEntity»|#ebda22c7bc1513232ab81083e253e208]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«OAuth2UserTokenEntity»» {anchor:652849cecf290786c83f3915b818f8c1}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«OAuth2UserTokenEntity»|#a6a076d035327679df47051bad4a58ab]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«OrganizationalEntity»» {anchor:1e34e66cd932a6e9a2a19ae61f935332}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«OrganizationalEntity»|#ca90e82f68dd6bae04544c264662a182]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«PermissionEntity»» {anchor:f0740da5a603024d54cffe67ebcfe2f3}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«PermissionEntity»|#8630f4cda224d8ff5faf619fac8c9875]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«PersonEntity»» {anchor:35dd428b2aeda09b4672b75af069d2c1}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«PersonEntity»|#8c2ab88d5455871f901a74e62b505b47]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«PositionEntity»» {anchor:0b9846aedba34500c09ff8c883f89c41}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«PositionEntity»|#6e02dbdccfce51084450a2d632d0fe45]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«RelationDefineEntity»» {anchor:858faa3bec7747a89f047157de5fa7b5}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«RelationDefineEntity»|#bd1d9065a052eddc01b75243abd873cd]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«RelationInfoEntity»» {anchor:662abf311f6756ce1515cfc1f3d6497b}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«RelationInfoEntity»|#720330473169ba94d7e5e1840dac11db]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«RoleEntity»» {anchor:04b8a0105cc98da475754a7a0d118cac}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«RoleEntity»|#6e67c47f04808732b2f0546672e9f4ca]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«ScheduleJobEntity»» {anchor:42906958f8fba064d74cc15b287b285b}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«ScheduleJobEntity»|#3c5582dff446edfec2b56a38e400f979]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«ScriptEntity»» {anchor:b526184b0542731e9ce046cd15c7430f}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«ScriptEntity»|#8600a8255df0072a9ebdcef867f5c524]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«UserEntity»» {anchor:022104f1b83fb14da490f0bad176c23f}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«UserEntity»|#8c19b416cd9de9ffbed9082acff5fc80]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«object»» {anchor:b067bd9552e787aea006c9b1cd6fcd02}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PagerResult«object»|#87daa132c4ff15bc24c3702dd105f6c8]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PermissionEntity» {anchor:50819844bfd86a245c543cc0190b4828}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PermissionEntity|#permissionentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PersonAuthBindEntity» {anchor:10249428a4d55b979ef50cf7ac890aeb}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PersonAuthBindEntity|#personauthbindentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PersonEntity» {anchor:c794f72feaad58a88d3da0cc427d1d9c}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PersonEntity|#personentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PersonnelAuthorization» {anchor:4c898cb865a7ac8d70a5f816c252d944}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PersonnelAuthorization|#personnelauthorization]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«PositionEntity» {anchor:81d3f00a16ad771d3c6fbdd99e002afb}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[PositionEntity|#positionentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«RelationDefineEntity» {anchor:07e4edac137972c7b8c957a922b992ee}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[RelationDefineEntity|#relationdefineentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«RelationInfoEntity» {anchor:a8d04810db9cc799f48ca42652e0514e}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[RelationInfoEntity|#relationinfoentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«RoleEntity» {anchor:9de855e0a731771e1c13e47e25e30380}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[RoleEntity|#roleentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«ScheduleJobEntity» {anchor:d803770b9be33fab88c050cc650ebacd}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[ScheduleJobEntity|#schedulejobentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«ScriptEntity» {anchor:75b3a1a20f80841af6d3065f6ad3b2f7}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[ScriptEntity|#scriptentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«UserEntity» {anchor:26c05b8f050f76cd6252ff48bb3d92d3}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[UserEntity|#userentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«UserSettingEntity» {anchor:bb605f14ea851832f5ce7d794caaceca}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||[UserSettingEntity|#usersettingentity]|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«Void» {anchor:6c061a07afa1c9738e33d1b5ec1728a9}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«boolean» {anchor:bbdc11e8c14b5b13fda321a82dc3a3ac}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据\\ \\ *Example* : {noformat}false{noformat}||boolean|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«int» {anchor:d53a2c1e07a660f2c3f1b54e6a7c98bb}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||integer (int32)|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«long» {anchor:f505e3d79e9444eeb3266210d702f335}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||integer (int64)|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«object» {anchor:4e3465260d0b339c0ae101c8a6821732}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||object|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. ResponseMessage«string» {anchor:7706c642a9473cc1b49b8f456cc26073}
+响应结果
+
+
+||Name||Description||Schema||
+|*message*\\ \\ _optional_||调用结果消息||string|
+|*result*\\ \\ _optional_||成功时响应数据||string|
+|*status*\\ \\ _required_||状态码||integer (int32)|
+|*timestamp*\\ \\ _required_||时间戳||integer (int64)|
+
+
+h3. Role {anchor:role}
+
+||Name||Schema||
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+
+
+h3. RoleEntity {anchor:roleentity}
+
+||Name||Description||Schema||
+|*describe*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+
+
+h3. ScheduleJobEntity {anchor:schedulejobentity}
+
+||Name||Description||Schema||
+|*id*\\ \\ _optional_|| ||string|
+|*language*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*parameters*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*quartzConfig*\\ \\ _optional_|| ||string|
+|*remark*\\ \\ _optional_|| ||string|
+|*script*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*tags*\\ \\ _optional_|| ||string|
+|*type*\\ \\ _optional_|| ||string|
+
+
+h3. ScriptEntity {anchor:scriptentity}
+
+||Name||Schema||
+|*id*\\ \\ _optional_||string|
+|*language*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+|*properties*\\ \\ _optional_||object|
+|*remark*\\ \\ _optional_||string|
+|*script*\\ \\ _optional_||string|
+|*status*\\ \\ _optional_||integer (int64)|
+|*tag*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||string|
+
+
+h3. Serializable {anchor:serializable}
+_Type_ : object
+
+
+h3. SqlExecuteResult {anchor:sqlexecuteresult}
+
+||Name||Schema||
+|*result*\\ \\ _optional_||object|
+|*sqlInfo*\\ \\ _optional_||[SqlInfo|#sqlinfo]|
+
+
+h3. SqlInfo {anchor:sqlinfo}
+
+||Name||Schema||
+|*datasourceId*\\ \\ _optional_||string|
+|*sql*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||string|
+
+
+h3. Term {anchor:term}
+
+||Name||Schema||
+|*column*\\ \\ _optional_||string|
+|*termType*\\ \\ _optional_||string|
+|*terms*\\ \\ _optional_||< [Term|#term] > array|
+|*type*\\ \\ _optional_||enum (or, and)|
+|*value*\\ \\ _optional_||object|
+
+
+h3. TransactionInfo {anchor:transactioninfo}
+
+||Name||Schema||
+|*createTime*\\ \\ _optional_||string (date-time)|
+|*id*\\ \\ _optional_||string|
+|*lastExecuteTime*\\ \\ _optional_||string (date-time)|
+|*sqlHistory*\\ \\ _optional_||< [SqlInfo|#sqlinfo] > array|
+
+
+h3. TreeNode«string» {anchor:6cb863976d93d76997d3a0a3d6c32f27}
+
+||Name||Schema||
+|*allValue*\\ \\ _optional_||< string > array|
+|*children*\\ \\ _optional_||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*level*\\ \\ _optional_||integer (int32)|
+|*parent*\\ \\ _optional_||[TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27]|
+|*value*\\ \\ _optional_||string|
+
+
+h3. TreeSupportEntity«string» {anchor:852541f5d496d0afc6b3900a123fca7e}
+
+||Name||Schema||
+|*children*\\ \\ _optional_||< [TreeSupportEntity«string»|#852541f5d496d0afc6b3900a123fca7e] > array|
+|*id*\\ \\ _optional_||string|
+|*level*\\ \\ _optional_||integer (int32)|
+|*parentId*\\ \\ _optional_||string|
+|*path*\\ \\ _optional_||string|
+|*properties*\\ \\ _optional_||object|
+
+
+h3. UpdateParamEntity«Map«string,object»» {anchor:eba3e5ef973206080b3fe0cfe29971bc}
+
+||Name||Schema||
+|*data*\\ \\ _optional_||object|
+|*excludes*\\ \\ _optional_||< string > array|
+|*includes*\\ \\ _optional_||< string > array|
+|*terms*\\ \\ _optional_||< [Term|#term] > array|
+
+
+h3. User {anchor:user}
+
+||Name||Schema||
+|*id*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||string|
+|*username*\\ \\ _optional_||string|
+
+
+h3. UserEntity {anchor:userentity}
+
+||Name||Description||Schema||
+|*createTime*\\ \\ _optional_|| ||integer (int64)|
+|*creatorId*\\ \\ _optional_|| ||string|
+|*id*\\ \\ _optional_|| ||string|
+|*name*\\ \\ _optional_|| ||string|
+|*password*\\ \\ _optional_|| ||string|
+|*properties*\\ \\ _optional_|| ||object|
+|*salt*\\ \\ _optional_|| ||string|
+|*status*\\ \\ _optional_||*Pattern* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}||string (byte)|
+|*username*\\ \\ _optional_|| ||string|
+
+
+h3. UserMenuEntity {anchor:usermenuentity}
+
+||Name||Schema||
+|*children*\\ \\ _optional_||< [UserMenuEntity|#usermenuentity] > array|
+|*describe*\\ \\ _optional_||string|
+|*icon*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*level*\\ \\ _optional_||integer (int32)|
+|*menuId*\\ \\ _optional_||string|
+|*name*\\ \\ _optional_||string|
+|*parentId*\\ \\ _optional_||string|
+|*path*\\ \\ _optional_||string|
+|*permissionId*\\ \\ _optional_||string|
+|*properties*\\ \\ _optional_||object|
+|*sortIndex*\\ \\ _optional_||integer (int64)|
+|*url*\\ \\ _optional_||string|
+
+
+h3. UserSettingEntity {anchor:usersettingentity}
+
+||Name||Schema||
+|*createTime*\\ \\ _optional_||string (date-time)|
+|*describe*\\ \\ _optional_||string|
+|*id*\\ \\ _optional_||string|
+|*key*\\ \\ _required_||string|
+|*name*\\ \\ _optional_||string|
+|*properties*\\ \\ _optional_||object|
+|*setting*\\ \\ _required_||string|
+|*settingId*\\ \\ _required_||string|
+|*updateTime*\\ \\ _optional_||string (date-time)|
+|*userId*\\ \\ _required_||string|
+
+
+h3. UserToken {anchor:usertoken}
+
+||Name||Schema||
+|*effective*\\ \\ _optional_||boolean|
+|*expired*\\ \\ _optional_||boolean|
+|*lastRequestTime*\\ \\ _optional_||integer (int64)|
+|*maxInactiveInterval*\\ \\ _optional_||integer (int64)|
+|*offline*\\ \\ _optional_||boolean|
+|*requestTimes*\\ \\ _optional_||integer (int64)|
+|*signInTime*\\ \\ _optional_||integer (int64)|
+|*state*\\ \\ _optional_||enum (effective, deny, expired, offline)|
+|*token*\\ \\ _optional_||string|
+|*type*\\ \\ _optional_||string|
+|*userId*\\ \\ _optional_||string|
+
+
+
