@@ -1,5 +1,6 @@
 package org.hswebframework.web.demo;
 
+import io.github.swagger2markup.GroupBy;
 import io.github.swagger2markup.Swagger2MarkupConfig;
 import io.github.swagger2markup.Swagger2MarkupConverter;
 import io.github.swagger2markup.builder.Swagger2MarkupConfigBuilder;
@@ -21,6 +22,7 @@ public class DemoApplicationTests {
 		//	输出Ascii格式
 		Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
 				.withMarkupLanguage(MarkupLanguage.ASCIIDOC)
+				.withPathsGroupedBy(GroupBy.TAGS)
 				.build();
 
 		Swagger2MarkupConverter.from(new URL("http://localhost:8080/v2/api-docs"))
@@ -34,6 +36,7 @@ public class DemoApplicationTests {
 		//	输出Markdown格式
 		Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
 				.withMarkupLanguage(MarkupLanguage.MARKDOWN)
+				.withPathsGroupedBy(GroupBy.TAGS)
 				.build();
 
 		Swagger2MarkupConverter.from(new URL("http://localhost:8080/v2/api-docs"))
@@ -47,6 +50,8 @@ public class DemoApplicationTests {
 		//	输出Confluence使用的格式
 		Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
 				.withMarkupLanguage(MarkupLanguage.CONFLUENCE_MARKUP)
+				.withPathsGroupedBy(GroupBy.TAGS)
+
 				.build();
 
 		Swagger2MarkupConverter.from(new URL("http://localhost:8080/v2/api-docs"))
@@ -60,6 +65,7 @@ public class DemoApplicationTests {
 		//	输出Ascii到单文件
 		Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
 				.withMarkupLanguage(MarkupLanguage.ASCIIDOC)
+				.withPathsGroupedBy(GroupBy.TAGS)
 				.build();
 
 		Swagger2MarkupConverter.from(new URL("http://localhost:8080/v2/api-docs"))
@@ -73,6 +79,8 @@ public class DemoApplicationTests {
 		//	输出Markdown到单文件
 		Swagger2MarkupConfig config = new Swagger2MarkupConfigBuilder()
 				.withMarkupLanguage(MarkupLanguage.MARKDOWN)
+				.withPathsGroupedBy(GroupBy.TAGS)
+
 				.build();
 
 		Swagger2MarkupConverter.from(new URL("http://localhost:8080/v2/api-docs"))

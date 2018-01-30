@@ -70,6 +70,8 @@
                     <outputDir>src/docs/asciidoc/generated</outputDir>
                     <config>
                         <swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+                        <swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
+
                     </config>
                 </configuration>
             </plugin>
@@ -101,7 +103,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!--权限管理-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
