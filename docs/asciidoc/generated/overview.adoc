@@ -1,32 +1,36 @@
-# hsweb 3.0 api
+= hsweb 3.0 api
 
 
-<a name="overview"></a>
-## Overview
+[[_overview]]
+== 概览
 hsweb 企业后台管理基础框架
 
 
-### Version information
-*Version* : 3.0
+=== 版本信息
+[%hardbreaks]
+__版本__ : 3.0
 
 
-### Contact information
-*Contact* : zhouhao  
-*Contact Email* : i@hsweb.me
+=== 联系方式
+[%hardbreaks]
+__名字__ : zhouhao
+__邮箱__ : i@hsweb.me
 
 
-### License information
-*License* : Apache License, Version 2.0  
-*License URL* : https://www.apache.org/licenses/LICENSE-2.0.html  
-*Terms of service* : http://www.hsweb.me/
+=== 许可信息
+[%hardbreaks]
+__许可证__ : Apache License, Version 2.0
+__许可网址__ : https://www.apache.org/licenses/LICENSE-2.0.html
+__服务条款__ : http://www.hsweb.me/
 
 
-### URI scheme
-*Host* : localhost:8080  
-*BasePath* : /
+=== URI scheme
+[%hardbreaks]
+__域名__ : localhost:8080
+__基础路径__ : /
 
 
-### Tags
+=== 标签
 
 * OAuth2.0-客户端-token : O Auth 2 User Token Controller
 * OAuth2.0-客户端-服务配置 : O Auth 2 Server Config Controller

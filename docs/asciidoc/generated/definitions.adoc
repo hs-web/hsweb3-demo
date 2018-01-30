@@ -1,0 +1,3755 @@
+
+[[_definitions]]
+== 定义
+
+[[_accesstokenmodel]]
+=== AccessTokenModel
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**access_token** +
+__可选__|**样例** : `"string"`|string
+|**expires_in** +
+__可选__|**样例** : `0`|integer (int32)
+|**refresh_token** +
+__可选__|**样例** : `"string"`|string
+|**scope** +
+__可选__|**样例** : `"string"`|string
+|**token_type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_actionentity]]
+=== ActionEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**action** +
+__可选__|**样例** : `"string"`|string
+|**defaultCheck** +
+__可选__|**样例** : `true`|boolean
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_applicationcontext]]
+=== ApplicationContext
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**applicationName** +
+__可选__|**样例** : `"string"`|string
+|**autowireCapableBeanFactory** +
+__可选__|**样例** : `"<<_autowirecapablebeanfactory>>"`|<<_autowirecapablebeanfactory,AutowireCapableBeanFactory>>
+|**beanDefinitionCount** +
+__可选__|**样例** : `0`|integer (int32)
+|**beanDefinitionNames** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**classLoader** +
+__可选__|**样例** : `"<<_classloader>>"`|<<_classloader,ClassLoader>>
+|**displayName** +
+__可选__|**样例** : `"string"`|string
+|**environment** +
+__可选__|**样例** : `"<<_environment>>"`|<<_environment,Environment>>
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**parent** +
+__可选__|**样例** : `"<<_applicationcontext>>"`|<<_applicationcontext,ApplicationContext>>
+|**parentBeanFactory** +
+__可选__|**样例** : `"<<_beanfactory>>"`|<<_beanfactory,BeanFactory>>
+|**startupDate** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_authentication]]
+=== Authentication
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**attributes** +
+__可选__|**样例** : `{
+  "string" : "<<_serializable>>"
+}`|< string, <<_serializable,Serializable>> > map
+|**permissions** +
+__可选__|**样例** : `[ "<<_permission>>" ]`|< <<_permission,Permission>> > array
+|**roles** +
+__可选__|**样例** : `[ "<<_role>>" ]`|< <<_role,Role>> > array
+|**user** +
+__可选__|**样例** : `"<<_user>>"`|<<_user,User>>
+|===
+
+
+[[_authorizationcodemodel]]
+=== AuthorizationCodeModel
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**redirectUri** +
+__可选__|**样例** : `"string"`|string
+|**state** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_authorizationsettingdetailentity]]
+=== AuthorizationSettingDetailEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**actions** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**dataAccesses** +
+__可选__|**样例** : `[ "<<_dataaccessentity>>" ]`|< <<_dataaccessentity,DataAccessEntity>> > array
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**merge** +
+__可选__|**样例** : `true`|boolean
+|**permissionId** +
+__必填__|**样例** : `"string"`|string
+|**priority** +
+__可选__|**样例** : `0`|integer (int64)
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**settingId** +
+__必填__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_authorizationsettingentity]]
+=== AuthorizationSettingEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**details** +
+__可选__|**样例** : `[ "<<_authorizationsettingdetailentity>>" ]`|< <<_authorizationsettingdetailentity,AuthorizationSettingDetailEntity>> > array
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**menus** +
+__可选__|**样例** : `[ "<<_authorizationsettingmenuentity>>" ]`|< <<_authorizationsettingmenuentity,AuthorizationSettingMenuEntity>> > array
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**settingFor** +
+__必填__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**type** +
+__必填__|**样例** : `"string"`|string
+|===
+
+
+[[_authorizationsettingmenuentity]]
+=== AuthorizationSettingMenuEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_authorizationsettingmenuentity>>" ]`|< <<_authorizationsettingmenuentity,AuthorizationSettingMenuEntity>> > array
+|**config** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**menuId** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**settingId** +
+__可选__|**样例** : `"string"`|string
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_autowirecapablebeanfactory]]
+=== AutowireCapableBeanFactory
+__类型__ : object
+
+
+[[_beanfactory]]
+=== BeanFactory
+__类型__ : object
+
+
+[[_bindroleuserentity]]
+=== BindRoleUserEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**createTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**creatorId** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**password** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**roles** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**salt** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**username** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_classloader]]
+=== ClassLoader
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**parent** +
+__可选__|**样例** : `"<<_classloader>>"`|<<_classloader,ClassLoader>>
+|===
+
+
+[[_dataaccessconfig]]
+=== DataAccessConfig
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**action** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_dataaccessentity]]
+=== DataAccessEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**action** +
+__可选__|**样例** : `"string"`|string
+|**config** +
+__可选__|**样例** : `"string"`|string
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_department]]
+=== Department
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**org** +
+__可选__|**样例** : `"<<_organization>>"`|<<_organization,Organization>>
+|===
+
+
+[[_departmententity]]
+=== DepartmentEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_departmententity>>" ]`|< <<_departmententity,DepartmentEntity>> > array
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**departmentId** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**orgId** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_district]]
+=== District
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**fullName** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_districtentity]]
+=== DistrictEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_districtentity>>" ]`|< <<_districtentity,DistrictEntity>> > array
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**fullName** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**levelCode** +
+__可选__|**样例** : `"string"`|string
+|**levelName** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_dynamicdatasourceconfig]]
+=== DynamicDataSourceConfig
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_dynamicformcolumnbindentity]]
+=== DynamicFormColumnBindEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**columns** +
+__可选__|**样例** : `[ "<<_dynamicformcolumnentity>>" ]`|< <<_dynamicformcolumnentity,DynamicFormColumnEntity>> > array
+|**form** +
+__可选__|**样例** : `"<<_dynamicformentity>>"`|<<_dynamicformentity,DynamicFormEntity>>
+|===
+
+
+[[_dynamicformcolumnentity]]
+=== DynamicFormColumnEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**alias** +
+__可选__|**样例** : `"string"`|string
+|**columnName** +
+__必填__|**样例** : `"string"`|string
+|**dataType** +
+__可选__|**样例** : `"string"`|string
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**dictConfig** +
+__可选__|**样例** : `"string"`|string
+|**dictId** +
+__可选__|**样例** : `"string"`|string
+|**dictParserId** +
+__可选__|**样例** : `"string"`|string
+|**formId** +
+__必填__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**javaType** +
+__必填__|**样例** : `"string"`|string
+|**jdbcType** +
+__必填__|**样例** : `"string"`|string
+|**length** +
+__可选__|**样例** : `0`|integer (int32)
+|**name** +
+__必填__|**样例** : `"string"`|string
+|**precision** +
+__可选__|**样例** : `0`|integer (int32)
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**scale** +
+__可选__|**样例** : `0`|integer (int32)
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_dynamicformdeploylogentity]]
+=== DynamicFormDeployLogEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**deployTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**formId** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**metaData** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**version** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_dynamicformentity]]
+=== DynamicFormEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**alias** +
+__可选__|表别名. +
+**样例** : `"testForm"`|string
+|**correlations** +
+__可选__|**样例** : `"string"`|string
+|**createTime** +
+__可选__|创建时间,新增时自动设置. +
+**样例** : `0`|integer (int64)
+|**creatorId** +
+__可选__|创建人,根据当前用户自动获取. +
+**样例** : `"1"`|string
+|**dataSourceId** +
+__可选__|**样例** : `"string"`|string
+|**databaseTableName** +
+__必填__|数据库表名 +
+**样例** : `"f_test_form"`|string
+|**deployed** +
+__可选__|是否已发布,发布时自动设置. +
+**样例** : `false`|boolean
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__必填__|表单名称 +
+**样例** : `"测试表单"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**triggers** +
+__可选__|触发器. +
+**样例** : `"[{\"language\":\"groovy\",\"script\":\" return true;\"}]"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|**updateTime** +
+__可选__|创建时间,修改时自动设置. +
+**样例** : `0`|integer (int64)
+|**version** +
+__可选__|版本号,无需设置,每次保存自动自增. +
+**样例** : `1`|integer (int64)
+|===
+
+
+[[_environment]]
+=== Environment
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**activeProfiles** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**defaultProfiles** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|===
+
+
+[[_fileinfoentity]]
+=== FileInfoEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**classified** +
+__可选__|**样例** : `"string"`|string
+|**createTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**creatorId** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**location** +
+__可选__|**样例** : `"string"`|string
+|**md5** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**size** +
+__可选__|**样例** : `0`|integer (int64)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_implicitaccesstokenmodel]]
+=== ImplicitAccessTokenModel
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**access_token** +
+__可选__|**样例** : `"string"`|string
+|**expires_in** +
+__可选__|**样例** : `0`|integer (int32)
+|**redirect_uri** +
+__可选__|**样例** : `"string"`|string
+|**state** +
+__可选__|**样例** : `"string"`|string
+|**token_type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_319663d63a5163426e0a9ccab8e91f77]]
+=== Map«string,List«ObjectMetadata»»
+__类型__ : < string, <<_list,List>> > map
+
+
+[[_menuentity]]
+=== MenuEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_menuentity>>" ]`|< <<_menuentity,MenuEntity>> > array
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**icon** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**permissionId** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**url** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_oauth2client]]
+=== OAuth2Client
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**createTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**defaultGrantScope** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**ownerId** +
+__可选__|**样例** : `"string"`|string
+|**redirectUri** +
+__可选__|**样例** : `"string"`|string
+|**secret** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**supportGrantTypes** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|===
+
+
+[[_oauth2cliententity]]
+=== OAuth2ClientEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**createTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**creatorId** +
+__可选__|**样例** : `"string"`|string
+|**defaultGrantScope** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**ownerId** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**redirectUri** +
+__可选__|**样例** : `"string"`|string
+|**secret** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**supportGrantTypes** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_oauth2serverconfigentity]]
+=== OAuth2ServerConfigEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**accessTokenUrl** +
+__可选__|**样例** : `"string"`|string
+|**apiBaseUrl** +
+__可选__|**样例** : `"string"`|string
+|**authUrl** +
+__可选__|**样例** : `"string"`|string
+|**clientId** +
+__可选__|**样例** : `"string"`|string
+|**clientSecret** +
+__可选__|**样例** : `"string"`|string
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**provider** +
+__可选__|**样例** : `"string"`|string
+|**redirectUri** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_oauth2usertokenentity]]
+=== OAuth2UserTokenEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**accessToken** +
+__可选__|**样例** : `"string"`|string
+|**clientId** +
+__可选__|**样例** : `"string"`|string
+|**clientUserId** +
+__可选__|**样例** : `"string"`|string
+|**createTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**expiresIn** +
+__可选__|**样例** : `0`|integer (int32)
+|**grantType** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**refreshToken** +
+__可选__|**样例** : `"string"`|string
+|**scope** +
+__可选__|**样例** : `"string"`|string
+|**serverId** +
+__可选__|**样例** : `"string"`|string
+|**serverUserId** +
+__可选__|**样例** : `"string"`|string
+|**updateTime** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_objectmetadata]]
+=== ObjectMetadata
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|enum (TABLE, VIEW, SEQUENCES)
+|===
+
+
+[[_optionalfield]]
+=== OptionalField
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_organization]]
+=== Organization
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**district** +
+__可选__|**样例** : `"<<_district>>"`|<<_district,District>>
+|**fullName** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_organizationalentity]]
+=== OrganizationalEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_organizationalentity>>" ]`|< <<_organizationalentity,OrganizationalEntity>> > array
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**districtId** +
+__可选__|**样例** : `"string"`|string
+|**fullName** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**optionalRoles** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**orgId** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_f8441b82a42771685acc229c7164da92]]
+=== PagerResult«AuthorizationSettingEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_authorizationsettingentity>>" ]`|< <<_authorizationsettingentity,AuthorizationSettingEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_0167b0879b1a2fbf522f91fb37d3f628]]
+=== PagerResult«DepartmentEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_departmententity>>" ]`|< <<_departmententity,DepartmentEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_7ae352fc158747f08dd5eb90855a89f8]]
+=== PagerResult«DistrictEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_districtentity>>" ]`|< <<_districtentity,DistrictEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_27fe728492934f59e88d33a2b3766933]]
+=== PagerResult«DynamicFormDeployLogEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_dynamicformdeploylogentity>>" ]`|< <<_dynamicformdeploylogentity,DynamicFormDeployLogEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_e4260528def855a58a0656f691a7915f]]
+=== PagerResult«DynamicFormEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_dynamicformentity>>" ]`|< <<_dynamicformentity,DynamicFormEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_9d35a78643baac21c0fe6f107f9d2240]]
+=== PagerResult«FileInfoEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_fileinfoentity>>" ]`|< <<_fileinfoentity,FileInfoEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_7e2ce4331019959450104bfb2dffd23f]]
+=== PagerResult«MenuEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_menuentity>>" ]`|< <<_menuentity,MenuEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_ebda22c7bc1513232ab81083e253e208]]
+=== PagerResult«OAuth2ServerConfigEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_oauth2serverconfigentity>>" ]`|< <<_oauth2serverconfigentity,OAuth2ServerConfigEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_a6a076d035327679df47051bad4a58ab]]
+=== PagerResult«OAuth2UserTokenEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_oauth2usertokenentity>>" ]`|< <<_oauth2usertokenentity,OAuth2UserTokenEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_ca90e82f68dd6bae04544c264662a182]]
+=== PagerResult«OrganizationalEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_organizationalentity>>" ]`|< <<_organizationalentity,OrganizationalEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_8630f4cda224d8ff5faf619fac8c9875]]
+=== PagerResult«PermissionEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_permissionentity>>" ]`|< <<_permissionentity,PermissionEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_8c2ab88d5455871f901a74e62b505b47]]
+=== PagerResult«PersonEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_personentity>>" ]`|< <<_personentity,PersonEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_6e02dbdccfce51084450a2d632d0fe45]]
+=== PagerResult«PositionEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_positionentity>>" ]`|< <<_positionentity,PositionEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_bd1d9065a052eddc01b75243abd873cd]]
+=== PagerResult«RelationDefineEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_relationdefineentity>>" ]`|< <<_relationdefineentity,RelationDefineEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_720330473169ba94d7e5e1840dac11db]]
+=== PagerResult«RelationInfoEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_relationinfoentity>>" ]`|< <<_relationinfoentity,RelationInfoEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_6e67c47f04808732b2f0546672e9f4ca]]
+=== PagerResult«RoleEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_roleentity>>" ]`|< <<_roleentity,RoleEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_3c5582dff446edfec2b56a38e400f979]]
+=== PagerResult«ScheduleJobEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_schedulejobentity>>" ]`|< <<_schedulejobentity,ScheduleJobEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_8600a8255df0072a9ebdcef867f5c524]]
+=== PagerResult«ScriptEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_scriptentity>>" ]`|< <<_scriptentity,ScriptEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_8c19b416cd9de9ffbed9082acff5fc80]]
+=== PagerResult«UserEntity»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "<<_userentity>>" ]`|< <<_userentity,UserEntity>> > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_87daa132c4ff15bc24c3702dd105f6c8]]
+=== PagerResult«object»
+分页结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|查询结果 +
+**样例** : `[ "object" ]`|< object > array
+|**total** +
+__可选__|数据总数量 +
+**样例** : `0`|integer (int32)
+|===
+
+
+[[_parentpermission]]
+=== ParentPermission
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**actions** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**permission** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_permission]]
+=== Permission
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**actions** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**dataAccesses** +
+__可选__|**样例** : `[ "<<_dataaccessconfig>>" ]`|< <<_dataaccessconfig,DataAccessConfig>> > array
+|**id** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_permissionentity]]
+=== PermissionEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**actions** +
+__可选__|**样例** : `[ "<<_actionentity>>" ]`|< <<_actionentity,ActionEntity>> > array
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**模式** : `"[a-zA-Z0-9_\\-]+"`**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**optionalFields** +
+__可选__|**样例** : `[ "<<_optionalfield>>" ]`|< <<_optionalfield,OptionalField>> > array
+|**parents** +
+__可选__|**样例** : `[ "<<_parentpermission>>" ]`|< <<_parentpermission,ParentPermission>> > array
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**supportDataAccessTypes** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_personauthbindentity]]
+=== PersonAuthBindEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**email** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**personUser** +
+__可选__|**样例** : `"<<_personuserentity>>"`|<<_personuserentity,PersonUserEntity>>
+|**phone** +
+__可选__|**样例** : `"string"`|string
+|**photo** +
+__可选__|**样例** : `"string"`|string
+|**positionIds** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**remark** +
+__可选__|**样例** : `"string"`|string
+|**sex** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**userId** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_personentity]]
+=== PersonEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**email** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**phone** +
+__可选__|**样例** : `"string"`|string
+|**photo** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**remark** +
+__可选__|**样例** : `"string"`|string
+|**sex** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**userId** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_personuserentity]]
+=== PersonUserEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**password** +
+__可选__|**样例** : `"string"`|string
+|**username** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_personnel]]
+=== Personnel
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**email** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**phone** +
+__可选__|**样例** : `"string"`|string
+|**photo** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_personnelauthorization]]
+=== PersonnelAuthorization
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**allDepartmentId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**allDistrictId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**allOrgId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**allPositionId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**departmentIds** +
+__可选__|**样例** : `[ "<<_6cb863976d93d76997d3a0a3d6c32f27>>" ]`|< <<_6cb863976d93d76997d3a0a3d6c32f27,TreeNode«string»>> > array
+|**districtIds** +
+__可选__|**样例** : `[ "<<_6cb863976d93d76997d3a0a3d6c32f27>>" ]`|< <<_6cb863976d93d76997d3a0a3d6c32f27,TreeNode«string»>> > array
+|**orgIds** +
+__可选__|**样例** : `[ "<<_6cb863976d93d76997d3a0a3d6c32f27>>" ]`|< <<_6cb863976d93d76997d3a0a3d6c32f27,TreeNode«string»>> > array
+|**personnel** +
+__可选__|**样例** : `"<<_personnel>>"`|<<_personnel,Personnel>>
+|**positionIds** +
+__可选__|**样例** : `[ "<<_6cb863976d93d76997d3a0a3d6c32f27>>" ]`|< <<_6cb863976d93d76997d3a0a3d6c32f27,TreeNode«string»>> > array
+|**positions** +
+__可选__|**样例** : `[ "<<_position>>" ]`|< <<_position,Position>> > array
+|**relations** +
+__可选__|**样例** : `"<<_relations>>"`|<<_relations,Relations>>
+|**rootDepartmentId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**rootDistrictId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**rootOrgId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**rootPositionId** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|===
+
+
+[[_position]]
+=== Position
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `"string"`|string
+|**department** +
+__可选__|**样例** : `"<<_department>>"`|<<_department,Department>>
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_positionentity]]
+=== PositionEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_positionentity>>" ]`|< <<_positionentity,PositionEntity>> > array
+|**departmentId** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**positionId** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**remark** +
+__可选__|**样例** : `"string"`|string
+|**roles** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|===
+
+
+[[_redirectview]]
+=== RedirectView
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**applicationContext** +
+__可选__|**样例** : `"<<_applicationcontext>>"`|<<_applicationcontext,ApplicationContext>>
+|**attributesMap** +
+__可选__|**样例** : `"object"`|object
+|**beanName** +
+__可选__|**样例** : `"string"`|string
+|**contentType** +
+__可选__|**样例** : `"string"`|string
+|**exposePathVariables** +
+__可选__|**样例** : `true`|boolean
+|**hosts** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**propagateQueryProperties** +
+__可选__|**样例** : `true`|boolean
+|**redirectView** +
+__可选__|**样例** : `true`|boolean
+|**requestContextAttribute** +
+__可选__|**样例** : `"string"`|string
+|**staticAttributes** +
+__可选__|**样例** : `"object"`|object
+|**url** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_relation]]
+=== Relation
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**direction** +
+__可选__|**样例** : `"string"`|enum (POSITIVE, REVERSE, ALL)
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**relation** +
+__可选__|**样例** : `"string"`|string
+|**target** +
+__可选__|**样例** : `"string"`|string
+|**targetObject** +
+__可选__|**样例** : `"object"`|object
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_relationdefineentity]]
+=== RelationDefineEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**typeId** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_relationinfoentity]]
+=== RelationInfoEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**relationFrom** +
+__可选__|**样例** : `"string"`|string
+|**relationId** +
+__可选__|**样例** : `"string"`|string
+|**relationTo** +
+__可选__|**样例** : `"string"`|string
+|**relationTypeFrom** +
+__可选__|**样例** : `"string"`|string
+|**relationTypeTo** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_relations]]
+=== Relations
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**all** +
+__可选__|**样例** : `[ "<<_relation>>" ]`|< <<_relation,Relation>> > array
+|===
+
+
+[[_responsemessage]]
+=== ResponseMessage
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"object"`|object
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_91e04724f2ad858185d5fc280d46daa4]]
+=== ResponseMessage«Authentication»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_authentication>>"`|<<_authentication,Authentication>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_c2f4413fddae73a407b1566ae2880d25]]
+=== ResponseMessage«AuthorizationSettingEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_authorizationsettingentity>>"`|<<_authorizationsettingentity,AuthorizationSettingEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_494d2e8ada457977fe25c668a34a06f7]]
+=== ResponseMessage«DepartmentEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_departmententity>>"`|<<_departmententity,DepartmentEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_e9e4c971e48ff61d32412141df044f36]]
+=== ResponseMessage«DistrictEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_districtentity>>"`|<<_districtentity,DistrictEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_e7f4b98f55b7cb1bb5814471463d959a]]
+=== ResponseMessage«DynamicFormColumnBindEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_dynamicformcolumnbindentity>>"`|<<_dynamicformcolumnbindentity,DynamicFormColumnBindEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_a2d83137608215d878bebe740d227f8d]]
+=== ResponseMessage«DynamicFormDeployLogEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_dynamicformdeploylogentity>>"`|<<_dynamicformdeploylogentity,DynamicFormDeployLogEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_3f6a79e1f3372ef93cbb9d8864461030]]
+=== ResponseMessage«DynamicFormEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_dynamicformentity>>"`|<<_dynamicformentity,DynamicFormEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_dccd344201bca930cbb01c5576401ddd]]
+=== ResponseMessage«FileInfoEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_fileinfoentity>>"`|<<_fileinfoentity,FileInfoEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_212938092e05225001462abfc2af0b7f]]
+=== ResponseMessage«List«AuthorizationSettingEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_authorizationsettingentity>>" ]`|< <<_authorizationsettingentity,AuthorizationSettingEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_27bd3061635415c4ea0c73c653f47acf]]
+=== ResponseMessage«List«DepartmentEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_departmententity>>" ]`|< <<_departmententity,DepartmentEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_020e52a447243dd2c4d0bef080da4b24]]
+=== ResponseMessage«List«DistrictEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_districtentity>>" ]`|< <<_districtentity,DistrictEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_b5a7cbe033a2131fc198f225ddd71b9d]]
+=== ResponseMessage«List«DynamicDataSourceConfig»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_dynamicdatasourceconfig>>" ]`|< <<_dynamicdatasourceconfig,DynamicDataSourceConfig>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_7db23ee003946511961f3a7df29c6d8d]]
+=== ResponseMessage«List«DynamicFormColumnEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_dynamicformcolumnentity>>" ]`|< <<_dynamicformcolumnentity,DynamicFormColumnEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_19f5d621630c200f26659affa8d245be]]
+=== ResponseMessage«List«DynamicFormDeployLogEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_dynamicformdeploylogentity>>" ]`|< <<_dynamicformdeploylogentity,DynamicFormDeployLogEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_26fa949c2addeecdfcd02861128889bd]]
+=== ResponseMessage«List«DynamicFormEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_dynamicformentity>>" ]`|< <<_dynamicformentity,DynamicFormEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_ec6dc31ad20662480c1d124b03ac7a8d]]
+=== ResponseMessage«List«FileInfoEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_fileinfoentity>>" ]`|< <<_fileinfoentity,FileInfoEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_ebcb301625271fb0be42fdd8ac1f9cd7]]
+=== ResponseMessage«List«MenuEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_menuentity>>" ]`|< <<_menuentity,MenuEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_04bd1f7c2172df55357d15dd7a4b020d]]
+=== ResponseMessage«List«OAuth2Client»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_oauth2client>>" ]`|< <<_oauth2client,OAuth2Client>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_7c0de841c030a56e36a3592bab2f4b70]]
+=== ResponseMessage«List«OAuth2ServerConfigEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_oauth2serverconfigentity>>" ]`|< <<_oauth2serverconfigentity,OAuth2ServerConfigEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_19dfe8ccdff0ac64ffddf20e38f600c3]]
+=== ResponseMessage«List«OAuth2UserTokenEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_oauth2usertokenentity>>" ]`|< <<_oauth2usertokenentity,OAuth2UserTokenEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_3dd66bd50330e0634288732801c6eae6]]
+=== ResponseMessage«List«OrganizationalEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_organizationalentity>>" ]`|< <<_organizationalentity,OrganizationalEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_f416115c1aec36913d87bd83aa6b2323]]
+=== ResponseMessage«List«PermissionEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_permissionentity>>" ]`|< <<_permissionentity,PermissionEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_7d0d15c646ed164f964fb8d2f6b3000a]]
+=== ResponseMessage«List«PersonEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_personentity>>" ]`|< <<_personentity,PersonEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_4a3d2505235b212b6d947baba2efb5e6]]
+=== ResponseMessage«List«PositionEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_positionentity>>" ]`|< <<_positionentity,PositionEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_ee6962a89a88ef309187bb871e9cdfd1]]
+=== ResponseMessage«List«RelationDefineEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_relationdefineentity>>" ]`|< <<_relationdefineentity,RelationDefineEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_dbc09948d0a6db8c21cecb87af87fa6f]]
+=== ResponseMessage«List«RelationInfoEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_relationinfoentity>>" ]`|< <<_relationinfoentity,RelationInfoEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_6470682b8c8826c2502a362cccfb40a3]]
+=== ResponseMessage«List«RoleEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_roleentity>>" ]`|< <<_roleentity,RoleEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_f93b73ff5f600449b044cf276a20c95d]]
+=== ResponseMessage«List«ScheduleJobEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_schedulejobentity>>" ]`|< <<_schedulejobentity,ScheduleJobEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_d6f39903f6ccd973fe4476e4bdd6b638]]
+=== ResponseMessage«List«ScriptEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_scriptentity>>" ]`|< <<_scriptentity,ScriptEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_ccb3581f1a83df607e130bbc2cc8649a]]
+=== ResponseMessage«List«SqlExecuteResult»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_sqlexecuteresult>>" ]`|< <<_sqlexecuteresult,SqlExecuteResult>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_9e1189b7efd061306fec6127a959452d]]
+=== ResponseMessage«List«TransactionInfo»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_transactioninfo>>" ]`|< <<_transactioninfo,TransactionInfo>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_7009b808a7062b09cd5057c748edf5ce]]
+=== ResponseMessage«List«UserEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_userentity>>" ]`|< <<_userentity,UserEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_1eddb0f64b7f488855f93d644b623abe]]
+=== ResponseMessage«List«UserMenuEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_usermenuentity>>" ]`|< <<_usermenuentity,UserMenuEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_8e2573283f33b25a5c607100d6cc3f8a]]
+=== ResponseMessage«List«UserSettingEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_usersettingentity>>" ]`|< <<_usersettingentity,UserSettingEntity>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_3a9a2f2c4c0680c5729862f4845492b2]]
+=== ResponseMessage«List«UserToken»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "<<_usertoken>>" ]`|< <<_usertoken,UserToken>> > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_fc10708f9a97feca7dc9e38bed038c18]]
+=== ResponseMessage«List«string»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `[ "string" ]`|< string > array
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_b457b349a06a33514d97f779d275a74f]]
+=== ResponseMessage«Map«string,List«ObjectMetadata»»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `{
+  "string" : [ "<<_objectmetadata>>" ]
+}`|< string, < <<_objectmetadata,ObjectMetadata>> > array > map
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_06af4f2009dab634c08e24b8b0f26c2c]]
+=== ResponseMessage«Map«string,object»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"object"`|object
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_70aebc08733114eb863389fdebbff05d]]
+=== ResponseMessage«MenuEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_menuentity>>"`|<<_menuentity,MenuEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_ebb1050c759c13591fdd208d058d0332]]
+=== ResponseMessage«OAuth2Client»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_oauth2client>>"`|<<_oauth2client,OAuth2Client>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_f49c55e99fe094081dd3c91f972f307a]]
+=== ResponseMessage«OAuth2ServerConfigEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_oauth2serverconfigentity>>"`|<<_oauth2serverconfigentity,OAuth2ServerConfigEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_9ce3adcac2f6b56f6a853c19d034f501]]
+=== ResponseMessage«OAuth2UserTokenEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_oauth2usertokenentity>>"`|<<_oauth2usertokenentity,OAuth2UserTokenEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_05d6cc19f6ee049e0ac5098efd85ec2d]]
+=== ResponseMessage«OrganizationalEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_organizationalentity>>"`|<<_organizationalentity,OrganizationalEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_ab7d3745d6ceba77fc00d0bdf50dbd14]]
+=== ResponseMessage«PagerResult«AuthorizationSettingEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_f8441b82a42771685acc229c7164da92>>"`|<<_f8441b82a42771685acc229c7164da92,PagerResult«AuthorizationSettingEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_2d642eb6e8bf8069ea7d8748f89a1953]]
+=== ResponseMessage«PagerResult«DepartmentEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_0167b0879b1a2fbf522f91fb37d3f628>>"`|<<_0167b0879b1a2fbf522f91fb37d3f628,PagerResult«DepartmentEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_abaea98c9cec2051a3588b919068948f]]
+=== ResponseMessage«PagerResult«DistrictEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_7ae352fc158747f08dd5eb90855a89f8>>"`|<<_7ae352fc158747f08dd5eb90855a89f8,PagerResult«DistrictEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_af1a0c73ed9afec5c76ebf1dce361e01]]
+=== ResponseMessage«PagerResult«DynamicFormDeployLogEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_27fe728492934f59e88d33a2b3766933>>"`|<<_27fe728492934f59e88d33a2b3766933,PagerResult«DynamicFormDeployLogEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_79912e82f1deb6279e26d7fd6a3b5046]]
+=== ResponseMessage«PagerResult«DynamicFormEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_e4260528def855a58a0656f691a7915f>>"`|<<_e4260528def855a58a0656f691a7915f,PagerResult«DynamicFormEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_514595c8dda5f56bb0f5c31d0b5c3214]]
+=== ResponseMessage«PagerResult«FileInfoEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_9d35a78643baac21c0fe6f107f9d2240>>"`|<<_9d35a78643baac21c0fe6f107f9d2240,PagerResult«FileInfoEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_988c76f931d9e2f2511502e7d7e19ce1]]
+=== ResponseMessage«PagerResult«MenuEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_7e2ce4331019959450104bfb2dffd23f>>"`|<<_7e2ce4331019959450104bfb2dffd23f,PagerResult«MenuEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_9418f129377a4c78a87d34891784b4ad]]
+=== ResponseMessage«PagerResult«OAuth2ServerConfigEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_ebda22c7bc1513232ab81083e253e208>>"`|<<_ebda22c7bc1513232ab81083e253e208,PagerResult«OAuth2ServerConfigEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_652849cecf290786c83f3915b818f8c1]]
+=== ResponseMessage«PagerResult«OAuth2UserTokenEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_a6a076d035327679df47051bad4a58ab>>"`|<<_a6a076d035327679df47051bad4a58ab,PagerResult«OAuth2UserTokenEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_1e34e66cd932a6e9a2a19ae61f935332]]
+=== ResponseMessage«PagerResult«OrganizationalEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_ca90e82f68dd6bae04544c264662a182>>"`|<<_ca90e82f68dd6bae04544c264662a182,PagerResult«OrganizationalEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_f0740da5a603024d54cffe67ebcfe2f3]]
+=== ResponseMessage«PagerResult«PermissionEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_8630f4cda224d8ff5faf619fac8c9875>>"`|<<_8630f4cda224d8ff5faf619fac8c9875,PagerResult«PermissionEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_35dd428b2aeda09b4672b75af069d2c1]]
+=== ResponseMessage«PagerResult«PersonEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_8c2ab88d5455871f901a74e62b505b47>>"`|<<_8c2ab88d5455871f901a74e62b505b47,PagerResult«PersonEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_0b9846aedba34500c09ff8c883f89c41]]
+=== ResponseMessage«PagerResult«PositionEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_6e02dbdccfce51084450a2d632d0fe45>>"`|<<_6e02dbdccfce51084450a2d632d0fe45,PagerResult«PositionEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_858faa3bec7747a89f047157de5fa7b5]]
+=== ResponseMessage«PagerResult«RelationDefineEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_bd1d9065a052eddc01b75243abd873cd>>"`|<<_bd1d9065a052eddc01b75243abd873cd,PagerResult«RelationDefineEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_662abf311f6756ce1515cfc1f3d6497b]]
+=== ResponseMessage«PagerResult«RelationInfoEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_720330473169ba94d7e5e1840dac11db>>"`|<<_720330473169ba94d7e5e1840dac11db,PagerResult«RelationInfoEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_04b8a0105cc98da475754a7a0d118cac]]
+=== ResponseMessage«PagerResult«RoleEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_6e67c47f04808732b2f0546672e9f4ca>>"`|<<_6e67c47f04808732b2f0546672e9f4ca,PagerResult«RoleEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_42906958f8fba064d74cc15b287b285b]]
+=== ResponseMessage«PagerResult«ScheduleJobEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_3c5582dff446edfec2b56a38e400f979>>"`|<<_3c5582dff446edfec2b56a38e400f979,PagerResult«ScheduleJobEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_b526184b0542731e9ce046cd15c7430f]]
+=== ResponseMessage«PagerResult«ScriptEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_8600a8255df0072a9ebdcef867f5c524>>"`|<<_8600a8255df0072a9ebdcef867f5c524,PagerResult«ScriptEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_022104f1b83fb14da490f0bad176c23f]]
+=== ResponseMessage«PagerResult«UserEntity»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_8c19b416cd9de9ffbed9082acff5fc80>>"`|<<_8c19b416cd9de9ffbed9082acff5fc80,PagerResult«UserEntity»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_b067bd9552e787aea006c9b1cd6fcd02]]
+=== ResponseMessage«PagerResult«object»»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_87daa132c4ff15bc24c3702dd105f6c8>>"`|<<_87daa132c4ff15bc24c3702dd105f6c8,PagerResult«object»>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_50819844bfd86a245c543cc0190b4828]]
+=== ResponseMessage«PermissionEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_permissionentity>>"`|<<_permissionentity,PermissionEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_10249428a4d55b979ef50cf7ac890aeb]]
+=== ResponseMessage«PersonAuthBindEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_personauthbindentity>>"`|<<_personauthbindentity,PersonAuthBindEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_c794f72feaad58a88d3da0cc427d1d9c]]
+=== ResponseMessage«PersonEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_personentity>>"`|<<_personentity,PersonEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_4c898cb865a7ac8d70a5f816c252d944]]
+=== ResponseMessage«PersonnelAuthorization»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_personnelauthorization>>"`|<<_personnelauthorization,PersonnelAuthorization>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_81d3f00a16ad771d3c6fbdd99e002afb]]
+=== ResponseMessage«PositionEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_positionentity>>"`|<<_positionentity,PositionEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_07e4edac137972c7b8c957a922b992ee]]
+=== ResponseMessage«RelationDefineEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_relationdefineentity>>"`|<<_relationdefineentity,RelationDefineEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_a8d04810db9cc799f48ca42652e0514e]]
+=== ResponseMessage«RelationInfoEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_relationinfoentity>>"`|<<_relationinfoentity,RelationInfoEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_9de855e0a731771e1c13e47e25e30380]]
+=== ResponseMessage«RoleEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_roleentity>>"`|<<_roleentity,RoleEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_d803770b9be33fab88c050cc650ebacd]]
+=== ResponseMessage«ScheduleJobEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_schedulejobentity>>"`|<<_schedulejobentity,ScheduleJobEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_75b3a1a20f80841af6d3065f6ad3b2f7]]
+=== ResponseMessage«ScriptEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_scriptentity>>"`|<<_scriptentity,ScriptEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_26c05b8f050f76cd6252ff48bb3d92d3]]
+=== ResponseMessage«UserEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_userentity>>"`|<<_userentity,UserEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_bb605f14ea851832f5ce7d794caaceca]]
+=== ResponseMessage«UserSettingEntity»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"<<_usersettingentity>>"`|<<_usersettingentity,UserSettingEntity>>
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_6c061a07afa1c9738e33d1b5ec1728a9]]
+=== ResponseMessage«Void»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_bbdc11e8c14b5b13fda321a82dc3a3ac]]
+=== ResponseMessage«boolean»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `false`|boolean
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_d53a2c1e07a660f2c3f1b54e6a7c98bb]]
+=== ResponseMessage«int»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `0`|integer (int32)
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_f505e3d79e9444eeb3266210d702f335]]
+=== ResponseMessage«long»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `0`|integer (int64)
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_4e3465260d0b339c0ae101c8a6821732]]
+=== ResponseMessage«object»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"object"`|object
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_7706c642a9473cc1b49b8f456cc26073]]
+=== ResponseMessage«string»
+响应结果
+
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**message** +
+__可选__|调用结果消息 +
+**样例** : `"string"`|string
+|**result** +
+__可选__|成功时响应数据 +
+**样例** : `"string"`|string
+|**status** +
+__必填__|状态码 +
+**样例** : `0`|integer (int32)
+|**timestamp** +
+__必填__|时间戳 +
+**样例** : `0`|integer (int64)
+|===
+
+
+[[_role]]
+=== Role
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_roleentity]]
+=== RoleEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|===
+
+
+[[_schedulejobentity]]
+=== ScheduleJobEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**language** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**parameters** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**quartzConfig** +
+__可选__|**样例** : `"string"`|string
+|**remark** +
+__可选__|**样例** : `"string"`|string
+|**script** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**tags** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_scriptentity]]
+=== ScriptEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**language** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**remark** +
+__可选__|**样例** : `"string"`|string
+|**script** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**样例** : `0`|integer (int64)
+|**tag** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_serializable]]
+=== Serializable
+__类型__ : object
+
+
+[[_sqlexecuteresult]]
+=== SqlExecuteResult
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**result** +
+__可选__|**样例** : `"object"`|object
+|**sqlInfo** +
+__可选__|**样例** : `"<<_sqlinfo>>"`|<<_sqlinfo,SqlInfo>>
+|===
+
+
+[[_sqlinfo]]
+=== SqlInfo
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**datasourceId** +
+__可选__|**样例** : `"string"`|string
+|**sql** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_term]]
+=== Term
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**column** +
+__可选__|**样例** : `"string"`|string
+|**termType** +
+__可选__|**样例** : `"string"`|string
+|**terms** +
+__可选__|**样例** : `[ "<<_term>>" ]`|< <<_term,Term>> > array
+|**type** +
+__可选__|**样例** : `"string"`|enum (or, and)
+|**value** +
+__可选__|**样例** : `"object"`|object
+|===
+
+
+[[_transactioninfo]]
+=== TransactionInfo
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**createTime** +
+__可选__|**样例** : `"string"`|string (date-time)
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**lastExecuteTime** +
+__可选__|**样例** : `"string"`|string (date-time)
+|**sqlHistory** +
+__可选__|**样例** : `[ "<<_sqlinfo>>" ]`|< <<_sqlinfo,SqlInfo>> > array
+|===
+
+
+[[_6cb863976d93d76997d3a0a3d6c32f27]]
+=== TreeNode«string»
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**allValue** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**children** +
+__可选__|**样例** : `[ "<<_6cb863976d93d76997d3a0a3d6c32f27>>" ]`|< <<_6cb863976d93d76997d3a0a3d6c32f27,TreeNode«string»>> > array
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**parent** +
+__可选__|**样例** : `"<<_6cb863976d93d76997d3a0a3d6c32f27>>"`|<<_6cb863976d93d76997d3a0a3d6c32f27,TreeNode«string»>>
+|**value** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_852541f5d496d0afc6b3900a123fca7e]]
+=== TreeSupportEntity«string»
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_852541f5d496d0afc6b3900a123fca7e>>" ]`|< <<_852541f5d496d0afc6b3900a123fca7e,TreeSupportEntity«string»>> > array
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|===
+
+
+[[_eba3e5ef973206080b3fe0cfe29971bc]]
+=== UpdateParamEntity«Map«string,object»»
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**data** +
+__可选__|**样例** : `"object"`|object
+|**excludes** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**includes** +
+__可选__|**样例** : `[ "string" ]`|< string > array
+|**terms** +
+__可选__|**样例** : `[ "<<_term>>" ]`|< <<_term,Term>> > array
+|===
+
+
+[[_user]]
+=== User
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|**username** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_userentity]]
+=== UserEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**createTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**creatorId** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**password** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**salt** +
+__可选__|**样例** : `"string"`|string
+|**status** +
+__可选__|**模式** : `"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"`**样例** : `"string"`|string (byte)
+|**username** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_usermenuentity]]
+=== UserMenuEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**children** +
+__可选__|**样例** : `[ "<<_usermenuentity>>" ]`|< <<_usermenuentity,UserMenuEntity>> > array
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**icon** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**level** +
+__可选__|**样例** : `0`|integer (int32)
+|**menuId** +
+__可选__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**parentId** +
+__可选__|**样例** : `"string"`|string
+|**path** +
+__可选__|**样例** : `"string"`|string
+|**permissionId** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**sortIndex** +
+__可选__|**样例** : `0`|integer (int64)
+|**url** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_usersettingentity]]
+=== UserSettingEntity
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**createTime** +
+__可选__|**样例** : `"string"`|string (date-time)
+|**describe** +
+__可选__|**样例** : `"string"`|string
+|**id** +
+__可选__|**样例** : `"string"`|string
+|**key** +
+__必填__|**样例** : `"string"`|string
+|**name** +
+__可选__|**样例** : `"string"`|string
+|**properties** +
+__可选__|**样例** : `"object"`|object
+|**setting** +
+__必填__|**样例** : `"string"`|string
+|**settingId** +
+__必填__|**样例** : `"string"`|string
+|**updateTime** +
+__可选__|**样例** : `"string"`|string (date-time)
+|**userId** +
+__必填__|**样例** : `"string"`|string
+|===
+
+
+[[_usertoken]]
+=== UserToken
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**effective** +
+__可选__|**样例** : `true`|boolean
+|**expired** +
+__可选__|**样例** : `true`|boolean
+|**lastRequestTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**maxInactiveInterval** +
+__可选__|**样例** : `0`|integer (int64)
+|**offline** +
+__可选__|**样例** : `true`|boolean
+|**requestTimes** +
+__可选__|**样例** : `0`|integer (int64)
+|**signInTime** +
+__可选__|**样例** : `0`|integer (int64)
+|**state** +
+__可选__|**样例** : `"string"`|enum (effective, deny, expired, offline)
+|**token** +
+__可选__|**样例** : `"string"`|string
+|**type** +
+__可选__|**样例** : `"string"`|string
+|**userId** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+

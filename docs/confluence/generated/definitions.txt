@@ -1,0 +1,1880 @@
+
+h2. 定义 {anchor:definitions}
+
+h3. AccessTokenModel {anchor:accesstokenmodel}
+
+||名称||说明||类型||
+|*access_token*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*expires_in*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*refresh_token*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*scope*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*token_type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. ActionEntity {anchor:actionentity}
+
+||名称||说明||类型||
+|*action*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*defaultCheck*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. ApplicationContext {anchor:applicationcontext}
+
+||名称||说明||类型||
+|*applicationName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*autowireCapableBeanFactory*\\ \\ _可选_||*样例* : {noformat}"[#autowirecapablebeanfactory]"{noformat}||[AutowireCapableBeanFactory|#autowirecapablebeanfactory]|
+|*beanDefinitionCount*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*beanDefinitionNames*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*classLoader*\\ \\ _可选_||*样例* : {noformat}"[#classloader]"{noformat}||[ClassLoader|#classloader]|
+|*displayName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*environment*\\ \\ _可选_||*样例* : {noformat}"[#environment]"{noformat}||[Environment|#environment]|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parent*\\ \\ _可选_||*样例* : {noformat}"[#applicationcontext]"{noformat}||[ApplicationContext|#applicationcontext]|
+|*parentBeanFactory*\\ \\ _可选_||*样例* : {noformat}"[#beanfactory]"{noformat}||[BeanFactory|#beanfactory]|
+|*startupDate*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. Authentication {anchor:authentication}
+
+||名称||说明||类型||
+|*attributes*\\ \\ _可选_||*样例* : {noformat}{\\   "string" : "[#serializable]"\\ }{noformat}||< string, [Serializable|#serializable] > map|
+|*permissions*\\ \\ _可选_||*样例* : {noformat}[ "[#permission]" ]{noformat}||< [Permission|#permission] > array|
+|*roles*\\ \\ _可选_||*样例* : {noformat}[ "[#role]" ]{noformat}||< [Role|#role] > array|
+|*user*\\ \\ _可选_||*样例* : {noformat}"[#user]"{noformat}||[User|#user]|
+
+
+h3. AuthorizationCodeModel {anchor:authorizationcodemodel}
+
+||名称||说明||类型||
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*redirectUri*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*state*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. AuthorizationSettingDetailEntity {anchor:authorizationsettingdetailentity}
+
+||名称||说明||类型||
+|*actions*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*dataAccesses*\\ \\ _可选_||*样例* : {noformat}[ "[#dataaccessentity]" ]{noformat}||< [DataAccessEntity|#dataaccessentity] > array|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*merge*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*permissionId*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*priority*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*settingId*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. AuthorizationSettingEntity {anchor:authorizationsettingentity}
+
+||名称||说明||类型||
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*details*\\ \\ _可选_||*样例* : {noformat}[ "[#authorizationsettingdetailentity]" ]{noformat}||< [AuthorizationSettingDetailEntity|#authorizationsettingdetailentity] > array|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*menus*\\ \\ _可选_||*样例* : {noformat}[ "[#authorizationsettingmenuentity]" ]{noformat}||< [AuthorizationSettingMenuEntity|#authorizationsettingmenuentity] > array|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*settingFor*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*type*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. AuthorizationSettingMenuEntity {anchor:authorizationsettingmenuentity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#authorizationsettingmenuentity]" ]{noformat}||< [AuthorizationSettingMenuEntity|#authorizationsettingmenuentity] > array|
+|*config*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*menuId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*settingId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. AutowireCapableBeanFactory {anchor:autowirecapablebeanfactory}
+_类型_ : object
+
+
+h3. BeanFactory {anchor:beanfactory}
+_类型_ : object
+
+
+h3. BindRoleUserEntity {anchor:bindroleuserentity}
+
+||名称||说明||类型||
+|*createTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*creatorId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*password*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*roles*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*salt*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*username*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. ClassLoader {anchor:classloader}
+
+||名称||说明||类型||
+|*parent*\\ \\ _可选_||*样例* : {noformat}"[#classloader]"{noformat}||[ClassLoader|#classloader]|
+
+
+h3. DataAccessConfig {anchor:dataaccessconfig}
+
+||名称||说明||类型||
+|*action*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. DataAccessEntity {anchor:dataaccessentity}
+
+||名称||说明||类型||
+|*action*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*config*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Department {anchor:department}
+
+||名称||说明||类型||
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*org*\\ \\ _可选_||*样例* : {noformat}"[#organization]"{noformat}||[Organization|#organization]|
+
+
+h3. DepartmentEntity {anchor:departmententity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#departmententity]" ]{noformat}||< [DepartmentEntity|#departmententity] > array|
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*departmentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*orgId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. District {anchor:district}
+
+||名称||说明||类型||
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*fullName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. DistrictEntity {anchor:districtentity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#districtentity]" ]{noformat}||< [DistrictEntity|#districtentity] > array|
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*fullName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*levelCode*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*levelName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. DynamicDataSourceConfig {anchor:dynamicdatasourceconfig}
+
+||名称||说明||类型||
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. DynamicFormColumnBindEntity {anchor:dynamicformcolumnbindentity}
+
+||名称||说明||类型||
+|*columns*\\ \\ _可选_||*样例* : {noformat}[ "[#dynamicformcolumnentity]" ]{noformat}||< [DynamicFormColumnEntity|#dynamicformcolumnentity] > array|
+|*form*\\ \\ _可选_||*样例* : {noformat}"[#dynamicformentity]"{noformat}||[DynamicFormEntity|#dynamicformentity]|
+
+
+h3. DynamicFormColumnEntity {anchor:dynamicformcolumnentity}
+
+||名称||说明||类型||
+|*alias*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*columnName*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*dataType*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*dictConfig*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*dictId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*dictParserId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*formId*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*javaType*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*jdbcType*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*length*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*name*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*precision*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*scale*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. DynamicFormDeployLogEntity {anchor:dynamicformdeploylogentity}
+
+||名称||说明||类型||
+|*deployTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*formId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*metaData*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*version*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. DynamicFormEntity {anchor:dynamicformentity}
+
+||名称||说明||类型||
+|*alias*\\ \\ _可选_||表别名.\\ \\ *样例* : {noformat}"testForm"{noformat}||string|
+|*correlations*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*createTime*\\ \\ _可选_||创建时间,新增时自动设置.\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+|*creatorId*\\ \\ _可选_||创建人,根据当前用户自动获取.\\ \\ *样例* : {noformat}"1"{noformat}||string|
+|*dataSourceId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*databaseTableName*\\ \\ _必填_||数据库表名\\ \\ *样例* : {noformat}"f_test_form"{noformat}||string|
+|*deployed*\\ \\ _可选_||是否已发布,发布时自动设置.\\ \\ *样例* : {noformat}false{noformat}||boolean|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _必填_||表单名称\\ \\ *样例* : {noformat}"测试表单"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*triggers*\\ \\ _可选_||触发器.\\ \\ *样例* : {noformat}"[{\"language\":\"groovy\",\"script\":\" return true;\"}]"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*updateTime*\\ \\ _可选_||创建时间,修改时自动设置.\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+|*version*\\ \\ _可选_||版本号,无需设置,每次保存自动自增.\\ \\ *样例* : {noformat}1{noformat}||integer (int64)|
+
+
+h3. Environment {anchor:environment}
+
+||名称||说明||类型||
+|*activeProfiles*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*defaultProfiles*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+
+
+h3. FileInfoEntity {anchor:fileinfoentity}
+
+||名称||说明||类型||
+|*classified*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*createTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*creatorId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*location*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*md5*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*size*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. ImplicitAccessTokenModel {anchor:implicitaccesstokenmodel}
+
+||名称||说明||类型||
+|*access_token*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*expires_in*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*redirect_uri*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*state*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*token_type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Map«string,List«ObjectMetadata»» {anchor:319663d63a5163426e0a9ccab8e91f77}
+_类型_ : < string, [List|#list] > map
+
+
+h3. MenuEntity {anchor:menuentity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#menuentity]" ]{noformat}||< [MenuEntity|#menuentity] > array|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*icon*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*permissionId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*url*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. OAuth2Client {anchor:oauth2client}
+
+||名称||说明||类型||
+|*createTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*defaultGrantScope*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*ownerId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*redirectUri*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*secret*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*supportGrantTypes*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+
+
+h3. OAuth2ClientEntity {anchor:oauth2cliententity}
+
+||名称||说明||类型||
+|*createTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*creatorId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*defaultGrantScope*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*ownerId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*redirectUri*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*secret*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*supportGrantTypes*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. OAuth2ServerConfigEntity {anchor:oauth2serverconfigentity}
+
+||名称||说明||类型||
+|*accessTokenUrl*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*apiBaseUrl*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*authUrl*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*clientId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*clientSecret*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*provider*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*redirectUri*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. OAuth2UserTokenEntity {anchor:oauth2usertokenentity}
+
+||名称||说明||类型||
+|*accessToken*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*clientId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*clientUserId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*createTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*expiresIn*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*grantType*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*refreshToken*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*scope*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*serverId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*serverUserId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*updateTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ObjectMetadata {anchor:objectmetadata}
+
+||名称||说明||类型||
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||enum (TABLE, VIEW, SEQUENCES)|
+
+
+h3. OptionalField {anchor:optionalfield}
+
+||名称||说明||类型||
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Organization {anchor:organization}
+
+||名称||说明||类型||
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*district*\\ \\ _可选_||*样例* : {noformat}"[#district]"{noformat}||[District|#district]|
+|*fullName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. OrganizationalEntity {anchor:organizationalentity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#organizationalentity]" ]{noformat}||< [OrganizationalEntity|#organizationalentity] > array|
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*districtId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*fullName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*optionalRoles*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*orgId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. PagerResult«AuthorizationSettingEntity» {anchor:f8441b82a42771685acc229c7164da92}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#authorizationsettingentity]" ]{noformat}||< [AuthorizationSettingEntity|#authorizationsettingentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«DepartmentEntity» {anchor:0167b0879b1a2fbf522f91fb37d3f628}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#departmententity]" ]{noformat}||< [DepartmentEntity|#departmententity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«DistrictEntity» {anchor:7ae352fc158747f08dd5eb90855a89f8}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#districtentity]" ]{noformat}||< [DistrictEntity|#districtentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«DynamicFormDeployLogEntity» {anchor:27fe728492934f59e88d33a2b3766933}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#dynamicformdeploylogentity]" ]{noformat}||< [DynamicFormDeployLogEntity|#dynamicformdeploylogentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«DynamicFormEntity» {anchor:e4260528def855a58a0656f691a7915f}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#dynamicformentity]" ]{noformat}||< [DynamicFormEntity|#dynamicformentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«FileInfoEntity» {anchor:9d35a78643baac21c0fe6f107f9d2240}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#fileinfoentity]" ]{noformat}||< [FileInfoEntity|#fileinfoentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«MenuEntity» {anchor:7e2ce4331019959450104bfb2dffd23f}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#menuentity]" ]{noformat}||< [MenuEntity|#menuentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«OAuth2ServerConfigEntity» {anchor:ebda22c7bc1513232ab81083e253e208}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#oauth2serverconfigentity]" ]{noformat}||< [OAuth2ServerConfigEntity|#oauth2serverconfigentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«OAuth2UserTokenEntity» {anchor:a6a076d035327679df47051bad4a58ab}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#oauth2usertokenentity]" ]{noformat}||< [OAuth2UserTokenEntity|#oauth2usertokenentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«OrganizationalEntity» {anchor:ca90e82f68dd6bae04544c264662a182}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#organizationalentity]" ]{noformat}||< [OrganizationalEntity|#organizationalentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«PermissionEntity» {anchor:8630f4cda224d8ff5faf619fac8c9875}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#permissionentity]" ]{noformat}||< [PermissionEntity|#permissionentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«PersonEntity» {anchor:8c2ab88d5455871f901a74e62b505b47}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#personentity]" ]{noformat}||< [PersonEntity|#personentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«PositionEntity» {anchor:6e02dbdccfce51084450a2d632d0fe45}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#positionentity]" ]{noformat}||< [PositionEntity|#positionentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«RelationDefineEntity» {anchor:bd1d9065a052eddc01b75243abd873cd}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#relationdefineentity]" ]{noformat}||< [RelationDefineEntity|#relationdefineentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«RelationInfoEntity» {anchor:720330473169ba94d7e5e1840dac11db}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#relationinfoentity]" ]{noformat}||< [RelationInfoEntity|#relationinfoentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«RoleEntity» {anchor:6e67c47f04808732b2f0546672e9f4ca}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#roleentity]" ]{noformat}||< [RoleEntity|#roleentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«ScheduleJobEntity» {anchor:3c5582dff446edfec2b56a38e400f979}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#schedulejobentity]" ]{noformat}||< [ScheduleJobEntity|#schedulejobentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«ScriptEntity» {anchor:8600a8255df0072a9ebdcef867f5c524}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#scriptentity]" ]{noformat}||< [ScriptEntity|#scriptentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«UserEntity» {anchor:8c19b416cd9de9ffbed9082acff5fc80}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "[#userentity]" ]{noformat}||< [UserEntity|#userentity] > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. PagerResult«object» {anchor:87daa132c4ff15bc24c3702dd105f6c8}
+分页结果
+
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||查询结果\\ \\ *样例* : {noformat}[ "object" ]{noformat}||< object > array|
+|*total*\\ \\ _可选_||数据总数量\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+
+
+h3. ParentPermission {anchor:parentpermission}
+
+||名称||说明||类型||
+|*actions*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*permission*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Permission {anchor:permission}
+
+||名称||说明||类型||
+|*actions*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*dataAccesses*\\ \\ _可选_||*样例* : {noformat}[ "[#dataaccessconfig]" ]{noformat}||< [DataAccessConfig|#dataaccessconfig] > array|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. PermissionEntity {anchor:permissionentity}
+
+||名称||说明||类型||
+|*actions*\\ \\ _可选_||*样例* : {noformat}[ "[#actionentity]" ]{noformat}||< [ActionEntity|#actionentity] > array|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*模式* : {noformat}"[a-zA-Z0-9_\\-]+"{noformat}*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*optionalFields*\\ \\ _可选_||*样例* : {noformat}[ "[#optionalfield]" ]{noformat}||< [OptionalField|#optionalfield] > array|
+|*parents*\\ \\ _可选_||*样例* : {noformat}[ "[#parentpermission]" ]{noformat}||< [ParentPermission|#parentpermission] > array|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*supportDataAccessTypes*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. PersonAuthBindEntity {anchor:personauthbindentity}
+
+||名称||说明||类型||
+|*email*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*personUser*\\ \\ _可选_||*样例* : {noformat}"[#personuserentity]"{noformat}||[PersonUserEntity|#personuserentity]|
+|*phone*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*photo*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*positionIds*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*remark*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*sex*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*userId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. PersonEntity {anchor:personentity}
+
+||名称||说明||类型||
+|*email*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*phone*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*photo*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*remark*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*sex*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*userId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. PersonUserEntity {anchor:personuserentity}
+
+||名称||说明||类型||
+|*password*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*username*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Personnel {anchor:personnel}
+
+||名称||说明||类型||
+|*email*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*phone*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*photo*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. PersonnelAuthorization {anchor:personnelauthorization}
+
+||名称||说明||类型||
+|*allDepartmentId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*allDistrictId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*allOrgId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*allPositionId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*departmentIds*\\ \\ _可选_||*样例* : {noformat}[ "[#6cb863976d93d76997d3a0a3d6c32f27]" ]{noformat}||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*districtIds*\\ \\ _可选_||*样例* : {noformat}[ "[#6cb863976d93d76997d3a0a3d6c32f27]" ]{noformat}||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*orgIds*\\ \\ _可选_||*样例* : {noformat}[ "[#6cb863976d93d76997d3a0a3d6c32f27]" ]{noformat}||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*personnel*\\ \\ _可选_||*样例* : {noformat}"[#personnel]"{noformat}||[Personnel|#personnel]|
+|*positionIds*\\ \\ _可选_||*样例* : {noformat}[ "[#6cb863976d93d76997d3a0a3d6c32f27]" ]{noformat}||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*positions*\\ \\ _可选_||*样例* : {noformat}[ "[#position]" ]{noformat}||< [Position|#position] > array|
+|*relations*\\ \\ _可选_||*样例* : {noformat}"[#relations]"{noformat}||[Relations|#relations]|
+|*rootDepartmentId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*rootDistrictId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*rootOrgId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*rootPositionId*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+
+
+h3. Position {anchor:position}
+
+||名称||说明||类型||
+|*code*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*department*\\ \\ _可选_||*样例* : {noformat}"[#department]"{noformat}||[Department|#department]|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. PositionEntity {anchor:positionentity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#positionentity]" ]{noformat}||< [PositionEntity|#positionentity] > array|
+|*departmentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*positionId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*remark*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*roles*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. RedirectView {anchor:redirectview}
+
+||名称||说明||类型||
+|*applicationContext*\\ \\ _可选_||*样例* : {noformat}"[#applicationcontext]"{noformat}||[ApplicationContext|#applicationcontext]|
+|*attributesMap*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*beanName*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*contentType*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*exposePathVariables*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*hosts*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*propagateQueryProperties*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*redirectView*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*requestContextAttribute*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*staticAttributes*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*url*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Relation {anchor:relation}
+
+||名称||说明||类型||
+|*direction*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||enum (POSITIVE, REVERSE, ALL)|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*relation*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*target*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*targetObject*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. RelationDefineEntity {anchor:relationdefineentity}
+
+||名称||说明||类型||
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*typeId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. RelationInfoEntity {anchor:relationinfoentity}
+
+||名称||说明||类型||
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*relationFrom*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*relationId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*relationTo*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*relationTypeFrom*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*relationTypeTo*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. Relations {anchor:relations}
+
+||名称||说明||类型||
+|*all*\\ \\ _可选_||*样例* : {noformat}[ "[#relation]" ]{noformat}||< [Relation|#relation] > array|
+
+
+h3. ResponseMessage {anchor:responsemessage}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«Authentication» {anchor:91e04724f2ad858185d5fc280d46daa4}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#authentication]"{noformat}||[Authentication|#authentication]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«AuthorizationSettingEntity» {anchor:c2f4413fddae73a407b1566ae2880d25}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#authorizationsettingentity]"{noformat}||[AuthorizationSettingEntity|#authorizationsettingentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«DepartmentEntity» {anchor:494d2e8ada457977fe25c668a34a06f7}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#departmententity]"{noformat}||[DepartmentEntity|#departmententity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«DistrictEntity» {anchor:e9e4c971e48ff61d32412141df044f36}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#districtentity]"{noformat}||[DistrictEntity|#districtentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«DynamicFormColumnBindEntity» {anchor:e7f4b98f55b7cb1bb5814471463d959a}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#dynamicformcolumnbindentity]"{noformat}||[DynamicFormColumnBindEntity|#dynamicformcolumnbindentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«DynamicFormDeployLogEntity» {anchor:a2d83137608215d878bebe740d227f8d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#dynamicformdeploylogentity]"{noformat}||[DynamicFormDeployLogEntity|#dynamicformdeploylogentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«DynamicFormEntity» {anchor:3f6a79e1f3372ef93cbb9d8864461030}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#dynamicformentity]"{noformat}||[DynamicFormEntity|#dynamicformentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«FileInfoEntity» {anchor:dccd344201bca930cbb01c5576401ddd}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#fileinfoentity]"{noformat}||[FileInfoEntity|#fileinfoentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«AuthorizationSettingEntity»» {anchor:212938092e05225001462abfc2af0b7f}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#authorizationsettingentity]" ]{noformat}||< [AuthorizationSettingEntity|#authorizationsettingentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«DepartmentEntity»» {anchor:27bd3061635415c4ea0c73c653f47acf}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#departmententity]" ]{noformat}||< [DepartmentEntity|#departmententity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«DistrictEntity»» {anchor:020e52a447243dd2c4d0bef080da4b24}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#districtentity]" ]{noformat}||< [DistrictEntity|#districtentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicDataSourceConfig»» {anchor:b5a7cbe033a2131fc198f225ddd71b9d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#dynamicdatasourceconfig]" ]{noformat}||< [DynamicDataSourceConfig|#dynamicdatasourceconfig] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicFormColumnEntity»» {anchor:7db23ee003946511961f3a7df29c6d8d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#dynamicformcolumnentity]" ]{noformat}||< [DynamicFormColumnEntity|#dynamicformcolumnentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicFormDeployLogEntity»» {anchor:19f5d621630c200f26659affa8d245be}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#dynamicformdeploylogentity]" ]{noformat}||< [DynamicFormDeployLogEntity|#dynamicformdeploylogentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«DynamicFormEntity»» {anchor:26fa949c2addeecdfcd02861128889bd}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#dynamicformentity]" ]{noformat}||< [DynamicFormEntity|#dynamicformentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«FileInfoEntity»» {anchor:ec6dc31ad20662480c1d124b03ac7a8d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#fileinfoentity]" ]{noformat}||< [FileInfoEntity|#fileinfoentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«MenuEntity»» {anchor:ebcb301625271fb0be42fdd8ac1f9cd7}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#menuentity]" ]{noformat}||< [MenuEntity|#menuentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«OAuth2Client»» {anchor:04bd1f7c2172df55357d15dd7a4b020d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#oauth2client]" ]{noformat}||< [OAuth2Client|#oauth2client] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«OAuth2ServerConfigEntity»» {anchor:7c0de841c030a56e36a3592bab2f4b70}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#oauth2serverconfigentity]" ]{noformat}||< [OAuth2ServerConfigEntity|#oauth2serverconfigentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«OAuth2UserTokenEntity»» {anchor:19dfe8ccdff0ac64ffddf20e38f600c3}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#oauth2usertokenentity]" ]{noformat}||< [OAuth2UserTokenEntity|#oauth2usertokenentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«OrganizationalEntity»» {anchor:3dd66bd50330e0634288732801c6eae6}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#organizationalentity]" ]{noformat}||< [OrganizationalEntity|#organizationalentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«PermissionEntity»» {anchor:f416115c1aec36913d87bd83aa6b2323}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#permissionentity]" ]{noformat}||< [PermissionEntity|#permissionentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«PersonEntity»» {anchor:7d0d15c646ed164f964fb8d2f6b3000a}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#personentity]" ]{noformat}||< [PersonEntity|#personentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«PositionEntity»» {anchor:4a3d2505235b212b6d947baba2efb5e6}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#positionentity]" ]{noformat}||< [PositionEntity|#positionentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«RelationDefineEntity»» {anchor:ee6962a89a88ef309187bb871e9cdfd1}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#relationdefineentity]" ]{noformat}||< [RelationDefineEntity|#relationdefineentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«RelationInfoEntity»» {anchor:dbc09948d0a6db8c21cecb87af87fa6f}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#relationinfoentity]" ]{noformat}||< [RelationInfoEntity|#relationinfoentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«RoleEntity»» {anchor:6470682b8c8826c2502a362cccfb40a3}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#roleentity]" ]{noformat}||< [RoleEntity|#roleentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«ScheduleJobEntity»» {anchor:f93b73ff5f600449b044cf276a20c95d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#schedulejobentity]" ]{noformat}||< [ScheduleJobEntity|#schedulejobentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«ScriptEntity»» {anchor:d6f39903f6ccd973fe4476e4bdd6b638}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#scriptentity]" ]{noformat}||< [ScriptEntity|#scriptentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«SqlExecuteResult»» {anchor:ccb3581f1a83df607e130bbc2cc8649a}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#sqlexecuteresult]" ]{noformat}||< [SqlExecuteResult|#sqlexecuteresult] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«TransactionInfo»» {anchor:9e1189b7efd061306fec6127a959452d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#transactioninfo]" ]{noformat}||< [TransactionInfo|#transactioninfo] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«UserEntity»» {anchor:7009b808a7062b09cd5057c748edf5ce}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#userentity]" ]{noformat}||< [UserEntity|#userentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«UserMenuEntity»» {anchor:1eddb0f64b7f488855f93d644b623abe}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#usermenuentity]" ]{noformat}||< [UserMenuEntity|#usermenuentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«UserSettingEntity»» {anchor:8e2573283f33b25a5c607100d6cc3f8a}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#usersettingentity]" ]{noformat}||< [UserSettingEntity|#usersettingentity] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«UserToken»» {anchor:3a9a2f2c4c0680c5729862f4845492b2}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "[#usertoken]" ]{noformat}||< [UserToken|#usertoken] > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«List«string»» {anchor:fc10708f9a97feca7dc9e38bed038c18}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«Map«string,List«ObjectMetadata»»» {anchor:b457b349a06a33514d97f779d275a74f}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}{\\   "string" : [ "[#objectmetadata]" ]\\ }{noformat}||< string, < [ObjectMetadata|#objectmetadata] > array > map|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«Map«string,object»» {anchor:06af4f2009dab634c08e24b8b0f26c2c}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«MenuEntity» {anchor:70aebc08733114eb863389fdebbff05d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#menuentity]"{noformat}||[MenuEntity|#menuentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«OAuth2Client» {anchor:ebb1050c759c13591fdd208d058d0332}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#oauth2client]"{noformat}||[OAuth2Client|#oauth2client]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«OAuth2ServerConfigEntity» {anchor:f49c55e99fe094081dd3c91f972f307a}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#oauth2serverconfigentity]"{noformat}||[OAuth2ServerConfigEntity|#oauth2serverconfigentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«OAuth2UserTokenEntity» {anchor:9ce3adcac2f6b56f6a853c19d034f501}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#oauth2usertokenentity]"{noformat}||[OAuth2UserTokenEntity|#oauth2usertokenentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«OrganizationalEntity» {anchor:05d6cc19f6ee049e0ac5098efd85ec2d}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#organizationalentity]"{noformat}||[OrganizationalEntity|#organizationalentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«AuthorizationSettingEntity»» {anchor:ab7d3745d6ceba77fc00d0bdf50dbd14}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#f8441b82a42771685acc229c7164da92]"{noformat}||[PagerResult«AuthorizationSettingEntity»|#f8441b82a42771685acc229c7164da92]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DepartmentEntity»» {anchor:2d642eb6e8bf8069ea7d8748f89a1953}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#0167b0879b1a2fbf522f91fb37d3f628]"{noformat}||[PagerResult«DepartmentEntity»|#0167b0879b1a2fbf522f91fb37d3f628]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DistrictEntity»» {anchor:abaea98c9cec2051a3588b919068948f}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#7ae352fc158747f08dd5eb90855a89f8]"{noformat}||[PagerResult«DistrictEntity»|#7ae352fc158747f08dd5eb90855a89f8]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DynamicFormDeployLogEntity»» {anchor:af1a0c73ed9afec5c76ebf1dce361e01}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#27fe728492934f59e88d33a2b3766933]"{noformat}||[PagerResult«DynamicFormDeployLogEntity»|#27fe728492934f59e88d33a2b3766933]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«DynamicFormEntity»» {anchor:79912e82f1deb6279e26d7fd6a3b5046}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#e4260528def855a58a0656f691a7915f]"{noformat}||[PagerResult«DynamicFormEntity»|#e4260528def855a58a0656f691a7915f]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«FileInfoEntity»» {anchor:514595c8dda5f56bb0f5c31d0b5c3214}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#9d35a78643baac21c0fe6f107f9d2240]"{noformat}||[PagerResult«FileInfoEntity»|#9d35a78643baac21c0fe6f107f9d2240]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«MenuEntity»» {anchor:988c76f931d9e2f2511502e7d7e19ce1}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#7e2ce4331019959450104bfb2dffd23f]"{noformat}||[PagerResult«MenuEntity»|#7e2ce4331019959450104bfb2dffd23f]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«OAuth2ServerConfigEntity»» {anchor:9418f129377a4c78a87d34891784b4ad}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#ebda22c7bc1513232ab81083e253e208]"{noformat}||[PagerResult«OAuth2ServerConfigEntity»|#ebda22c7bc1513232ab81083e253e208]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«OAuth2UserTokenEntity»» {anchor:652849cecf290786c83f3915b818f8c1}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#a6a076d035327679df47051bad4a58ab]"{noformat}||[PagerResult«OAuth2UserTokenEntity»|#a6a076d035327679df47051bad4a58ab]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«OrganizationalEntity»» {anchor:1e34e66cd932a6e9a2a19ae61f935332}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#ca90e82f68dd6bae04544c264662a182]"{noformat}||[PagerResult«OrganizationalEntity»|#ca90e82f68dd6bae04544c264662a182]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«PermissionEntity»» {anchor:f0740da5a603024d54cffe67ebcfe2f3}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#8630f4cda224d8ff5faf619fac8c9875]"{noformat}||[PagerResult«PermissionEntity»|#8630f4cda224d8ff5faf619fac8c9875]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«PersonEntity»» {anchor:35dd428b2aeda09b4672b75af069d2c1}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#8c2ab88d5455871f901a74e62b505b47]"{noformat}||[PagerResult«PersonEntity»|#8c2ab88d5455871f901a74e62b505b47]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«PositionEntity»» {anchor:0b9846aedba34500c09ff8c883f89c41}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#6e02dbdccfce51084450a2d632d0fe45]"{noformat}||[PagerResult«PositionEntity»|#6e02dbdccfce51084450a2d632d0fe45]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«RelationDefineEntity»» {anchor:858faa3bec7747a89f047157de5fa7b5}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#bd1d9065a052eddc01b75243abd873cd]"{noformat}||[PagerResult«RelationDefineEntity»|#bd1d9065a052eddc01b75243abd873cd]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«RelationInfoEntity»» {anchor:662abf311f6756ce1515cfc1f3d6497b}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#720330473169ba94d7e5e1840dac11db]"{noformat}||[PagerResult«RelationInfoEntity»|#720330473169ba94d7e5e1840dac11db]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«RoleEntity»» {anchor:04b8a0105cc98da475754a7a0d118cac}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#6e67c47f04808732b2f0546672e9f4ca]"{noformat}||[PagerResult«RoleEntity»|#6e67c47f04808732b2f0546672e9f4ca]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«ScheduleJobEntity»» {anchor:42906958f8fba064d74cc15b287b285b}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#3c5582dff446edfec2b56a38e400f979]"{noformat}||[PagerResult«ScheduleJobEntity»|#3c5582dff446edfec2b56a38e400f979]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«ScriptEntity»» {anchor:b526184b0542731e9ce046cd15c7430f}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#8600a8255df0072a9ebdcef867f5c524]"{noformat}||[PagerResult«ScriptEntity»|#8600a8255df0072a9ebdcef867f5c524]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«UserEntity»» {anchor:022104f1b83fb14da490f0bad176c23f}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#8c19b416cd9de9ffbed9082acff5fc80]"{noformat}||[PagerResult«UserEntity»|#8c19b416cd9de9ffbed9082acff5fc80]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PagerResult«object»» {anchor:b067bd9552e787aea006c9b1cd6fcd02}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#87daa132c4ff15bc24c3702dd105f6c8]"{noformat}||[PagerResult«object»|#87daa132c4ff15bc24c3702dd105f6c8]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PermissionEntity» {anchor:50819844bfd86a245c543cc0190b4828}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#permissionentity]"{noformat}||[PermissionEntity|#permissionentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PersonAuthBindEntity» {anchor:10249428a4d55b979ef50cf7ac890aeb}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#personauthbindentity]"{noformat}||[PersonAuthBindEntity|#personauthbindentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PersonEntity» {anchor:c794f72feaad58a88d3da0cc427d1d9c}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#personentity]"{noformat}||[PersonEntity|#personentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PersonnelAuthorization» {anchor:4c898cb865a7ac8d70a5f816c252d944}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#personnelauthorization]"{noformat}||[PersonnelAuthorization|#personnelauthorization]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«PositionEntity» {anchor:81d3f00a16ad771d3c6fbdd99e002afb}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#positionentity]"{noformat}||[PositionEntity|#positionentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«RelationDefineEntity» {anchor:07e4edac137972c7b8c957a922b992ee}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#relationdefineentity]"{noformat}||[RelationDefineEntity|#relationdefineentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«RelationInfoEntity» {anchor:a8d04810db9cc799f48ca42652e0514e}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#relationinfoentity]"{noformat}||[RelationInfoEntity|#relationinfoentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«RoleEntity» {anchor:9de855e0a731771e1c13e47e25e30380}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#roleentity]"{noformat}||[RoleEntity|#roleentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«ScheduleJobEntity» {anchor:d803770b9be33fab88c050cc650ebacd}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#schedulejobentity]"{noformat}||[ScheduleJobEntity|#schedulejobentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«ScriptEntity» {anchor:75b3a1a20f80841af6d3065f6ad3b2f7}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#scriptentity]"{noformat}||[ScriptEntity|#scriptentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«UserEntity» {anchor:26c05b8f050f76cd6252ff48bb3d92d3}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#userentity]"{noformat}||[UserEntity|#userentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«UserSettingEntity» {anchor:bb605f14ea851832f5ce7d794caaceca}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"[#usersettingentity]"{noformat}||[UserSettingEntity|#usersettingentity]|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«Void» {anchor:6c061a07afa1c9738e33d1b5ec1728a9}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«boolean» {anchor:bbdc11e8c14b5b13fda321a82dc3a3ac}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}false{noformat}||boolean|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«int» {anchor:d53a2c1e07a660f2c3f1b54e6a7c98bb}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«long» {anchor:f505e3d79e9444eeb3266210d702f335}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«object» {anchor:4e3465260d0b339c0ae101c8a6821732}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. ResponseMessage«string» {anchor:7706c642a9473cc1b49b8f456cc26073}
+响应结果
+
+
+||名称||说明||类型||
+|*message*\\ \\ _可选_||调用结果消息\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*result*\\ \\ _可选_||成功时响应数据\\ \\ *样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _必填_||状态码\\ \\ *样例* : {noformat}0{noformat}||integer (int32)|
+|*timestamp*\\ \\ _必填_||时间戳\\ \\ *样例* : {noformat}0{noformat}||integer (int64)|
+
+
+h3. Role {anchor:role}
+
+||名称||说明||类型||
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. RoleEntity {anchor:roleentity}
+
+||名称||说明||类型||
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+
+
+h3. ScheduleJobEntity {anchor:schedulejobentity}
+
+||名称||说明||类型||
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*language*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parameters*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*quartzConfig*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*remark*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*script*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*tags*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. ScriptEntity {anchor:scriptentity}
+
+||名称||说明||类型||
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*language*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*remark*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*script*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*tag*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Serializable {anchor:serializable}
+_类型_ : object
+
+
+h3. SqlExecuteResult {anchor:sqlexecuteresult}
+
+||名称||说明||类型||
+|*result*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*sqlInfo*\\ \\ _可选_||*样例* : {noformat}"[#sqlinfo]"{noformat}||[SqlInfo|#sqlinfo]|
+
+
+h3. SqlInfo {anchor:sqlinfo}
+
+||名称||说明||类型||
+|*datasourceId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*sql*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. Term {anchor:term}
+
+||名称||说明||类型||
+|*column*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*termType*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*terms*\\ \\ _可选_||*样例* : {noformat}[ "[#term]" ]{noformat}||< [Term|#term] > array|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||enum (or, and)|
+|*value*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+
+
+h3. TransactionInfo {anchor:transactioninfo}
+
+||名称||说明||类型||
+|*createTime*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string (date-time)|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*lastExecuteTime*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string (date-time)|
+|*sqlHistory*\\ \\ _可选_||*样例* : {noformat}[ "[#sqlinfo]" ]{noformat}||< [SqlInfo|#sqlinfo] > array|
+
+
+h3. TreeNode«string» {anchor:6cb863976d93d76997d3a0a3d6c32f27}
+
+||名称||说明||类型||
+|*allValue*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#6cb863976d93d76997d3a0a3d6c32f27]" ]{noformat}||< [TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27] > array|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*parent*\\ \\ _可选_||*样例* : {noformat}"[#6cb863976d93d76997d3a0a3d6c32f27]"{noformat}||[TreeNode«string»|#6cb863976d93d76997d3a0a3d6c32f27]|
+|*value*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. TreeSupportEntity«string» {anchor:852541f5d496d0afc6b3900a123fca7e}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#852541f5d496d0afc6b3900a123fca7e]" ]{noformat}||< [TreeSupportEntity«string»|#852541f5d496d0afc6b3900a123fca7e] > array|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+
+
+h3. UpdateParamEntity«Map«string,object»» {anchor:eba3e5ef973206080b3fe0cfe29971bc}
+
+||名称||说明||类型||
+|*data*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*excludes*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*includes*\\ \\ _可选_||*样例* : {noformat}[ "string" ]{noformat}||< string > array|
+|*terms*\\ \\ _可选_||*样例* : {noformat}[ "[#term]" ]{noformat}||< [Term|#term] > array|
+
+
+h3. User {anchor:user}
+
+||名称||说明||类型||
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*username*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. UserEntity {anchor:userentity}
+
+||名称||说明||类型||
+|*createTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*creatorId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*password*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*salt*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*status*\\ \\ _可选_||*模式* : {noformat}"^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==\|[A-Za-z0-9+/]{3}=)?$"{noformat}*样例* : {noformat}"string"{noformat}||string (byte)|
+|*username*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. UserMenuEntity {anchor:usermenuentity}
+
+||名称||说明||类型||
+|*children*\\ \\ _可选_||*样例* : {noformat}[ "[#usermenuentity]" ]{noformat}||< [UserMenuEntity|#usermenuentity] > array|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*icon*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*level*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int32)|
+|*menuId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*parentId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*path*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*permissionId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*sortIndex*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*url*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. UserSettingEntity {anchor:usersettingentity}
+
+||名称||说明||类型||
+|*createTime*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string (date-time)|
+|*describe*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*id*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*key*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*name*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*properties*\\ \\ _可选_||*样例* : {noformat}"object"{noformat}||object|
+|*setting*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*settingId*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+|*updateTime*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string (date-time)|
+|*userId*\\ \\ _必填_||*样例* : {noformat}"string"{noformat}||string|
+
+
+h3. UserToken {anchor:usertoken}
+
+||名称||说明||类型||
+|*effective*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*expired*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*lastRequestTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*maxInactiveInterval*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*offline*\\ \\ _可选_||*样例* : {noformat}true{noformat}||boolean|
+|*requestTimes*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*signInTime*\\ \\ _可选_||*样例* : {noformat}0{noformat}||integer (int64)|
+|*state*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||enum (effective, deny, expired, offline)|
+|*token*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*type*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+|*userId*\\ \\ _可选_||*样例* : {noformat}"string"{noformat}||string|
+
+
+
