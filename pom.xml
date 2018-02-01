@@ -61,6 +61,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-concurrent-cache</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--权限管理-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
