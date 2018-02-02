@@ -1,5 +1,12 @@
 # hsweb 3.0 演示
 
+## 接口文档
+
+http://cdn-blog.jetbrains.org.cn/doc/all.html
+
+也可以执行org.hswebframework.web.demo.DemoApplicationTests 自己生成
+
+
 ## 运行
 ```bash
     $ git clone https://github.com/hs-web/hsweb3-demo.git
@@ -13,3 +20,4 @@
 
 ## 无法下载依赖?
 查看maven的settings.xml是否配置了私服,删掉或者mirrorOf不要为*
+
