@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8089
   compression:
     enabled: true
     mime-types: text/plain,application/javascript,application/x-javascript,text/css,application/xml,application/json
@@ -35,6 +35,11 @@ hsweb:
     app:
       name: hsweb-demo
       version: 3.0.0
+    cors:
+      allowed-headers: "*"
+      allowed-methods: "*"
+      allowed-origins: "*"
+      enable: true
 
 mybatis:
 #  mapper-location-excludes: classpath*:**/UserMapper.xml  # 不加载的配置
