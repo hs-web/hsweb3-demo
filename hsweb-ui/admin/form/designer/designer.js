@@ -187,9 +187,11 @@ var widgets = [
 var chooseWidgets = {}; //当前已经选择列的组件格式为{id:widget}. id为键，组件对象为值。
 var editor;
 var nowEditId;
+var changedEvents = [];
+
 window.getWidgetByType = function (type) {
     for (var i = 0; i < widgets.length; i++) {
-        if (widgets[i].type == type)return mini.clone(widgets[i]);
+        if (widgets[i].type == type) return mini.clone(widgets[i]);
     }
     return null;
 };
@@ -203,6 +205,7 @@ window.insertWidget = function (widget) {
 
     html = $("<div>").append($(html).attr("widget-id", id)).html();
     editor.execCommand('insertHtml', html);
+    doConfigChange();
 };
 
 function initEditor() {
@@ -211,13 +214,15 @@ function initEditor() {
         var id = $(focusNode).attr("widget-id");
         // if(id){
         nowEditId = id;
+        doConfigChange();
         initWidgetProperties();
         //}
     });
 
 }
+
 function getEditor(row) {
-    if (!row.editor)return;
+    if (!row.editor) return;
     var editor = mini.get('widget-editor-' + row.editor);
     if (editor) {
         if (editor.setData && row.data) {
@@ -227,6 +232,7 @@ function getEditor(row) {
     }
     return {type: "textbox"};
 }
+
 function initPropertiesGrid() {
     var grid = mini.get("properties-grid");
     if (grid)
@@ -242,16 +248,35 @@ function initPropertiesGrid() {
             }
         });
 }
+
 function initWidgetProperties() {
     var grid = mini.get("properties-grid");
-    if (!nowEditId) grid.setData([]);
-    else {
+    if (!nowEditId) {
+        grid.setData([]);
+    } else {
         var wg = chooseWidgets[nowEditId];
         grid.setData(wg.properties);
     }
-
 }
 
+var lstChangeConfig="";
+
+function doConfigChange() {
+    var config = getConfig();
+    var configJSON = JSON.stringify(config);
+
+    if (configJSON != lstChangeConfig) {
+        lstChangeConfig=configJSON;
+        $(changedEvents).each(function () {
+            this(config);
+        });
+    }
+}
+
+//绑定配置发生变动事件
+window.onConfigChanged = function (e) {
+    changedEvents.push(e);
+};
 window.setConfig = function (text) {
     var cfg = JSON.parse(text);
     editor.ready(function () {
@@ -259,7 +284,9 @@ window.setConfig = function (text) {
     });
     chooseWidgets = cfg.config;
 };
-
+window.getUeditor = function () {
+    return editor;
+}
 window.getConfig = function () {
     // 返回整个表单的元数据,json格式
     return JSON.stringify({"html": editor.getContent(), "config": chooseWidgets});
@@ -288,6 +315,7 @@ function initClp() {
     });
 
 }
+
 importMiniui(function () {
     mini.parse();
     window.UEDITOR_HOME_URL = window.BASE_PATH + "plugins/ueditor/";
@@ -299,8 +327,8 @@ importMiniui(function () {
             initEditor();
         });
     });
-    require(["md5"],function (md5) {
-        window.md5=md5;
+    require(["md5"], function (md5) {
+        window.md5 = md5;
     });
     var tree = mini.get("leftTree");
     tree.loadList(widgets);
@@ -347,7 +375,9 @@ importMiniui(function () {
     });
 
     $(".save-button").on("click", function () {
-        if (window.save) window.save();
+        if (window.save) {
+            window.save();
+        }
     });
     if (window.init) {
         window.init();
@@ -361,5 +391,5 @@ function randomChar(len) {
     //     var rand = Math.floor(Math.random() * str.length);
     //     s += str.charAt(rand);
     // }
-    return md5(new Date().getTime()+""+Math.random());
+    return md5(new Date().getTime() + "" + Math.random());
 }
