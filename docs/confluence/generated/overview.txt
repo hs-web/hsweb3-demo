@@ -1,0 +1,64 @@
+h1. hsweb 3.0 api
+
+
+h2. 概览 {anchor:overview}
+hsweb 企业后台管理基础框架
+
+
+h3. 版本信息
+_版本_ : 3.0
+
+
+h3. 联系方式
+_名字_ : zhouhao\\ 
+_邮箱_ : i@hsweb.me
+
+
+h3. 许可信息
+_许可证_ : Apache License, Version 2.0\\ 
+_许可网址_ : https://www.apache.org/licenses/LICENSE-2.0.html\\ 
+_服务条款_ : http://www.hsweb.me/
+
+
+h3. URI scheme
+_域名_ : localhost:8080\\ 
+_基础路径_ : /
+
+
+h3. 标签
+
+* OAuth2.0-客户端-token : O Auth 2 User Token Controller
+* OAuth2.0-客户端-服务配置 : O Auth 2 Server Config Controller
+* OAuth2.0-客户端-请求服务 : O Auth 2 Client Controller
+* OAuth2.0-服务-客户端管理 : O Auth 2 Client Config Controller
+* OAuth2.0-服务-授权 : O Auth 2 Authorize Controller
+* OAuth2.0-服务-申请token : O Auth 2 Token Controller
+* OAuth2.0-服务-获取用户信息 : O Auth 2 User Info Controller
+* 动态脚本管理 : Script Controller
+* 动态表单-发布日志 : Dynamic Form Deploy Log Controller
+* 动态表单-数据操作 : Dynamic Form Operation Controller
+* 动态表单-表单管理 : Dynamic Form Column Controller
+* 定时调度管理 : Schedule Job Controller
+* 开发人员工具-数据库维护 : Data Base Manager Controller
+* 开发人员工具-数据源 : Datasource Controller
+* 文件管理-文件信息管理 : File Info Controller
+* 文件管理-文件操作 : File Controller
+* 权限-权限管理 : Permission Controller
+* 权限-权限设置 : Authorization Setting Controller
+* 权限-用户令牌管理 : User Token Info Controller
+* 权限-用户授权 : Authorization Controller
+* 权限-用户管理 : User Controller
+* 权限-菜单管理 : Menu Controller
+* 权限-角色管理 : Role Controller
+* 用户-用户配置管理 : User Setting Controller
+* 第三方应用-ueditor : Ueditor Controller
+* 组织架构-人员管理 : Person Controller
+* 组织架构-关系定义管理 : Relation Define Controller
+* 组织架构-关系管理 : Relation Info Controller
+* 组织架构-机构管理 : Organizational Controller
+* 组织架构-职位管理 : Position Controller
+* 组织架构-行政区划管理 : District Controller
+* 组织架构-部门管理 : Department Controller
+
+
+
