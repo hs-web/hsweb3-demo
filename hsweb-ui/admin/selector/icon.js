@@ -1,3 +1,10 @@
+/**
+ * require(["/admin/selector/icon.js"],function(selector){
+ *      selector(function(icon){
+ *          console.log(icon)
+ *      })
+ * })
+ */
 define(["miniui-tools"], function (tools) {
 
     function selector(callback) {
