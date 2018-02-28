@@ -16,7 +16,7 @@ http://cdn-blog.jetbrains.org.cn/doc/all.html
 或者导入ide,等待maven依赖下载完后执行: 
 ``org.hswebframework.web.demo.Application.main``
 
-启动成功后打开: http://localhost:8080 ,帐号:admin 密码:admin
+启动成功后打开: http://localhost:8089 ,帐号:admin 密码:admin
 
 ## 无法下载依赖?
 查看maven的settings.xml是否配置了私服,删掉或者mirrorOf不要为*
