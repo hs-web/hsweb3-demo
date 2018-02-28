@@ -53,20 +53,30 @@
 <div class="mini-fit">
     <div id="main" class="mini-layout" style="width:100%;height:100%;">
         <div title="数据库" showProxyText="true" region="west" width="200" expanded="true" showSplitIcon="true">
-            <ul id="database-tree" class="mini-tree" style="width:100%;height:100%;"
+            <ul id="database-tree" contextMenu="#treeMenu" class="mini-tree" style="width:100%;height:100%;"
                 showTreeIcon="true" textField="name"  resultAsTree="true">
             </ul>
         </div>
         <div title="center" region="center">
             <div class="mini-toolbar">
-                <a class="mini-button" plain="true" iconCls="fa fa-file">执行sql</a>
+                <a class="mini-button execute-sql" plain="true" style="color: #32ad52" iconCls="fa fa-play"></a>
+
+                自动提交:<input id="auto-commit" checked type="checkbox" />
+                <a class="mini-button commit-tx" plain="true" enabled="false" iconCls="fa fa-check">提交</a>
+                <a class="mini-button rollback-tx" plain="true" enabled="false"  iconCls="fa fa-undo">回滚</a>
+
             </div>
             <div class="mini-fit">
-                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;"
-                     plain="false"></div>
+                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false"></div>
             </div>
         </div>
     </div>
+    <ul id="treeMenu" class="mini-contextmenu" style="display: none" onbeforeopen="onBeforeOpen">
+        <li class="new-sql db-menu-database db-menu" iconCls="fa fa-terminal" >新建SQL</li>
+        <li class="new-table db-menu-database db-menu" iconCls="fa fa-table" >新建表</li>
+
+        <li class="new-table db-menu-table db-menu" iconCls="fa fa-table" >修改表结构</li>
+    </ul>
 </div>
 </body>
 </html>
