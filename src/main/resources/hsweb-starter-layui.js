@@ -25,8 +25,8 @@ var info = {
 };
 var menus = [
     {
-        "u_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "name": "系统设置",
+        "u_id": "system-menu-parent",
+        "name": "系统",
         "parent_id": "-1",
         "permission_id": "",
         "path": "sOrB",
@@ -37,17 +37,29 @@ var menus = [
         "status": 1
     },
     {
-        "u_id": "8db17b9ba28dd949c926b329af477a08",
-        "name": "菜单管理",
-        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "permission_id": "menu",
-        "path": "sOrB-ocxx",
-        "sort_index": 101,
-        "describe": null,
-        "url": "/admin/menu/list.html",
+        "u_id": "e9dc96d6b677cbae865670e6813f5e8b",
+        "name": "系统设置",
+        "parent_id": "system-menu-parent",
+        "permission_id": "",
+        "path": "sOrB",
+        "sort_index": 1,
+        "describe": "父菜单 ",
+        "url": "",
         "icon": "",
         "status": 1
     },
+    // {
+    //     "u_id": "8db17b9ba28dd949c926b329af477a08",
+    //     "name": "菜单管理",
+    //     "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
+    //     "permission_id": "menu",
+    //     "path": "sOrB-ocxx",
+    //     "sort_index": 101,
+    //     "describe": null,
+    //     "url": "pages/menu/list",
+    //     "icon": "",
+    //     "status": 1
+    // },
     {
         "u_id": "a52df62b69e21fd756523faf8f0bd986",
         "name": "权限管理",
@@ -56,7 +68,7 @@ var menus = [
         "path": "sOrB-InQ5",
         "sort_index": 102,
         "describe": null,
-        "url": "/admin/permission/list.html",
+        "url": "pages/permission/list",
         "icon": null,
         "status": 1
     },
@@ -68,7 +80,7 @@ var menus = [
         "path": "sOrB-Gpa8",
         "sort_index": 103,
         "describe": null,
-        "url": "/admin/role/list.html",
+        "url": "pages/role/list",
         "icon": "",
         "status": 1
     },
@@ -80,88 +92,7 @@ var menus = [
         "path": "sOrB-vSbQ",
         "sort_index": 104,
         "describe": null,
-        "url": "/admin/user/list.html",
-        "icon": null,
-        "status": 1
-    },
-    {
-        "u_id": "org-01",
-        "name": "组织架构",
-        "parent_id": "-1",
-        "permission_id": "",
-        "path": "a2o0",
-        "sort_index": 2,
-        "describe": null,
-        "url": "",
-        "icon": null,
-        "status": 1
-    },
-    {
-        "u_id": "org-01-01",
-        "name": "机构管理",
-        "parent_id": "org-01",
-        "permission_id": "organizational",
-        "path": "a2o0-asqwe",
-        "sort_index": 201,
-        "describe": null,
-        "url": "/admin/org/list.html",
-        "icon": null,
-        "status": 1
-    },
-    {
-        "u_id": "org-01-02",
-        "name": "综合设置",
-        "parent_id": "org-01",
-        "permission_id": "organizational,department,position,person",
-        "path": "a2o0-qweq",
-        "sort_index": 202,
-        "describe": null,
-        "url": "/admin/org/manager/index.html",
-        "icon": null,
-        "status": 1
-    }
-    ,
-    {
-        "u_id": "dev-01",
-        "name": "开发人员工具",
-        "parent_id": "-1",
-        "permission_id": "",
-        "path": "d010",
-        "sort_index": 3,
-        "url": "",
-        "icon": null,
-        "status": 1
-    },
-    {
-        "u_id": "code-gen",
-        "name": "代码生成器",
-        "parent_id": "dev-01",
-        "permission_id": "file,database-manager,datasource",
-        "path": "d010-001",
-        "sort_index": 301,
-        "url": "/admin/code-generator/index.html",
-        "icon": null,
-        "status": 1
-    },
-    {
-        "u_id": "dyn-form",
-        "name": "动态表单",
-        "parent_id": "dev-01",
-        "permission_id": "form",
-        "path": "d010-002",
-        "sort_index": 302,
-        "url": "/admin/form/list.html",
-        "icon": null,
-        "status": 1
-    },
-    {
-        "u_id": "quartz",
-        "name": "定时任务",
-        "parent_id": "dev-01",
-        "permission_id": "schedule",
-        "path": "d010-003",
-        "sort_index": 303,
-        "url": "/admin/schedule/index.html",
+        "url": "pages/user/list",
         "icon": null,
         "status": 1
     }
