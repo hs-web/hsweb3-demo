@@ -13,7 +13,7 @@ define(["ace/ace"], function (ace) {
         aceEditor[el].getScript = function () {
             return editor.getValue();
         }
-
+        aceEditor[el].editor=editor;
         require(["ace/ext/language_tools"], function (langTools) {
             aceEditor[el].setCompleteData = function (data) {
                 langTools.addCompleter({
