@@ -1,12 +1,15 @@
 importResource("/admin/css/common.css");
 importResource("/plugins/font-awesome/4.7.0/css/font-awesome.css");
 importResource("/admin/index.css");
+
 function initMenu() {
     require(["request", "message"], function (request, message) {
         // var loading = message.loading("加载用户菜单...")
-        request.get("menu/user-own/list", function (response) {
+        var api ="menu/no-paging" ;//"menu/user-own/list";
+
+        request.get(api, function (response) {
             // loading.hide();
-            if (response.status == 200) {
+            if (response.status === 200) {
                 mini.get("leftTree").loadList(response.result);
             } else {
                 message.showTips("加载菜单失败:" + response.message, "danger");
@@ -37,7 +40,7 @@ importMiniui(function () {
     }
 
     window.showTab = function (node) {
-        if (!node.url || node.url == "")return;
+        if (!node.url || node.url == "") return;
         var id = "tab$" + node.id;
         var tab = tabs.getTab(id);
         if (!tab) {
@@ -103,20 +106,23 @@ function initLogin() {
         });
     });
     initAuthorize();
+    // initMenu();
     $(".settings").on("click", function () {
-        require(["miniui-tools"],function (tools) {
-            tools.openWindow("admin/me/info.html","个人信息","800","600",function () {
+        require(["miniui-tools"], function (tools) {
+            tools.openWindow("admin/me/info.html", "个人信息", "800", "600", function () {
 
             });
         });
     });
 }
+
 window.doLogin = function (callback) {
     mini.get("loginWindow").show();
     window.onLoginSuccess = function () {
         initAuthorize(callback);
     };
 };
+
 function initAuthorize(call) {
     require(["authorize"], function (authorize) {
         authorize.init(function () {
