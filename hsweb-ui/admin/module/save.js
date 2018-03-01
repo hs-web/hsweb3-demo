@@ -29,7 +29,8 @@ var termType = [
 ];
 importMiniui(function () {
     mini.parse();
-    require(["message", "miniui-tools"], function (message, tools) {
+    require(["message", "miniui-tools", "request"], function (message, tools, request) {
+        var id = request.getParameter("id");
 
         window.selectIcon = function (e) {
             require(["../selector/icon"], function (iconSelector) {
@@ -67,6 +68,8 @@ importMiniui(function () {
                     })
             }
         }
+
+        var pageScriptEditor;
 
         /*工具栏*/
         var toolbar = [
@@ -121,6 +124,15 @@ importMiniui(function () {
 
             initToolbar();
             initCondition();
+            require(['script-editor'], function (editorBuilder) {
+                editorBuilder.createEditor("page-script-editor", function (editor) {
+                    pageScriptEditor = editor;
+                    pageScriptEditor.init("javascript", "this.on('beforeQuery',function(){\n" +
+                        "\t//this.query.like('name','%测试%').or().is('status',1)" +
+                        "\n});" +
+                        "");
+                });
+            });
         });
 
         var listGrid = mini.get("list-datagrid");
@@ -457,7 +469,7 @@ importMiniui(function () {
         {
 
             $(".add-list-column").on("click", function () {
-                listGrid.addNode({});
+                listGrid.addNode({show: true});
             });
             var listConfigGrid = mini.get("list-datagrid");
 
@@ -484,9 +496,30 @@ importMiniui(function () {
             };
         }
 
+        function getConfig() {
+            return {
+                toolbar: toolbar,
+                script: pageScriptEditor.getScript(),
+                condition: condition,
+                table: {
+                    columns: mini.get("list-datagrid").getData(),
+                    actions: mini.get("list-operate-datagrid").getData(),
+                    url: "user"
+                }
+            }
+        }
+
+        //预览
+        $(".preview").on("click", function () {
+            require(["parser"], function (parser) {
+                parser.parse($("#preview"), getConfig());
+                mini.get("preview-window").show();
+            })
+        });
+
         function createScriptEditorAction(e) {
             function setScript(script) {
-                e.record.onclick = e.value = script;
+                e.record[e.field] = e.value = script;
             }
 
             return tools.createActionButton("编辑", "icon-edit", function () {
