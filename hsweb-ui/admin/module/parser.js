@@ -18,108 +18,120 @@
  *
  */
 define(["miniui-tools", "authorize", "request", "message"], function (tools, autz, request, message) {
-    var toolbarType = {};
-    var conditionType = {};
-    var toolbarTypeList = [
-        {
-            id: "button",
-            name: "按钮",
-            create: function (config) {
-                var html = $("<a class='mini-button' plain='true'>");
-                html.attr(config).html(config.text);
-                html.attr("onclick", createOnclick(config.onclick));
-                return html;
-            }
-        },
-        {
-            id: "menuButton",
-            name: "菜单",
-            create: function (config) {
-                function createMenu(parent, menus) {
-                    $(menus).each(function () {
-                        var li = $("<li>");
-                        li.attr({iconCls: this.iconCls});
-                        if (this.children && this.children.length > 0) {
-                            li.append($("<span>")
-                                .attr({iconCls: this.iconCls})
-                                .text(this.text));
-                            var ul = $("<ul>");
-                            createMenu(ul, this.children);
-                            li.append(ul);
-                        } else {
-                            li.text(this.text);
-                        }
-                        li.attr("onclick", createOnclick(this.onclick));
-                        parent.append(li);
-                    });
+
+
+    function Parser(config) {
+        this.toolbarType = {};
+        this.conditionType = {};
+
+        this.toolbarTypeList = [
+            {
+                id: "button",
+                name: "按钮",
+                create: function (config) {
+                    var html = $("<a class='mini-button' plain='true'>");
+                    html.attr(config).html(config.text);
+                    html.attr("onclick", me.createOnclick(config.onclick));
+                    return html;
                 }
+            },
+            {
+                id: "menuButton",
+                name: "菜单",
+                create: function (config) {
+                    function createMenu(parent, menus) {
+                        $(menus).each(function () {
+                            var li = $("<li>");
+                            li.attr({iconCls: this.iconCls});
+                            if (this.children && this.children.length > 0) {
+                                li.append($("<span>")
+                                    .attr({iconCls: this.iconCls})
+                                    .text(this.text));
+                                var ul = $("<ul>");
+                                createMenu(ul, this.children);
+                                li.append(ul);
+                            } else {
+                                li.text(this.text);
+                            }
+                            li.attr("onclick", me.createOnclick(this.onclick));
+                            parent.append(li);
+                        });
+                    }
 
-                var id = "menu_" + (Math.round(Math.random() * 1000000));
-                var button = $("<a class=\"mini-menubutton\" plain=\"true\">");
-                var eventId = "e_" + (Math.round(Math.random() * 100000));
-                window[eventId] = function () {
-                };
-                button.attr({
-                    iconCls: config.iconCls,
-                    onclick: eventId,
-                    menu: "#" + id,
-                    id: config.id
-                });
-                button.html(config.text);
-                var menu = $("<ul class=\"mini-menu toolbar-menu\" style=\"display:none;\">")
-                    .attr("id", id);
-                createMenu(menu, config.children);
-                $(document.body).append(menu);
-                return button;
-            }
-        }
-    ];
-    var conditionTypeList = [
-        {
-            name: "文本输入",
-            id: "textbox",
-            create: function (config) {
-                var container = $("<div style='text-align: right;margin-top: 10px' class=\"mini-col-" + config.size + "\">");
-                var label = $("<label class='form-label'>").text(config.text)
-                    .css({
-                        "width": "200px",
-                        "text-align": "right"
+                    var id = "menu_" + (Math.round(Math.random() * 1000000));
+                    var button = $("<a class=\"mini-menubutton\" plain=\"true\">");
+                    var eventId = "e_" + (Math.round(Math.random() * 100000));
+                    window[eventId] = function () {
+                    };
+                    button.attr({
+                        iconCls: config.iconCls,
+                        onclick: eventId,
+                        menu: "#" + id,
+                        id: config.id
                     });
-                var input = $("<input style='width: 70%' class='mini-textbox'>")
-                    .attr(config.editor)
-                    .attr("name", config.id);
-                container.append(label).append(input);
-                return container;
+                    button.html(config.text);
+                    var menu = $("<ul class=\"mini-menu toolbar-menu\" style=\"display:none;\">")
+                        .attr("id", id);
+                    createMenu(menu, config.children);
+                    $(document.body).append(menu);
+                    return button;
+                }
             }
-        },
-        {
-            name: "日期",
-            id: "date",
-            create: function (config) {
-                var container = $("<div style='text-align: right;margin-top: 10px' class=\"mini-col-" + config.size + "\">");
-                var label = $("<label class='form-label'>").text(config.text)
-                    .css({
-                        "width": "200px",
-                        "text-align": "right"
-                    });
-                var input = $("<input style='width: 70%' class='mini-datepicker'>")
-                    .attr(config.editor)
-                    .attr("name", config.id);
-                ;
-                container.append(label).append(input);
-                return container;
+        ];
+        this.conditionTypeList = [
+            {
+                name: "文本输入",
+                id: "textbox",
+                create: function (config) {
+                    var container = $("<div style='text-align: right;margin-top: 10px' class=\"mini-col-" + config.size + "\">");
+                    var label = $("<label class='form-label'>").text(config.text)
+                        .css({
+                            "width": "200px",
+                            "text-align": "right"
+                        });
+                    var input = $("<input style='width: 70%' class='mini-textbox'>")
+                        .attr(config.editor)
+                        .attr("name", config.id);
+                    container.append(label).append(input);
+                    return container;
+                }
+            },
+            {
+                name: "日期",
+                id: "date",
+                create: function (config) {
+                    var container = $("<div style='text-align: right;margin-top: 10px' class=\"mini-col-" + config.size + "\">");
+                    var label = $("<label class='form-label'>").text(config.text)
+                        .css({
+                            "width": "200px",
+                            "text-align": "right"
+                        });
+                    var input = $("<input style='width: 70%' class='mini-datepicker'>")
+                        .attr(config.editor)
+                        .attr("name", config.id);
+                    ;
+                    container.append(label).append(input);
+                    return container;
+                }
             }
-        }
-    ];
+        ];
+        this.tools = tools;
+        this.message = message;
+        this.request = request;
+        this.events = {};
+        this.config = config;
+        var me = this;
+        $(me.toolbarTypeList).each(function () {
+            me.toolbarType[this.id] = this;
+        });
+        $(me.conditionTypeList).each(function () {
+            me.conditionType[this.id] = this;
+        });
 
-    $(toolbarTypeList).each(function () {
-        toolbarType[this.id] = this;
-    });
-    $(conditionTypeList).each(function () {
-        conditionType[this.id] = this;
-    });
+    }
 
-    function createOnclick(script) {
+    Parser.prototype.createOnclick = function (script) {
+        var me = this;
         var eventId = "e_" + (Math.round(Math.random() * 100000));
         var call = typeof script === 'function' ? script : function () {
             if (script) {
@@ -127,11 +139,7 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                     var fun = eval("(function(){return function(){\n" +
                         script +
                         "\n}})()");
-                    fun.call({
-                        tools: tools,
-                        message: message,
-                        request: request
-                    });
+                    fun.call(me);
                 } catch (e) {
                     console.log(e);
                 }
@@ -139,11 +147,12 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
         };
         window[eventId] = call;
         return eventId;
-    }
+    };
 
-    function parseToolbar(container, toolbar) {
+    Parser.prototype.parseToolbar = function (container, toolbar) {
+        var me = this;
         $(toolbar).each(function () {
-            var type = toolbarType[this.type];
+            var type = me.toolbarType[this.type];
             if (type) {
                 var html = type.create(this);
                 container.append(html);
@@ -151,10 +160,10 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
         });
     }
 
-    function parseCondition(container, condition) {
+    Parser.prototype.parseCondition = function (container, condition) {
+        var me = this;
         $(condition).each(function () {
-            var me = this;
-            var type = conditionType[this.editor.type];
+            var type = me.conditionType[this.editor.type];
             if (type) {
                 var html = type.create(this);
                 container.append(html);
@@ -162,7 +171,8 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
         });
     }
 
-    function parseDataGrid(container, config, onReady) {
+    Parser.prototype.parseDataGrid = function (container, config, onReady) {
+        var me = this;
         var columns = mini.clone(config.columns);
         var actions = mini.clone(config.actions);
         var permission = config.permission;
@@ -293,7 +303,8 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
 
     }
 
-    function buildQueryParam(conditionConfig, param, index, prefix) {
+    Parser.prototype.buildQueryParam = function (conditionConfig, param, index, prefix) {
+        var me = this;
         var terms = {};
         prefix = prefix || "";
         index = index || 0;
@@ -318,44 +329,44 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
         return terms;
     }
 
-    function parse(container, config, call) {
-        var events = {};
-        var helper = {};
-
-        function on(event, func) {
-            if (!events[event]) {
-                events[event] = [];
-            }
-            events[event].push(func);
+    Parser.prototype.doEvent = function (event, args) {
+        var events = this.events;
+        $(events[event]).each(function () {
+            this.call(args);
+        });
+    }
+    Parser.prototype.on = function (event, func) {
+        var events = this.events;
+        if (!events[event]) {
+            events[event] = [];
         }
+        events[event].push(func);
+    }
 
+    Parser.prototype.parse = function (container, config, call) {
+        var me = this;
         if (config.script) {
             try {
                 eval("(function(){return function(){\n" +
                     config.script +
                     "\n}})()")
-                    .call({on: on, helper: helper});
+                    .call(me);
             } catch (e) {
                 console.log(config.script, e);
             }
         }
         if (call) {
-            call.call({on: on});
+            call.call(me);
         }
-
-        function doEvent(event, args) {
-            $(events[event]).each(function () {
-                this.call(args);
-            });
-        }
-
         var toolbarHtml = $("<div class='mini-toolbar' style='border-bottom: 0px'>");
         var toolbar = $("<div>");
         var formId = "form_" + Math.round(Math.random() * 100000);
         var condition = $("<div style='max-width: 1280px;margin: auto' class='mini-clearfix'>")
             .attr("id", formId);
 
-        toolbarHtml.append(toolbar).append(condition);
+        toolbarHtml
+            .append(toolbar)
+            .append(condition);
 
         var searchButton = $("<a class='mini-button' iconCls='icon-search' plain='true'>").text("搜索");
         var resetButton = $("<a class='mini-button' iconCls='icon-undo' plain='true'>").text("重置条件");
@@ -364,8 +375,8 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
         container.html("")
             .append(toolbarHtml)
             .append(grid);
-        parseToolbar(toolbar, config.toolbar);
-        parseCondition(condition, config.condition);
+        me.parseToolbar(toolbar, config.toolbar);
+        me.parseCondition(condition, config.condition);
         var conditionLen = condition.children().length;
 
         if (conditionLen > 0) {
@@ -375,15 +386,14 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
 
         // condition.find("input").attr("onenter",callQuery);
 
-        parseDataGrid(grid, config.table, function (func) {
-            searchButton.attr("onclick", createOnclick(function () {
+        me.parseDataGrid(grid, config.table, function (func) {
+            searchButton.attr("onclick", me.createOnclick(function () {
                 callQuery();
             }));
             mini.parse();
             var gridObj = func();
-            helper.grid = gridObj;
-
-            helper.doQuery = callQuery = function () {
+            me.grid = gridObj;
+            me.doQuery = callQuery = function () {
                 var form = new mini.Form("#" + formId);
                 var data = form.getData(true);
                 var query = request.createQuery();
@@ -396,7 +406,7 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                         includes.push(this.displayField);
                     }
                 });
-                doEvent("beforeQuery", {
+                me.doEvent("beforeQuery", {
                     query: query.nest(),
                     includes: includes
                 });
@@ -404,7 +414,7 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                 if (query.terms.length > 0) {
                     prefix = "terms[" + (query.terms.length) + "].";
                 }
-                var formParams = buildQueryParam(config.condition, data, 0, prefix);
+                var formParams = me.buildQueryParam(config.condition, data, 0, prefix);
 
                 var customParams = query.getParams();
                 for (var e in customParams) {
@@ -413,15 +423,11 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                 formParams.includes = includes.join(",");
                 gridObj.load(formParams);
             };
-            callQuery();
-            doEvent("load", {grid: grid, doQuery: callQuery})
-        });
-    }
 
-    return {
-        parseToolbar: parseToolbar,
-        parseCondition: parseCondition,
-        parseDataGrid: parseDataGrid,
-        parse: parse
-    }
+            callQuery();
+            me.doEvent("load", {grid: grid, doQuery: callQuery})
+        });
+    };
+
+    return Parser
 });

@@ -511,13 +511,14 @@ importMiniui(function () {
         window.setConfig = function (conf) {
             if (conf) {
                 toolbar = conf.toolbar;
-                pageScript = conf.script
+                pageScript = conf.script;
                 if (pageScriptEditor)
                     pageScriptEditor.setScript(pageScript);
                 condition = conf.condition;
                 mini.get("list-datagrid").setData(conf.table.columns);
                 mini.get("list-operate-datagrid").setData(conf.table.actions);
                 mini.getbyName('url').setValue(conf.table.url);
+                mini.getbyName('url').setText(conf.table.url);
                 initToolbar();
                 initCondition();
             }
@@ -544,7 +545,7 @@ importMiniui(function () {
         //预览
         $(".preview").on("click", function () {
             require(["parser"], function (parser) {
-                parser.parse($("#preview"), getConfig());
+                new parser().parse($("#preview"), getConfig());
                 mini.get("preview-window").show();
             })
         });
