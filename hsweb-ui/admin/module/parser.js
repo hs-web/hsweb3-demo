@@ -17,7 +17,7 @@
  * }
  *
  */
-define(["miniui-tools", "authorize", "request"], function (tools, autz, request) {
+define(["miniui-tools", "authorize", "request", "message"], function (tools, autz, request, message) {
     var toolbarType = {};
     var conditionType = {};
     var toolbarTypeList = [
@@ -127,7 +127,11 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
                     var fun = eval("(function(){return function(){\n" +
                         script +
                         "\n}})()");
-                    fun();
+                    fun.call({
+                        tools: tools,
+                        message: message,
+                        request: request
+                    });
                 } catch (e) {
                     console.log(e);
                 }
@@ -173,7 +177,7 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
             var renderer = this.renderer;
             if (this.condition) {
                 try {
-                    var fun = eval("(function(){return function(autz){\n" +
+                    var fun = window.eval("(function(){return function(autz){\n" +
                         this.condition +
                         "\n}})()");
                     if (fun(autz) === false) {
@@ -186,10 +190,19 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
             if (renderer) {
                 this.renderer = function (e) {
                     try {
-                        var fun = eval("(function(){return function(value,row,e,autz){\n" +
+                        var fun = window.eval("(function(){return function(){\n" +
                             renderer +
                             "\n}})()");
-                        return fun(e.value, e.record, e, autz);
+                        var p = {
+                            "value": e.value,
+                            "row": e.record,
+                            "e": e,
+                            "autz": autz,
+                            "tools": tools,
+                            "request": request,
+                            "message": message
+                        };
+                        return fun.call(p);
                     } catch (e) {
                         console.log(renderer, e);
                     }
@@ -260,12 +273,14 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
                                     return;
                                 }
                                 try {
-                                    var fun = eval("(function(){return function(row,e,autz){\n" +
+                                    var fun = eval("(function(){return function(){\n" +
                                         action.onclick +
                                         "\n}})()");
-                                    show = fun(e.record, e, autz);
+                                    show = fun.call({
+                                        row: e.record, e: e, autz: autz, message: message, request: request, tools: tools
+                                    });
                                 } catch (e) {
-                                    console.log(renderer, e);
+                                    console.log(action.onclick, e);
                                 }
                             }))
                         }
@@ -303,8 +318,9 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
         return terms;
     }
 
-    function parse(container, config) {
+    function parse(container, config, call) {
         var events = {};
+        var helper = {};
 
         function on(event, func) {
             if (!events[event]) {
@@ -318,10 +334,13 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
                 eval("(function(){return function(){\n" +
                     config.script +
                     "\n}})()")
-                    .call({on: on});
+                    .call({on: on, helper: helper});
             } catch (e) {
                 console.log(config.script, e);
             }
+        }
+        if (call) {
+            call.call({on: on});
         }
 
         function doEvent(event, args) {
@@ -339,7 +358,7 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
         toolbarHtml.append(toolbar).append(condition);
 
         var searchButton = $("<a class='mini-button' iconCls='icon-search' plain='true'>").text("搜索");
-        var resetButton = $("<a class='mini-button' iconCls='icon-reset' plain='true'>").text("重置条件");
+        var resetButton = $("<a class='mini-button' iconCls='icon-undo' plain='true'>").text("重置条件");
 
         var grid = $("<div class='mini-fit'>");
         container.html("")
@@ -362,7 +381,9 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
             }));
             mini.parse();
             var gridObj = func();
-            callQuery = function () {
+            helper.grid = gridObj;
+
+            helper.doQuery = callQuery = function () {
                 var form = new mini.Form("#" + formId);
                 var data = form.getData(true);
                 var query = request.createQuery();
@@ -389,11 +410,11 @@ define(["miniui-tools", "authorize", "request"], function (tools, autz, request)
                 for (var e in customParams) {
                     formParams[e] = customParams[e];
                 }
-                formParams.includes=includes.join(",");
+                formParams.includes = includes.join(",");
                 gridObj.load(formParams);
             };
             callQuery();
-
+            doEvent("load", {grid: grid, doQuery: callQuery})
         });
     }
 

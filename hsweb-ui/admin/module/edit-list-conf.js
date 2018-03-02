@@ -29,7 +29,7 @@ var termType = [
 ];
 importMiniui(function () {
     mini.parse();
-    require(["message", "miniui-tools", "request"], function (message, tools, request) {
+    require(["message", "miniui-tools", "request", "message"], function (message, tools, request, message) {
         var id = request.getParameter("id");
 
         window.selectIcon = function (e) {
@@ -70,7 +70,9 @@ importMiniui(function () {
         }
 
         var pageScriptEditor;
-
+        var pageScript = "this.on('beforeQuery',function(){\n" +
+            "\t//this.query.like('name','%测试%').or().is('status',1)" +
+            "\n});"
         /*工具栏*/
         var toolbar = [
             // {
@@ -96,7 +98,7 @@ importMiniui(function () {
         ];
         /*查询条件*/
         var condition = [];
-
+        var loading = message.loading("加载中...");
         require(["plugin/jquery-ui/jquery-ui", "plugin/ueditor/ueditor.parse", "css!plugin/font-awesome/4.7.0/css/font-awesome.css"], function () {
             $("#condition-container").sortable({
                 update: function (e) {
@@ -121,18 +123,29 @@ importMiniui(function () {
                 rootPath: window.BASE_PATH + 'plugins/ueditor',
                 chartContainerHeight: 5000
             });
-
-            initToolbar();
-            initCondition();
+            loading.hide();
             require(['script-editor'], function (editorBuilder) {
                 editorBuilder.createEditor("page-script-editor", function (editor) {
                     pageScriptEditor = editor;
-                    pageScriptEditor.init("javascript", "this.on('beforeQuery',function(){\n" +
-                        "\t//this.query.like('name','%测试%').or().is('status',1)" +
-                        "\n});" +
-                        "");
+                    pageScriptEditor.init("javascript", pageScript, function () {
+                        this.setValue(pageScript, -1);
+                        ;
+                    });
+
                 });
             });
+            if (window.ready) {
+                window.ready.call({
+                    setConfig: setConfig,
+                    getConfig: getConfig,
+                    setMod: function () {
+
+                    }
+                });
+            } else {
+                initToolbar();
+                initCondition();
+            }
         });
 
         var listGrid = mini.get("list-datagrid");
@@ -229,6 +242,7 @@ importMiniui(function () {
                             conf[e] = data[e];
                         }
                         initCondition();
+                        win.hide();
                     });
                 $(".remove-condition").unbind("click").on("click", function () {
                     condition.splice(condition.indexOf(conf), 1);
@@ -371,7 +385,7 @@ importMiniui(function () {
                 .renderer =
                 function (e) {
                     function setScript(script) {
-                        console.log(script)
+                        console.log(script);
                         e.record.onclick = e.value = script;
                     }
 
@@ -433,6 +447,7 @@ importMiniui(function () {
                             config.children = children;
                         }
                         initToolbar();
+                        win.hide();
                     });
             }
 
@@ -468,11 +483,8 @@ importMiniui(function () {
         //表格列配置
         {
 
-            $(".add-list-column").on("click", function () {
-                listGrid.addNode({show: true});
-            });
-            var listConfigGrid = mini.get("list-datagrid");
 
+            var listConfigGrid = mini.get("list-datagrid");
             var listOperationGrid = mini.get("list-operate-datagrid");
 
             listConfigGrid.getColumn("renderer").renderer = createScriptEditorAction;
@@ -496,7 +508,22 @@ importMiniui(function () {
             };
         }
 
-        function getConfig() {
+        window.setConfig = function (conf) {
+            if (conf) {
+                toolbar = conf.toolbar;
+                pageScript = conf.script
+                if (pageScriptEditor)
+                    pageScriptEditor.setScript(pageScript);
+                condition = conf.condition;
+                mini.get("list-datagrid").setData(conf.table.columns);
+                mini.get("list-operate-datagrid").setData(conf.table.actions);
+                mini.getbyName('url').setValue(conf.table.url);
+                initToolbar();
+                initCondition();
+            }
+        };
+
+        window.getConfig = function () {
             return {
                 toolbar: toolbar,
                 script: pageScriptEditor.getScript(),
@@ -504,11 +531,16 @@ importMiniui(function () {
                 table: {
                     columns: mini.get("list-datagrid").getData(),
                     actions: mini.get("list-operate-datagrid").getData(),
-                    url: "user"
+                    url: mini.getbyName('url').getValue()
                 }
             }
         }
 
+        $(".ok").on('click', function () {
+            var config = getConfig();
+            console.log(JSON.stringify(config));
+            tools.closeWindow(config);
+        });
         //预览
         $(".preview").on("click", function () {
             require(["parser"], function (parser) {
