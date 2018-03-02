@@ -14,6 +14,7 @@ String.prototype.endWith = function (str) {
     var reg = new RegExp(str + "$");
     return reg.test(this);
 }
+
 /**
  * 获取cooke
  * @param sName cookie名称
@@ -51,6 +52,7 @@ function importResource(path, callback) {
         if (typeof callback != "undefined")
             script.async = false;
         script.src = path;
+
         function onload() {
             if (callback) callback();
         }
@@ -80,24 +82,25 @@ function initRequireJs() {
         waitSeconds: 0,
         map: {
             '*': {
-                'css': '/plugins/require-css/0.1.10/css.js',
-                'text': '/plugins/requirejs-text/2.0.15/text.js'
+                'css': BASE_PATH + "plugins/require-css/0.1.10/css.js",
+                'text': BASE_PATH + "plugins/requirejs-text/2.0.15/text.js"
             }
         },
         shim: {
             'jquery': {exports: "$"}
         },
         paths: {
-            "jquery": ["/plugins/jquery/1.10.2/jquery.min"],
-            "logger": ["/admin/logger"],
-            "authorize": ["/admin/commons/authorize"], //权限管理
-            "request": ["/plugins/tools/request"], //ajax请求工具
-            "miniui-tools": ["/plugins/miniui/tools"],
-            "message": ["/plugins/miniui/message"],
-            "ace": ["/plugins/script-editor/ace"],
-            "art-template": ["/plugins/template/art-template"],
-            "script-editor": ["/plugins/script-editor/script-editor"],
-            "plugin": ["/plugins"]
+            "jquery": [BASE_PATH + "plugins/jquery/1.10.2/jquery.min"],
+            "logger": [BASE_PATH + "admin/logger"],
+            "authorize": [BASE_PATH + "admin/commons/authorize"], //权限管理
+            "request": [BASE_PATH + "plugins/tools/request"], //ajax请求工具
+            "miniui-tools": [BASE_PATH + "plugins/miniui/tools"],
+            "message": [BASE_PATH + "plugins/miniui/message"],
+            "ace": [BASE_PATH + "plugins/script-editor/ace"],
+            "art-template": [BASE_PATH + "plugins/template/art-template"],
+            "script-editor": [BASE_PATH + "plugins/script-editor/script-editor"],
+            "plugin": [BASE_PATH + "plugins"],
+            "pages": [BASE_PATH + "admin"]
         }
     });
 }
@@ -106,6 +109,7 @@ function importJquery(callback) {
     require(["jquery"], callback);
     // importResource("/plugins/jquery/1.10.2/jquery.min.js", callback);
 }
+
 function importMiniui(callback) {
     function doImport() {
         //重复引入
@@ -117,12 +121,12 @@ function importMiniui(callback) {
         var mode = getCookie("mode", window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
-            importResource("/plugins/miniui/themes/default/miniui.css");
-            importResource("/plugins/miniui/themes/icons.css");
-            importResource('/plugins/miniui/themes/' + theme + '/skin.css');
-            importResource("/plugins/miniui/themes/default/" + mode + "-mode.css");
+            importResource(BASE_PATH + "plugins/miniui/themes/default/miniui.css");
+            importResource(BASE_PATH + "plugins/miniui/themes/icons.css");
+            importResource(BASE_PATH + 'plugins/miniui/themes/' + theme + '/skin.css');
+            importResource(BASE_PATH + "plugins/miniui/themes/default/" + mode + "-mode.css");
             $.ajax({
-                url: "/plugins/miniui/miniui.js",
+                url: BASE_PATH + "plugins/miniui/miniui.js",
                 async: false,
                 cache: true,
                 dataType: "script",
@@ -145,4 +149,5 @@ function importMiniui(callback) {
 
     doImport();
 }
-importResource("/plugins/requirejs/2.3.3/require.min.js", initRequireJs);
+
+importResource(BASE_PATH + "plugins/requirejs/2.3.3/require.min.js", initRequireJs);

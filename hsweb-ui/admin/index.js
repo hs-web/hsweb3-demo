@@ -5,7 +5,7 @@ importResource("/admin/index.css");
 function initMenu() {
     require(["request", "message"], function (request, message) {
         // var loading = message.loading("加载用户菜单...")
-        var api ="menu/no-paging" ;//"menu/user-own/list";
+        var api = "menu/no-paging";//"menu/user-own/list";
 
         request.get(api, function (response) {
             // loading.hide();
@@ -33,28 +33,50 @@ importMiniui(function () {
     };
 
     function selectNode(e) {
-        if (e.node && e.node.id != "-1" && $.trim(e.node.url) != "") {
+        if (e.node && e.node.id !== "-1" && $.trim(e.node.url) !== "") {
             showTab(e.node);
             return;
         }
     }
 
+    function createTemplateTab(tab, id) {
+        var el = tabs.getTabBodyEl(tab);
+        require(["pages/template/parser"], function (parser) {
+            parser($(el), id);
+        })
+    }
+
+    function createHLTab(tab, page) {
+        var el = tabs.getTabBodyEl(tab);
+        require(["pages/module/parser", "text!" + page], function (parser, pageConfig) {
+            new parser().parse($(el), JSON.parse(pageConfig));
+        });
+    }
+
     window.showTab = function (node) {
-        if (!node.url || node.url == "") return;
+        if (!node.url || node.url === "") return;
         var id = "tab$" + node.id;
         var tab = tabs.getTab(id);
+        var url = node.url;
         if (!tab) {
             tab = {};
             tab.name = id;
             tab.title = node.name;
             tab.showCloseButton = true;
-            tab.url = node.url;
-            tabs.addTab(tab);
+            tab = tabs.addTab(tab);
+            if (url.indexOf("template:") === 0) {
+                var templateId = url.split(":")[1];
+                createTemplateTab(tab, templateId);
+            } else if (url.indexOf(".hl") !== -1) {
+                createHLTab(tab, url);
+            } else {
+                tab.url = node.url;
+            }
         }
         if (!mini.get("layout").isExpandRegion("west"))
             mini.get("layout").collapseRegion("west");
         tabs.activeTab(tab);
-    }
+    };
 
     tree.on("nodeclick", selectNode);
     initLogin();
@@ -65,7 +87,7 @@ function initLogin() {
         require(["request", "message"], function (request, message) {
             var form = new mini.Form("#loginWindow");
             form.validate();
-            if (form.isValid() == false) return;
+            if (form.isValid() === false) return;
             var loding = message.loading("登录中...");
             var data = form.getData();
             request.post("authorize/login", {
@@ -74,7 +96,7 @@ function initLogin() {
                 password: data.password
             }, function (e) {
                 loding.hide();
-                if (e.status == 200) {
+                if (e.status === 200) {
                     mini.get("loginWindow").hide();
                     // require(["storejs"], function (store) {
                     //     store.set("autz-token", e.result.token);

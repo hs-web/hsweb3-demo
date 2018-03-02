@@ -22,9 +22,6 @@ function getDefaultProperties(other) {
     return properties;
 }
 
-
-document.domain="xxx.com";
-
 var widgets = [
     {
         "name": "文本标签", //组件名称

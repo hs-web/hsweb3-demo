@@ -4,7 +4,7 @@ define(['request'], function (request) {
         hl: function (container, templateObject) {
             var config = templateObject.config;
             require(["pages/module/parser"], function (parser) {
-                parser.parse(container, JSON.parse(config));
+                new parser().parse(container, JSON.parse(config));
             });
         }
     };
@@ -24,7 +24,7 @@ define(['request'], function (request) {
 
     function parse(container, templateObject) {
         if (typeof templateObject === 'string') {
-            parseById(container,templateObject);
+            parseById(container, templateObject);
         }
         var support = parserSupport[templateObject.type];
         if (support) {

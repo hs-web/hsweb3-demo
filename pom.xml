@@ -128,6 +128,19 @@
             <artifactId>hsweb-system-dynamic-form-starter</artifactId>
             <version>${hsweb.framework.version}</version>
         </dependency>
+        <!--模板管理-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-template-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
+
+        <!--自定义模块-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-module-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
         <!--定时调度-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
@@ -191,6 +204,11 @@
             <version>${hsweb.framework.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-concurrent-cache</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.hswebframework.web</groupId>

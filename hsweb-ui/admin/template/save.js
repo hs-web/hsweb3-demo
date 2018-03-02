@@ -122,7 +122,8 @@ importMiniui(function () {
                         if (window.history && window.history.pushState) {
                             window.history.replaceState(null, "", '?id=' + id);
                         }
-                        mini.getbyName("id").setEnabled(false);
+                        mini.getbyName("id")
+                            .setEnabled(false);
                     } else {
                         message.alert("保存失败:" + resp.message);
                     }
@@ -131,7 +132,7 @@ importMiniui(function () {
         });
         $(".preview").on("click", function () {
             require(["parser"], function (parser) {
-                parser($("#preview"), id);
+                parser($("#preview"), getFormData(false));
                 mini.get("preview-window").show();
             })
         });

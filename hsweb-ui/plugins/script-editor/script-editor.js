@@ -27,7 +27,7 @@ define(["ace/ace"], function (ace) {
                 });
             }
         });
-        aceEditor[el].init = function (lang, script) {
+        aceEditor[el].init = function (lang, script,call) {
             require(["ace/ext/language_tools"], function (langTools) {
                 editor.getSession().setMode("ace/mode/" + lang);
                 editor.$blockScrolling = Infinity;
@@ -37,6 +37,9 @@ define(["ace/ace"], function (ace) {
                     enableLiveAutocompletion: true
                 });
                 editor.setValue(script, -1);
+                if(call){
+                    call.call(editor);
+                }
             });
         }
         aceEditor[el].destroy = function () {
