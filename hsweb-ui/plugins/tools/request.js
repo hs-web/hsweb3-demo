@@ -10,10 +10,10 @@ define(["jquery"], function ($) {
         });
     }
 
-    function doAjax(url, data, method, callback, syc, requestBody) {
+    function doAjax(url, data, method, callback, syc, requestBody,contentType) {
         var data_tmp = data;
-        if (requestBody == true) {
-            if (typeof(data) != 'string') {
+        if (requestBody === true) {
+            if (typeof(data) !== 'string') {
                 data = JSON.stringify(data);
             }
         }
@@ -22,10 +22,10 @@ define(["jquery"], function ($) {
             url: url,
             data: data,
             cache: false,
-            async: syc == true,
+            async: syc === true,
             success: callback,
             error: function (e) {
-                if (e.status == 200) {
+                if (e.status === 200) {
                     msg = {status: 200, result: e.statusText, success: true};
                     return msg;
                 }
@@ -35,7 +35,7 @@ define(["jquery"], function ($) {
                 } else {
                     msg = {status: e.status, message: e.statusText ? e.statusText : "未知错误", success: false};
                 }
-                if (msg.status == 401) {
+                if (msg.status === 401) {
                     if (window.doLogin) {
                         window.doLogin(function () {
                             doAjax(url, data_tmp, method, callback, syc, requestBody);
@@ -56,14 +56,15 @@ define(["jquery"], function ($) {
             dataType: 'json'
         };
 
-        if (requestBody == true) {
-            param.contentType = "application/json";
+        if (requestBody === true) {
+            contentType=contentType||"application/json";
+            param.contentType = contentType;
         }
         return $.ajax(param).responseJSON;
     }
 
     function getRequestUrl(url) {
-        if (url.indexOf("http") == 0) {
+        if (url.indexOf("http") === 0) {
             return url;
         } else {
             return ( window.API_BASE_PATH ? window.API_BASE_PATH : window.BASE_PATH) + url;
@@ -278,31 +279,31 @@ define(["jquery"], function ($) {
                 for (var f in sorts) {
                     query.param[f] = sorts[f];
                 }
-                return doAjax(getRequestUrl(api), query.param, "GET", callback, typeof(callback) != 'undefined', false);
+                return doAjax(getRequestUrl(api), query.param, "GET", callback, typeof(callback) !== 'undefined', false);
             };
             return query;
         }
         , get: function (uri, data, callback) {
             var data_ = data, callback_ = callback;
-            if (typeof(data) == 'undefined') data_ = {};
-            if (typeof(callback) == 'object') data_ = callback;
-            if (typeof(data) == 'function') callback_ = data;
-            return doAjax(getRequestUrl(uri), data_, "GET", callback_, typeof(callback_) != 'undefined', false);
-        }, post: function (uri, data, callback, requestBody) {
-            if (requestBody != false) requestBody = true;
-            doAjax(getRequestUrl(uri), data, "POST", callback, true, requestBody);
+            if (typeof(data) === 'undefined') data_ = {};
+            if (typeof(callback) === 'object') data_ = callback;
+            if (typeof(data) === 'function') callback_ = data;
+            return doAjax(getRequestUrl(uri), data_, "GET", callback_, typeof(callback_) !== 'undefined', false);
+        }, post: function (uri, data, callback, requestBody,contentType) {
+            if (requestBody !== false) requestBody = true;
+            doAjax(getRequestUrl(uri), data, "POST", callback, true, requestBody,contentType);
         }, put: function (uri, data, callback, requestBody) {
-            if (requestBody != false) requestBody = true;
+            if (requestBody !== false) requestBody = true;
             doAjax(getRequestUrl(uri), data, "PUT", callback, true, requestBody);
         }, patch: function (uri, data, callback, requestBody) {
-            if (requestBody != false) requestBody = true;
+            if (requestBody !== false) requestBody = true;
             doAjax(getRequestUrl(uri), data, "PATCH", callback, true, requestBody);
         }, "delete": function (uri, data, callback) {
             var data_ = data, callback_ = callback;
-            if (typeof(data) == 'undefined') data_ = {};
-            if (typeof(callback) == 'object') data_ = callback;
-            if (typeof(data) == 'function') callback_ = data;
-            return doAjax(getRequestUrl(uri), data_, "DELETE", callback_, typeof(callback_) != 'undefined', false);
+            if (typeof(data) === 'undefined') data_ = {};
+            if (typeof(callback) === 'object') data_ = callback;
+            if (typeof(data) === 'function') callback_ = data;
+            return doAjax(getRequestUrl(uri), data_, "DELETE", callback_, typeof(callback_) !== 'undefined', false);
         }, doAjax: doAjax
     };
 });

@@ -19,7 +19,7 @@ importMiniui(function () {
                 }
                 databaseTree.loadData(datasourceList);
             } else {
-                message.showTips("获取模板配置失败");
+                message.showTips("获取数据源配置失败");
             }
         });
         databaseTree.on("drawnode", renderIcon)
@@ -65,29 +65,46 @@ importMiniui(function () {
 
         importResource('/plugins/miniui/themes/bootstrap/skin.css');
 
-        $(".execute-sql").on("click",function () {
+        $(".execute-sql").on("click", function () {
             var tab = tabs.getActiveTab();
-            if(!tab){
+            if (!tab) {
                 return;
             }
             var sqlEditor = tab.sqlEditor;
             var sql = sqlEditor.editor.getSelectedText();
-            if(!sql){
-                sql=sqlEditor.getScript();
+            if (!sql) {
+                sql = sqlEditor.getScript();
             }
             var autoCommit = $("#auto-commit").prop("checked");
-            //todo
-            if(!autoCommit){
-                if(!tab.tx_id){
-
+            if (!autoCommit) {
+                if (!tab.tx_id) {
+                    //GET /database/manager/transactional/new
+                    request.get("database/manager/transactional/new", function (resp) {
+                        if (resp.status === 200) {
+                            tab.tx_id = resp.result;
+                            doExecute(resp.result)
+                        }
+                    })
+                } else {
+                    doExecute(tab.tx_id)
                 }
-            }else{
-
+            } else {
+                doExecute(null);
             }
+
             function doExecute(tx) {
-                request.post("database/manager/"+(tx?tx+"/":"")+"execute/"+tab.datasource,sql,function (resp) {
-                    console.log(resp);
-                })
+                //POST /database/manager/transactional/execute/{transactionalId}/{dataSourceId}
+                request.post("database/manager/" + (tx ? "transactional/" : "") + "execute/" + ( tx ? tx + "/" : "" ) + tab.datasource, sql,
+                    function (resp) {
+                        if (resp.status !== 200) {
+                            tab.tx_id = null;
+                        }
+                        console.log(resp);
+                    },
+                    true, "text/plain")
+            }
+            function initResult(result) {
+
             }
             console.log(autoCommit);
             // request.post("")
@@ -98,34 +115,34 @@ importMiniui(function () {
             var id = "sql_" + Math.round(Math.random() * 100000);
             //add tab
             var tab = {id: id, title: node.name, showCloseButton: true};
-            tab.datasource=node.id;
+            tab.datasource = node.id;
 
             tab = tabs.addTab(tab);
 
             //tab body
             var el = tabs.getTabBodyEl(tab);
 
-           var main= $("<div class=\"mini-splitter\" vertical=\"true\" style=\"width:100%;height:100%\">");
+            var main = $("<div class=\"mini-splitter\" vertical=\"true\" style=\"width:100%;height:100%\">");
 
             $(el).append(main);
 
             var scriptContainer = $("<div size=\"70%\" showCollapseButton=\"false\">");
             scriptContainer.append("<pre>").attr("id", id)
                 .css({
-                        margin: 0,
-                        position: "absolute",
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        "font-size": "16px",
-                        width: "100%",
-                        height: "70%"
-                    });
+                    margin: 0,
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    "font-size": "16px",
+                    width: "100%",
+                    height: "70%"
+                });
 
             main.append(scriptContainer);
 
-            main.append($("<div showCollapseButton='false'>").append($("<div class='mini-fit'>").attr("id",id+"_result")));
+            main.append($("<div showCollapseButton='false'>").append($("<div class='mini-fit'>").attr("id", id + "_result")));
             mini.parse();
 
             require(['script-editor'], function (buidler) {
