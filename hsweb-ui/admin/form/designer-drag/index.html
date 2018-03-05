@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <title>表单设计器</title>
+    <script data-main="index.js" src="../../boot.js"></script>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .widget-editor-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="layout" class="mini-layout" style="width:100%;height:100%;min-width: 800px;border: 0px;">
+    <div class="header" region="north" height="45" showSplit="false" showHeader="false">
+        <div id="toolbar" class="mini-toolbar" style="padding:2px;">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button save-button" iconCls="icon-save" plain="true">保存</a>
+                        <a id="copy-button" class="mini-button copy-button" iconCls="icon-page-white-copy" plain="true">复制</a>
+                        <a id="paste-button" class="mini-button paste-button" iconCls="icon-page-white-paste" plain="true">粘贴</a>
+
+                        <a class="mini-button preview-button" iconCls="icon-find" plain="true">预览</a>
+                        <span class="separator"></span>
+                        <a class="mini-button write-source-button" iconCls="icon-html-go" plain="true">生成源代码</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div title="south" region="east" showSplit="true" showHeader="false" width="300" bodyStyle="border:0px;">
+        <div class="" id="component-properties"></div>
+    </div>
+    <div showHeader="false" region="west" width="180" maxWidth="250" minWidth="100">
+        <div class="mini-fit support-components">
+        </div>
+    </div>
+    <div title="center" region="center" bodyStyle="overflow-y:auto;overflow-x:hidden;">
+        <div class="mini-fit components mini-clearfix">
+        </div>
+    </div>
+
+</div>
+<div class="widget-editor-container">
+    <input id="widget-editor-text" class="mini-textbox"/>
+    <input id="widget-editor-select" class="mini-combobox"/>
+    <input id="widget-editor-textarea" style="height: 300px" class="mini-textarea"/>
+</div>
+</body>
+</html>

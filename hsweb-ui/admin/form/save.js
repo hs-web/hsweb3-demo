@@ -51,6 +51,7 @@ importMiniui(function () {
             }
         }
     });
+
     require(["request", "miniui-tools", "message"], function (request, tools, message) {
         window.tools = tools;
         var api = "dynamic/form/bind";
@@ -61,11 +62,20 @@ importMiniui(function () {
             //api += "/" + id;
             // func = request.put;
         }
+        request.get("datasource", function (e) {
+            if (e.status === 200) {
+                $(e.result).each(function () {
+                    this.text = this.name + (this.id ? "(" + this.id + ")" : "");
+                });
+
+                mini.getbyName('dataSourceId').setData(e.result);
+            }
+        });
         $(".save-button").on("click", (function () {
             var form = tools.getFormData("#basic-info", true);
             if (id)
                 form.id = id;
-            if (!form)return;
+            if (!form) return;
             var loading = message.loading("提交中");
             func(api, {form: form, columns: getColumns()}, function (response) {
                 loading.close();
@@ -83,11 +93,13 @@ importMiniui(function () {
     });
     initColumnGrid();
 });
+
 function getColumns() {
     var columns = mini.clone(mini.get("column-grid").getData());
 
     return columns;
 }
+
 function loadData(id) {
     require(["miniui-tools", "request", "message"], function (tools, request, message) {
         var loading = message.loading("加载中...");
@@ -104,6 +116,7 @@ function loadData(id) {
     });
 
 }
+
 function loadColumn(id) {
     require(["request", "message"], function (request, message) {
         request.get("dynamic/form/column/" + id, function (response) {
@@ -122,6 +135,7 @@ function transformStr(str) {
         return $1.toUpperCase();
     });
 }
+
 /**
  * 初始化字段表格
  */
@@ -188,6 +202,7 @@ function initColumnGrid() {
         }
     })
 }
+
 window.renderAction = function (e) {
     return tools.createActionButton("删除", "icon-remove", function () {
         e.sender.removeRow(e.record);
