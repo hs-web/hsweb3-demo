@@ -4,8 +4,35 @@ var types = [
     {
         text: "表单",
         id: "hf",
-        createEditor: function () {
+        createEditor: function (data) {
+            var iframe = $("<iframe frameborder='0' style='border:0px;width: 100%;height: 100%;min-height: 750px; margin: auto; position: relative'>");
+            iframe.attr("src", window.BASE_PATH + "admin/form/designer-drag/index.html");
+            var win;
+            var designer;
+            function init() {
+                win = iframe[0].contentWindow;
+                if (win) {
+                    win.ready = function () {
+                        designer=this;
+                       // win.$('#toolbar').hide();
+                        if (data) {
+                            if (typeof data === 'string') {
+                                data = JSON.parse(data);
+                            }
+                            this.loadConfig(data);
+                        }
+                    }
+                }
+            }
 
+            init();
+            $(iframe).on("load", init);
+            return {
+                html: iframe,
+                getConfig: function () {
+                    return designer.getConfig();
+                }
+            }
         }
     }, {
         text: "数据列表",
@@ -132,7 +159,7 @@ importMiniui(function () {
         });
         $(".preview").on("click", function () {
             require(["parser"], function (parser) {
-                parser($("#preview"), getFormData(false));
+                parser($("#preview").html(""), getFormData(false));
                 mini.get("preview-window").show();
             })
         });

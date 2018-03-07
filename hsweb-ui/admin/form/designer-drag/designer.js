@@ -1,119 +1,13 @@
-var Component = function () {
-    this.config = {};
-    this.events = {};
-    this.properties = [];
-};
-Component.prototype.on = function (event, listener) {
-    if (!this.events[event]) {
-        this.events[event] = [];
-    }
-    this.events[event].push(listener);
-    return this;
-};
-Component.prototype.un = function (event) {
-    this.events[event] = [];
-    return this;
-};
-Component.prototype.getProperties = function () {
-    return this.properties;
-};
-Component.prototype.getProperty = function (name) {
-    var props = this.properties;
-    //   console.log(props);
-    for (var i = 0; i < props.length; i++) {
-        // console.log(props[i].id,name);
-        if (props[i].id === name) {
-            return props[i];
-        }
-    }
-    return null;
-};
-Component.prototype.removeProperty = function (name) {
-    var indexOf = this.properties.indexOf(this.getProperty(name));
-    if (indexOf !== -1) {
-        this.properties.splice(indexOf, 1);
-    }
-};
-Component.prototype.setProperty = function (property, value) {
-    //console.log(property, value, this.getProperties());
-    var prop = this.getProperty(property);
-    // if (prop.value === value) {
-    //     return;
-    // }
-    prop.value = value;
-    if (property === 'size' || property === 'mdSize') {
-        this.resize();
-    }
-    if (this.events["propertiesChanged"]) {
-        $(this.events["propertiesChanged"]).each(function () {
-            var event = this;
-            event(property, value);
-        });
-    }
-    return this;
-};
-Component.prototype.setProperties = function (properties) {
-    var me = this;
-    for (var i in properties) {
-        me.setProperty(i, properties[i]);
-    }
-    return this;
-};
-Component.prototype.render = function () {
-
-};
-Component.prototype.bind = function (el) {
-    $(el).children().remove();
-
-    $(el).replaceWith(this.render());
-};
-Component.prototype.getContainer = function (newFunc) {
-    var container;
-    if (!this.container) {
-        if (this.id) {
-            container = $("[hs-id='" + this.id + "']");
-            if (container.length === 0) {
-                this.container = container = newFunc();
-                this.container.attr("hs-id", this.id);
-            }
-        }
-    } else {
-        return this.container;
-    }
-    return container;
-};
-Component.prototype.resize = function () {
-    var size = this.getProperty("size");
-    if (size) {
-        size = size.value;
-    }
-    if (this.container) {
-        this.container.removeClass();
-        this.container.addClass("mini-col-" + (size ? size : 4));
-    }
-};
-Component.prototype.init = function () {
-};
-Component.prototype.remove = function () {
-    this.getContainer(function () {
-        return $();
-    }).remove();
-};
-
 (function () {
-    var supportComponents = {};
     window.Designer = function (config) {
         this.config = config;
         this.components = {};
         this.events = {};
     };
-    window.Designer.supportComponents = supportComponents;
-
-    Designer.registerComponent = function (type, component) {
-        supportComponents[type] = component;
-    };
 
     Designer.prototype.createComponent = function (type, id) {
+        var supportComponents = componentRepo.supportComponents;
+
         if (supportComponents[type]) {
             var component = this.components[id] = new supportComponents[type](id);
             component.type = type;
@@ -135,11 +29,16 @@ Component.prototype.remove = function () {
             this.call(param);
         });
     };
+    Designer.prototype.setConfig = function (config) {
+
+    };
     Designer.prototype.getConfig = function () {
         var config = {};
         config.html = this.getHtml();
+        config.javascript = this.javascript;
+        config.css = this.css;
         var components = [];
-        var html = $(config.html);
+        var html = $("<div>").html(config.html);
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
             if (container.length === 0) {
@@ -157,7 +56,7 @@ Component.prototype.remove = function () {
         var html = $(".main-panel");
         html.find(".component-info").parent().css("border", "");
         html.find(".form-label,legend").css("border", "");
-        return html[0].outerHTML;
+        return html[0].innerHTML;
     };
     Designer.prototype.init = function () {
         mini.parse();
@@ -173,7 +72,7 @@ Component.prototype.remove = function () {
                 $(".brick").find(".form-label,legend,.component-info").css("border", "");
                 $(".component-info").parent().parent().css("border", "");
                 html.find(".form-label,legend").css({
-                    "border":"1px solid red"
+                    "border": "1px solid red"
                 });
                 html.find(".component-info").parent().parent().css({
                     "border": "1px solid red"
@@ -182,14 +81,17 @@ Component.prototype.remove = function () {
                 me.nowEditComponent = component;
             }
 
-            html.find('.form-label,legend,.component-info').on('click', focus);
-            html.find('input,textarea,select').on("click", focus);
+            html.find('.form-label,legend,.component-info').unbind('click').on('click', focus);
+            html.find('input,textarea,select').unbind('click').on("click", focus);
             return component;
         }
 
         me.loadConfig = function (config) {
-            var html = $(config.html);
+            var html = $("<div>").html(config.html);
             var components = config.components;
+            me.javascript = config.javascript;
+            me.css = config.css;
+
             $(components).each(function () {
                 var id = this.id;
                 var container = html.find("[hs-id=" + id + "]");
@@ -200,6 +102,7 @@ Component.prototype.remove = function () {
                 var type = component.type;
                 var realComponent = me.createComponent(type, id);
                 realComponent.container = container;
+                realComponent.render();
                 $(component.properties)
                     .each(function () {
                         realComponent.setProperty(this.id, this.value);
@@ -207,7 +110,7 @@ Component.prototype.remove = function () {
                 realComponent.config = component.config;
                 initEvent(realComponent);
             });
-            $(".main-panel").replaceWith(html);
+            $(".main-panel").html("").append(html.children());
             initDroppable();
             reloadMiniui();
         };
@@ -219,6 +122,8 @@ Component.prototype.remove = function () {
         /**初始化组件列表**/
         {
             var group = {};
+            var supportComponents = componentRepo.supportComponents;
+
             for (var name in supportComponents) {
                 var component = supportComponents[name];
                 if (!group[component.type]) {
@@ -250,9 +155,8 @@ Component.prototype.remove = function () {
                 index++;
                 var list = group[type];
                 var html = [];
-                html.push('<div style="overflow: auto" class="colla-item">');
-                html.push('<h2 class="colla-title">' + type + '</h2>');
-                html.push('<div class="colla-content ' + (index === 1 ? 'show' : '') + '">');
+                html.push('<div  class="mini-outlookbar"   activeIndex="0"  style="width:100%;height:100%;" autoCollapse="true">');
+                html.push('<div title="' + type + '">');
                 $(list).each(function () {
                     init(this);
                 });
@@ -330,7 +234,7 @@ Component.prototype.remove = function () {
                 if (component) {
                     component.remove();
                     delete me.components[id];
-                    designer.doEvent("configChanged", me);
+                    me.doEvent("configChanged", me);
                 }
             }
 
@@ -342,43 +246,52 @@ Component.prototype.remove = function () {
                 var designer = me;
                 saveProperties();
                 var properties = component.getProperties();
-                var html = $("#component-properties");
+                var html = $("#component-properties").css("text-align", "center");
                 html.children().remove();
                 $(properties).each(function () {
                     var me = this;
-                    var c = $("<div class=\"form-item\">");
+                    var c = $("<div class=\"form-item mini-col-3\">");
                     var label = $("<label class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
+                    var inputContainer = $("<div   class=\"input-block\">");
                     label.text(this.text);
                     if (me.createEditor) {
-                        var e = me.createEditor(component, this.text, this.value);
+                        var e = me.createEditor(component, this.text, this.value, function () {
+                            designer.doEvent("configChanged", me);
+                        });
                         inputContainer.append(e);
                     } else {
-                        var input = $("<input type=\"text\" name=\"identity\" class=\"mini-textbox\">");
+                        var input = $("<input type=\"text\" style='width:100%' class=\"mini-textbox\">");
                         if (this.value) {
                             input.val(this.value);
                         }
-                        input.on("keyup", function () {
-                            component.setProperty(me.id, input.val());
-                            reloadMiniui();
-                            initDroppable();
-                            designer.doEvent("configChanged", me);
-                        });
+                        input.attr("name", this.id);
                         inputContainer.append(input);
                     }
                     c.append(label).append(inputContainer);
                     html.append(c);
                 });
-                var button = $("<button>");
-                button.addClass("btn").addClass("btn-danger").addClass("delete-component");
-                button.on('click', function () {
-                    html.children().remove();
-                    component.getContainer().remove();
-                    removeComponent(component.id);
-                });
+                var button = $("<a class='mini-button remove-component' iconCls='icon-remove' plain='true'>");
+                button.addClass("delete-component");
                 button.text("删除");
                 html.append(button);
-                reloadMiniui()
+                reloadMiniui();
+                $(".remove-component")
+                    .unbind("click")
+                    .on('click', function () {
+                        html.children().remove();
+                        component.getContainer().remove();
+                        removeComponent(component.id);
+                    });
+                var form = new mini.Form("#component-properties");
+                $(form.getFields()).each(function () {
+                    this.un("valueChanged").on("valueChanged", function () {
+                        component.setProperty(this.name, this.value);
+                        reloadMiniui();
+                        initDroppable();
+                        me.doEvent("configChanged", me);
+                    });
+                });
+                initEvent(component);
             }
 
             function fixLayout() {

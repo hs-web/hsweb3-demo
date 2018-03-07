@@ -14,41 +14,55 @@
             height: 100%;
             overflow: hidden;
         }
+        #script-editor {
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
 
         .widget-editor-container {
             display: none;
         }
+
     </style>
 </head>
 <body>
-<div id="layout" class="mini-layout" style="width:100%;height:100%;min-width: 800px;border: 0px;">
-    <div class="header" region="north" height="45" showSplit="false" showHeader="false">
-        <div id="toolbar" class="mini-toolbar" style="padding:2px;">
-            <table style="width:100%;">
-                <tr>
-                    <td style="width:100%;">
-                        <a class="mini-button save-button" iconCls="icon-save" plain="true">保存</a>
-                        <a id="copy-button" class="mini-button copy-button" iconCls="icon-page-white-copy" plain="true">复制</a>
-                        <a id="paste-button" class="mini-button paste-button" iconCls="icon-page-white-paste" plain="true">粘贴</a>
+<div id="toolbar" class="mini-toolbar" style="padding:2px;border-bottom: 0">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:100%;">
+                <a class="mini-button edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
+                <a class="mini-button edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
+            </td>
+        </tr>
+    </table>
+</div>
 
-                        <a class="mini-button preview-button" iconCls="icon-find" plain="true">预览</a>
-                        <span class="separator"></span>
-                        <a class="mini-button write-source-button" iconCls="icon-html-go" plain="true">生成源代码</a>
-                    </td>
-                </tr>
-            </table>
+<div class="mini-splitter" style="width:100%;height:100%;border: 0px">
+    <div size="15%" showCollapseButton="true">
+        <div class="mini-fit dynamic-form support-components">
         </div>
     </div>
-    <div title="south" region="east" showSplit="true" showHeader="false" width="300" bodyStyle="border:0px;">
-        <div class="" id="component-properties"></div>
-    </div>
-    <div showHeader="false" region="west" width="180" maxWidth="250" minWidth="100">
-        <div class="mini-fit support-components">
+    <div showCollapseButton="false" style="border: 0px">
+        <div class="mini-splitter" style="width:100%;height:100%;">
+            <div size="80%">
+                <div class="mini-fit dynamic-form main-panel components mini-clearfix" style="padding: 10px">
+                </div>
+            </div>
+            <div showCollapseButton="true">
+                <div class="mini-fit dynamic-form mini-clearfix" id="component-properties"></div>
+            </div>
         </div>
-    </div>
-    <div title="center" region="center" bodyStyle="overflow-y:auto;overflow-x:hidden;">
-        <div class="mini-fit components mini-clearfix">
-        </div>
+
     </div>
 
 </div>
@@ -57,5 +71,19 @@
     <input id="widget-editor-select" class="mini-combobox"/>
     <input id="widget-editor-textarea" style="height: 300px" class="mini-textarea"/>
 </div>
+<div id="previewWindow" showModal="false" class="mini-window" title="预览" style="width: 80%;height: 80%">
+    <div class="mini-fit" id="preview"></div>
+</div>
+<!--脚本编辑器-->
+<div id="script-editor-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="脚本编辑"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-script-editor" plain="true" iconCls="icon-ok">完成编辑</a>
+    </div>
+    <div class="mini-fit">
+        <pre class="script-editor" id="script-editor"></pre>
+    </div>
+</div>
+
 </body>
 </html>

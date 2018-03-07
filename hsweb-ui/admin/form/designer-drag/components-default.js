@@ -1,5 +1,4 @@
 (function () {
-    var Designer = window.Designer;
 
     function createDefaultEditor() {
         return [
@@ -21,9 +20,9 @@
             }, {
                 id: "size",
                 text: "控件大小",
-                value: "6",
-                createEditor: function (component, text, value) {
-                    var html = $("<div style='margin-left: 4px;position: relative;top: 12px;'>");
+                value: "4",
+                createEditor: function (component, text, value, call) {
+                    var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
                     html.slider({
                         orientation: "horizontal",
                         range: "min",
@@ -31,6 +30,7 @@
                         max: 12,
                         value: value,
                         slide: function () {
+                            if (call) call()
                             component.setProperty("size", arguments[1].value);
                         }
                     });
@@ -38,35 +38,26 @@
                 }
             },
             {
-                id: "",
+                id: "required",
                 editor: "radio",
                 text: "是否必填",
-                value: "false",
+                value: "undefined",
                 createEditor: function (component, text, value) {
-                    var id = md5("" + Math.random());
-                    var checkbox1 = $("<input type=\"radio\" name='" + id + "' value='true' lay-filter='" + id + "' title='是'>");
-                    var checkbox2 = $("<input type=\"radio\" name='" + id + "' value='false' lay-filter='" + id + "' title='否'>");
-                    if (value === true) {
-                        checkbox1.prop("checked", "checked");
-                    } else {
-                        checkbox2.prop("checked", "checked");
-                    }
-                    return $("<div>").append(checkbox1).append(checkbox2).children();
-                },
-                data: [
-                    {text: "是", value: true},
-                    {text: "否", value: false}
-                ]
+                    var checkbox = $("<input class='mini-radiobuttonlist' name='required' value='" + value + "'>");
+
+                    checkbox.attr("data", JSON.stringify([{id: "required", text: "是"}, {id: 'undefined', checked: true, text: "否"}]));
+                    return checkbox;
+                }
             }
         ];
     }
 
-    function createClass(O, name) {
+    function createClass(O, T, name) {
         (function () {
             // 创建一个没有实例方法的类
             var Super = function () {
             };
-            Super.prototype = Component.prototype;
+            Super.prototype = T ? T.prototype : Component.prototype;
             //将实例作为子类的原型
             O.prototype = new Super();
             O.type = name || "基础控件";
@@ -92,9 +83,9 @@
 
             FieldSet.prototype.render = function () {
                 var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-12'>");
-                    var c = $("<fieldset style='border: 1px solid #ddd' class=\"brick\">");
-                    var label = $("<legend>").text("分割");
+                    var m = $("<div class='mini-col-12 form-component'>");
+                    var c = $("<fieldset style='border:0px; border-top: 1px solid #ddd' class=\"brick\">");
+                    var label = $("<legend style='font-size: 20px'>").text("分割");
                     c.append(label);
                     m.append(c);
                     return m;
@@ -110,48 +101,73 @@
                 return container;
             };
 
-            Designer.registerComponent("fieldset", FieldSet);
+            componentRepo.registerComponent("fieldset", FieldSet);
         }
 
         /**文本输入框**/
-        {
-            function TextBox(id) {
-                Component.call(this);
-                this.id = id;
-                this.properties = createDefaultEditor();
-                this.getProperty("comment").value = "单行文本";
-            }
+        function TextBox(id) {
+            Component.call(this);
+            this.id = id;
+            this.properties = createDefaultEditor();
+            this.getProperty("comment").value = "单行文本";
+        }
 
+        {
             createClass(TextBox);
 
             TextBox.prototype.render = function () {
+                var me = this;
+
+                function createInput() {
+                    var input = $("<input style='width: 100%'>");
+                    input.addClass(me.cls || "mini-textbox");
+                    $(me.properties).each(function () {
+                        if (this.id) {
+                            input.attr(this.id, this.value);
+                        }
+                        if (!this.value || this.value === 'undefined') {
+                            input.removeAttr(this.id);
+                        }
+                    });
+                    return input;
+                }
+
                 var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-4'>");
+                    var m = $("<div>");
+                    m.addClass("mini-col-" + me.getProperty("size").value)
+                        .addClass("form-component");
+
                     var c = $("<div class=\"form-item brick\">");
+                    if (me.formText) {
+                        c.addClass("form-text");
+                    }
                     var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div  class=\"input-block\">");
-                    var input = $("<input  style='width: 100%'  class=\"mini-textbox\">");
-                    label.text("单行文本");
+                    var inputContainer = $("<div class=\"input-block\">");
+                    var input = createInput();
+                    label.text(me.getProperty("comment").value);
                     c.append(label).append(inputContainer.append(input));
                     m.append(c);
                     return m;
                 });
+
+                function newInput() {
+                    return container.find(".input-block")
+                        .html("")
+                        .append(createInput());
+                }
+
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
                         if (name === 'comment') {
                             container.find("label").text(value);
                         } else {
-                            if (typeof value === 'undefined') {
-                                container.find("input").removeAttr(name);
-                            } else {
-                                container.find("input").attr(name, value);
-                            }
+                            newInput();
                         }
                     });
                 return container;
             };
 
-            Designer.registerComponent("textbox", TextBox);
+            componentRepo.registerComponent("textbox", TextBox);
         }
 
         /**密码**/
@@ -161,34 +177,35 @@
                 this.id = id;
                 this.properties = createDefaultEditor();
                 this.getProperty("comment").value = "密码";
+                this.cls = "mini-password";
             }
 
-            createClass(Password);
+            createClass(Password, TextBox);
 
-            Password.prototype.render = function () {
-                var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-4'>");
-                    var c = $("<div class=\"form-item brick\">");
-                    var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
-                    var input = $("<input type=\"password\" style='width: 100%'  class=\"mini-password\">");
-                    label.text("密码");
-                    c.append(label).append(inputContainer.append(input));
-                    m.append(c);
-                    return m;
-                });
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (name, value) {
-                        if (name === 'comment') {
-                            container.find("label").text(value);
-                        } else {
-                            container.find("input").attr(name, value);
-                        }
-                    });
-                return container;
-            };
+            // Password.prototype.render = function () {
+            //     var container = this.getContainer(function () {
+            //         var m = $("<div class='mini-col-4'>");
+            //         var c = $("<div class=\"form-item brick\">");
+            //         var label = $("<label  class=\"form-label\">");
+            //         var inputContainer = $("<div class=\"input-block\">");
+            //         var input = $("<input type=\"password\" style='width: 100%'  class=\"mini-password\">");
+            //         label.text("密码");
+            //         c.append(label).append(inputContainer.append(input));
+            //         m.append(c);
+            //         return m;
+            //     });
+            //     this.un("propertiesChanged")
+            //         .on('propertiesChanged', function (name, value) {
+            //             if (name === 'comment') {
+            //                 container.find("label").text(value);
+            //             } else {
+            //                 container.find("input").attr(name, value);
+            //             }
+            //         });
+            //     return container;
+            // };
 
-            Designer.registerComponent("password", Password);
+            componentRepo.registerComponent("password", Password);
         }
 
         /**文本域**/
@@ -199,33 +216,35 @@
                 this.properties = createDefaultEditor();
                 this.getProperty("size").value = 12;
                 this.getProperty("comment").value = "多行文本";
+                this.cls = "mini-textarea";
+                this.formText = true;
             }
 
-            createClass(TextArea);
-            TextArea.prototype.render = function () {
-
-                var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-12'>");
-                    var c = $("<div class=\"form-text form-item brick\">");
-                    var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
-                    var input = $("<input style='width: 100%' class=\"mini-textarea\">");
-                    label.text("多行文本");
-                    c.append(label).append(inputContainer.append(input));
-                    m.append(c);
-                    return m;
-                });
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (name, value) {
-                        if (name === 'comment') {
-                            container.find("label").text(value);
-                        } else {
-                            container.find("input").attr(name, value);
-                        }
-                    });
-                return container;
-            };
-            Designer.registerComponent("textarea", TextArea);
+            createClass(TextArea, TextBox);
+            // TextArea.prototype.render = function () {
+            //
+            //     var container = this.getContainer(function () {
+            //         var m = $("<div class='mini-col-12'>");
+            //         var c = $("<div class=\"form-text form-item brick\">");
+            //         var label = $("<label  class=\"form-label\">");
+            //         var inputContainer = $("<div class=\"input-block\">");
+            //         var input = $("<input style='width: 100%' class=\"mini-textarea\">");
+            //         label.text("多行文本");
+            //         c.append(label).append(inputContainer.append(input));
+            //         m.append(c);
+            //         return m;
+            //     });
+            //     this.un("propertiesChanged")
+            //         .on('propertiesChanged', function (name, value) {
+            //             if (name === 'comment') {
+            //                 container.find("label").text(value);
+            //             } else {
+            //                 container.find("input").attr(name, value);
+            //             }
+            //         });
+            //     return container;
+            // };
+            componentRepo.registerComponent("textarea", TextArea);
         }
 
         /**多选**/
@@ -236,83 +255,17 @@
                 this.properties = createDefaultEditor();
                 this.getProperty("comment").value = "多选";
                 this.removeProperty("placeholder");
-                this.properties.push({
-                    id: "skin",
-                    text: "类型",
-                    value: ""
-                });
+                this.cls = "mini-checkboxlist";
                 this.properties.push({
                     id: "data",
                     text: "选项",
-                    value: "选项1,选项2"
+                    value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 });
             }
 
-            createClass(CheckBox);
+            createClass(CheckBox, TextBox);
 
-            CheckBox.prototype.render = function () {
-                var me = this;
-                var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-4'>");
-                    var c = $("<div class=\"form-item brick\">");
-                    var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
-                    var checkbox1 = $("<input type=\"checkbox\" name='" + me.id + "[1]' title='选项1'>");
-                    var checkbox2 = $("<input type=\"checkbox\" name='" + me.id + "checkbox[2]' title='选项2'>");
-                    label.text("多选");
-                    c.append(label).append(inputContainer.append(checkbox1).append(checkbox2));
-                    return m.append(c);
-                });
-
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (name, value) {
-                        function initData() {
-                            var inputParent = container.find(".input-block");
-                            inputParent.children().remove();
-                            var data = me.getProperty("data").value;
-                            if (!data) {
-                                return;
-                            }
-                            var name = me.getProperty("name").value;
-                            if (!name) {
-                                name = me.id;
-                            }
-                            var skin = me.getProperty("skin").value;
-
-                            data = data.split(",");
-                            $(data).each(function () {
-                                var option = $("<input type=\"checkbox\" lay-skin='" + skin + "' title='选项1'>");
-                                var value = this;
-                                var text = this;
-                                if (value.indexOf(":") !== -1) {
-                                    var vt = value.split(":");
-                                    text = vt[0];
-                                    value = vt[1];
-                                }
-                                option.attr({
-                                    name: name + "[" + value + "]",
-                                    title: text
-                                });
-                                inputParent.append(option);
-                            });
-                        }
-
-                        if (name === 'comment') {
-                            container.find("label").text(value);
-                        } else if (name === 'name' || name === 'data' || name === 'skin') {
-                            initData();
-                        } else {
-                            if (typeof value === 'undefined') {
-                                container.find("input").removeAttr(name);
-                            } else {
-                                container.find("input").attr(name, value);
-                            }
-                        }
-                    });
-                return container;
-            };
-
-            Designer.registerComponent("checkbox", CheckBox);
+            componentRepo.registerComponent("checkbox", CheckBox);
         }
 
         /**单选**/
@@ -323,76 +276,36 @@
                 this.properties = createDefaultEditor();
                 this.getProperty("comment").value = "单选";
                 this.removeProperty("placeholder");
+                this.cls = "mini-radiobuttonlist";
                 this.properties.push({
                     id: "data",
                     text: "选项",
-                    value: "选项1,选项2"
+                    value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 });
             }
 
-            createClass(RadioBox);
+            createClass(RadioBox, TextBox);
 
-            RadioBox.prototype.render = function () {
-                var me = this;
-                var container = this.getContainer(function () {
-                    var m = $("<div class='layui-col-xs4 layui-col-md4'>");
-                    var c = $("<div class=\"form-item brick\">");
-                    var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
-                    var checkbox1 = $("<input type=\"radio\" name='" + me.id + "' title='选项1'>");
-                    var checkbox2 = $("<input type=\"radio\" name='" + me.id + "' title='选项2'>");
-                    label.text("单选");
-                    c.append(label).append(inputContainer.append(checkbox1).append(checkbox2));
-                    return m.append(c);
-                });
+            componentRepo.registerComponent("radio", RadioBox);
+        }
 
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (name, value) {
-                        function initData() {
-                            var inputParent = container.find(".input-block");
-                            inputParent.children().remove();
-                            var data = me.getProperty("data").value;
-                            if (!data) {
-                                return;
-                            }
-                            var name = me.getProperty("name").value;
-                            if (!name) {
-                                name = me.id;
-                            }
-                            data = data.split(",");
-                            $(data).each(function () {
-                                var option = $("<input type=\"radio\"  title='选项1'>");
-                                var value = this;
-                                var text = this;
-                                if (value.indexOf(":") !== -1) {
-                                    var vt = value.split(":");
-                                    text = vt[0];
-                                    value = vt[1];
-                                }
-                                option.attr({
-                                    name: name,
-                                    title: text
-                                }).val(value);
-                                inputParent.append(option);
-                            });
-                        }
+        function createDataSourceEditor() {
+            return {
+                id: "datasource",
+                text: "数据源",
+                value: JSON.stringify({
+                    type: "data",
+                    value: [{id: "1", text: '选项1'}, {id: "2", text: '选项2'}]
+                }),
+                createEditor: function (component, text, value) {
+                    var button = $("<a class='mini-button' plain='true' onclick='edit_datasource_00001' iconCls='icon-edit'>");
+                    window.edit_datasource_00001 = function () {
 
+                    };
+                    return button;
+                }
 
-                        if (name === 'comment') {
-                            container.find("label").text(value);
-                        } else if (name === 'name' || name === 'data') {
-                            initData();
-                        } else {
-                            if (typeof value === 'undefined') {
-                                container.find("input").removeAttr(name);
-                            } else {
-                                container.find("input").attr(name, value);
-                            }
-                        }
-                    });
-                return container;
-            };
-            Designer.registerComponent("radio", RadioBox);
+            }
         }
 
         /**下拉列表**/
@@ -401,76 +314,20 @@
                 Component.call(this);
                 this.id = id;
                 this.properties = createDefaultEditor();
+                this.cls = "mini-combobox";
+                this.getProperty("comment").value = "下拉列表";
+                this.properties.push(createDataSourceEditor());
                 this.properties.push({
                     id: "data",
                     text: "选项",
-                    value: "选项1,选项2"
+                    value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 });
             }
 
-            createClass(Combobox);
+            createClass(Combobox, TextBox);
 
-            Combobox.prototype.render = function () {
-                var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-4'>");
-                    var c = $("<div class=\"form-item brick\">");
-                    var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div  class=\"input-block\">");
-                    var input = $("<input style='width: 100%' class=\"mini-combobox\">");
-                    label.text("单行文本");
-                    c.append(label).append(inputContainer.append(input));
-                    m.append(c);
-                    return m;
-                });
-                var me = this;
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (name, value) {
-                        function initData() {
-                            var inputParent = container.find("select");
-                            inputParent.children().remove();
-                            var data = me.getProperty("data").value;
-                            if (!data) {
-                                return;
-                            }
-                            data = data.split(",");
-                            var name = me.getProperty("name").value;
-                            if (!name) {
-                                name = me.id;
-                            }
-                            inputParent.attr("name", name);
-                            $(data).each(function () {
-                                var option = $("<option title='选项1'>");
-                                var value = this;
-                                var text = this;
-                                if (value.indexOf(":") !== -1) {
-                                    var vt = value.split(":");
-                                    text = vt[0];
-                                    value = vt[1];
-                                }
-                                option.attr({
-                                    value: value
-                                });
-                                option.text(text);
-                                inputParent.append(option);
-                            });
-                        }
 
-                        if (name === 'comment') {
-                            container.find("label").text(value);
-                        } else if (name === 'data') {
-                            initData();
-                        } else {
-                            if (typeof value === 'undefined') {
-                                container.find("select").removeAttr(name);
-                            } else {
-                                container.find("select").attr(name, value);
-                            }
-                        }
-                    });
-                return container;
-            };
-
-            Designer.registerComponent("combobox", Combobox);
+            componentRepo.registerComponent("combobox", Combobox);
         }
 
         /**日期选择**/
@@ -479,56 +336,57 @@
                 Component.call(this);
                 this.id = id;
                 this.properties = createDefaultEditor();
+                this.cls = "mini-datepicker";
                 this.properties.push({
                     id: "format",
                     editor: "textbox",
                     text: "日期格式",
                     value: "yyyy-MM-dd"
                 });
-                this.getProperty("comment").value = "日期输入";
+                this.getProperty("comment").value = "日期选择";
             }
 
-            createClass(Datepicker);
+            createClass(Datepicker, TextBox);
 
-            Datepicker.prototype.render = function () {
-                var me = this;
-                var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-4'>");
-                    var c = $("<div class=\"form-item brick\">");
-                    var label = $("<label  class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
-                    var input = $("<input style='width: 100%' class=\"mini-datepicker\">");
-                    label.text("日期输入");
-                    c.append(label).append(inputContainer.append(input));
-                    m.append(c);
-                    return m;
-                });
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (name, value) {
-                        function reloadInput() {
-                            var input = container.find(".date-picker");
-                            var newInput = $("<input   class=\"layui-input date-picker\">");
-                            input.replaceWith(newInput);
-                            var format = me.getProperty("format");
-                            newInput.attr("format", format);
-                            if (format.value) {
-                                //layui.laydate.render({elem: newInput[0], format: format.value});
-                            }
-                        }
+            // Datepicker.prototype.render = function () {
+            //     var me = this;
+            //     var container = this.getContainer(function () {
+            //         var m = $("<div class='mini-col-4'>");
+            //         var c = $("<div class=\"form-item brick\">");
+            //         var label = $("<label  class=\"form-label\">");
+            //         var inputContainer = $("<div class=\"input-block\">");
+            //         var input = $("<input style='width: 100%' class=\"mini-datepicker\">");
+            //         label.text("日期输入");
+            //         c.append(label).append(inputContainer.append(input));
+            //         m.append(c);
+            //         return m;
+            //     });
+            //     this.un("propertiesChanged")
+            //         .on('propertiesChanged', function (name, value) {
+            //             function reloadInput() {
+            //                 var input = container.find(".date-picker");
+            //                 var newInput = $("<input   class=\"layui-input date-picker\">");
+            //                 input.replaceWith(newInput);
+            //                 var format = me.getProperty("format");
+            //                 newInput.attr("format", format);
+            //                 if (format.value) {
+            //                     //layui.laydate.render({elem: newInput[0], format: format.value});
+            //                 }
+            //             }
+            //
+            //             if (name === 'format') {
+            //                 reloadInput();
+            //             }
+            //             if (name === 'comment') {
+            //                 container.find("label").text(value);
+            //             } else {
+            //                 container.find("input").attr(name, value);
+            //             }
+            //         });
+            //     return container;
+            // };
 
-                        if (name === 'format') {
-                            reloadInput();
-                        }
-                        if (name === 'comment') {
-                            container.find("label").text(value);
-                        } else {
-                            container.find("input").attr(name, value);
-                        }
-                    });
-                return container;
-            };
-
-            Designer.registerComponent("datepicker", Datepicker);
+            componentRepo.registerComponent("datepicker", Datepicker);
         }
     }
 
