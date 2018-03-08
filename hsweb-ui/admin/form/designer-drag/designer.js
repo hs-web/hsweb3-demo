@@ -250,6 +250,9 @@
                 html.children().remove();
                 $(properties).each(function () {
                     var me = this;
+                    if (me.hide) {
+                        return;
+                    }
                     var c = $("<div class=\"form-item mini-col-3\">");
                     var label = $("<label class=\"form-label\">");
                     var inputContainer = $("<div   class=\"input-block\">");

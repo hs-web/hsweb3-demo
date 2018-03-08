@@ -44,6 +44,7 @@ Component.prototype.setProperty = function (property, value) {
     // if (prop.value === value) {
     //     return;
     // }
+    if (prop.value === value) return;
     prop.value = value;
     if (property === 'size' || property === 'mdSize') {
         this.resize();

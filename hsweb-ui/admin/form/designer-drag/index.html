@@ -14,6 +14,7 @@
             height: 100%;
             overflow: hidden;
         }
+
         #script-editor {
             margin: 0;
             top: 0;
@@ -42,6 +43,7 @@
             <td style="width:100%;">
                 <a class="mini-button edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
                 <a class="mini-button edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
+                <a class="mini-button select-from-db" iconCls="icon-database" plain="true">从数据库中选择</a>
             </td>
         </tr>
     </table>
@@ -62,7 +64,6 @@
                 <div class="mini-fit dynamic-form mini-clearfix" id="component-properties"></div>
             </div>
         </div>
-
     </div>
 
 </div>
@@ -82,6 +83,111 @@
     </div>
     <div class="mini-fit">
         <pre class="script-editor" id="script-editor"></pre>
+    </div>
+</div>
+
+<!--控件选项编辑-->
+<div id="optional-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="控件选项"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-optional" plain="true" iconCls="icon-ok">完成编辑</a>
+    </div>
+    <div class="mini-fit dynamic-form mini-clearfix" id="option-form">
+        <div class="mini-col-12" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">选项来源</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" name="type" id="optionType" data="[{'id':'data','text':'配置'},{'id':'url','text':'接口'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">URL</label>
+                <div class="input-block">
+                    <input style="width: 100%" emptyText="接口地址,如: user" class="mini-textbox" name="url"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">请求方式</label>
+                <div class="input-block">
+                    <input name="textField" value="GET" style="width: 100%" textField="id" class="mini-combobox"
+                           data="[{'id':'GET'},{'id':'POST'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">标识字段</label>
+                <div class="input-block">
+                    <input name="idField" style="width: 100%" emptyText="标识选项唯一的字段,默认为:id" class="mini-textbox" id="idField"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">文本字段</label>
+                <div class="input-block">
+                    <input name="textField" style="width: 100%" emptyText="选项显示的文本字段,默认为:text" class="mini-textbox" id="textField"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">数据字段</label>
+                <div class="input-block">
+                    <input name="dataField" style="width: 100%" emptyText="接口返回的数据字段,默认为:result" class="mini-textbox" id="idField"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url-treeselect" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">树形结构</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-radiobuttonlist" value="false" name="resultAsTree" data="[{'id':'true','text':'是'},{'id':'false','text':'否'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url-treeselect" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">父节点字段</label>
+                <div class="input-block">
+                    <input name="parentField" style="width: 100%" emptyText="默认为:parentId" class="mini-textbox" id="idField"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mini-col-12 optional-setting optional-data" style="position: relative;">
+            <div class="form-item form-text">
+                <label class="form-label">选项配置</label>
+                <div class="input-block">
+                    <div id="operation-grid" class="mini-treegrid" style="width:100%;height:400px;"
+                         allowResize="false" showPager="false"
+                         allowCellEdit="true" allowCellSelect="true" multiSelect="true"
+                         editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="true"
+                         allowDrag="true" allowDrop="true" iconField="iconCls" treeColumn="index" idField="field">
+                        <div property="columns">
+                            <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">#</div>
+                            <div field="id" width="40" headerAlign="center">标识
+                                <input property="editor" class="mini-textbox"/>
+                            </div>
+                            <div field="text" width="40" headerAlign="center">标题
+                                <input property="editor" class="mini-textbox"/>
+                            </div>
+                            <div name='action' width="30" align="center" headerAlign="center">
+                                <span class="title-button" style="width: 30px">
+                                操作
+                                </span>
+                                <span class="title-button icon-add" onclick="mini.get('operation-grid').addNode({})"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

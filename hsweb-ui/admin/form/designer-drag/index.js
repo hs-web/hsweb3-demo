@@ -3,7 +3,7 @@ importResource("/admin/css/common.css");
 
 var componentsImport = [
     "components-default"
-]
+];
 
 importMiniui(function () {
     mini.parse();
@@ -22,34 +22,71 @@ importMiniui(function () {
             }
         });
     });
-    var scriptEditor;
 
-    function editeJs(lang, script) {
+    window.editScript = function (lang, script, call, onSubmit) {
         require(['script-editor'], function (editorBuilder) {
             editorBuilder.createEditor("script-editor", function (editor) {
-                scriptEditor = editor;
-                scriptEditor.init(lang, script);
+                editor.init(lang, script);
+                if (call) {
+                    call(editor);
+                }
+                $(".save-script-editor").unbind("click").on("click", function () {
+                    if (onSubmit) {
+                        onSubmit(editor);
+                    }
+                    mini.get("script-editor-window").hide();
+                })
             });
         });
         mini.get("script-editor-window").show();
     }
 
+    var optionType = mini.get("optionType");
+    var optionalGrid = mini.get("operation-grid");
+
+    window.editOptional = function (config, type, onSubmit) {
+        optionType.un("valuechanged").on("valuechanged", function () {
+            $(".optional-setting").hide();
+            $(".optional-" + this.value).show();
+            $(".optional-" + this.value + "-" + type).show();
+            mini.layout();
+        });
+        config = config || {};
+        var form = new mini.Form("#option-form");
+        form.setData(config);
+        optionType.doValueChanged();
+        if (config.data) {
+            optionalGrid.setData(config.data);
+        }
+
+        $(".save-optional").unbind("click").on("click", function () {
+            var config = form.getData();
+            config.data = optionalGrid.getData();
+            if (onSubmit) {
+                onSubmit(config);
+            }
+            mini.get("optional-window").hide();
+        });
+        mini.get("optional-window").show();
+
+    }
     $(".edit-javascript").on("click", function () {
-        editeJs("javascript", designer.javascript || "// this为formParser对象." +
-            "\n// this.on('load',function(){ this.setData({ })  })");
-        $(".save-script-editor").unbind("click").on("click",function () {
-            designer.javascript=scriptEditor.getScript();
-            mini.get("script-editor-window").hide();
-        })
+        editScript("javascript", designer.javascript || "// this为formParser对象." +
+            "\n// this.on('load',function(){ this.setData({ })  })", function (editor) {
+
+        }, function (editor) {
+            designer.javascript = editor.getScript();
+        });
     });
 
     $(".edit-css").on("click", function () {
-        editeJs("css", designer.css || "/*.dynamic-form * {\n\tfont-size:20px;\n}/*");
-        $(".save-script-editor").unbind("click").on("click",function () {
-            designer.css=scriptEditor.getScript();
-            mini.get("script-editor-window").hide();
-        })
+        editScript("css", designer.css || "/*.dynamic-form * {\n\tfont-size:20px;\n}/*", function (editor) {
+
+        }, function (editor) {
+            designer.css = editor.getScript();
+        });
     });
+
     function preview() {
         require(["parser"], function (Parser) {
             new Parser(designer.getConfig()).render($("#preview").html(""));

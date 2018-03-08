@@ -83,30 +83,15 @@
                     var component = new Component(id);
                     this.target = component;
                     component.container = componentHtml;
+                    component.parser = me;
                     component.render();
                     $(this.properties).each(function () {
-                            var value = this.value;
+                            var property = this;
+                            var value = property.value;
                             if (!value) {
                                 return;
                             }
-                            if (this.script === true) {
-                                var scriptId = "script_" + (Math.round(Math.random() * 100000000));
-                                customEvents[scriptId] = function () {
-                                    try {
-                                        var func = eval("(function(){return function(){" +
-                                            "\n" +
-                                            value +
-                                            "\n" +
-                                            "}})()");
-                                        func.call(me);
-                                        value = "window.event_" + formId + "." + scriptId;
-                                    } catch (e) {
-                                        console.log("执行控件脚本失败", this, e);
-                                        return;
-                                    }
-                                }
-                            }
-                            component.setProperty(this.id, value);
+                            component.setProperty(property.id, value);
                         }
                     );
                 } else {
