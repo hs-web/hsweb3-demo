@@ -276,7 +276,7 @@
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
                         if (name === 'comment') {
-                            container.find("label").text(value);
+                            container.find(".form-label").text(value);
                         } else {
                             newInput();
                         }
