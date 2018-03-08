@@ -21,3 +21,6 @@ http://cdn-blog.jetbrains.org.cn/doc/all.html
 ## 无法下载依赖?
 查看maven的settings.xml是否配置了私服,删掉或者mirrorOf不要为*
 
+
+## 注意
+本项目是完全开源的,但是由于miniui并非开源项目,仅作为演示hsweb功能,学习所用.如果要将此项目用于商用,请先获得miniui许可.我们正在开发[基于layui的前端实现](https://github.com/hs-web/hsweb-ui-layui),敬请期待.
