@@ -155,6 +155,17 @@ var menus = [
         "status": 1
     },
     {
+        "u_id": "template",
+        "name": "模板管理",
+        "parent_id": "dev-01",
+        "permission_id": "template",
+        "path": "d010-002",
+        "sort_index": 302,
+        "url": "pages/module/list.hl",
+        "icon": null,
+        "status": 1
+    },
+    {
         "u_id": "quartz",
         "name": "定时任务",
         "parent_id": "dev-01",
