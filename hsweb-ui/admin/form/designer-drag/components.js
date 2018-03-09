@@ -40,18 +40,18 @@ Component.prototype.removeProperty = function (name) {
         this.properties.splice(indexOf, 1);
     }
 };
-Component.prototype.setProperty = function (property, value) {
+Component.prototype.setProperty = function (property, value, replace) {
     //console.log(property, value, this.getProperties());
     var prop = this.getProperty(property);
     var me = this;
-    if(me.changed){
+    if (me.changed) {
         return;
     }
     if (!prop) {
         console.error("设置属性失败,属性不存在！", me, property, value);
         return;
     }
-    if (prop.value === value) {
+    if (prop.value === value && !replace) {
         return;
     }
     prop.value = value;

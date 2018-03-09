@@ -5,8 +5,16 @@
         this.javascript = config.javascript;
         this.css = config.css;
         this.events = {};
-
+        this.parameters = {};
     };
+    FormParser.prototype.getParameter = function (key) {
+        return this.parameters[key];
+    };
+    FormParser.prototype.setParameters = function (params) {
+        for (var key in params) {
+            this.parameters[key] = params[key];
+        }
+    }
     FormParser.prototype.on = function (event, callback) {
         if (!this.events[event]) {
             this.events[event] = [];
@@ -88,10 +96,10 @@
                     $(this.properties).each(function () {
                             var property = this;
                             var value = property.value;
-                            if (!value) {
+                            if (typeof value === 'undefined') {
                                 return;
                             }
-                            component.setProperty(property.id, value);
+                            component.setProperty(property.id, value, true);
                         }
                     );
                 } else {

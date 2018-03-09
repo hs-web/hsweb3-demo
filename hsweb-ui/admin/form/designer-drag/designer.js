@@ -209,6 +209,7 @@
                 cursor: "move",
                 revert: false
             }).disableSelection();
+
             var cache = {};
 
             function initDroppable() {

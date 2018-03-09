@@ -46,6 +46,42 @@ importMiniui(function () {
         })
     }
 
+    function createFormTab(tab, id) {
+        var el = tabs.getTabBodyEl(tab);
+        var container = $("<div>");
+        $(el).append(container);
+        require(["pages/form/operation/save-page"], function (save) {
+            //testForm为表单模板id或者表单配置对象
+            save.singlePage(id, {
+                title: "编辑数据",
+                width: "100%",
+                height: "100%",
+                el: container,
+                beforeLoad: function (conf) {
+                    var formParser = conf.form;
+                    formParser.setParameters({
+                        id: "1234"
+                    });
+                },
+                close: function () {
+                    //关闭窗口时触发,返回false时不关闭
+                    tabs.removeTab(tab);
+                },
+                onload: function (conf) {
+                    var formParser = conf.form;
+                    var toolbar = conf.toolbar;// 工具栏html容器, jquery对象
+
+                },
+                submit: function (data, conf) {
+                    //表单解析器对象
+                    var formParser = conf.form;
+                    formParser.doEvent("submit", data);
+                    conf.close();//关闭窗口
+                }
+            })
+        });
+    }
+
     function createHLTab(tab, page) {
         var el = tabs.getTabBodyEl(tab);
         require(["pages/module/parser", "text!" + page], function (parser, pageConfig) {
@@ -67,6 +103,9 @@ importMiniui(function () {
             if (url.indexOf("template:") === 0) {
                 var templateId = url.split(":")[1];
                 createTemplateTab(tab, templateId);
+            } else if (url.indexOf("form:") === 0) {
+                var templateId = url.split(":")[1];
+                createFormTab(tab, templateId);
             } else if (url.indexOf(".hl") !== -1) {
                 createHLTab(tab, url);
             } else {

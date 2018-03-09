@@ -5,9 +5,21 @@ define(['request'], function (request) {
             var config = templateObject.config;
             require(["pages/module/parser"], function (Parser) {
                 var parser = new Parser();
+                if (typeof call === 'object') {
+                    if (call.beforeLoad) {
+                        call.beforeLoad(parser);
+                    }
+                }
                 parser.parse(container, JSON.parse(config));
-                if (call) {
-                    call.call(parser);
+
+                if (typeof call === 'object') {
+                    if (call.load) {
+                        call.load.call(parser);
+                    }
+                } else {
+                    if (call) {
+                        call.call(parser);
+                    }
                 }
             });
         },
@@ -16,9 +28,20 @@ define(['request'], function (request) {
             require(["pages/form/designer-drag/parser"], function (Parser) {
                 require(["pages/form/designer-drag/components-default"], function () {
                     var parser = new Parser(JSON.parse(config));
+                    if (typeof call === 'object') {
+                        if (call.beforeLoad) {
+                            call.beforeLoad.call(parser);
+                        }
+                    }
                     parser.render(container);
-                    if (call) {
-                        call.call(parser);
+                    if (typeof call === 'object') {
+                        if (call.load) {
+                            call.load.call(parser);
+                        }
+                    } else {
+                        if (call) {
+                            call.call(parser);
+                        }
                     }
                 });
             });

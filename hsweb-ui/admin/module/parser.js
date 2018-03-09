@@ -287,7 +287,8 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                                         action.onclick +
                                         "\n}})()");
                                     show = fun.call({
-                                        row: e.record, e: e, autz: autz, message: message, request: request, tools: tools
+                                        row: e.record, e: e, autz: autz, message: message, request: request, tools: tools,
+                                        parser: me
                                     });
                                 } catch (e) {
                                     console.log(action.onclick, e);
@@ -390,9 +391,17 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
             searchButton.attr("onclick", me.createOnclick(function () {
                 callQuery();
             }));
+            resetButton.attr("onclick", me.createOnclick(function () {
+                me.resetQuery();
+            }));
             mini.parse();
             var gridObj = func();
             me.grid = gridObj;
+            me.resetQuery = function () {
+                var form = new mini.Form("#" + formId);
+                form.reset();
+                callQuery();
+            };
             me.doQuery = callQuery = function () {
                 var form = new mini.Form("#" + formId);
                 var data = form.getData(true);

@@ -297,6 +297,9 @@
                         var value = this.value;
                         var property = this;
                         if (this.id) {
+                            if (this.id === 'type'){
+                                return;
+                            }
                             if (this.id === 'height') {
                                 input.css("height", value);
                             }
@@ -346,7 +349,6 @@
                             input.removeAttr(this.id);
                         }
                     });
-                    console.log(input[0].outerHTML);
                     return input;
                 }
 
