@@ -4,3 +4,6 @@
 .mini-splitter{
     border: 0;
 }
+.dynamic-form .form-hidden{
+    display: block;
+}

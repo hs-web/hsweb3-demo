@@ -43,7 +43,7 @@
             <td style="width:100%;">
                 <a class="mini-button edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
                 <a class="mini-button edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
-                <a class="mini-button select-from-db" iconCls="icon-database" plain="true">从数据库中选择</a>
+                <a class="mini-button select-from-database" iconCls="icon-database" plain="true">从数据库中选择</a>
             </td>
         </tr>
     </table>
@@ -51,7 +51,7 @@
 
 <div class="mini-splitter" style="width:100%;height:100%;border: 0px">
     <div size="15%" showCollapseButton="true">
-        <div class="mini-fit dynamic-form support-components">
+        <div class="mini-fit dynamic-form support-components-list">
         </div>
     </div>
     <div showCollapseButton="false" style="border: 0px">
@@ -185,6 +185,35 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div title="选择数据库表" showFooter="true" showToolBar="true" allowResize="true" class="mini-window" id="database-window"
+     style="width: 800px;height: 600px">
+    <div property="footer" style="padding:5px;text-align: right">
+        <a class="mini-button choose-database" plain="true" iconCls="fa fa-check">确定</a>
+    </div>
+    <div property="toolbar" style="padding: 5px">
+        数据源:<input class="mini-combobox" style="width: 400px" allowInput="true" name="datasource"/>
+    </div>
+    <div class="mini-fit">
+        <div id="database-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
+             editNextOnEnterKey="true" showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
+            <div property="columns">
+                <div name="name" field="name" width="120" headerAlign="center" align="left">名称
+                    <input id="nameFilter" emptyText="按名称搜索" property="filter" class="mini-textbox" style="width:100%;"
+                           onvaluechanged="onFilterChanged"/>
+                </div>
+                <div name="dataType" field="dataType" width="120" headerAlign="center" align="center">类型
+                </div>
+                <div field="comment" width="120" headerAlign="center" align="center">备注
+                    <input id="commentFilter" emptyText="按备注搜索" property="filter" class="mini-textbox" style="width:100%;"
+                           onvaluechanged="onFilterChanged"/>
+                </div>
+                <div name="action" width="50" headerAlign="center" align="center">操作
                 </div>
             </div>
         </div>

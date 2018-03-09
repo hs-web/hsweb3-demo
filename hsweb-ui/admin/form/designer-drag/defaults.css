@@ -2,9 +2,18 @@
     width: 99.5%
 }
 
+.dynamic-form .child-form {
+    border: 1px solid #ddd;
+}
+
 .dynamic-form .form-component legend {
     font-size: 20px;
     font-weight: 600;
+}
+
+.dynamic-form .form-hidden {
+    display: none;
+    color: grey;
 }
 
 .dynamic-form .form-label {

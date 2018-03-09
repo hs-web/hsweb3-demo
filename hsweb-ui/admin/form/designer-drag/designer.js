@@ -10,7 +10,6 @@
 
         if (supportComponents[type]) {
             var component = this.components[id] = new supportComponents[type](id);
-            component.type = type;
             return component;
         }
         return undefined;
@@ -71,18 +70,41 @@
                 initPropertiesEditor(component);
                 $(".brick").find(".form-label,legend,.component-info").css("border", "");
                 $(".component-info").parent().parent().css("border", "");
-                html.find(".form-label,legend").css({
-                    "border": "1px solid red"
-                });
-                html.find(".component-info").parent().parent().css({
-                    "border": "1px solid red"
-                });
+
+                if (html.find(".child-form").length) {
+                    html.find('.child-form legend').first().css({
+                        "border": "1px solid red"
+                    });
+                } else {
+                    html.find(".form-label,legend").css({
+                        "border": "1px solid red"
+                    });
+                }
+                html.find(".component-info")
+                    .parent()
+                    .parent()
+                    .css({
+                        "border": "1px solid red"
+                    });
                 reloadMiniui();
                 me.nowEditComponent = component;
             }
 
-            html.find('.form-label,legend,.component-info').unbind('click').on('click', focus);
-            html.find('input,textarea,select').unbind('click').on("click", focus);
+            if (html.find(".child-form").length) {
+                html.find('.child-form legend').first().unbind('click').on('click', focus);
+            } else {
+                html.find('.form-label,legend,.component-info')
+                    .unbind('click')
+                    .on('click', focus);
+                html.find('input,textarea,select')
+                    .unbind('click')
+                    .on("click", focus);
+            }
+            component.un("typeChanged").on("typeChanged", function (newComponent) {
+                me.components[component.id] = newComponent;
+                initEvent(newComponent);
+                initPropertiesEditor(newComponent);
+            });
             return component;
         }
 
@@ -114,6 +136,16 @@
             initDroppable();
             reloadMiniui();
         };
+        me.insertComponent = function (type) {
+            var component = newComponent(type);
+            if (me.nowEditComponent && me.nowEditComponent.type === 'form') {
+                me.nowEditComponent.container.find(".components").append(component.render());
+            } else {
+                $(".main-panel").append(component.render());
+            }
+            reloadMiniui();
+            return component;
+        };
 
         function reloadMiniui() {
             mini.parse();
@@ -132,7 +164,7 @@
                 component.componentName = name;
                 group[component.type].push(component);
             }
-            var container = $(".support-components");
+            var container = $(".support-components-list");
             var index = 0;
 
             function init(component) {
@@ -151,19 +183,21 @@
                 html.push(componentHtml[0].outerHTML)
             }
 
+            var html = [];
+            html.push('<div  class="mini-outlookbar" activeIndex="0"  style="width:100%;height:90%;" autoCollapse="true">');
+
             for (var type in group) {
                 index++;
                 var list = group[type];
-                var html = [];
-                html.push('<div  class="mini-outlookbar"   activeIndex="0"  style="width:100%;height:100%;" autoCollapse="true">');
-                html.push('<div title="' + type + '">');
+
+                html.push('<div class=".support-components" title="' + type + '">');
                 $(list).each(function () {
                     init(this);
                 });
                 html.push('</div>');
-                html.push('</div>');
-                container.append(html.join(""));
             }
+            html.push('</div>');
+            container.append(html.join(""));
             reloadMiniui();
 
         }

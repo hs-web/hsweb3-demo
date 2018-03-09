@@ -7,7 +7,11 @@ var componentsImport = [
 
 importMiniui(function () {
     mini.parse();
-    require(["designer", "md5", "plugin/jquery-ui/jquery-ui", "components", "css!defaults", "css!plugin/jquery-ui/jquery-ui.min", 'css!designer'], function (Designer, md5) {
+    require(["designer", "md5",
+        "plugin/jquery-ui/jquery-ui",
+        "components", "css!defaults", "css!plugin/font-awesome/4.7.0/css/font-awesome.css",
+        "css!plugin/jquery-ui/jquery-ui.min",
+        'css!designer'], function (Designer, md5) {
         window.md5 = md5;
         require(componentsImport, function () {
             var designer = window.designer = new Designer();
@@ -22,7 +26,11 @@ importMiniui(function () {
             }
         });
     });
-
+    require(["request", "message", "miniui-tools"], function (request, message, tools) {
+        window.request = request;
+        window.tools = tools;
+        window.message = message;
+    })
     window.editScript = function (lang, script, call, onSubmit) {
         require(['script-editor'], function (editorBuilder) {
             editorBuilder.createEditor("script-editor", function (editor) {
@@ -87,13 +95,104 @@ importMiniui(function () {
         });
     });
 
-    function preview() {
-        require(["parser"], function (Parser) {
-            new Parser(designer.getConfig()).render($("#preview").html(""));
-            if (!mini.get("previewWindow").visible)
-                mini.get("previewWindow").show();
-        })
+    var datasource;
+    $(".select-from-database").on("click", function () {
+        if (!datasource) {
+            request.get("datasource", function (response) {
+                datasource = [{"id": "", "text": "默认数据源"}];
+                if (response.status === 200) {
+                    $(response.result).each(function () {
+                        this.text = this.id + "(" + this.name + ")";
+                        datasource.push(this);
+                    });
+                }
+                mini.getbyName("datasource").setData(datasource);
+                mini.getbyName("datasource").select(0);
+                mini.getbyName("datasource").doValueChanged();
+            })
+        }
+        mini.get("database-window").show();
+    });
+    mini.get("database-datagrid").on("drawcell", function (e) {
+        var field = e.field;
+        if (field === 'name') {
+            if (e.node.dataType !== "TABLE") {
+                e.iconCls = "fa fa-columns";
+            } else {
+                e.iconCls = "fa fa-table";
+            }
+        }
+    });
+
+    mini.get("database-datagrid").getColumn("dataType").renderer = function (e) {
+        var node = e.node;
+        if (node.dataType !== "TABLE") {
+            return node.dataType + "(" + node.precision + (node.scale > 0 ? "," + node.scale : "") + ")";
+        }
+
+        return e.value;
+    };
+    mini.get("database-datagrid").getColumn("action").renderer = function (e) {
+        var node = e.node;
+        if (node.dataType !== "TABLE") {
+            return "";
+        }
+
+        return tools.createActionButton("选择", "fa fa-check green", function () {
+            var data = mini.clone(node);
+            insertComponents(data);
+            mini.get("database-window").hide();
+        });
+    };
+
+    function insertComponents(table) {
+        var columns = table.columns;
+        var component;
+
+        $(columns).each(function () {
+            var column = this;
+            column.name=column.name.toLowerCase();
+            if(column.name==='id'||column.name==='u_id'){
+                return;
+            }
+            switch (column.dataType) {
+                case "DATETIME":
+                    component = designer.insertComponent("datepicker");
+                    break;
+                case "CLOB":
+                    component = designer.insertComponent("textarea");
+                    break;
+
+                default:
+                    component = designer.insertComponent("textbox");
+                    break;
+            }
+            component.setProperty("comment", column.comment || column.name);
+
+            component.setProperty("name", column.name.replace(/_(\w)/g, function ($0, $1) {
+                return $1.toUpperCase();
+            }));
+        });
     }
 
-    $(".preview-button").on("click", preview)
+
+    mini.getbyName("datasource").on("valuechanged", function (e) {
+        var id = e.value;
+        var loading = message.loading("加载中...");
+
+        request.get("database/manager/metas/" + id, function (response) {
+            loading.hide();
+            if (response.status === 200) {
+                var table = response.result.TABLE;
+                $(table).each(function () {
+                    this.dataType = "TABLE";
+                });
+                mini.get("database-datagrid").loadData(table);
+            } else {
+                message.alert("加载表结构失败", e.message);
+            }
+        });
+    });
+
+
 });

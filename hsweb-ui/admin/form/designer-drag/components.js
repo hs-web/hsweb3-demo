@@ -14,6 +14,12 @@ Component.prototype.un = function (event) {
     this.events[event] = [];
     return this;
 };
+Component.prototype.doEvent = function (event, arg) {
+    var me = this;
+    $(this.events[event]).each(function () {
+        this.call(me, arg);
+    })
+};
 Component.prototype.getProperties = function () {
     return this.properties;
 };
@@ -37,17 +43,41 @@ Component.prototype.removeProperty = function (name) {
 Component.prototype.setProperty = function (property, value) {
     //console.log(property, value, this.getProperties());
     var prop = this.getProperty(property);
-    if (!prop) {
-        console.error(property, value);
+    var me = this;
+    if(me.changed){
         return;
     }
-    // if (prop.value === value) {
-    //     return;
-    // }
-    if (prop.value === value) return;
+    if (!prop) {
+        console.error("设置属性失败,属性不存在！", me, property, value);
+        return;
+    }
+    if (prop.value === value) {
+        return;
+    }
     prop.value = value;
     if (property === 'size' || property === 'mdSize') {
         this.resize();
+        return;
+    }
+    if (property === "type") {
+        if (!prop.value && prop.prototype.type === value) {
+            return;
+        }
+        var NewComponent = componentRepo.supportComponents[value];
+        if (NewComponent) {
+            var comp = new NewComponent(me.id);
+            comp.newComponent = true;
+            var container = comp.render();
+            $(me.properties).each(function () {
+                if (this.id === 'type') {
+                    return;
+                }
+                comp.setProperty(this.id, this.value);
+            });
+            me.container.replaceWith(container);
+            me.doEvent("typeChanged", comp);
+            me.changed = true;
+        }
         return;
     }
     if (this.events["propertiesChanged"]) {
@@ -75,6 +105,11 @@ Component.prototype.bind = function (el) {
 };
 Component.prototype.getContainer = function (newFunc) {
     var container;
+    if (this.newComponent) {
+        this.container = newFunc();
+        this.container.attr("hs-id", this.id);
+        this.newComponent = false;
+    }
     if (!this.container) {
         if (this.id) {
             container = $("[hs-id='" + this.id + "']");
@@ -108,7 +143,10 @@ Component.prototype.remove = function () {
 
 var componentRepo = {};
 componentRepo.supportComponents = {};
+componentRepo.supportComponentsList = [];
 
 componentRepo.registerComponent = function (type, component) {
     componentRepo.supportComponents[type] = component;
+    component.prototype.type = type;
+    componentRepo.supportComponentsList.push(component);
 };

@@ -18,8 +18,42 @@
                 text: "提示",
                 value: ""
             }, {
+                id: "type",
+                editor: "textbox",
+                text: "控件类型",
+                createEditor: function (component, text, value, call) {
+                    value = value || component.type;
+                    var html = $("<input name='type' allowInput=\"true\" expandOnLoad='true'  style='width: 100%' class='mini-treeselect'>");
+                    html.val(value);
+                    if (!window.__components) {
+                        window.__components = [];
+                        var cache = {};
+                        $(componentRepo.supportComponentsList)
+                            .each(function () {
+                                if (!cache[this.type]) {
+                                    cache[this.type] = {id: this.type, text: this.type};
+                                    cache[this.type].children = [];
+                                }
+                                var tmp = new this();
+                                cache[this.type].children.push({id: tmp.type, text: tmp.getProperty("comment").value});
+                            });
+                        for (var type in cache) {
+                            window.__components.push(cache[type])
+                        }
+                    }
+
+                    window.onbeforenodeselect_00001 = function (e) {
+                        if (e.isLeaf === false) e.cancel = true;
+                    };
+                    html.attr({
+                        "data": " window.__components",
+                        "onbeforenodeselect": "onbeforenodeselect_00001"
+                    });
+                    return html;
+                }
+            }, {
                 id: "size",
-                text: "控件大小",
+                text: "控件宽度",
                 value: "4",
                 createEditor: function (component, text, value, call) {
                     var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
@@ -145,7 +179,7 @@
                 this.properties = createDefaultEditor();
                 this.removeProperty("placeholder");
                 this.removeProperty("name");
-                this.removeProperty("");
+                this.removeProperty("required");
                 this.getProperty("comment").value = "分割";
                 this.getProperty("size").value = "12";
             }
@@ -165,6 +199,8 @@
                     .on('propertiesChanged', function (key, value) {
                         if (key === 'comment') {
                             container.find("legend").text(value);
+                        } else if (key === 'emptyText') {
+                            container.find("legend").attr("title", value);
                         } else {
                             container.find("legend").attr(key, value);
                         }
@@ -173,6 +209,71 @@
             };
 
             componentRepo.registerComponent("fieldset", FieldSet);
+        }
+        /**占位**/
+        {
+            function Hidden(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.removeProperty("placeholder");
+                this.removeProperty("name");
+                this.removeProperty("required");
+                this.removeProperty("emptyText");
+                this.getProperty("comment").value = "占位";
+                this.getProperty("size").value = "12";
+                this.properties.push(
+                    {
+                        id: "height",
+                        text: "高度",
+                        value: "50",
+                        createEditor: function (component, text, value, call) {
+                            var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
+                            html.slider({
+                                orientation: "horizontal",
+                                range: "min",
+                                min: 1,
+                                max: 20,
+                                value: parseInt(value) / 25,
+                                slide: function () {
+                                    if (call) call();
+                                    component.setProperty("height", parseInt(arguments[1].value) * 25);
+                                    mini.parse();
+                                }
+                            });
+                            return html;
+                        }
+                    }
+                );
+            }
+
+            createClass(Hidden);
+
+            Hidden.prototype.render = function () {
+                var container = this.getContainer(function () {
+                    var m = $("<div class='mini-col-12 form-component'>");
+                    var c = $("<fieldset style='border:0px;' class=\"brick\">");
+                    var label = $("<legend class='form-hidden' title='渲染时会被移除' style='font-size: 20px'>")
+                        .text("占位");
+                    c.append(label);
+                    m.append(c);
+                    return m;
+                });
+                this.un("propertiesChanged")
+                    .on('propertiesChanged', function (key, value) {
+                        if (key === 'comment') {
+                            container.find("legend").text(value);
+                        }
+                        else if (key === 'height') {
+                            container.find("fieldset").css("height", value);
+                        } else {
+                            container.find("legend").attr(key, value);
+                        }
+                    });
+                return container;
+            };
+
+            componentRepo.registerComponent("hidden", Hidden);
         }
 
         /**文本输入框**/
@@ -438,6 +539,7 @@
 
             componentRepo.registerComponent("treeselect", TreeSelect);
         }
+
         /**日期选择**/
         {
             function Datepicker(id) {
@@ -458,6 +560,85 @@
 
             componentRepo.registerComponent("datepicker", Datepicker);
         }
+    }
+
+    /**子表单**/
+    {
+        function Form(id) {
+            Component.call(this);
+            this.id = id;
+            this.properties = createDefaultEditor();
+            this.removeProperty("placeholder");
+            this.removeProperty("name");
+            this.removeProperty("required");
+            this.removeProperty("emptyText");
+            this.getProperty("comment").value = "子表单";
+            this.getProperty("size").value = "12";
+            this.properties.push(
+                {
+                    id: "height",
+                    text: "高度",
+                    value: "150",
+                    createEditor: function (component, text, value, call) {
+                        var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
+                        html.slider({
+                            orientation: "horizontal",
+                            range: "min",
+                            min: 1,
+                            max: 20,
+                            value: parseInt(value) / 25,
+                            slide: function () {
+                                if (call) call();
+                                var height = parseInt(arguments[1].value) * 25;
+                                if (height === 25) {
+                                    component.setProperty("height", "");
+                                } else {
+                                    component.setProperty("height", height);
+                                }
+                                mini.parse();
+                            }
+                        });
+                        return html;
+                    }
+                }
+            );
+            this.properties.push(createTrueOrFalseEditor("hidden", "隐藏标题", "false"));
+        }
+
+        createClass(Form, Component, "高级控件");
+
+        Form.prototype.render = function () {
+            var container = this.getContainer(function () {
+                var m = $("<div class='mini-col-12 form-component'>");
+                var c = $("<fieldset style='height: 150px' class=\"brick child-form\">");
+                var label = $("<legend title='渲染时会被移除' style='font-size: 20px'>");
+                var text = $("<span>").text("子表单");
+                c.append(label.append(text));
+                c.append("<div style='height: 100%;position: relative;' class='components'>");
+                m.append(c);
+                return m;
+            });
+            this.un("propertiesChanged")
+                .on('propertiesChanged', function (key, value) {
+                    if (key === 'comment') {
+                        container.find("legend").text(value);
+                    }
+                    else if (key === 'height') {
+                        container.find("fieldset:first").css("height", value);
+                    } else if (key === 'hidden') {
+                        if (value === 'false') {
+                            container.find("legend:first").removeClass("form-hidden");
+                        } else {
+                            container.find("legend:first").addClass("form-hidden");
+                        }
+                    } else {
+                        container.find("legend:first").attr(key, value);
+                    }
+                });
+            return container;
+        };
+
+        componentRepo.registerComponent("form", Form);
     }
 
 })();
