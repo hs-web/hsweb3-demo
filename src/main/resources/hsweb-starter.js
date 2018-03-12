@@ -161,7 +161,7 @@ var menus = [
         "permission_id": "template",
         "path": "d010-002",
         "sort_index": 302,
-        "url": "pages/module/list.hl",
+        "url": "pages/template/list.hl",
         "icon": null,
         "status": 1
     },
