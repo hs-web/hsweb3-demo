@@ -5,7 +5,7 @@ importResource("/admin/index.css");
 function initMenu() {
     require(["request", "message"], function (request, message) {
         // var loading = message.loading("加载用户菜单...")
-        var api = "menu/no-paging";//"menu/user-own/list";
+        var api = "menu/user-own/list";
 
         request.get(api, function (response) {
             // loading.hide();
