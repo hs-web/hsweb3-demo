@@ -48,7 +48,7 @@ importMiniui(function () {
             }
         });
 
-        tabs.on("activechanged",function (e) {
+        tabs.on("activechanged", function (e) {
             changeTx(e.tab);
         })
 
@@ -137,15 +137,18 @@ importMiniui(function () {
             if (!sql) {
                 sql = sqlEditor.getScript();
             }
+            if (!sql) {
+                return;
+            }
             var autoCommit = $("#auto-commit").prop("checked");
             if (!autoCommit) {
                 if (!tab.tx_id) {
                     //GET /database/manager/transactional/new
-                    request.get("database/manager/transactional/new", function (resp) {
+                    request.get("database/manager/transactional/new/" + tab.datasource, function (resp) {
                         if (resp.status === 200) {
                             tab.tx_id = resp.result;
                             getConsole().log("info", "new transaction " + resp.result);
-                            doExecute(resp.result)
+                            doExecute(resp.result);
                             changeTx(tab);
                         }
                     })
