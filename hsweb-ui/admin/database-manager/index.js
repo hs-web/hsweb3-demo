@@ -118,7 +118,6 @@ importMiniui(function () {
                     el.append($("<span class='" + level + "'>")
                         .append("[" + (mini.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss") ) + "] ").append(log))
                         .append("<br>");
-                    
                     el.scrollTop(el[0].scrollHeight);
                 }
             }
@@ -235,15 +234,20 @@ importMiniui(function () {
                 if (result.status === 200) {
                     $(result.result).each(function () {
                         var info = this;
-                        getConsole().sql(info.sqlInfo.sql);
-                        if (info.sqlInfo.type === 'select') {
-                            initQueryResult(info);
+                        if (info.success) {
+                            getConsole().sql(info.sqlInfo.sql);
+                            if (info.sqlInfo.type === 'select') {
+                                initQueryResult(info);
+                            } else {
+                                tab.sqlCount = tab.sqlCount ? ++tab.sqlCount : 1;
+                                getConsole().log("info", info.sqlInfo.type + " " + info.result + " rows ");
+                                var resultTabs = mini.get(tab.id + "_result");
+                                resultTabs.activeTab(resultTabs.getTabs()[0]);
+                            }
                         } else {
-                            tab.sqlCount = tab.sqlCount ? ++tab.sqlCount : 1;
-                            getConsole().log("info", info.sqlInfo.type + " " + info.result + " rows ");
-                            var resultTabs = mini.get(tab.id + "_result");
-                            resultTabs.activeTab(resultTabs.getTabs()[0]);
+                            getConsole(tab).log("error", info.result);
                         }
+
                     });
                 } else {
                     getConsole(tab).log("error", result.message);

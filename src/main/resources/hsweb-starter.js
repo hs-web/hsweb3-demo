@@ -179,7 +179,7 @@ var menus = [
         "u_id": "database-manager",
         "name": "数据库维护",
         "parent_id": "dev-01",
-        "permission_id": "database-manager",
+        "permission_id": "database-manager,datasource",
         "path": "d010-002",
         "sort_index": 302,
         "url": "/admin/database-manager/index.html",
