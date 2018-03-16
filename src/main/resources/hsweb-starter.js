@@ -175,6 +175,16 @@ var menus = [
         "url": "/admin/schedule/index.html",
         "icon": null,
         "status": 1
+    }, {
+        "u_id": "database-manager",
+        "name": "数据库维护",
+        "parent_id": "dev-01",
+        "permission_id": "database-manager",
+        "path": "d010-002",
+        "sort_index": 302,
+        "url": "/admin/database-manager/index.html",
+        "icon": null,
+        "status": 1
     }
 ];
 var permissions = [

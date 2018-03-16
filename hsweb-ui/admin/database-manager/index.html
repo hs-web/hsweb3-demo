@@ -47,6 +47,18 @@
         .green {
             color: green;
         }
+        .sql{
+            color:green;
+        }
+        .error{
+            color: red;
+        }
+        .info{
+            color:grey;
+        }
+        .danger{
+            color: #2573c4;
+        }
     </style>
 </head>
 <body>
@@ -62,12 +74,14 @@
                 <a class="mini-button execute-sql" plain="true" style="color: #32ad52" iconCls="fa fa-play"></a>
 
                 自动提交:<input id="auto-commit" checked type="checkbox" />
-                <a class="mini-button commit-tx" plain="true" enabled="false" iconCls="fa fa-check">提交</a>
-                <a class="mini-button rollback-tx" plain="true" enabled="false"  iconCls="fa fa-undo">回滚</a>
+                <a class="mini-button commit-tx" id="commit_tx" plain="true" enabled="false" iconCls="fa fa-check">提交</a>
+                <a class="mini-button rollback-tx" id="rollback_tx" plain="true" enabled="false"  iconCls="fa fa-undo">回滚</a>
 
             </div>
             <div class="mini-fit">
-                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false"></div>
+                <div id="code-tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false">
+
+                </div>
             </div>
         </div>
     </div>

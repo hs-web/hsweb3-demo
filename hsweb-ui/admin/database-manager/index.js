@@ -16,8 +16,11 @@ importMiniui(function () {
                         this.children = [{name: "加载中..."}];
                         datasourceList.push(this);
                     });
+
+                    databaseTree.loadData(datasourceList);
+                    databaseTree.selectNode(datasourceList[0]);
+                    newSqlWindow();
                 }
-                databaseTree.loadData(datasourceList);
             } else {
                 message.showTips("获取数据源配置失败");
             }
@@ -65,7 +68,64 @@ importMiniui(function () {
 
         importResource('/plugins/miniui/themes/bootstrap/skin.css');
 
+        function changeTx(tab) {
+            var commitTxButton = $("#commit_tx").unbind("click");
+
+            var rowBackButton = $("#rollback_tx").unbind("click");
+
+            if (tab.tx_id) {
+                mini.get("commit_tx").setEnabled(true);
+                commitTxButton.on("click", function () {
+                    request.post("database/manager/transactional/" + (tab.tx_id) + "/commit", {}, function (resp) {
+                        getConsole(tab).log("info", "commit transactional " + tab.tx_id);
+                        tab.tx_id = 0;
+                        tab.sqlCount = 0;
+                        changeTx(tab);
+                    })
+                });
+                mini.get("rollback_tx").setEnabled(true);
+                rowBackButton.on("click", function () {
+                    request.post("database/manager/transactional/" + (tab.tx_id) + "/rollback", {}, function (resp) {
+                        getConsole(tab).log("info", "rollback transactional " + tab.tx_id);
+                        tab.sqlCount = 0;
+                        tab.tx_id = 0;
+                        changeTx(tab);
+                    });
+                })
+            } else {
+                mini.get("commit_tx").setEnabled(false);
+                mini.get("rollback_tx").setEnabled(false);
+
+            }
+        }
+
+
+        function getConsole(tab) {
+            tab = tab || tabs.getActiveTab();
+
+            var resultTabs = mini.get(tab.id + "_result");
+
+            var consoleTab = resultTabs.getTabs()[0];
+            var el = $(resultTabs.getTabBodyEl(consoleTab));
+
+            return {
+                sql: function (sql) {
+                    el.append($("<span class='sql'>").text("sql> ")).append(sql)
+                        .append("<br>");
+                    el.scrollTop(el[0].scrollHeight);
+                },
+                log: function (level, log) {
+                    el.append($("<span class='" + level + "'>")
+                        .append("[" + (mini.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss") ) + "] ").append(log))
+                        .append("<br>");
+                    
+                    el.scrollTop(el[0].scrollHeight);
+                }
+            }
+        }
+
         $(".execute-sql").on("click", function () {
+            var time = new Date().getTime();
             var tab = tabs.getActiveTab();
             if (!tab) {
                 return;
@@ -82,7 +142,9 @@ importMiniui(function () {
                     request.get("database/manager/transactional/new", function (resp) {
                         if (resp.status === 200) {
                             tab.tx_id = resp.result;
+                            getConsole().log("info", "new transaction " + resp.result);
                             doExecute(resp.result)
+                            changeTx(tab);
                         }
                     })
                 } else {
@@ -93,24 +155,104 @@ importMiniui(function () {
             }
 
             function doExecute(tx) {
+                if (tx) {
+                    getConsole().log("info", "set transaction " + tx);
+                } else {
+                    getConsole().log("info", "set transaction auto commit");
+                }
+                getConsole().log("danger", "request execute:<br>" + (sql.replace("\n", "<br>")));
                 //POST /database/manager/transactional/execute/{transactionalId}/{dataSourceId}
                 request.post("database/manager/" + (tx ? "transactional/" : "") + "execute/" + ( tx ? tx + "/" : "" ) + tab.datasource, sql,
                     function (resp) {
                         if (resp.status !== 200) {
                             tab.tx_id = null;
                         }
-                        console.log(resp);
+                        getConsole(tab).log("info", "completed in " + (new Date().getTime() - time) + "ms");
+                        initResult(resp);
+                        changeTx(tab);
                     },
                     true, "text/plain")
             }
-            function initResult(result) {
 
+
+            function initQueryResult(info) {
+                var resultTabs = mini.get(tab.id + "_result");
+
+                var sql = info.sqlInfo.sql;
+                if (sql.length > 20) {
+                    sql = sql.substr(0, 20) + "...";
+                }
+                var queryTab = {showCloseButton: true, title: sql};
+                queryTab = resultTabs.addTab(queryTab);
+                var el = $(resultTabs.getTabBodyEl(queryTab));
+                var tableId = "t_" + Math.round(Math.random() * 100000);
+
+                el.append("<div class='mini-fit'>")
+                    .append($("<div style='width: 100%;height: 100%' class='mini-datagrid'>")
+                        .attr({
+                            id: tableId,
+                            showPager: false
+                        }));
+                mini.parse();
+                var columns = [];
+                var datas = [];
+                var grid = mini.get(tableId);
+
+                $(info.result).each(function () {
+                    var columnArr = this.columns;
+                    var dataArr = this.data;
+
+                    $(columnArr).each(function (index, column) {
+                        columns.push({
+                            field: "column_" + index,
+                            header: column,
+                            align: 'center',
+                            headerAlign: 'center'
+                        })
+                    });
+                    $(dataArr).each(function (index, data) {
+                        var dataObj = {};
+                        $(data).each(function (i, d) {
+                            dataObj["column_" + i] = d;
+                        });
+                        datas.push(dataObj);
+                    })
+                });
+                grid.set({
+                    columns: columns
+                });
+                grid.setData(datas);
+                resultTabs.activeTab(queryTab);
+                var info = $("<span style='cursor: pointer;color:green;' >");
+                info.text("select result: " + columns.length + " columns " + datas.length + " rows ");
+                info.on("click", function () {
+                    resultTabs.activeTab(queryTab);
+                });
+                getConsole().log("info", info);
             }
-            console.log(autoCommit);
-            // request.post("")
-            console.log(sql);
+
+            function initResult(result) {
+                if (result.status === 200) {
+                    $(result.result).each(function () {
+                        var info = this;
+                        getConsole().sql(info.sqlInfo.sql);
+                        if (info.sqlInfo.type === 'select') {
+                            initQueryResult(info);
+                        } else {
+                            tab.sqlCount = tab.sqlCount ? ++tab.sqlCount : 1;
+                            getConsole().log("info", info.sqlInfo.type + " " + info.result + " rows ");
+                            var resultTabs = mini.get(tab.id + "_result");
+                            resultTabs.activeTab(resultTabs.getTabs()[0]);
+                        }
+                    });
+                } else {
+                    getConsole(tab).log("error", result.message);
+                }
+            }
+
         });
-        $(".new-sql").on('click', function () {
+
+        function newSqlWindow() {
             var node = databaseTree.getSelected();
             var id = "sql_" + Math.round(Math.random() * 100000);
             //add tab
@@ -142,7 +284,14 @@ importMiniui(function () {
 
             main.append(scriptContainer);
 
-            main.append($("<div showCollapseButton='false'>").append($("<div class='mini-fit'>").attr("id", id + "_result")));
+            var resultTabs = $("<div class='mini-tabs' style='width: 100%;height: 100%'>")
+                .attr("id", id + "_result");
+
+            resultTabs.append("<div title='Console' style='overflow-y: auto'>");
+
+            main.append($("<div showCollapseButton='false'>").append(
+                $("<div class='mini-fit'>").append(resultTabs)));
+
             mini.parse();
 
             require(['script-editor'], function (buidler) {
@@ -153,7 +302,9 @@ importMiniui(function () {
             });
             //active tab
             tabs.activeTab(tab);
-        })
+        }
+
+        $(".new-sql").on('click', newSqlWindow);
     });
 });
 

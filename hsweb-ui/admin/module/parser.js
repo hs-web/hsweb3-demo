@@ -141,7 +141,7 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                         "\n}})()");
                     fun.call(me);
                 } catch (e) {
-                    console.log(e);
+                    console.log(script,e);
                 }
             }
         };
