@@ -48,6 +48,9 @@ importMiniui(function () {
             }
         });
 
+        tabs.on("activechanged",function (e) {
+            changeTx(e.tab);
+        })
 
         function renderIcon(e) {
             var node = e.node;
