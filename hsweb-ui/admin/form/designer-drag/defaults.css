@@ -90,16 +90,16 @@
 
 .dynamic-form .table .form-component {
     border: 0;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid black;
     border-collapse: collapse;
-    border-right: 1px solid grey;
+    border-right: 1px solid black;
     /*display: table;*/
     box-sizing: border-box;
     position: relative;
 }
 
 .dynamic-form .table {
-    border: 1px solid grey;
+    border: 1px solid black;
     border-right: 0;
     border-bottom: 0;
     position: relative;
