@@ -7,11 +7,15 @@ var componentsImport = [
 
 importMiniui(function () {
     mini.parse();
-    require(["designer", "md5",
-        "plugin/jquery-ui/jquery-ui",
+    require(["designer", "md5", "request",
+        "plugin/jquery-ui/jquery-ui","plugin/jquery-ui/colpick","css!plugin/jquery-ui/colpick",
         "components", "css!defaults", "css!plugin/font-awesome/4.7.0/css/font-awesome.css",
         "css!plugin/jquery-ui/jquery-ui.min",
-        'css!designer'], function (Designer, md5) {
+        'css!designer'], function (Designer, md5, request) {
+        var param = request.getParameter("components");
+        if (param) {
+            componentsImport = param.split(",");
+        }
         window.md5 = md5;
         require(componentsImport, function () {
             var designer = window.designer = new Designer();
@@ -66,7 +70,6 @@ importMiniui(function () {
         if (config.data) {
             optionalGrid.setData(config.data);
         }
-
         $(".save-optional").unbind("click").on("click", function () {
             var config = form.getData();
             config.data = optionalGrid.getData();
@@ -76,8 +79,12 @@ importMiniui(function () {
             mini.get("optional-window").hide();
         });
         mini.get("optional-window").show();
-
     }
+    mini.get("operation-grid").getColumn("action").renderer = function (e) {
+        return tools.createActionButton("删除", "icon-remove", function () {
+            e.sender.removeNode(e.record);
+        })
+    };
     $(".edit-javascript").on("click", function () {
         editScript("javascript", designer.javascript || "// this为formParser对象." +
             "\n// this.on('load',function(){ this.setData({ })  })", function (editor) {
@@ -151,8 +158,8 @@ importMiniui(function () {
 
         $(columns).each(function () {
             var column = this;
-            column.name=column.name.toLowerCase();
-            if(column.name==='id'||column.name==='u_id'){
+            column.name = column.name.toLowerCase();
+            if (column.name === 'id' || column.name === 'u_id') {
                 return;
             }
             switch (column.dataType) {

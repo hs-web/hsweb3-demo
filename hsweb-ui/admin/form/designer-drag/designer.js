@@ -4,16 +4,28 @@
         this.components = {};
         this.events = {};
     };
-
+    Designer.prototype.getbyName = function (name) {
+        for (var id in this.components) {
+            if (this.components[id].getProperty("name") === name) {
+                return this.components[id];
+            }
+        }
+        return undefined;
+    }
     Designer.prototype.createComponent = function (type, id) {
         var supportComponents = componentRepo.supportComponents;
 
         if (supportComponents[type]) {
             var component = this.components[id] = new supportComponents[type](id);
+            component.parser = this;
             return component;
         }
         return undefined;
     };
+    Designer.prototype.setReadOnly = function (readOnly) {
+
+    }
+
     Designer.prototype.on = function (event, callback) {
         if (!this.events[event]) {
             this.events[event] = [];
@@ -40,12 +52,14 @@
         var html = $("<div>").html(config.html);
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
-            if (container.length === 0) {
+            var component = jQuery.extend({}, this.components[id]);
+            if (container.length === 0||component.removed) {
+                component.container.remove();
                 continue;
             }
-            var component = jQuery.extend({}, this.components[id]);
             delete component.container;
             delete component.events;
+            delete component.parser;
             components.push(component);
         }
         config.components = components;
@@ -53,14 +67,26 @@
     };
     Designer.prototype.getHtml = function () {
         var html = $(".main-panel");
-        html.find(".component-info").parent().css("border", "");
-        html.find(".form-label,legend").css("border", "");
+        html.find(".component-info").parent().removeClass('edit-focus');
+        html.find(".form-label,legend,.edit-on-focus").removeClass('edit-focus');
         return html[0].innerHTML;
     };
     Designer.prototype.init = function () {
         mini.parse();
 
         var me = this;
+        me.getData = function (validate) {
+
+        };
+        me.setData = function (data) {
+
+        };
+        function startEdit(component) {
+            var html = component.container;
+            if (component.focus) {
+                component.focus();
+            }
+        }
 
         function initEvent(component) {
             var html = component.render();
@@ -68,32 +94,30 @@
             // $('.gridly').gridly();
             function focus() {
                 initPropertiesEditor(component);
-                $(".brick").find(".form-label,legend,.component-info").css("border", "");
-                $(".component-info").parent().parent().css("border", "");
+                $(".main-panel").find(".form-label,legend,.component-info,.edit-on-focus").removeClass('edit-focus');
+                $(".component-info").parent().parent().removeClass('edit-focus');
 
                 if (html.find(".child-form").length) {
-                    html.find('.child-form legend').first().css({
-                        "border": "1px solid red"
-                    });
+                    html.find('.child-form legend,.edit-on-focus').first()
+                        .addClass("edit-focus");
                 } else {
-                    html.find(".form-label,legend").css({
-                        "border": "1px solid red"
-                    });
+                    html.find(".form-label,legend,.edit-on-focus").addClass("edit-focus");
                 }
                 html.find(".component-info")
                     .parent()
                     .parent()
-                    .css({
-                        "border": "1px solid red"
-                    });
+                    .addClass("edit-focus");
                 reloadMiniui();
                 me.nowEditComponent = component;
+                component.doEvent("focus");
             }
 
+            component.focus = focus;
+
             if (html.find(".child-form").length) {
-                html.find('.child-form legend').first().unbind('click').on('click', focus);
+                html.find('.child-form legend,.edit-on-focus').first().unbind('click').on('click', focus);
             } else {
-                html.find('.form-label,legend,.component-info')
+                html.find('.form-label,legend,.component-info,.edit-on-focus')
                     .unbind('click')
                     .on('click', focus);
                 html.find('input,textarea,select')
@@ -135,6 +159,7 @@
             $(".main-panel").html("").append(html.children());
             initDroppable();
             reloadMiniui();
+            initComponentList();
         };
         me.insertComponent = function (type) {
             var component = newComponent(type);
@@ -144,11 +169,76 @@
                 $(".main-panel").append(component.render());
             }
             reloadMiniui();
+            initComponentList();
             return component;
         };
 
         function reloadMiniui() {
             mini.parse();
+        }
+
+        function createActionButton(title, icon, onclick) {
+            if (!window.action_countter) window.action_countter = 0;
+            var callId = "action_" + (++window.action_countter);
+            window[callId] = onclick;
+            return ["<span", " onclick='", callId, "()'", " title='", title, "'", " class='action-button ", icon, "'", "></span>"].join("");
+        }
+
+        function initComponentList() {
+            var list = mini.get("component-list");
+            list.un("itemclick").on('itemclick', function (e) {
+                var item = e.item;
+                var component = me.components[item.id];
+                if (component) {
+                    startEdit(component);
+                }
+            });
+            list.getColumns()[1].renderer = function (e) {
+                var item = e.item;
+                var html = [];
+                if (item.component.removed) {
+                    html.push(createActionButton("恢复", "icon-undo", function () {
+                        item.component.container.show();
+                        item.component.removed = false;
+                        list.updateItem(item, item);
+                        list.select(item);
+                    }));
+                }else{
+                    html.push(createActionButton("删除", "icon-remove", function () {
+                        removeComponent(item.id);
+                        list.updateItem(item, item);
+                    }));
+                }
+                return html.join("");
+            };
+            var datas = [];
+            for (var id in me.components) {
+                var component = me.components[id];
+
+                function createObj() {
+                    var name = component.getProperty("name").value;
+                    var comment = component.getProperty("comment").value;
+                    name = name ? comment ? name + "(" + comment + ")" : name : comment ? comment : "";
+                    return {
+                        id: id,
+                        type: component.type,
+                        name: name,
+                        component: component
+                    };
+                }
+                var aData = createObj();
+                component
+                    .un("focus")
+                    .on("focus", function (d) {
+                        return function () {
+                            list.clearSelect();
+                            list.select(d);
+                        }
+                    }(aData));
+
+                datas.push(aData);
+            }
+            list.setData(datas);
         }
 
         /**初始化组件列表**/
@@ -168,19 +258,33 @@
             var index = 0;
 
             function init(component) {
-                var componentHtml = new component(md5(Math.random())).render();
-                componentHtml.find(".form-item").addClass("form-text");
-                componentHtml.find("textarea,iframe").replaceWith($("<input class='mini-textbox'>"));
-                componentHtml
-                    .find("input,textarea,select")
-                    .attr("readonly", "readonly")
-                    .attr("disabled", "disabled");
+                var componentObj = new component(md5(Math.random()));
 
-                componentHtml.find(".components").remove();
-                componentHtml.attr("class", "");
-                componentHtml.addClass("component");
-                componentHtml.attr("hs-type", component.componentName);
-                html.push(componentHtml[0].outerHTML)
+                // var componentHtml = new component(md5(Math.random())).render();
+                //
+                // componentHtml.find(".width-100-per").css("width", "100%");
+                // componentHtml.find(".form-item").addClass("form-text");
+                // componentHtml.find("textarea,iframe").replaceWith($("<input class='mini-textbox'>"));
+                // componentHtml
+                //     .find("input,textarea,select")
+                //     .attr("readonly", "readonly")
+                //     .attr("disabled", "disabled")
+                //     .css({
+                //         "background-color": "white",
+                //         "border": " 1px solid #ddd"
+                //     });
+                //
+                // componentHtml.find(".components,.selector-hide").remove();
+                // componentHtml.attr("class", "");
+                // componentHtml.addClass("component");
+                // componentHtml.attr("hs-type", component.componentName);
+                var div = $("<div style='width: 100%; position: relative' class='component'>")
+                    .attr("hs-type", component.componentName);
+
+                var a = $("<a class='mini-button' style='width: 100%;margin:auto; height: 60px;line-height: 60px;font-size: 20px;'>")
+                    .text(componentObj.getProperty("comment").value);
+                div.append(a);
+                html.push(div[0].outerHTML)
             }
 
             var html = [];
@@ -199,7 +303,7 @@
             html.push('</div>');
             container.append(html.join(""));
             reloadMiniui();
-
+            initComponentList();
         }
         /**初始化主编辑器**/
         {
@@ -238,10 +342,10 @@
                             var type = item.attr("hs-type");
                             if (type) {
                                 var children = item.children();
-
                                 item.replaceWith(children);
                                 initDroppable();
-                                children.find('.form-label,legend,input,.component-info').click();
+                                children.find('.form-label,legend,input,.component-info,.edit-on-focus').click();
+                                initComponentList();
                             }
                         },
                         connectWith: ".component"
@@ -267,9 +371,45 @@
             function removeComponent(id) {
                 var component = me.components[id];
                 if (component) {
-                    component.remove();
-                    delete me.components[id];
-                    me.doEvent("configChanged", me);
+                    component.removed = true;
+                    component.container.hide();
+
+                    // delete me.components[id];
+                    // me.doEvent("configChanged", me);
+                    initComponentList();
+                }
+            }
+
+            var cutTemp;
+
+            function cutComponent(id) {
+                var component = me.components[id];
+                if (component) {
+                    cutTemp = component;
+                    component.container.hide();
+                    component.focus();
+                    // me.doEvent("configChanged", me);
+                }
+            }
+
+            function paste() {
+                if (cutTemp) {
+                    if (me.nowEditComponent && me.nowEditComponent.container.find('.components').length > 0) {
+                        me.nowEditComponent.container
+                            .find(".components").first()
+                            .append(cutTemp.container);
+                    } else {
+                        if (me.nowEditComponent) {
+                            me.nowEditComponent.container.after(cutTemp.container);
+                        } else {
+                            $(".main-panel").append(cutTemp.container);
+                        }
+                    }
+                    cutTemp.container.show();
+                    var tmp = cutTemp;
+                    cutTemp = null;
+                    component.focus();
+                    // initPropertiesEditor(tmp);
                 }
             }
 
@@ -309,16 +449,33 @@
                     html.append(c);
                 });
                 var button = $("<a class='mini-button remove-component' iconCls='icon-remove' plain='true'>");
+                var cutButton = $("<a class='mini-button cut-component' iconCls='icon-cut' plain='true'>").text("剪切");
+
                 button.addClass("delete-component");
                 button.text("删除");
-                html.append(button);
+                html.append(button).append(cutButton);
+                if (cutTemp) {
+                    var cutButton = $("<a class='mini-button paste-component' iconCls='icon-page-paste' plain='true'>").text("粘贴");
+                    html.append(cutButton);
+                }
                 reloadMiniui();
+                $(".paste-component")
+                    .unbind("click")
+                    .on('click', function () {
+                        paste()
+                    });
                 $(".remove-component")
                     .unbind("click")
                     .on('click', function () {
                         html.children().remove();
-                        component.getContainer().remove();
+                        // component.getContainer().remove();
                         removeComponent(component.id);
+                    });
+
+                $(".cut-component")
+                    .unbind("click")
+                    .on('click', function () {
+                        cutComponent(component.id);
                     });
                 var form = new mini.Form("#component-properties");
                 $(form.getFields()).each(function () {
@@ -352,7 +509,7 @@
                     , "</head>"
                     , "<body>"
                 ];
-                $(".brick").find(".form-label,legend").css("border", "");
+                $(".brick").find(".form-label,legend,.edit-on-focus").removeClass('edit-focus');
                 var html = $(".main-panel");
                 html.find("hs-id").removeAttr("hs-id");
 

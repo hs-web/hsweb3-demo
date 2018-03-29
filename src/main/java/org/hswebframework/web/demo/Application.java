@@ -1,6 +1,7 @@
 package org.hswebframework.web.demo;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
+import org.hswebframework.utils.StringUtils;
 import org.hswebframework.web.authorization.basic.configuration.EnableAopAuthorize;
 import org.hswebframework.web.authorization.listener.event.AuthorizingHandleBeforeEvent;
 import org.hswebframework.web.dao.Dao;
@@ -12,6 +13,8 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author zhouhao
@@ -27,7 +30,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class Application implements ApplicationListener<AuthorizingHandleBeforeEvent> {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
         SpringApplication.run(Application.class);
     }
 

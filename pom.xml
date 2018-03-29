@@ -220,6 +220,17 @@
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
+        <!--工作流-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-workflow-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-flowable-modeler</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
 
         <!--swagger-->
 

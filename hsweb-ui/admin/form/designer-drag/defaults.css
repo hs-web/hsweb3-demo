@@ -1,3 +1,4 @@
+
 .dynamic-form .form-item {
     width: 99.5%
 }
@@ -27,6 +28,17 @@
     border: 1px solid #ddd;
     background: #FBFBFB;
     /*border-right: 0px;*/
+}
+
+.dynamic-form .simple-form-label {
+    display: block;
+    padding: 9px 6px;
+    font-weight: 400;
+    line-height: 10px;
+}
+.dynamic-form .table .simple-form-label {
+    border: 0;
+    background: none;
 }
 
 .dynamic-form .input-block .mini-textbox-border {
@@ -60,7 +72,7 @@
     border-radius: 2px;
     box-sizing: border-box;
     text-align: left;
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 .dynamic-form .input-block {
@@ -74,4 +86,76 @@
 
 .dynamic-form .form-text .input-block {
     margin-left: 0px;
+}
+
+.dynamic-form .table .form-component {
+    border: 0;
+    border-bottom: 1px solid grey;
+    border-collapse: collapse;
+    border-right: 1px solid grey;
+    /*display: table;*/
+    box-sizing: border-box;
+    position: relative;
+}
+
+.dynamic-form .table {
+    border: 1px solid grey;
+    border-right: 0;
+    border-bottom: 0;
+    position: relative;
+    /*padding: 0 1px 1px 0;*/
+    margin: 0;
+    overflow: hidden;
+}
+
+/*.dynamic-form .table:after {*/
+/*content: '';*/
+/*display: block;*/
+/**/
+/*}*/
+
+.dynamic-form .table .form-label {
+    background: none;
+    border: 0;
+    border-right: 1px solid black;
+}
+
+.dynamic-form .table .component-body {
+    /*vertical-align: middle;*/
+    /*display: table-cell;*/
+}
+
+.dynamic-form .table .form-item {
+    margin-top: 0;
+}
+
+.dynamic-form .table .mini-textbox-border,
+.dynamic-form .table .mini-textbox-input,
+.dynamic-form .table .mini-buttonedit-border,
+.dynamic-form .table .mini-buttonedit-input,
+.dynamic-form .table .mini-textboxlist-border {
+    border: 0;
+    background: none;
+    cursor: default;
+}
+
+.dynamic-form .table .mini-textbox-input {
+    /*border-bottom: 1px solid #dddddd;*/
+}
+
+.dynamic-form .table .mini-buttonedit-button,
+.dynamic-form .table .mini-textboxlist-close {
+    /*display:none;*/
+}
+
+.dynamic-form .table .mini-textboxlist-item {
+    padding-right: 8px;
+}
+
+.dynamic-form .table .form-text .form-label {
+    border: 0;
+}
+
+.dynamic-form .table .form-text .input-block .mini-textbox-border {
+    border: 0;
 }

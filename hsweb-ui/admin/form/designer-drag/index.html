@@ -57,11 +57,26 @@
     <div showCollapseButton="false" style="border: 0px">
         <div class="mini-splitter" style="width:100%;height:100%;">
             <div size="80%">
-                <div class="mini-fit dynamic-form main-panel components mini-clearfix" style="padding: 10px">
+                <div class="mini-fit dynamic-form main-panel components mini-clearfix" style="padding: 10px;">
                 </div>
             </div>
             <div showCollapseButton="true">
-                <div class="mini-fit dynamic-form mini-clearfix" id="component-properties"></div>
+                <div class="mini-fit">
+                    <div class="dynamic-form mini-clearfix" id="component-properties">
+
+                    </div>
+                    <div class="mini-fit">
+                        <div id="component-list" class="mini-listbox"
+
+                             style="width:100%;height:100%;">
+                            <div property="columns">
+                                <!--<div header="组件类型" headerAlign='center' field="type"></div>-->
+                                <div header="描述"  width="80" headerAlign='center' align="center"  field="name"></div>
+                                <div header="操作" width="20"  headerAlign='center' align="center" name="action"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

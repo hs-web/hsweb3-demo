@@ -32,7 +32,7 @@ Component.prototype.getProperty = function (name) {
             return props[i];
         }
     }
-    return null;
+    return {};
 };
 Component.prototype.removeProperty = function (name) {
     var indexOf = this.properties.indexOf(this.getProperty(name));
@@ -44,6 +44,7 @@ Component.prototype.setProperty = function (property, value, replace) {
     //console.log(property, value, this.getProperties());
     var prop = this.getProperty(property);
     var me = this;
+
     if (me.changed) {
         return;
     }
@@ -55,7 +56,8 @@ Component.prototype.setProperty = function (property, value, replace) {
         return;
     }
     prop.value = value;
-    if (property === 'size' || property === 'mdSize') {
+
+    if (property === 'size' || property === 'mdSize'|| property === 'height') {
         this.resize();
         return;
     }
@@ -125,12 +127,20 @@ Component.prototype.getContainer = function (newFunc) {
 };
 Component.prototype.resize = function () {
     var size = this.getProperty("size");
+    var height = this.getProperty("height").value;
     if (size) {
         size = size.value;
     }
     if (this.container) {
         this.container.removeClass();
         this.container.addClass("mini-col-" + (size ? size : 4));
+        this.container.addClass("form-component");
+
+        if(height&&height>1){
+            this.container.css("height",height+"px");
+        }else{
+            this.container.css("height","");
+        }
     }
 };
 Component.prototype.init = function () {
