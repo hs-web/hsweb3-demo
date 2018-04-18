@@ -797,7 +797,7 @@
                     var inputContainer = $("<div class=\"input-block\">");
                     var input = createInput();
                     var id = Math.round(Math.random() * 100000000);
-                    var button = $("<div class='file-upload' style='width: 66px;height: 28px; float: left'>")
+                    var button = $("<div class='file-upload' style='height: 28px; float: left'>")
                         .attr("id", "file-" + id)
                         .text("选择文件");
                     var process = $("<div class='process' style='width: 80%'>");
