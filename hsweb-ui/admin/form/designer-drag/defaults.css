@@ -90,16 +90,16 @@
 
 .dynamic-form .table .form-component {
     border: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid grey;
     border-collapse: collapse;
-    border-right: 1px solid black;
+    border-right: 1px solid grey;
     /*display: table;*/
     box-sizing: border-box;
     position: relative;
 }
 
 .dynamic-form .table {
-    border: 1px solid black;
+    border: 1px solid grey;
     border-right: 0;
     border-bottom: 0;
     position: relative;
@@ -159,3 +159,31 @@
 .dynamic-form .table .form-text .input-block .mini-textbox-border {
     border: 0;
 }
+.dynamic-form .webuploader-container {
+    position: relative;
+}
+.dynamic-form .webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.dynamic-form .webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #00b7ee;
+    padding: 5px 8px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.dynamic-form .webuploader-pick-hover {
+    background: #00a2d4;
+}
+
+.dynamic-form .webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events:none;
+}
+

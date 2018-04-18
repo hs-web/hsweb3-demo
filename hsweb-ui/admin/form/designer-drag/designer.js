@@ -344,7 +344,7 @@
                                 var children = item.children();
                                 item.replaceWith(children);
                                 initDroppable();
-                                children.find('.form-label,legend,input,.component-info,.edit-on-focus').click();
+                                children.find('.form-label,legend,input,.component-info,.edit-on-focus').first().click();
                                 initComponentList();
                             }
                         },
@@ -539,13 +539,13 @@
                 // console.log(html[0].outerHTML);
             }
 
-            $(document).keyup(function (e) {
-                if (e.keyCode === 46) {
-                    if (me.nowEditComponent) {
-                        $("#component-properties .delete-component").click();
-                    }
-                }
-            });
+            // $(document).keyup(function (e) {
+            //     if (e.keyCode === 46) {
+            //         if (me.nowEditComponent) {
+            //             $("#component-properties .delete-component").click();
+            //         }
+            //     }
+            // });
         }
     };
 

@@ -170,6 +170,77 @@
 
     /**基础组件**/
     {
+
+        /**占位**/
+        {
+            function Hidden(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.removeProperty("placeholder");
+                this.removeProperty("name");
+                this.removeProperty("required");
+                this.removeProperty("emptyText");
+                this.getProperty("comment").value = "占位";
+                this.getProperty("size").value = "12";
+                this.properties.push(
+                    {
+                        id: "height",
+                        text: "高度",
+                        value: 40,
+                        createEditor: function (component, text, value, call) {
+                            if (!value) {
+                                value = 1;
+                            }
+                            var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
+                            html.slider({
+                                orientation: "horizontal",
+                                range: "min",
+                                min: 1,
+                                max: 200,
+                                value: parseInt(value),
+                                slide: function () {
+                                    if (call) call();
+                                    var val = parseInt(arguments[1].value);
+
+                                    component.setProperty("height", val === 1 ? "" : val);
+                                    mini.parse();
+                                }
+                            });
+                            return html;
+                        }
+                    }
+                );
+            }
+
+            createClass(Hidden);
+
+            Hidden.prototype.render = function () {
+                var container = this.getContainer(function () {
+                    var m = $("<div class='mini-col-12 form-component'>");
+                    var c = $("<fieldset style='border:0px;' class=\"brick\">");
+                    var label = $("<legend class='form-hidden' title='渲染时会被移除' style='font-size: 20px'>")
+                        .text("占位");
+                    c.append(label);
+                    m.append(c);
+                    return m;
+                });
+                this.un("propertiesChanged")
+                    .on('propertiesChanged', function (key, value) {
+                        if (key === 'comment') {
+                            container.find("legend").text(value);
+                        }
+                        else if (key === 'height') {
+                            container.find("fieldset").css("height", value);
+                        } else {
+                            container.find("legend").attr(key, value);
+                        }
+                    });
+                return container;
+            };
+
+            componentRepo.registerComponent("hidden", Hidden);
+        }
         /**fieldset**/
         {
             function FieldSet(id) {
@@ -209,7 +280,7 @@
 
             componentRepo.registerComponent("fieldset", FieldSet);
         }
-        /**文本**/
+        /**文本标签**/
         {
             function Text(id) {
                 Component.call(this);
@@ -267,7 +338,7 @@
                                 slide: function () {
                                     if (call) call();
                                     var val = parseInt(arguments[1].value);
-                                    component.setProperty("fontSize", val );
+                                    component.setProperty("fontSize", val);
                                 }
                             });
                             return html;
@@ -335,7 +406,7 @@
                     }
                     if (verticalAlign === 'bottom') {
                         container.find(".simple-form-label")
-                            .css("margin-top", height ? height - fontSize*1.6 : "");
+                            .css("margin-top", height ? height - fontSize * 1.6 : "");
                     }
                 }
 
@@ -368,78 +439,8 @@
 
             componentRepo.registerComponent("text", Text);
         }
-        /**占位**/
-        {
-            function Hidden(id) {
-                Component.call(this);
-                this.id = id;
-                this.properties = createDefaultEditor();
-                this.removeProperty("placeholder");
-                this.removeProperty("name");
-                this.removeProperty("required");
-                this.removeProperty("emptyText");
-                this.getProperty("comment").value = "占位";
-                this.getProperty("size").value = "12";
-                this.properties.push(
-                    {
-                        id: "height",
-                        text: "高度",
-                        value: 40,
-                        createEditor: function (component, text, value, call) {
-                            if (!value) {
-                                value = 1;
-                            }
-                            var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                            html.slider({
-                                orientation: "horizontal",
-                                range: "min",
-                                min: 1,
-                                max: 200,
-                                value: parseInt(value) / 2,
-                                slide: function () {
-                                    if (call) call();
-                                    var val = parseInt(arguments[1].value) * 2;
 
-                                    component.setProperty("height", val === 2 ? "" : val);
-                                    mini.parse();
-                                }
-                            });
-                            return html;
-                        }
-                    }
-                );
-            }
-
-            createClass(Hidden);
-
-            Hidden.prototype.render = function () {
-                var container = this.getContainer(function () {
-                    var m = $("<div class='mini-col-12 form-component'>");
-                    var c = $("<fieldset style='border:0px;' class=\"brick\">");
-                    var label = $("<legend class='form-hidden' title='渲染时会被移除' style='font-size: 20px'>")
-                        .text("占位");
-                    c.append(label);
-                    m.append(c);
-                    return m;
-                });
-                this.un("propertiesChanged")
-                    .on('propertiesChanged', function (key, value) {
-                        if (key === 'comment') {
-                            container.find("legend").text(value);
-                        }
-                        else if (key === 'height') {
-                            container.find("fieldset").css("height", value);
-                        } else {
-                            container.find("legend").attr(key, value);
-                        }
-                    });
-                return container;
-            };
-
-            componentRepo.registerComponent("hidden", Hidden);
-        }
-
-        /**文本输入框**/
+        /**单行文本**/
         function TextBox(id) {
             Component.call(this);
             this.id = id;
@@ -566,43 +567,7 @@
             componentRepo.registerComponent("textbox", TextBox);
         }
 
-        /**密码**/
-        {
-            function Password(id) {
-                Component.call(this);
-                this.id = id;
-                this.properties = createDefaultEditor();
-                this.getProperty("comment").value = "密码";
-                this.cls = "mini-password";
-            }
-
-            createClass(Password, TextBox);
-
-            componentRepo.registerComponent("password", Password);
-        }
-
-        /**弹出选择**/
-        {
-            function ButtonEdit(id) {
-                Component.call(this);
-                this.id = id;
-                this.properties = createDefaultEditor();
-                this.getProperty("size").value = 4;
-                this.getProperty("comment").value = "弹出选择";
-                this.cls = "mini-buttonedit";
-                this.properties.push(createTrueOrFalseEditor("allowInput", "可手动输入", "true"));
-                this.properties.push({
-                    id: "textField",
-                    text: "文本字段"
-                });
-                this.properties.push(createScriptEditor("onbuttonclick", "点击事件", "javascript"));
-            }
-
-            createClass(ButtonEdit, TextBox);
-            componentRepo.registerComponent("buttonedit", ButtonEdit);
-        }
-
-        /**文本域**/
+        /**多行文本**/
         {
             function TextArea(id) {
                 Component.call(this);
@@ -641,21 +606,19 @@
             componentRepo.registerComponent("textarea", TextArea);
         }
 
-        /**多选**/
+        /**密码文本**/
         {
-            function CheckBox(id) {
+            function Password(id) {
                 Component.call(this);
                 this.id = id;
                 this.properties = createDefaultEditor();
-                this.getProperty("comment").value = "多选";
-                this.removeProperty("placeholder");
-                this.cls = "mini-checkboxlist";
-                this.properties.push(createDataSourceEditor());
+                this.getProperty("comment").value = "密码文本";
+                this.cls = "mini-password";
             }
 
-            createClass(CheckBox, TextBox);
+            createClass(Password, TextBox);
 
-            componentRepo.registerComponent("checkbox", CheckBox);
+            componentRepo.registerComponent("password", Password);
         }
 
         /**单选**/
@@ -673,6 +636,23 @@
             createClass(RadioBox, TextBox);
 
             componentRepo.registerComponent("radio", RadioBox);
+        }
+
+        /**多选**/
+        {
+            function CheckBox(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.getProperty("comment").value = "多选";
+                this.removeProperty("placeholder");
+                this.cls = "mini-checkboxlist";
+                this.properties.push(createDataSourceEditor());
+            }
+
+            createClass(CheckBox, TextBox);
+
+            componentRepo.registerComponent("checkbox", CheckBox);
         }
 
         /**下拉列表**/
@@ -699,25 +679,6 @@
             componentRepo.registerComponent("combobox", Combobox);
         }
 
-        /**树列表**/
-        {
-            function TreeSelect(id) {
-                Component.call(this);
-                this.id = id;
-                this.properties = createDefaultEditor();
-                this.cls = "mini-treeselect";
-                this.getProperty("comment").value = "树列表";
-                this.properties.push(createDataSourceEditor());
-                this.properties.push(createTrueOrFalseEditor("allowInput", "可手动输入", "true"));
-                this.properties.push(createTrueOrFalseEditor("multiSelect", "多选", "false"));
-            }
-
-            createClass(TreeSelect, TextBox);
-
-
-            componentRepo.registerComponent("treeselect", TreeSelect);
-        }
-
         /**日期选择**/
         {
             function Datepicker(id) {
@@ -738,6 +699,206 @@
 
             componentRepo.registerComponent("datepicker", Datepicker);
         }
+
+        /**数值调节**/
+        {
+            function Spinner(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.cls = "mini-spinner";
+                this.properties.push({
+                    id: "format",
+                    text: "数字格式",
+                    value: "n2"
+                });
+                this.properties.push({
+                    id: "minValue",
+                    text: "最小值",
+                    value: "0"
+                });
+                this.properties.push({
+                    id: "maxValue",
+                    text: "最大值",
+                    value: "99999999"
+                });
+                this.getProperty("comment").value = "数字调节";
+            }
+
+            createClass(Spinner, TextBox);
+
+            componentRepo.registerComponent("spinner", Spinner);
+        }
+
+        /**文件上传**/
+        {
+            function FileUpload(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.getProperty("comment").value = "文件上传";
+            }
+
+            createClass(FileUpload);
+
+            FileUpload.prototype.render = function () {
+                var me = this;
+
+                function createInput() {
+                    var input = $("<input class='file-name' style='width: 70%;height: 100%'>");
+                   // input.addClass("mini-textbox");
+                   //  $(me.properties).each(function () {
+                   //      var value = this.value;
+                   //      var property = this;
+                   //      if (this.id) {
+                   //          if (this.id === 'type') {
+                   //              return;
+                   //          }
+                   //          if (this.id === 'height') {
+                   //              input.css("height", value);
+                   //          }
+                   //          //脚本
+                   //          if (this.script) {
+                   //              var scriptId = "script_" + (Math.round(Math.random() * 100000000));
+                   //              window[scriptId] = function (obj) {
+                   //                  try {
+                   //                      var func = eval("(function(){return function(component){" +
+                   //                          "\n" +
+                   //                          property.value +
+                   //                          "\n" +
+                   //                          "}})()");
+                   //                      func.call(obj, me);
+                   //                  } catch (e) {
+                   //                      console.log("执行控件脚本失败", this, e);
+                   //                      return;
+                   //                  }
+                   //              };
+                   //              value = scriptId;
+                   //          }
+                   //          input.attr(this.id, value);
+                   //      }
+                   //      if (!this.value || this.value === 'undefined') {
+                   //          input.removeAttr(this.id);
+                   //      }
+                   //  });
+                    return input;
+                }
+
+                var container = this.getContainer(function () {
+                    var m = $("<div>");
+                    m.addClass("mini-col-" + me.getProperty("size").value)
+                        .addClass("form-component");
+
+                    var c = $("<div class=\"form-item brick\">");
+                    if (me.formText) {
+                        c.addClass("form-text");
+                    }
+                    var label = $("<label class=\"form-label\">");
+                    var inputContainer = $("<div class=\"input-block\">");
+                    var input = createInput();
+                    var id = Math.round(Math.random() * 100000000);
+                    var button = $("<div class='file-upload' style='width: 66px;height: 28px; float: left'>")
+                        .attr("id", "file-" + id)
+                        .text("选择文件");
+                    var process = $("<div class='process' style='width: 80%'>");
+
+                    label.text(me.getProperty("comment").value);
+                    c.append(label).append(inputContainer.append(button));
+                    m.append(c);
+                    return m;
+                });
+
+                function initFileUploader() {
+                    var uploaderContainer=container.find('.file-upload');
+
+                    var id = uploaderContainer.attr("id");
+                    require(["pages/form/designer-drag/file-upload"], function (uploader) {
+                        uploaderContainer
+                            .removeClass('webuploader-container')
+                            .text("选择文件");
+                        uploader.initUploader("#" + id, function (file) {
+                            //container.find(".file-name").val(file.name);
+                            me.getValue=function () {
+                                return file;
+                            }
+                            // console.log(file);
+                        });
+                    }, true)
+                }
+
+                initFileUploader();
+
+                function newInput() {
+                    return container.find(".input-block")
+                        .html("")
+                        .append(createInput());
+                }
+
+                this.un("propertiesChanged")
+                    .on('propertiesChanged', function (name, value) {
+                        if (name === 'comment') {
+                            container.find(".form-label").text(value);
+                        }
+                        else if (name === 'showComment') {
+                            container.find(".input-block").addClass("component-body");
+                            if (value + "" === 'true') {
+                                container.find(".form-label").show();
+                                container.find(".component-body").addClass("input-block");
+                            } else {
+                                container.find(".form-label").hide();
+                                container.find(".component-body").removeClass("input-block");
+                            }
+                        } else {
+                           // newInput();
+                        }
+                    });
+                return container;
+            };
+
+            componentRepo.registerComponent("fileupload", FileUpload);
+        }
+
+
+        /**树列表**/
+        {
+            function TreeSelect(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.cls = "mini-treeselect";
+                this.getProperty("comment").value = "树列表";
+                this.properties.push(createDataSourceEditor());
+                this.properties.push(createTrueOrFalseEditor("allowInput", "可手动输入", "true"));
+                this.properties.push(createTrueOrFalseEditor("multiSelect", "多选", "false"));
+            }
+
+            createClass(TreeSelect, TextBox);
+
+
+            componentRepo.registerComponent("treeselect", TreeSelect);
+        }
+
+        /**弹出选择**/
+        {
+            function ButtonEdit(id) {
+                Component.call(this);
+                this.id = id;
+                this.properties = createDefaultEditor();
+                this.getProperty("size").value = 4;
+                this.getProperty("comment").value = "弹出选择";
+                this.cls = "mini-buttonedit";
+                this.properties.push(createTrueOrFalseEditor("allowInput", "可手动输入", "true"));
+                this.properties.push({
+                    id: "textField",
+                    text: "文本字段"
+                });
+                this.properties.push(createScriptEditor("onbuttonclick", "点击事件", "javascript"));
+            }
+
+            createClass(ButtonEdit, TextBox);
+            componentRepo.registerComponent("buttonedit", ButtonEdit);
+        }
+
     }
 
     /**子表单**/
