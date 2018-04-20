@@ -95,6 +95,12 @@ function initClp(desinger) {
         textarea.css({width: window.innerWidth, height: window.innerHeight});
         $(win.document.body).append(textarea);
     });
+
+    $(".save-button").on("click", function () {
+        if (window.save) {
+            window.save(desinger.getConfig());
+        }
+    })
 }
 
 var componentsImport = [
