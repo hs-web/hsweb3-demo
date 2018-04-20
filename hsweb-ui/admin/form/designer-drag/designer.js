@@ -321,6 +321,10 @@
                                 // initPropertiesEditor(component);
                                 me.doEvent("configChanged", me);
                                 me.nowEditComponent = component;
+                                mini.parse();
+                                if(component.onInit){
+                                    component.onInit();
+                                }
                             }
                             // initDroppable();
                         }, stop: function (event, ui) {
