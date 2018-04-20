@@ -265,7 +265,7 @@
 
                 var div = $("<div style='width: 100%; position: relative;' class='component'>")
                     .attr("hs-type", component.componentName);
-                var a = $("<a class='mini-button' style='text-align: left; max-width: 100%; width: 100%; height: 60px;line-height: 60px;font-size:1.1em;'>")
+                var a = $("<a class='mini-button' style='border-left: 0;border-right: 0px; border-top: 0;text-align: left; max-width: 100%; width: 100%; height: 60px;line-height: 60px;font-size:1.1em;'>")
                     // .attr("iconCls",component.icon)
                     .html("<span style='margin-left: 1em'></span><b class='"+component.icon+"'></b><span style='margin-left: 1em'></span>"+componentObj.getProperty("comment").value);
                 div.append(a);
@@ -279,7 +279,7 @@
                 index++;
                 var list = group[type];
                 html.push('<div class=".support-components" title="' + type + '">');
-                html.push("<div class='mini-fit' style='overflow-y: auto;overflow-x: hidden'>")
+                html.push("<div class='mini-fit' style='overflow-y: auto;direction: rtl; unicode-bidi: bidi-override; scroll-padding: 0; scroll-padding-inline: 0; overflow-x: hidden'>")
                 $(list).each(function () {
                     init(this);
                 });
