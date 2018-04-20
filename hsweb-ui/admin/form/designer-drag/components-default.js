@@ -977,7 +977,7 @@
                 var label = $("<legend title='渲染时会被移除' style='font-size: 20px'>");
                 var text = $("<span>").text("子表单");
                 c.append(label.append(text));
-                c.append("<div style='position: relative;' class='components'>");
+                c.append("<div style='position: relative;width: 100%;height: 100%' class='components'>");
                 c.css("height", me.getProperty("bodyHeight").value + "px")
                 m.append(c);
                 return m;
@@ -1075,7 +1075,6 @@
                         } else {
                             container.find("legend:first").removeClass('form-hidden');
                         }
-
                     }
                     else if (key === 'bodyHeight') {
                         container.find(".table:first").css("height", value);
