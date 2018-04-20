@@ -932,7 +932,7 @@
                             orientation: "horizontal",
                             range: "min",
                             min: 1,
-                            max: 20,
+                            max: 100,
                             value: parseInt(value) / 25,
                             slide: function () {
                                 if (call) call();
@@ -1016,7 +1016,7 @@
                             orientation: "horizontal",
                             range: "min",
                             min: 1,
-                            max: 20,
+                            max: 100,
                             value: parseInt(value) / 25,
                             slide: function () {
                                 if (call) call();
