@@ -142,6 +142,11 @@ importMiniui(function () {
             }
             $(document.body).fadeIn(200);
             mini.parse();
+            var tip = new mini.ToolTip();
+            tip.set({
+                target: document,
+                selector: '[data-tooltip]'
+            });
         });
     });
     require(["request", "message", "miniui-tools"], function (request, message, tools) {

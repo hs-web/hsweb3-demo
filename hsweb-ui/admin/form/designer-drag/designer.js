@@ -433,8 +433,10 @@
                     }
                     var c = $("<div class=\"form-item mini-col-3\">");
                     var label = $("<label class=\"form-label\">");
-                    var inputContainer = $("<div   class=\"input-block\">");
+                    var inputContainer = $("<div class=\"input-block\">");
                     label.text(this.text);
+                    label.attr("data-tooltip",me.comment);
+
                     if (me.createEditor) {
                         var e = me.createEditor(component, this.text, this.value, function () {
                             designer.doEvent("configChanged", me);

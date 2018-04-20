@@ -1,5 +1,5 @@
 (function () {
-  //  componentRepo.useIdForName=true;
+    //  componentRepo.useIdForName=true;
 
     function createDefaultEditor() {
         var properties = [
@@ -530,7 +530,6 @@
                     var m = $("<div>");
                     m.addClass("mini-col-" + me.getProperty("size").value)
                         .addClass("form-component");
-
                     var c = $("<div class=\"form-item brick\">");
                     if (me.formText) {
                         c.addClass("form-text");
@@ -540,6 +539,10 @@
                     var input = createInput();
                     label.text(me.getProperty("comment").value);
                     c.append(label).append(inputContainer.append(input));
+                    var bodyHeight = me.getProperty("bodyHeight").value;
+                    if (bodyHeight) {
+                        inputContainer.css("height", bodyHeight);
+                    }
                     m.append(c);
                     return m;
                 });
@@ -721,7 +724,19 @@
                 this.properties.push({
                     id: "format",
                     text: "数字格式",
-                    value: "n2"
+                    value: "n2",
+                    comment:"可手动输入格式:<br/>n0:整数<br/>n1:1位小数<br/>c1:货币格式1位小数<br/>p1:百分比1位小数<br/>自定义:¥#,0.00",
+                    createEditor: function (component, text, value) {
+                        var checkbox = $("<input style='width: 100%' class='mini-combobox' allowInput='true' name='format' value='" + value + "'>");
+                        checkbox.attr("data", JSON.stringify([
+                            {id: "n0", text: "整数"}
+                            , {id: "n1", text: "1位小数"}
+                            , {id: "n2", text: "2位小数"}
+                            , {id: "n3", text: "3位小数"}
+                            , {id: "n4", text: "4位小数"}
+                        ]));
+                        return checkbox;
+                    }
                 });
                 this.properties.push({
                     id: "minValue",
@@ -830,7 +845,7 @@
                             me.getValue = function () {
                                 return file;
                             }
-                        },true);
+                        }, true);
                     })
                 }
 
