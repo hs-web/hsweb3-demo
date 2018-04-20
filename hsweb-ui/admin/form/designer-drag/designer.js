@@ -24,7 +24,7 @@
     };
     Designer.prototype.setReadOnly = function (readOnly) {
 
-    }
+    };
 
     Designer.prototype.on = function (event, callback) {
         if (!this.events[event]) {
@@ -48,12 +48,13 @@
         config.html = this.getHtml();
         config.javascript = this.javascript;
         config.css = this.css;
+        config.useIdForName=componentRepo.useIdForName;
         var components = [];
         var html = $("<div>").html(config.html);
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
             var component = jQuery.extend({}, this.components[id]);
-            if (container.length === 0||component.removed) {
+            if (container.length === 0 || component.removed) {
                 component.container.remove();
                 continue;
             }
@@ -81,6 +82,7 @@
         me.setData = function (data) {
 
         };
+
         function startEdit(component) {
             var html = component.container;
             if (component.focus) {
@@ -203,7 +205,7 @@
                         list.updateItem(item, item);
                         list.select(item);
                     }));
-                }else{
+                } else {
                     html.push(createActionButton("删除", "icon-remove", function () {
                         removeComponent(item.id);
                         list.updateItem(item, item);
@@ -218,7 +220,7 @@
                 function createObj() {
                     var name = component.getProperty("name").value;
                     var comment = component.getProperty("comment").value;
-                    name = name ? comment ? name + "(" + comment + ")" : name : comment ? comment : "";
+                    name = comment;
                     return {
                         id: id,
                         type: component.type,
@@ -226,6 +228,7 @@
                         component: component
                     };
                 }
+
                 var aData = createObj();
                 component
                     .un("focus")

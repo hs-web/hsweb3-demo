@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <title></title>
+    <script data-main="/admin/form/designer-drag/view-simple.js" src="/admin/boot.js" type="text/javascript"></script>
+</head>
+<body>
+<div id='form' useIdForName='true' style="display: none">
+
+    <div class="mini-col-4 form-component" hs-id="9cef5fe48960240262c35f8d0b8987c0"><div class="form-item brick"><label class="form-label">单行文本</label><div class="input-block"><span class="mini-textbox" style="border-width: 0px; width: 100%; height: 100%; padding: 0px;"><span class="mini-textbox-border"><input type="text" class="mini-textbox-input" autocomplete="off" placeholder="" name="9cef5fe48960240262c35f8d0b8987c0"></span><input type="hidden"></span></div></div></div><div class="mini-col-12 form-component" hs-id="c4fa7d84b4dd41354836595e0b852358"><div class="form-item brick form-text"><label class="form-label">多行文本</label><div class="input-block"><span class="mini-textbox mini-textarea" style="border-width: 0px; width: 100%; height: 100%; padding: 0px;"><span class="mini-textbox-border"><textarea class="mini-textbox-input" autocomplete="off" placeholder="" name="c4fa7d84b4dd41354836595e0b852358" style="height: 40px;"></textarea></span><input type="hidden"></span></div></div></div>
+</div>
+<script id='form-components' type='application/json'>
+    [{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":"9cef5fe48960240262c35f8d0b8987c0","hide":true},{"id":"comment","editor":"textbox","text":"描述","value":"单行文本"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"}],"id":"9cef5fe48960240262c35f8d0b8987c0","type":"textbox"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":"c4fa7d84b4dd41354836595e0b852358","hide":true},{"id":"comment","editor":"textbox","text":"描述","value":"多行文本"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":12},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"},{"id":"bodyHeight","text":"高度","value":"50"}],"id":"c4fa7d84b4dd41354836595e0b852358","cls":"mini-textarea","formText":true,"type":"textarea"}]
+</script>
+<style id="form-css" type='text/css'>
+
+</style>
+<script id='form-on-init' type='text/plain'>
+
+</script>
+<div style="width: 100px;margin: auto">
+    <a class="mini-button save-button" iconCls="icon-save" plain="true">保存</a>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    window.formOnLoad = function (parser) {
+        $(".save-button").on("click", function () {
+            var data = parser.getData();
+            alert(JSON.stringify(data));
+        });
+    }
+</script>

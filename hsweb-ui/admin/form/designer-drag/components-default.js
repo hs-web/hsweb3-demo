@@ -1,7 +1,8 @@
 (function () {
+  //  componentRepo.useIdForName=true;
 
     function createDefaultEditor() {
-        return [
+        var properties = [
             {
                 id: "name",
                 editor: "textbox",
@@ -83,6 +84,15 @@
                 }
             }
         ];
+        if (componentRepo.useIdForName) {
+            var name = properties[0];
+            name.hide = true;
+            name.getValue = function (component) {
+                name.value = component.id;
+                return component.id;
+            }
+        }
+        return properties;
     }
 
     function createClass(O, T, name) {
@@ -458,7 +468,7 @@
                     var input = $("<input style='width: 100%;height: 100%'>");
                     input.addClass(me.cls || "mini-textbox");
                     $(me.properties).each(function () {
-                        var value = this.value;
+                        var value = this.getValue ? this.getValue(me) : this.value;
                         var property = this;
                         if (this.id) {
                             if (this.id === 'type') {
@@ -542,6 +552,7 @@
 
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
+                        container.find('.form-label').first().removeAttr("style");
                         if (name === 'comment') {
                             container.find(".form-label").text(value);
                         } else if (name === 'bodyHeight') {
@@ -746,41 +757,41 @@
 
                 function createInput() {
                     var input = $("<input class='file-name' style='width: 70%;height: 100%'>");
-                   // input.addClass("mini-textbox");
-                   //  $(me.properties).each(function () {
-                   //      var value = this.value;
-                   //      var property = this;
-                   //      if (this.id) {
-                   //          if (this.id === 'type') {
-                   //              return;
-                   //          }
-                   //          if (this.id === 'height') {
-                   //              input.css("height", value);
-                   //          }
-                   //          //脚本
-                   //          if (this.script) {
-                   //              var scriptId = "script_" + (Math.round(Math.random() * 100000000));
-                   //              window[scriptId] = function (obj) {
-                   //                  try {
-                   //                      var func = eval("(function(){return function(component){" +
-                   //                          "\n" +
-                   //                          property.value +
-                   //                          "\n" +
-                   //                          "}})()");
-                   //                      func.call(obj, me);
-                   //                  } catch (e) {
-                   //                      console.log("执行控件脚本失败", this, e);
-                   //                      return;
-                   //                  }
-                   //              };
-                   //              value = scriptId;
-                   //          }
-                   //          input.attr(this.id, value);
-                   //      }
-                   //      if (!this.value || this.value === 'undefined') {
-                   //          input.removeAttr(this.id);
-                   //      }
-                   //  });
+                    // input.addClass("mini-textbox");
+                    //  $(me.properties).each(function () {
+                    //      var value = this.value;
+                    //      var property = this;
+                    //      if (this.id) {
+                    //          if (this.id === 'type') {
+                    //              return;
+                    //          }
+                    //          if (this.id === 'height') {
+                    //              input.css("height", value);
+                    //          }
+                    //          //脚本
+                    //          if (this.script) {
+                    //              var scriptId = "script_" + (Math.round(Math.random() * 100000000));
+                    //              window[scriptId] = function (obj) {
+                    //                  try {
+                    //                      var func = eval("(function(){return function(component){" +
+                    //                          "\n" +
+                    //                          property.value +
+                    //                          "\n" +
+                    //                          "}})()");
+                    //                      func.call(obj, me);
+                    //                  } catch (e) {
+                    //                      console.log("执行控件脚本失败", this, e);
+                    //                      return;
+                    //                  }
+                    //              };
+                    //              value = scriptId;
+                    //          }
+                    //          input.attr(this.id, value);
+                    //      }
+                    //      if (!this.value || this.value === 'undefined') {
+                    //          input.removeAttr(this.id);
+                    //      }
+                    //  });
                     return input;
                 }
 
@@ -809,7 +820,7 @@
                 });
 
                 function initFileUploader() {
-                    var uploaderContainer=container.find('.file-upload');
+                    var uploaderContainer = container.find('.file-upload');
 
                     var id = uploaderContainer.attr("id");
                     require(["pages/form/designer-drag/file-upload"], function (uploader) {
@@ -818,7 +829,7 @@
                             .text("选择文件");
                         uploader.initUploader("#" + id, function (file) {
                             //container.find(".file-name").val(file.name);
-                            me.getValue=function () {
+                            me.getValue = function () {
                                 return file;
                             }
                             // console.log(file);
@@ -849,7 +860,7 @@
                                 container.find(".component-body").removeClass("input-block");
                             }
                         } else {
-                           // newInput();
+                            // newInput();
                         }
                     });
                 return container;

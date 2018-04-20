@@ -6,15 +6,16 @@ var types = [
         id: "hf",
         createEditor: function (data) {
             var iframe = $("<iframe frameborder='0' style='border:0px;width: 100%;height: 100%;min-height: 750px; margin: auto; position: relative'>");
-            iframe.attr("src", window.BASE_PATH + "admin/form/designer-drag/index.html");
+            iframe.attr("src", window.BASE_PATH + "admin/form/designer-drag/index.html?hideToolbar=save-button,preview-button");
             var win;
             var designer;
+
             function init() {
                 win = iframe[0].contentWindow;
                 if (win) {
                     win.ready = function () {
-                        designer=this;
-                       // win.$('#toolbar').hide();
+                        designer = this;
+                        // win.$('#toolbar').hide();
                         if (data) {
                             if (typeof data === 'string') {
                                 data = JSON.parse(data);

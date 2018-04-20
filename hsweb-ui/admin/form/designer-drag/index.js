@@ -1,5 +1,101 @@
 importResource("/admin/css/common.css");
 
+function initClp(desinger) {
+    $(".paste-button").on("click", function () {
+        require(["message"], function (message) {
+            message.prompt("请输入要粘贴的内容", " ", function (text) {
+                try {
+                    var cfg = JSON.parse(text);
+                    desinger.loadConfig(cfg);
+                } catch (e) {
+                    var html = $("<div>").html(text);
+                    if (html.find("#form-components").html()) {
+                        var config = {};
+                        config.html = html.find("#form").html();
+                        config.components = JSON.parse(html.find("#form-components").html());
+                        config.javascript = $.trim(html.find("#form-on-init").html());
+                        config.css = $.trim(html.find("#form-css").html());
+                        desinger.loadConfig(config);
+                    } else {
+                        message.showTips("格式错误,仅支持json或者html格式!")
+                    }
+                }
+            }, true);
+        })
+    });
+    require(["clipboard.min.js"], function (Clipboard) {
+        var clipboard = new Clipboard('.copy-button', {
+            text: function (trigger) {
+                return JSON.stringify(desinger.getConfig());
+            }
+        });
+
+        clipboard.on('success', function (e) {
+            require(["message"], function (message) {
+                message.showTips("已将配置内容复制到粘贴板");
+            });
+            // console.log(e);
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            //console.error('Action:', e.action);
+            // console.error('Trigger:', e.trigger);
+        });
+    });
+    $(".preview-button").on("click", function () {
+        var win = window.open("view.html");
+        win.getConfig = function () {
+            return desinger.getConfig();
+        };
+    });
+
+    $(".write-source-button").on("click", function () {
+        var config = desinger.getConfig();
+
+        var html = [
+            , "<!DOCTYPE html>"
+            , "<html lang=\"zh-cn\">"
+            , "<head>"
+            , "    <meta charset=\"UTF-8\">"
+            , "    <meta http-equiv=Content-Type content=\"text/html;charset=utf-8\">"
+            , "    <title></title>"
+            , "    <script data-main=\"/admin/form/designer-drag/view-simple.js\" src=\"/admin/boot.js\" type=\"text/javascript\"></script>"
+            , "</head>"
+            , "<body>"
+            , "<div id='form' useIdForName='" + (config.useIdForName) + "' style=\"display: none\">"
+            , config.html
+            , "</div>"
+            , "<script id='form-components' type='application/json'>"
+            , JSON.stringify(config.components)
+            , "</script>"
+            , "<style id='form-css' type='text/css'>"
+            , config.css
+            , "</style>"
+            , "<script id='form-on-init' type='text/plain'>"
+            , config.javascript
+            , "</script>"
+            , "<div style=\"width: 100px;margin: auto\">\n" +
+            "    <a class=\"mini-button save-button\" iconCls=\"icon-save\" plain=\"true\">保存</a>\n" +
+            "</div>"
+            , "</body>"
+            , "</html>"
+            , "<script type=\"text/javascript\">\n" +
+            "    window.formOnLoad = function (parser) {\n" +
+            "        $(\".save-button\").on(\"click\", function () {\n" +
+            "            var data = parser.getData();\n" +
+            "            mini.alert(JSON.stringify(data));\n" +
+            "        });\n" +
+            "    }\n" +
+            "</script>"
+        ];
+        var win = window.open("about:blank");
+        var textarea = $("<textarea>")
+            .val(html.join("\n"));
+        textarea.css({width: window.innerWidth, height: window.innerHeight});
+        $(win.document.body).append(textarea);
+    });
+}
 
 var componentsImport = [
     "components-default"
@@ -8,17 +104,27 @@ var componentsImport = [
 importMiniui(function () {
     mini.parse();
     require(["designer", "md5", "request",
-        "plugin/jquery-ui/jquery-ui","plugin/jquery-ui/colpick","css!plugin/jquery-ui/colpick",
+        "plugin/jquery-ui/jquery-ui", "plugin/jquery-ui/colpick", "css!plugin/jquery-ui/colpick",
         "components", "css!defaults", "css!plugin/font-awesome/4.7.0/css/font-awesome.css",
         "css!plugin/jquery-ui/jquery-ui.min",
         'css!designer'], function (Designer, md5, request) {
+        componentRepo.useIdForName = request.getParameter("useIdForName") === 'true';
+
         var param = request.getParameter("components");
+        var hideToolbar = request.getParameter("hideToolbar");
         if (param) {
             componentsImport = param.split(",");
         }
+        if (hideToolbar) {
+            $(hideToolbar.split(",")).each(function () {
+                $("." + this).hide();
+            })
+        }
         window.md5 = md5;
+
         require(componentsImport, function () {
             var designer = window.designer = new Designer();
+            initClp(designer);
             designer.init();
             designer.on("configChanged", function () {
                 if (mini.get("previewWindow").visible) {
@@ -28,13 +134,15 @@ importMiniui(function () {
             if (window.ready) {
                 window.ready.call(designer);
             }
+            $(document.body).fadeIn(200);
+            mini.parse();
         });
     });
     require(["request", "message", "miniui-tools"], function (request, message, tools) {
         window.request = request;
         window.tools = tools;
         window.message = message;
-    })
+    });
     window.editScript = function (lang, script, call, onSubmit) {
         require(['script-editor'], function (editorBuilder) {
             editorBuilder.createEditor("script-editor", function (editor) {

@@ -6,6 +6,7 @@
         this.css = config.css;
         this.events = {};
         this.parameters = {};
+        componentRepo.useIdForName = config.useIdForName;
     };
     FormParser.prototype.getParameter = function (key) {
         return this.parameters[key];
@@ -14,13 +15,13 @@
         for (var key in params) {
             this.parameters[key] = params[key];
         }
-    }
+    };
     FormParser.prototype.on = function (event, callback) {
         if (!this.events[event]) {
             this.events[event] = [];
         }
         this.events[event].push(callback);
-    }
+    };
     FormParser.prototype.un = function (event) {
         this.events[event] = [];
     };
@@ -54,7 +55,9 @@
             $(this.components).each(function () {
                 var target = this.target;
                 if (target && target.getValue) {
-                    data[target.getProperty("name").value] = target.getValue(data, validate);
+                    var nameProperty = target.getProperty("name");
+                    var value = nameProperty.getValue ? nameProperty.getValue(target) : nameProperty.value;
+                    data[value] = target.getValue(data, validate);
                 }
             });
             this.data = data;
@@ -103,7 +106,7 @@
                         }
                     );
                 } else {
-                    console.warn("不支持的控件类型", this)
+                    console.warn("不支持的控件类型", JSON.stringify(this))
                 }
             });
 
@@ -112,7 +115,8 @@
             var css = $("<style type='text/css'>").html(me.css);
             html.append(css);
         }
-        $(el).append(html);
+        $(el).html("")
+            .append(html);
         mini.parse();
         me.doEvent("load", me);
     };

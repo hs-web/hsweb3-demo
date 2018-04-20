@@ -36,14 +36,21 @@
 
     </style>
 </head>
-<body>
+<body style="display: none">
 <div id="toolbar" class="mini-toolbar" style="padding:2px;border-bottom: 0">
     <table style="width:100%;">
         <tr>
             <td style="width:100%;">
-                <a class="mini-button edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
-                <a class="mini-button edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
-                <a class="mini-button select-from-database" iconCls="icon-database" plain="true">从数据库中选择</a>
+                <a class="mini-button menu-group-dev edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
+                <a class="mini-button menu-group-dev edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
+                <a class="mini-button menu-group-dev select-from-database" iconCls="icon-database" plain="true">从数据库中选择</a>
+                <span class="separator menu-group-dev"></span>
+                <a class="mini-button menu-group-user save-button" iconCls="icon-save" plain="true">保存</a>
+                <a class="mini-button menu-group-user copy-button" iconCls="icon-page-white-copy" plain="true">复制</a>
+                <a class="mini-button menu-group-user paste-button" iconCls="icon-page-white-paste" plain="true">粘贴</a>
+                <a class="mini-button menu-group-user preview-button" iconCls="icon-find" plain="true">预览</a>
+                <span class="separator"></span>
+                <a class="mini-button write-source-button" iconCls="icon-html-go" plain="true">生成源代码</a>
             </td>
         </tr>
     </table>
@@ -71,8 +78,8 @@
                              style="width:100%;height:100%;">
                             <div property="columns">
                                 <!--<div header="组件类型" headerAlign='center' field="type"></div>-->
-                                <div header="描述"  width="80" headerAlign='center' align="center"  field="name"></div>
-                                <div header="操作" width="20"  headerAlign='center' align="center" name="action"></div>
+                                <div header="描述" width="80" headerAlign='center' align="center" field="name"></div>
+                                <div header="操作" width="20" headerAlign='center' align="center" name="action"></div>
                             </div>
                         </div>
                     </div>
