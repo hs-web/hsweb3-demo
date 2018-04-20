@@ -265,9 +265,9 @@
 
                 var div = $("<div style='width: 100%; position: relative;' class='component'>")
                     .attr("hs-type", component.componentName);
-                var a = $("<a class='mini-button' style='width: 100%; height: 60px;line-height: 60px;font-size:1.1em;'>")
-                    .attr("iconCls",component.icon)
-                    .text(componentObj.getProperty("comment").value);
+                var a = $("<a class='mini-button' style='text-align: left; max-width: 100%; width: 100%; height: 60px;line-height: 60px;font-size:1.1em;'>")
+                    // .attr("iconCls",component.icon)
+                    .html("<span style='margin-left: 1em'></span><b class='"+component.icon+"'></b><span style='margin-left: 1em'></span>"+componentObj.getProperty("comment").value);
                 div.append(a);
                 html.push(div[0].outerHTML)
             }
