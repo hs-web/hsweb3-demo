@@ -48,7 +48,7 @@
         config.html = this.getHtml();
         config.javascript = this.javascript;
         config.css = this.css;
-        config.useIdForName=componentRepo.useIdForName;
+        config.useIdForName = componentRepo.useIdForName;
         var components = [];
         var html = $("<div>").html(config.html);
         for (var id in this.components) {
@@ -263,28 +263,9 @@
             function init(component) {
                 var componentObj = new component(md5(Math.random()));
 
-                // var componentHtml = new component(md5(Math.random())).render();
-                //
-                // componentHtml.find(".width-100-per").css("width", "100%");
-                // componentHtml.find(".form-item").addClass("form-text");
-                // componentHtml.find("textarea,iframe").replaceWith($("<input class='mini-textbox'>"));
-                // componentHtml
-                //     .find("input,textarea,select")
-                //     .attr("readonly", "readonly")
-                //     .attr("disabled", "disabled")
-                //     .css({
-                //         "background-color": "white",
-                //         "border": " 1px solid #ddd"
-                //     });
-                //
-                // componentHtml.find(".components,.selector-hide").remove();
-                // componentHtml.attr("class", "");
-                // componentHtml.addClass("component");
-                // componentHtml.attr("hs-type", component.componentName);
-                var div = $("<div style='width: 100%; position: relative' class='component'>")
+                var div = $("<div style='width: 100%; position: relative;' class='component'>")
                     .attr("hs-type", component.componentName);
-
-                var a = $("<a class='mini-button' style='width: 100%;margin:auto; height: 60px;line-height: 60px;font-size: 20px;'>")
+                var a = $("<a class='mini-button' style='width: 100%;margin:auto; height: 60px;line-height: 60px;font-size:1.3em;'>")
                     .text(componentObj.getProperty("comment").value);
                 div.append(a);
                 html.push(div[0].outerHTML)
@@ -296,11 +277,12 @@
             for (var type in group) {
                 index++;
                 var list = group[type];
-
                 html.push('<div class=".support-components" title="' + type + '">');
+                html.push("<div class='mini-fit' style='overflow-y: auto;overflow-x: hidden'>")
                 $(list).each(function () {
                     init(this);
                 });
+                html.push("</div>");
                 html.push('</div>');
             }
             html.push('</div>');
@@ -435,7 +417,7 @@
                     var label = $("<label class=\"form-label\">");
                     var inputContainer = $("<div class=\"input-block\">");
                     label.text(this.text);
-                    label.attr("data-tooltip",me.comment);
+                    label.attr("data-tooltip", me.comment);
 
                     if (me.createEditor) {
                         var e = me.createEditor(component, this.text, this.value, function () {
