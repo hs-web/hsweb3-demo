@@ -20,8 +20,8 @@ define(["plugin/webuploader/webuploader.min", "message", "request"], function (W
                 multiple: false
             },
             compress: false,
-            dnd: document.body,
-            paste: document.body,
+            // dnd: document.body,
+            // paste: document.body,
             // accept: accepts[accept],
             resize: false
         });

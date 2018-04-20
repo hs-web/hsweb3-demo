@@ -599,11 +599,11 @@
                                 orientation: "horizontal",
                                 range: "min",
                                 min: 1,
-                                max: 20,
-                                value: parseInt(value) / 25,
+                                max: 400,
+                                value: parseInt(value),
                                 slide: function () {
                                     if (call) call();
-                                    component.setProperty("bodyHeight", parseInt(arguments[1].value) * 25);
+                                    component.setProperty("bodyHeight", parseInt(arguments[1].value));
                                     mini.parse();
                                 }
                             });
@@ -821,20 +821,17 @@
 
                 function initFileUploader() {
                     var uploaderContainer = container.find('.file-upload');
-
                     var id = uploaderContainer.attr("id");
                     require(["pages/form/designer-drag/file-upload"], function (uploader) {
                         uploaderContainer
                             .removeClass('webuploader-container')
-                            .text("选择文件");
+                            .html("选择文件");
                         uploader.initUploader("#" + id, function (file) {
-                            //container.find(".file-name").val(file.name);
                             me.getValue = function () {
                                 return file;
                             }
-                            // console.log(file);
-                        });
-                    }, true)
+                        },true);
+                    })
                 }
 
                 initFileUploader();
