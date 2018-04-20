@@ -118,7 +118,7 @@ function importMiniui(callback) {
             return;
         }
         var theme = getCookie("theme", window.miniui_theme ? window.miniui_theme : "pure");
-        var mode = getCookie("mode", "large");// window.outerHeight > 1000 ? "large" : "medium");
+        var mode = 'large';//getCookie("mode", "large");// window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
             importResource(BASE_PATH + "plugins/miniui/themes/default/miniui.css");

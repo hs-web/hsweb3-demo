@@ -265,14 +265,15 @@
 
                 var div = $("<div style='width: 100%; position: relative;' class='component'>")
                     .attr("hs-type", component.componentName);
-                var a = $("<a class='mini-button' style='width: 100%;margin:auto; height: 60px;line-height: 60px;font-size:1.3em;'>")
+                var a = $("<a class='mini-button' style='width: 100%; height: 60px;line-height: 60px;font-size:1.1em;'>")
+                    .attr("iconCls",component.icon)
                     .text(componentObj.getProperty("comment").value);
                 div.append(a);
                 html.push(div[0].outerHTML)
             }
 
             var html = [];
-            html.push('<div  class="mini-outlookbar" activeIndex="0"  style="width:100%;height:90%;" autoCollapse="true">');
+            html.push('<div  class="mini-outlookbar" activeIndex="0"  style="width:100%;height:90%;overflow: hidden" autoCollapse="true">');
 
             for (var type in group) {
                 index++;

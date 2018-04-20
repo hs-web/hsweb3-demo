@@ -248,7 +248,7 @@
                     });
                 return container;
             };
-
+            Hidden.icon="iconfont icon-zhanweifuplaceholder20";
             componentRepo.registerComponent("hidden", Hidden);
         }
         /**fieldset**/
@@ -287,6 +287,7 @@
                     });
                 return container;
             };
+            FieldSet.icon="iconfont icon-fengefu";
 
             componentRepo.registerComponent("fieldset", FieldSet);
         }
@@ -308,6 +309,7 @@
                         id: "bodyHeight",
                         text: "高度",
                         value: 1,
+                        comment:"设置为最小值,高度为自动",
                         createEditor: function (component, text, value, call) {
                             if (!value) {
                                 value = 1;
@@ -446,7 +448,7 @@
                     });
                 return container;
             };
-
+        Text.icon="iconfont icon-biaoqian";
             componentRepo.registerComponent("text", Text);
         }
 
@@ -460,7 +462,7 @@
 
         {
             createClass(TextBox);
-
+            TextBox.icon="iconfont icon-danhangshurukuang";
             TextBox.prototype.render = function () {
                 var me = this;
 
@@ -596,6 +598,7 @@
                         id: "bodyHeight",
                         text: "高度",
                         value: "50",
+                        comment:"设置为最小值,高度为自动",
                         createEditor: function (component, text, value, call) {
                             var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
                             html.slider({
@@ -617,6 +620,7 @@
             }
 
             createClass(TextArea, TextBox);
+            TextArea.icon="iconfont icon-duohangshurukuang";
             componentRepo.registerComponent("textarea", TextArea);
         }
 
@@ -632,6 +636,7 @@
 
             createClass(Password, TextBox);
 
+            Password.icon="iconfont icon-mima";
             componentRepo.registerComponent("password", Password);
         }
 
@@ -649,6 +654,7 @@
 
             createClass(RadioBox, TextBox);
 
+            RadioBox.icon="iconfont icon-biaodankongjiandanxuan";
             componentRepo.registerComponent("radio", RadioBox);
         }
 
@@ -665,7 +671,7 @@
             }
 
             createClass(CheckBox, TextBox);
-
+            CheckBox.icon="iconfont icon-biaodankongjianfuxuan";
             componentRepo.registerComponent("checkbox", CheckBox);
         }
 
@@ -686,6 +692,7 @@
                 //     value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 // });
             }
+            Combobox.icon="iconfont icon-xialakongjian";
 
             createClass(Combobox, TextBox);
 
@@ -708,7 +715,7 @@
                 });
                 this.getProperty("comment").value = "日期选择";
             }
-
+            Datepicker.icon="iconfont icon-riqixuanze";
             createClass(Datepicker, TextBox);
 
             componentRepo.registerComponent("datepicker", Datepicker);
@@ -753,6 +760,7 @@
 
             createClass(Spinner, TextBox);
 
+            Spinner.icon="iconfont icon-shuzishurukuang";
             componentRepo.registerComponent("spinner", Spinner);
         }
 
@@ -878,6 +886,7 @@
                 return container;
             };
 
+            FileUpload.icon="iconfont icon-icon-";
             componentRepo.registerComponent("fileupload", FileUpload);
         }
 
@@ -897,6 +906,7 @@
 
             createClass(TreeSelect, TextBox);
 
+            TreeSelect.icon="iconfont icon-shuxingkongjian";
 
             componentRepo.registerComponent("treeselect", TreeSelect);
         }
@@ -919,6 +929,7 @@
             }
 
             createClass(ButtonEdit, TextBox);
+            ButtonEdit.icon="iconfont icon-danchuceng";
             componentRepo.registerComponent("buttonedit", ButtonEdit);
         }
 
@@ -941,6 +952,7 @@
                     id: "bodyHeight",
                     text: "高度",
                     value: "150",
+                    comment:"设置为最小值,高度为自动",
                     createEditor: function (component, text, value, call) {
                         var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
                         html.slider({
@@ -1001,6 +1013,7 @@
                 });
             return container;
         };
+        Form.icon="iconfont icon-shifouyunxuweiwanchengpandianrenwukaidan";
 
         componentRepo.registerComponent("form", Form);
     }
@@ -1022,6 +1035,7 @@
                     id: "bodyHeight",
                     text: "高度",
                     value: "150",
+                    comment:"设置为最小值,高度为自动",
                     createEditor: function (component, text, value, call) {
                         if (!value) {
                             value = 1;
@@ -1085,6 +1099,8 @@
             return container;
         };
 
+        Table.icon="iconfont icon-biaoge";
         componentRepo.registerComponent("table", Table);
+
     }
 })();
