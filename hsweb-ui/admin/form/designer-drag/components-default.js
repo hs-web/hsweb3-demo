@@ -745,6 +745,7 @@
                         return checkbox;
                     }
                 });
+
                 this.properties.push({
                     id: "minValue",
                     text: "最小值",
@@ -754,6 +755,11 @@
                     id: "maxValue",
                     text: "最大值",
                     value: "99999999"
+                });
+                this.properties.push({
+                    id: "increment",
+                    text: "增量",
+                    value: "1"
                 });
                 this.getProperty("comment").value = "数字调节";
             }
