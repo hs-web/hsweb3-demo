@@ -12,7 +12,9 @@ importMiniui(function () {
                 //使用组件id作为表单控件的name
                 config.useIdForName = $("#form").attr("useIdForName") === 'true';
                 var parser = window.parser = new Parser(config);
+
                 parser.render($("#form"));
+
                 $("#form").fadeIn(200);
                 mini.parse();
                 $(".get-form-data").on("click", function () {

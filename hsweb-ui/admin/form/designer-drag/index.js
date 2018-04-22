@@ -3,10 +3,14 @@ importResource("/admin/css/common.css");
 function initClp(desinger) {
     $(".paste-button").on("click", function () {
         require(["message"], function (message) {
-            message.prompt("请输入要粘贴的内容", " ", function (text) {
+
+            editScript("text", "", function (editor) {
+
+            }, function (editor) {
+                var cfg;
+                var text = editor.getScript();
                 try {
-                    var cfg = JSON.parse(text);
-                    desinger.loadConfig(cfg);
+                    cfg = JSON.parse(text);
                 } catch (e) {
                     var html = $("<div>").html(text);
                     if (html.find("#form-components").html()) {
@@ -15,12 +19,26 @@ function initClp(desinger) {
                         config.components = JSON.parse(html.find("#form-components").html());
                         config.javascript = $.trim(html.find("#form-on-init").html());
                         config.css = $.trim(html.find("#form-css").html());
-                        desinger.loadConfig(config);
+                        cfg = config;
                     } else {
                         message.showTips("格式错误,仅支持json或者html格式!")
                     }
                 }
-            }, true);
+                mini.showMessageBox({
+                    title: "请输入粘贴内容",
+                    iconCls: "mini-messagebox-question",
+                    buttons: ["新建", "复制", "取消"],
+                    message: "选择粘贴方式<br>新建: 粘贴为新的表单.<br>复制: 保持粘贴的配置不变",
+                    callback: function (action) {
+                        if (action === '复制') {
+                            desinger.loadConfig(cfg);
+                        }
+                        if (action === '新建') {
+                            desinger.loadConfig(cfg, true);
+                        }
+                    }
+                });
+            });
         })
     });
     require(["clipboard.min.js"], function (Clipboard) {
@@ -89,11 +107,17 @@ function initClp(desinger) {
             "    }\n" +
             "</script>"
         ];
-        var win = window.open("about:blank");
-        var textarea = $("<textarea>")
-            .val(html.join("\n"));
-        textarea.css({width: window.innerWidth, height: window.innerHeight});
-        $(win.document.body).append(textarea);
+
+        editScript("html", html.join("\n"), function (editor) {
+
+        }, function (editor) {
+
+        });
+        // var win = window.open("about:blank");
+        // var textarea = $("<textarea>")
+        //     .val(html.join("\n"));
+        // textarea.css({width: window.innerWidth, height: window.innerHeight});
+        // $(win.document.body).append(textarea);
     });
 
     $(".save-button").on("click", function () {
@@ -176,7 +200,21 @@ importMiniui(function () {
     var optionType = mini.get("optionType");
     var optionalGrid = mini.get("operation-grid");
 
+    window.addOperationData=function () {
+        var data = {text:"新建选项"};
+        if (componentRepo.useIdForName) {
+            data.id = md5(new Date().getTime() + "" + Math.random());
+        }
+        optionalGrid.addNode(data);
+        // optionalGrid.selectNode(data);
+        // optionalGrid.beginEditRow(data);
+    }
+
     window.editOptional = function (config, type, onSubmit) {
+        if (componentRepo.useIdForName) {
+            optionalGrid.removeColumn("id");
+        }
+
         optionType.un("valuechanged").on("valuechanged", function () {
             $(".optional-setting").hide();
             $(".optional-" + this.value).show();

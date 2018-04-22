@@ -101,7 +101,7 @@
 <div id="script-editor-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="脚本编辑"
      style="width: 800px;height: 600px;">
     <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
-        <a class="mini-button save-script-editor" plain="true" iconCls="icon-ok">完成编辑</a>
+        <a class="mini-button save-script-editor" plain="true" iconCls="icon-ok">完成</a>
     </div>
     <div class="mini-fit">
         <pre class="script-editor" id="script-editor"></pre>
@@ -192,18 +192,18 @@
                          editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="true"
                          allowDrag="true" allowDrop="true" iconField="iconCls" treeColumn="index" idField="field">
                         <div property="columns">
-                            <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">#</div>
-                            <div field="id" width="40" headerAlign="center">标识
+                            <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">序号(拖动排序)</div>
+                            <div field="id" name="id" width="40" headerAlign="center">标识
                                 <input property="editor" class="mini-textbox"/>
                             </div>
-                            <div field="text" width="40" headerAlign="center">标题
+                            <div field="text" width="40" headerAlign="center">选项
                                 <input property="editor" class="mini-textbox"/>
                             </div>
                             <div name='action' width="30" align="center" headerAlign="center">
                                 <span class="title-button" style="width: 30px">
                                 操作
                                 </span>
-                                <span class="title-button icon-add" onclick="mini.get('operation-grid').addNode({})"></span>
+                                <span class="title-button icon-add add-operation-data"onclick="addOperationData()"></span>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 
 .dynamic-form .form-item {
-    width: 99.5%
+    width: 99.99999%
 }
 
 .dynamic-form .child-form {
@@ -17,6 +17,9 @@
     color: grey;
 }
 
+.dynamic-form .hide-label .form-label{
+    display: none;
+}
 .dynamic-form .form-label {
     float: left;
     display: block;
@@ -58,13 +61,14 @@
 }
 
 /*多选框*/
-.dynamic-form .input-block .mini-list-inner {
+.dynamic-form .mini-list-inner {
     margin-left: 5px;
 }
 
-.dynamic-form .input-block .mini-checkboxlist, .mini-radiobuttonlist {
+.dynamic-form .mini-checkboxlist, .mini-radiobuttonlist {
     line-height: 26px;
 }
+
 
 .dynamic-form .form-text .form-label {
     float: none;
@@ -90,22 +94,23 @@
 
 .dynamic-form .table .form-component {
     border: 0;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid black;
     border-collapse: collapse;
-    border-right: 1px solid grey;
+    border-right: 1px solid black;
     /*display: table;*/
     box-sizing: border-box;
     position: relative;
 }
 
 .dynamic-form .table {
-    border: 1px solid grey;
+    border: 1px solid black;
     border-right: 0;
     border-bottom: 0;
     position: relative;
     /*padding: 0 1px 1px 0;*/
     margin: 0;
     overflow: hidden;
+    width: 99.99999%;
 }
 
 /*.dynamic-form .table:after {*/

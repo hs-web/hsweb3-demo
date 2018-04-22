@@ -537,7 +537,7 @@
                         c.addClass("form-text");
                     }
                     var label = $("<label class=\"form-label\">");
-                    var inputContainer = $("<div class=\"input-block\">");
+                    var inputContainer = $("<div class=\"input-block component-body\">");
                     var input = createInput();
                     label.text(me.getProperty("comment").value);
                     c.append(label).append(inputContainer.append(input));
@@ -550,22 +550,20 @@
                 });
 
                 function newInput() {
-                    return container.find(".input-block")
+                    return container.find(".component-body")
                         .html("")
                         .append(createInput());
                 }
 
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
-                        container.find('.form-label').first().removeAttr("style");
+                        // container.find('.form-label').first().removeAttr("style");
                         if (name === 'comment') {
                             container.find(".form-label").text(value);
                         } else if (name === 'bodyHeight') {
                             container.find(".input-block").css("height", value);
                         }
-
                         else if (name === 'showComment') {
-                            container.find(".input-block").addClass("component-body");
                             if (value + "" === 'true') {
                                 container.find(".form-label").show();
                                 container.find(".component-body").addClass("input-block");
@@ -951,6 +949,7 @@
             this.removeProperty("name");
             this.removeProperty("required");
             this.removeProperty("emptyText");
+            this.removeProperty("showComment");
             this.getProperty("comment").value = "子表单";
             this.getProperty("size").value = "12";
             this.properties.push(

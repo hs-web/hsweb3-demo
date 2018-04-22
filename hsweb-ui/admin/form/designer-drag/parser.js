@@ -85,6 +85,8 @@
         var html = $("<div class='mini-fit dynamic-form'>")
             .attr("id", formId)
             .html(me.html);
+        $(el).html("")
+            .append(html);
         $(me.components)
             .each(function () {
                 var id = this.id;
@@ -115,8 +117,7 @@
             var css = $("<style type='text/css'>").html(me.css);
             html.append(css);
         }
-        $(el).html("")
-            .append(html);
+
         mini.parse();
         me.doEvent("load", me);
     };
