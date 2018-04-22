@@ -1,6 +1,10 @@
 
 .dynamic-form .form-item {
-    width: 99.99999%
+    width: 99%;
+}
+
+.dynamic-form .mini-col-12 .form-item{
+    width: 99.7%;
 }
 
 .dynamic-form .child-form {
