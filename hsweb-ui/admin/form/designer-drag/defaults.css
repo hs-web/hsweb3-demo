@@ -1,6 +1,7 @@
 
 .dynamic-form .form-item {
     width: 99%;
+    min-height: 28px;
 }
 
 .dynamic-form .mini-col-12 .form-item{

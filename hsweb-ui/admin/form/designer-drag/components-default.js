@@ -602,7 +602,7 @@
                             html.slider({
                                 orientation: "horizontal",
                                 range: "min",
-                                min: 1,
+                                min: 48,
                                 max: 400,
                                 value: parseInt(value),
                                 slide: function () {
