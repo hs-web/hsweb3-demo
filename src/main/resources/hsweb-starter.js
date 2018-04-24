@@ -27,7 +27,7 @@ var menus = [
     {
         "u_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "name": "系统设置",
-        "parent_id": "",
+        "parent_id": "-1",
         "permission_id": "",
         "path": "sOrB",
         "sort_index": 1,
@@ -155,6 +155,17 @@ var menus = [
         "status": 1
     },
     {
+        "u_id": "template",
+        "name": "模板管理",
+        "parent_id": "dev-01",
+        "permission_id": "template",
+        "path": "d010-002",
+        "sort_index": 302,
+        "url": "pages/template/list.hl",
+        "icon": null,
+        "status": 1
+    },
+    {
         "u_id": "quartz",
         "name": "定时任务",
         "parent_id": "dev-01",
@@ -162,6 +173,16 @@ var menus = [
         "path": "d010-003",
         "sort_index": 303,
         "url": "/admin/schedule/index.html",
+        "icon": null,
+        "status": 1
+    }, {
+        "u_id": "database-manager",
+        "name": "数据库维护",
+        "parent_id": "dev-01",
+        "permission_id": "database-manager,datasource",
+        "path": "d010-002",
+        "sort_index": 302,
+        "url": "/admin/database-manager/index.html",
         "icon": null,
         "status": 1
     }

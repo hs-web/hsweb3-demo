@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <title>编辑模板</title>
+    <script data-main="save.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        #basicForm td {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="mini-fit">
+    <div id="basicForm">
+        <table style="margin: auto;width: 100%">
+            <tbody>
+            <tr class="firstRow">
+                <td width="136" valign="middle" style="word-break: break-all;" align="right">
+                    模板标识:
+                </td>
+                <td width="527" valign="top" style="word-break: break-all;">
+                    <input required class="mini-textbox" style="width: 100%" name="id" require="true" widget-type="文本输入框">
+                </td>
+                <td width="167" valign="middle" style="word-break: break-all;" align="right">
+                    模板名称:
+                </td>
+                <td width="497" valign="top">
+                    <input required class="mini-textbox" style="width: 100%" name="name" widget-type="文本输入框">
+                </td>
+            </tr>
+            <tr>
+                <td width="136" valign="middle" align="right" style="word-break: break-all;">
+                    模板类型:
+                </td>
+                <td width="527" valign="top">
+                    <input required name="type" class="mini-combobox" data="types">
+                </td>
+                <td width="167" valign="middle" style="word-break: break-all;" align="right">
+                    模板分类:
+                </td>
+                <td width="497" valign="top">
+                    <input  class="mini-textbox" style="width: 100%" name="classified">
+                </td>
+            </tr>
+            <!--<tr>-->
+                <!--<td width="136" valign="middle" align="right" style="word-break: break-all;">-->
+                    <!--备注:-->
+                <!--</td>-->
+                <!--<td width="527" colspan="3" valign="top" style="word-break: break-all;">-->
+                    <!--<input style="width: 100%" name="remark" class="mini-textarea" widget-type="文本输入框">-->
+                <!--</td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+    <div id="editor" style="text-align: center;width: 100%; margin: auto" >
+
+    </div>
+    <div class="footer" style="width: 200px;margin: auto;">
+        <a class="mini-button preview" plain="true" iconCls="icon-find">预览</a>
+        <a class="mini-button ok" plain="true" iconCls="icon-ok">保存</a>
+    </div>
+</div>
+
+
+<div id="preview-window" allowResize="true" showToolbar="true" showModal="false" class="mini-window"
+     title="预览" style="width: 800px;height: 600px;">
+    <div id="preview" class="mini-fit">
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>模块配置</title>
+    <script data-main="edit-list-conf.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        #script-editor, #script-editor-w, #page-script-editor {
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+
+        fieldset legend {
+            font-size: 18px;
+        }
+
+        #condition-container {
+            font-size: 16px;
+        }
+
+        #condition-container div {
+            height: 30px;
+        }
+
+        /*#condition-container .mini-textbox-border{*/
+        /*border: 0;*/
+        /*border-bottom: 1px solid grey;*/
+        /*}*/
+    </style>
+</head>
+<body style="overflow-y: auto">
+<!--<fieldset style="border: 0;border-top:1px solid lightgrey; ">-->
+<!--<legend>基本信息</legend>-->
+<!--</fieldset>-->
+<!--<br>-->
+<!--<fieldset style="border: 0;border-top:1px solid lightgrey ">-->
+<!--<legend>页面配置</legend>-->
+<!--</fieldset>-->
+<div class="mini-fit">
+    <div class="mini-tabs" style="height: 100%">
+        <div title="基本配置">
+            <div id="basicSettingTable">
+                <table style="width: 100%;margin: auto" data-sort="sortDisabled">
+                    <tbody>
+                    <tr>
+                        <td valign="middle" style="word-break: break-all;width: 80px" align="right">
+                            <span style="font-size: 16px;">数据接口</span>
+                        </td>
+                        <td valign="top">
+                            <input class="mini-buttonedit" textName="url" emptyText="如: dynamic/form/operation/test_form" required name="url" style="width: 100%">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <fieldset style="border: 0;border-top:1px solid lightgrey; ">
+                <legend>工具栏 <a class="mini-button add-toolbar" iconCls="icon-add" plain="true"></a></legend>
+            </fieldset>
+            <div id="toolbar" class="mini-toolbar" style="padding:2px;height: 30px">
+                <div class="toolbar-container">
+
+                </div>
+            </div>
+            <br>
+            <fieldset style="border: 0;border-top:1px solid lightgrey;  ">
+                <legend>查询条件<a class="mini-button add-condition" plain="true" iconCls="icon-add"></a></legend>
+            </fieldset>
+            <div id="condition-container" class="mini-clearfix" style="margin: auto;">
+            </div>
+        </div>
+        <!--</div>-->
+        <!--<br>-->
+        <!--<fieldset style="border: 0;border-top:1px solid lightgrey ">-->
+        <!--<legend>表格配置</legend>-->
+        <!--</fieldset>-->
+
+        <!--<div class="mini-tabs">-->
+        <div title="列表配置">
+            <div id="list-datagrid" class="mini-treegrid" style="width:100%;height:100%;"
+                 allowResize="true" pageSize="20" showPager="false"
+                 allowCellEdit="true" allowCellSelect="true" multiSelect="true"
+                 editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="false"
+                 allowDrag="true" allowDrop="true" treeColumn="index" idField="field">
+                <div property="columns">
+                    <div type="indexcolumn" name="index" headerAlign="center" align="center" width="15">
+                        <span class="title-button icon-add" onclick="mini.get('list-datagrid').addNode({show:true})"></span>
+                    </div>
+                    <div field="field" width="40" headerAlign="center">字段
+                        <input property="editor" emptyText="接口返回的字段名,如: type" allowInput="true" class="mini-combobox"/>
+                    </div>
+                    <div field="displayField" width="40" headerAlign="center">显示字段
+                        <input property="editor" emptyText="单元格实际显示的字段,如: typeText" class="mini-textbox"/>
+                    </div>
+                    <div field="header" width="40" headerAlign="center">标题
+                        <input property="editor" class="mini-textbox" emptyText="表头"/>
+                    </div>
+                    <div field="width" width="20" headerAlign="center">宽度
+                        <input property="editor" class="mini-textbox"/>
+                    </div>
+                    <div name="condition" field="condition" align="center" width="20" headerAlign="center">显示条件
+                    </div>
+                    <div field="renderer" name="renderer" align="center" width="20" headerAlign="center">自定义渲染
+                    </div>
+                    <div name='action' width="20" align="center" headerAlign="center">操作
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div title="操作按钮配置">
+            <div id="list-operate-datagrid" class="mini-treegrid" style="width:100%;height:100%;"
+                 allowResize="true" pageSize="20" showPager="false"
+                 allowCellEdit="true" allowCellSelect="true" multiSelect="true"
+                 editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="false"
+                 allowDrag="true" allowDrop="true" treeColumn="index" idField="field">
+                <div property="columns">
+                    <div type="indexcolumn" name="index" headerAlign="center" align="center" width="10">
+                        <span class="title-button icon-add" onclick="mini.get('list-operate-datagrid').addNode({})"></span>
+                    </div>
+                    <div field="icon" width="40" headerAlign="center">图标
+                        <input property="editor" allowInput="true" onbuttonclick="selectIcon" class="mini-buttonedit"/>
+                    </div>
+                    <div field="text" width="40" headerAlign="center">标题
+                        <input property="editor" class="mini-textbox"/>
+                    </div>
+                    <div name="condition" field="condition" align="center" width="20" headerAlign="center">显示条件
+                    </div>
+                    <div name="onclick" align="center" field="onclick" width="20" headerAlign="center">点击事件
+                    </div>
+                    <div name='action' width="20" align="center" headerAlign="center">操作
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div title="自定义脚本">
+            <pre id="page-script-editor"></pre>
+        </div>
+    </div>
+
+    <div class="footer" style="width: 200px;margin: auto">
+        <a class="mini-button preview" plain="true" iconCls="icon-find">预览</a>
+        <a class="mini-button ok" plain="true" iconCls="icon-ok">完成</a>
+    </div>
+</div>
+
+<!--脚本编辑器-->
+<div id="script-editor-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="脚本编辑"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-script-editor" plain="true" iconCls="icon-ok">完成编辑</a>
+    </div>
+    <div class="mini-fit">
+        <pre class="script-editor-w" id="script-editor-w"></pre>
+    </div>
+</div>
+
+<!--工具栏编辑-->
+<div id="toolbar-editor" allowResize="true" showToolbar="true" showModal="false" class="mini-window" title="按钮设置"
+     style="width: 800px;height: 600px;">
+    <div property="toolbar" style="text-align:left;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-toolbar" plain="true" iconCls="icon-ok">保存</a>
+        <a class="mini-button remove-toolbar" plain="true" iconCls="icon-remove">删除</a>
+    </div>
+
+    <div id="toolbarEditorForm">
+        <table style="width: 100%;margin: auto" data-sort="sortDisabled">
+            <tbody>
+            <tr>
+                <td width="60" valign="middle" style="word-break: break-all;" align="right"><span style="font-size: 16px;">类型</span>
+                </td>
+                <td valign="top">
+                    <input class="mini-combobox" required textField="name" id='toolbarTypeList' name="type" style="width: 100%">
+                </td>
+                <td width="60" valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">权限</span>
+                </td>
+                <td width="168" valign="top">
+                    <input class="mini-textbox" emptyText="hasPermission('user','add')" name="autz" style="width: 100%">
+                </td>
+            </tr>
+            <tr class="firstRow">
+                <td width="60" valign="middle" style="word-break: break-all;" align="right">
+                    <span style="font-size: 16px;">图标</span>
+                </td>
+                <td width="123" valign="top">
+                    <input class="mini-buttonedit" onbuttonclick="selectIcon" textName="iconCls" name="iconCls" style="width: 100%">
+                </td>
+                <td width="60" valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">标题</span>
+                </td>
+                <td width="168" valign="top">
+                    <input class="mini-textbox" name="text" style="width: 100%">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <pre style="display: none" class="script-editor" id="script-editor"></pre>
+
+        <div id="toolbar-children-grid" class="mini-treegrid" style="width:100%;height:100%;display: none"
+             allowResize="false" showPager="false"
+             allowCellEdit="true" allowCellSelect="true" multiSelect="true"
+             editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="true"
+             allowDrag="true" allowDrop="true" iconField="iconCls" treeColumn="index" idField="field">
+            <div property="columns">
+                <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">#</div>
+                <div name="iconCls" field="iconCls" width="40" headerAlign="center">图标
+                    <input property="editor" allowInput="true" onbuttonclick="selectIcon" class="mini-buttonedit"/>
+                </div>
+                <div field="text" width="40" headerAlign="center">标题
+                    <input property="editor" class="mini-textbox"/>
+                </div>
+                <div field="autz" width="40" headerAlign="center">权限
+                    <input property="editor" class="mini-textbox" style="width: 250px"/>
+                </div>
+                <div name="onclick" field="onclick" align="center" width="40" headerAlign="center">点击事件
+                </div>
+                <div name='action' width="30" align="center" headerAlign="center">
+                    <span class="title-button" style="width: 30px">
+                                操作
+                            </span>
+                    <span class="title-button icon-add" onclick="mini.get('toolbar-children-grid').addNode({})"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查询条件编辑-->
+<div id="condition-editor" allowResize="true" showToolbar="true" showModal="false" class="mini-window"
+     title="查询条件设置" style="width: 800px;height: 600px;">
+    <div property="toolbar" style="text-align:left;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-condition" plain="true" iconCls="icon-ok">保存</a>
+        <a class="mini-button remove-condition" plain="true" iconCls="icon-remove">删除</a>
+    </div>
+
+    <div id="conditionEditorForm">
+        <table style="width: 100%;margin: auto" data-sort="sortDisabled">
+            <tbody>
+            <tr>
+                <td width="60" valign="middle" style="word-break: break-all;" align="right"><span style="font-size: 16px;">类型</span>
+                </td>
+                <td width="168" valign="top">
+                    <input class="mini-combobox" required textField="name" id='conditionTypeList' name="editor.type" style="width: 100%">
+                </td>
+                <td width="60" valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">权限</span>
+                </td>
+                <td width="168" valign="top">
+                    <input class="mini-textbox" emptyText="hasPermission('user','add')" name="autz" style="width: 100%">
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">标签</span>
+                </td>
+                <td valign="top">
+                    <input class="mini-textbox" name="text" style="width: 100%">
+                </td>
+                <td valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">提示</span>
+                </td>
+                <td valign="top">
+                    <input class="mini-textbox" name="editor.emptyText" style="width: 100%">
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">字段</span>
+                </td>
+                <td valign="top">
+                    <input class="mini-combobox" required allowInput="true" id="condition-field" name="field" style="width: 40%">
+                    条件
+                    <input class="mini-combobox" value="eq" allowInput="true" data="termType" name="termType" style="width: 40%">
+                </td>
+                <td valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">宽度</span>
+                </td>
+                <td valign="top">
+                    <input class="mini-combobox" textField="id" data="[{'id':3},{'id':6},{'id':9}]" name="size" style="width: 100%">
+                </td>
+            </tr>
+            <tr style="display: none" class="optional-condition condition-date">
+                <td valign="top" align="right" style="word-break: break-all;">
+                    <span style="font-size: 16px;">日期格式</span>
+                </td>
+                <td valign="top">
+                    <input class="mini-combobox"
+                           textField="id" value="yyyy-MM-dd"
+                           data="[{'id':'yyyy-MM-dd'},{'id':'yyyy-MM-dd HH:mm:ss'}]"
+                           name="editor.format" style="width: 100%">
+                </td>
+                <td valign="top" colspan="2" align="right" style="word-break: break-all;">
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="preview-window" allowResize="true" showToolbar="true" showModal="false" class="mini-window"
+     title="预览" style="width: 800px;height: 600px;">
+    <div id="preview" class="mini-fit">
+
+    </div>
+</div>
+
+</body>
+</html>

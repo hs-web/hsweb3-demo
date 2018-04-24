@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <title>表单设计器</title>
+    <script data-main="index.js" src="../../boot.js"></script>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #script-editor {
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+
+        .widget-editor-container {
+            display: none;
+        }
+
+    </style>
+</head>
+<body style="display: none">
+<div id="toolbar" class="mini-toolbar" style="padding:2px;border-bottom: 0">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:100%;">
+                <a class="mini-button menu-group-dev edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
+                <a class="mini-button menu-group-dev edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
+                <a class="mini-button menu-group-dev select-from-database" iconCls="icon-database" plain="true">从数据库中选择</a>
+                <span class="separator menu-group-dev"></span>
+                <a class="mini-button menu-group-user save-button" iconCls="icon-save" plain="true">保存</a>
+                <a class="mini-button menu-group-user copy-button" iconCls="icon-page-white-copy" plain="true">复制</a>
+                <a class="mini-button menu-group-user paste-button" iconCls="icon-page-white-paste" plain="true">粘贴</a>
+                <a class="mini-button menu-group-user preview-button" iconCls="icon-find" plain="true">预览</a>
+                <span class="separator"></span>
+                <a class="mini-button write-source-button" iconCls="icon-html-go" plain="true">生成源代码</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="mini-splitter" style="width:100%;height:100%;border: 0">
+    <div size="160" minSize="160" showCollapseButton="true">
+        <div class="mini-fit dynamic-form support-components-list">
+        </div>
+    </div>
+    <div showCollapseButton="false" style="border: 0">
+        <div class="mini-splitter" style="width:100%;height:100%;">
+            <div>
+                <div class="mini-fit dynamic-form main-panel components mini-clearfix" style="padding: 10px;">
+                </div>
+            </div>
+            <div size="250" showCollapseButton="true">
+                <div class="mini-fit">
+                    <div class="dynamic-form mini-clearfix" id="component-properties">
+
+                    </div>
+                    <div class="mini-fit">
+                        <div id="component-list" class="mini-listbox"
+
+                             style="width:100%;height:100%;">
+                            <div property="columns">
+                                <!--<div header="组件类型" headerAlign='center' field="type"></div>-->
+                                <div header="描述" width="80" headerAlign='center' align="center" field="name"></div>
+                                <div header="操作" width="20" headerAlign='center'name="action"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="widget-editor-container">
+    <input id="widget-editor-text" class="mini-textbox"/>
+    <input id="widget-editor-select" class="mini-combobox"/>
+    <input id="widget-editor-textarea" style="height: 300px" class="mini-textarea"/>
+</div>
+<div id="previewWindow" showModal="false" class="mini-window" title="预览" style="width: 80%;height: 80%">
+    <div class="mini-fit" id="preview"></div>
+</div>
+<!--脚本编辑器-->
+<div id="script-editor-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="脚本编辑"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-script-editor" plain="true" iconCls="icon-ok">完成</a>
+    </div>
+    <div class="mini-fit">
+        <pre class="script-editor" id="script-editor"></pre>
+    </div>
+</div>
+
+<!--控件选项编辑-->
+<div id="optional-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="控件选项"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-optional" plain="true" iconCls="icon-ok">完成编辑</a>
+    </div>
+    <div class="mini-fit dynamic-form mini-clearfix" id="option-form">
+        <div class="mini-col-12" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">选项来源</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" name="type" id="optionType" data="[{'id':'data','text':'配置'},{'id':'url','text':'接口'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">URL</label>
+                <div class="input-block">
+                    <input style="width: 100%" emptyText="接口地址,如: user" class="mini-textbox" name="url"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">请求方式</label>
+                <div class="input-block">
+                    <input name="textField" value="GET" style="width: 100%" textField="id" class="mini-combobox"
+                           data="[{'id':'GET'},{'id':'POST'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">标识字段</label>
+                <div class="input-block">
+                    <input name="idField" style="width: 100%" emptyText="标识选项唯一的字段,默认为:id" class="mini-textbox"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">文本字段</label>
+                <div class="input-block">
+                    <input name="textField" style="width: 100%" emptyText="选项显示的文本字段,默认为:text" class="mini-textbox" id="textField"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">数据字段</label>
+                <div class="input-block">
+                    <input name="dataField" style="width: 100%" emptyText="接口返回的数据字段,默认为:result" class="mini-textbox"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url-treeselect" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">树形结构</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-radiobuttonlist" value="false" name="resultAsTree" data="[{'id':'true','text':'是'},{'id':'false','text':'否'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-6 optional-setting optional-url-treeselect" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">父节点字段</label>
+                <div class="input-block">
+                    <input name="parentField" style="width: 100%" emptyText="默认为:parentId" class="mini-textbox"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mini-col-12 optional-setting optional-data" style="position: relative;">
+            <div class="form-item form-text">
+                <label class="form-label">选项配置</label>
+                <div class="input-block">
+                    <div id="operation-grid" class="mini-treegrid" style="width:100%;height:400px;"
+                         allowResize="false" showPager="false"
+                         allowCellEdit="true" allowCellSelect="true" multiSelect="true"
+                         editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="true"
+                         allowDrag="true" allowDrop="true" iconField="iconCls" treeColumn="index" idField="field">
+                        <div property="columns">
+                            <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">序号(拖动排序)</div>
+                            <div field="id" name="id" width="40" headerAlign="center">标识
+                                <input property="editor" class="mini-textbox"/>
+                            </div>
+                            <div field="text" width="40" headerAlign="center">选项
+                                <input property="editor" class="mini-textbox"/>
+                            </div>
+                            <div name='action' width="30" align="center" headerAlign="center">
+                                <span class="title-button" style="width: 30px">
+                                操作
+                                </span>
+                                <span class="title-button icon-add add-operation-data"onclick="addOperationData()"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div title="选择数据库表" showFooter="true" showToolBar="true" allowResize="true" class="mini-window" id="database-window"
+     style="width: 800px;height: 600px">
+    <div property="footer" style="padding:5px;text-align: right">
+        <a class="mini-button choose-database" plain="true" iconCls="fa fa-check">确定</a>
+    </div>
+    <div property="toolbar" style="padding: 5px">
+        数据源:<input class="mini-combobox" style="width: 400px" allowInput="true" name="datasource"/>
+    </div>
+    <div class="mini-fit">
+        <div id="database-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
+             editNextOnEnterKey="true" showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
+            <div property="columns">
+                <div name="name" field="name" width="120" headerAlign="center" align="left">名称
+                    <input id="nameFilter" emptyText="按名称搜索" property="filter" class="mini-textbox" style="width:100%;"
+                           onvaluechanged="onFilterChanged"/>
+                </div>
+                <div name="dataType" field="dataType" width="120" headerAlign="center" align="center">类型
+                </div>
+                <div field="comment" width="120" headerAlign="center" align="center">备注
+                    <input id="commentFilter" emptyText="按备注搜索" property="filter" class="mini-textbox" style="width:100%;"
+                           onvaluechanged="onFilterChanged"/>
+                </div>
+                <div name="action" width="50" headerAlign="center" align="center">操作
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

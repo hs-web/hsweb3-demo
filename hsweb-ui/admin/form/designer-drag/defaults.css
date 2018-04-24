@@ -1,0 +1,199 @@
+
+.dynamic-form .form-item {
+    width: 99%;
+    min-height: 28px;
+}
+
+.dynamic-form .mini-col-12 .form-item{
+    width: 99.7%;
+}
+
+.dynamic-form .child-form {
+    border: 1px solid #ddd;
+}
+
+.dynamic-form .form-component legend {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.dynamic-form .form-hidden {
+    display: none;
+    color: grey;
+}
+
+.dynamic-form .hide-label .form-label{
+    display: none;
+}
+.dynamic-form .form-label {
+    float: left;
+    display: block;
+    padding: 9px 15px;
+    width: 80px;
+    font-weight: 400;
+    line-height: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background: #FBFBFB;
+    /*border-right: 0px;*/
+}
+
+.dynamic-form .simple-form-label {
+    display: block;
+    padding: 9px 6px;
+    font-weight: 400;
+    line-height: 10px;
+}
+.dynamic-form .table .simple-form-label {
+    border: 0;
+    background: none;
+}
+
+.dynamic-form .input-block .mini-textbox-border {
+    border-left: 0px;
+}
+
+.dynamic-form .input-block .mini-buttonedit-border {
+    border-left: 0px;
+}
+
+.dynamic-form .form-text .input-block .mini-textbox-border {
+    border-left: 1px solid #ddd;;
+}
+
+.dynamic-form .form-text .input-block .mini-buttonedit-border {
+    border-left: 1px solid #ddd;;
+}
+
+/*多选框*/
+.dynamic-form .mini-list-inner {
+    margin-left: 5px;
+}
+
+.dynamic-form .mini-checkboxlist, .mini-radiobuttonlist {
+    line-height: 26px;
+}
+
+
+.dynamic-form .form-text .form-label {
+    float: none;
+    width: 100%;
+    border-radius: 2px;
+    box-sizing: border-box;
+    text-align: left;
+    border-bottom: 0;
+}
+
+.dynamic-form .input-block {
+    position: relative;
+    margin-left: 112px
+}
+
+.dynamic-form .form-item {
+    margin-top: 5px;
+}
+
+.dynamic-form .form-text .input-block {
+    margin-left: 0px;
+}
+
+.dynamic-form .table .form-component {
+    border: 0;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    border-right: 1px solid black;
+    /*display: table;*/
+    box-sizing: border-box;
+    position: relative;
+}
+
+.dynamic-form .table {
+    border: 1px solid black;
+    border-right: 0;
+    border-bottom: 0;
+    position: relative;
+    /*padding: 0 1px 1px 0;*/
+    margin: 0;
+    overflow: hidden;
+    width: 99.99999%;
+}
+
+/*.dynamic-form .table:after {*/
+/*content: '';*/
+/*display: block;*/
+/**/
+/*}*/
+
+.dynamic-form .table .form-label {
+    background: none;
+    border: 0;
+    border-right: 1px solid black;
+}
+
+.dynamic-form .table .component-body {
+    /*vertical-align: middle;*/
+    /*display: table-cell;*/
+}
+
+.dynamic-form .table .form-item {
+    margin-top: 0;
+}
+
+.dynamic-form .table .mini-textbox-border,
+.dynamic-form .table .mini-textbox-input,
+.dynamic-form .table .mini-buttonedit-border,
+.dynamic-form .table .mini-buttonedit-input,
+.dynamic-form .table .mini-textboxlist-border {
+    border: 0;
+    background: none;
+    cursor: default;
+}
+
+.dynamic-form .table .mini-textbox-input {
+    /*border-bottom: 1px solid #dddddd;*/
+}
+
+.dynamic-form .table .mini-buttonedit-button,
+.dynamic-form .table .mini-textboxlist-close {
+    /*display:none;*/
+}
+
+.dynamic-form .table .mini-textboxlist-item {
+    padding-right: 8px;
+}
+
+.dynamic-form .table .form-text .form-label {
+    border: 0;
+}
+
+.dynamic-form .table .form-text .input-block .mini-textbox-border {
+    border: 0;
+}
+.dynamic-form .webuploader-container {
+    position: relative;
+}
+.dynamic-form .webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.dynamic-form .webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #00b7ee;
+    padding: 5px 8px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.dynamic-form .webuploader-pick-hover {
+    background: #00a2d4;
+}
+
+.dynamic-form .webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events:none;
+}
+

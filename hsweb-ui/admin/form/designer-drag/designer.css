@@ -1,0 +1,16 @@
+.mini-outlookbar-border {
+    border: 0;
+}
+
+.mini-splitter {
+    border: 0;
+}
+
+.dynamic-form .form-hidden {
+    display: block;
+}
+
+.edit-focus {
+    /*border: 1px solid red;*/
+    color: red;
+}

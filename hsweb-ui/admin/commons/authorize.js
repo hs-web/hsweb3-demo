@@ -4,9 +4,22 @@ define(["request", "jquery"], function (request, $) {
     }
     var autz = window.top._autz = {};
 
+    autz.hasPermission = function () {
+        return true;
+    };
+    autz.hasRole = function () {
+        return true;
+    };
+    autz.hasFieldAccess = function () {
+        return true;
+    };
+    autz.parse = function () {
+
+    };
+
     function init(onSuccess) {
         var authInfo = request.get("authorize/me");
-        if (authInfo&&authInfo.status == 200) {
+        if (authInfo && authInfo.status === 200) {
             authInfo = authInfo.result;
 
             autz.user = authInfo.user;
@@ -21,14 +34,14 @@ define(["request", "jquery"], function (request, $) {
                 rowMap[this.id] = this;
             });
             autz.hasPermission = function () {
-                if (arguments.length == 0)return true;
+                if (arguments.length === 0) return true;
                 var permission = arguments[0];
                 //用户持有的权限
                 var per = permissionMap[permission];
-                if (!per)return false;
-                if (arguments.length == 1)return true;
+                if (!per) return false;
+                if (arguments.length === 1) return true;
                 for (var i = 1; i < arguments.length; i++) {
-                    if (per.actions.indexOf(arguments[i]) != -1) {
+                    if (per.actions.indexOf(arguments[i]) !== -1) {
                         return true;
                     }
                 }
@@ -36,21 +49,21 @@ define(["request", "jquery"], function (request, $) {
             };
             autz.hasRole = function () {
                 for (var i = 1; i < arguments.length; i++) {
-                    if (rowMap[arguments[i]])return true;
+                    if (rowMap[arguments[i]]) return true;
                 }
                 return false;
             };
             autz.hasFieldAccess = function () {
-                if (arguments.length == 0)return true;
+                if (arguments.length === 0) return true;
                 var permission = arguments[0];
                 var per = permissionMap[permission];
-                if (!per)return false;
+                if (!per) return false;
                 var access = true;
-                if (arguments.length != 3)return true;
+                if (arguments.length !== 3) return true;
                 var arg = arguments;
                 $(per.dataAccesses).each(function () {
-                    if (this.type == "DENY_FIELDS" && this.action == arg[1]) {
-                        if (this.fields && this.fields.indexOf(arg[2]) != -1) {
+                    if (this.type === "DENY_FIELDS" && this.action === arg[1]) {
+                        if (this.fields && this.fields.indexOf(arg[2]) !== -1) {
                             access = false;
                         }
                     }
@@ -77,6 +90,7 @@ define(["request", "jquery"], function (request, $) {
                 onSuccess();
         }
     }
+
     init();
     autz.init = init;
     return autz;
