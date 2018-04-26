@@ -34,7 +34,7 @@ window.renderAction = function (e) {
 window.renderAction = function (e) {
     var html = [];
     var row = e.record;
-    html.push(tools.createActionButton("添加子菜单", "icon-add", function () {
+    html.push(tools.createActionButton("添加子菜单", "fa fa-plus-circle text-success", function () {
         var sortIndex = row.sortIndex ? (row.sortIndex + "0" + (row.chidren ? row.chidren.length + 1 : 1)) : 1;
         grid.addNode({sortIndex: sortIndex}, row.chidren ? row.chidren.length : 0, row);
     }));
@@ -59,7 +59,7 @@ window.renderAction = function (e) {
             });
         }));
     }
-    html.push(tools.createActionButton("删除菜单", "icon-remove", function () {
+    html.push(tools.createActionButton("删除菜单", "fa fa-times text-danger", function () {
         if (row._state == "added") {
             e.sender.removeNode(row);
         } else {

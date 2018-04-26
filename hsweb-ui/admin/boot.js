@@ -117,14 +117,15 @@ function importMiniui(callback) {
             callback();
             return;
         }
-        var theme = getCookie("theme", window.miniui_theme ? window.miniui_theme : "pure");
-        var mode = 'large';//getCookie("mode", "large");// window.outerHeight > 1000 ? "large" : "medium");
+        var theme = getCookie("theme", window.miniui_theme ? window.miniui_theme : "worry");
+        var mode = 'my';//getCookie("mode", "large");// window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
             importResource(BASE_PATH + "plugins/miniui/themes/default/miniui.css");
             importResource(BASE_PATH + "plugins/miniui/themes/icons.css");
             importResource(BASE_PATH + 'plugins/miniui/themes/' + theme + '/skin.css');
             importResource(BASE_PATH + "plugins/miniui/themes/default/" + mode + "-mode.css");
+            importResource(BASE_PATH + "plugins/font-awesome/4.7.0/css/font-awesome.min.css");
             $.ajax({
                 url: BASE_PATH + "plugins/miniui/miniui.js",
                 async: false,

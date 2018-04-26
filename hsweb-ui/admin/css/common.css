@@ -7,6 +7,22 @@ html, body {
     overflow: hidden;
 }
 
+.text-default {
+    color: rgba(0,0,0,0.65) !important;
+}
+.text-primary {
+    color: #1890ff !important;
+}
+.text-danger {
+    color: #d9534f !important;
+}
+.text-success {
+    color: #5cb85c !important;
+}
+.text-warning {
+    color: #f0ad4e !important;
+}
+
 .basic-info {
     margin: auto;
 }
@@ -27,7 +43,7 @@ html, body {
 }
 
 .action-button {
-    font-size: 16px;
+    font-size: 16px !important;
     cursor: pointer;
     display: inline-block;
     line-height: 16px;
@@ -35,10 +51,7 @@ html, body {
     width: 16px;
     height: 16px;
     background-position: 50% 50%;
-}
-
-.mini-grid-headerCell-inner {
-    font-weight: bold;
+    color: #1890ff;
 }
 
 .label {
@@ -47,3 +60,4 @@ html, body {
 .search-container{
     margin: auto;
 }
+
