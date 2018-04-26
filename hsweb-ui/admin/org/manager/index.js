@@ -85,12 +85,20 @@ importMiniui(function () {
             //操作栏的按钮
             department_grid.getColumn("action").renderer = function (e) {
                 var html = [];
+                var row = e.record;
                 html.push(tools.createActionButton("添加子部门", "icon-add", function () {
                     goSaveDepartmentPage(null, e.record);
                 }));
                 html.push(tools.createActionButton("编辑", "icon-edit", function () {
                     goSaveDepartmentPage(e.record, e.sender.getParentNode(e.record));
                 }));
+                html.push(
+                    tools.createActionButton("部门赋权", "icon-find", function () {
+                        tools.openWindow("admin/autz-settings/setting.html?priority=30&merge=true&type=department&settingFor=" + row.id,
+                            "部门赋权-" + row.name, "800", "600", function () {
+                            });
+                    })
+                );
                 return html.join("");
             };
             //点击表格时的操作
@@ -166,12 +174,20 @@ importMiniui(function () {
             //操作栏的按钮
             position_grid.getColumn("action").renderer = function (e) {
                 var html = [];
+                var row =e.record;
                 html.push(tools.createActionButton("添加子级岗位", "icon-add", function () {
                     goSavePositionPage(null, e.record);
                 }));
                 html.push(tools.createActionButton("编辑", "icon-edit", function () {
                     goSavePositionPage(e.record, e.sender.getParent(e.record));
                 }));
+                html.push(
+                    tools.createActionButton("岗位赋权", "icon-find", function () {
+                        tools.openWindow("admin/autz-settings/setting.html?priority=30&merge=true&type=person&settingFor=" + row.id,
+                            "岗位赋权-" + row.name, "800", "600", function () {
+                            });
+                    })
+                );
                 return html.join("");
             };
             //点击表格时的操作

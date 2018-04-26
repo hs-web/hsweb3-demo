@@ -54,6 +54,13 @@ window.renderAction = function (e) {
             grid.addNode({sortIndex: sortIndex}, row.chidren ? row.chidren.length : 0, row);
         }));
     }
+    html.push(
+        tools.createActionButton("机构赋权", "icon-find", function () {
+            tools.openWindow("admin/autz-settings/setting.html?priority=40&merge=true&type=org&settingFor=" + row.id,
+                "机构赋权-" + row.name, "800", "600", function () {
+                });
+        })
+    );
     if (row._state == "added" || row._state == "modified") {
         html.push(tools.createActionButton("保存", "icon-save", function () {
             var api = "organizational/";
