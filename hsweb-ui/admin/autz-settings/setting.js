@@ -11,6 +11,9 @@ importMiniui(function () {
         window.tools = tools;
         var type = request.getParameter("type");
         var settingFor = request.getParameter("settingFor");
+        var merge = request.getParameter("merge");
+        var priority = request.getParameter("priority");
+
         if (!type || !settingFor) {
             message.showTips("参数错误!", "danger");
             return;
@@ -20,10 +23,10 @@ importMiniui(function () {
         $(".save-button").on("click", function () {
             var loading = message.loading("提交中...");
             saveDataAccess();
-            var data = getData(type, settingFor);
+            var data = getData(type, settingFor, merge, priority);
             request.patch("autz-setting", data, function (response) {
                 loading.hide();
-                if (response.status == 200) {
+                if (response.status === 200) {
                     message.showTips("保存成功");
                 } else {
                     message.showTips("保存失败:" + response.message, "danger");
@@ -119,6 +122,7 @@ function autoHideChooseMenu() {
     });
     menuGrid.loadList(list);
 }
+
 function initPermissionData(details) {
     if (details) {
         var list = [];
@@ -136,8 +140,9 @@ function initPermissionData(details) {
             $(detail.dataAccesses).each(function () {
                 detail.dataAccessesMap[this.action + this.type] = this;
             });
+
             function isChecked(action, field) {
-                if (detail.actions.indexOf(action) == -1)return false;
+                if (detail.actions.indexOf(action) == -1) return false;
                 if (field) {
                     var dataAccess = detail.dataAccessesMap[action + "DENY_FIELDS"];
                     if (dataAccess) {
@@ -155,7 +160,7 @@ function initPermissionData(details) {
                 var dataAccesses = [];
                 if (detail.dataAccesses) {
                     $(detail.dataAccesses).each(function () {
-                        if (this.type == "DENY_FIELDS")return;
+                        if (this.type == "DENY_FIELDS") return;
                         if (this.action == action.action)
                             dataAccesses.push(this);
                     });
@@ -186,6 +191,7 @@ function initPermissionData(details) {
         mini.get("permission-setting-grid").loadData(list);
     }
 }
+
 function getSelectMenuPermission() {
     var selectMenus = mini.get("menu-setting-grid").getList();
     var permissions = [];
@@ -202,7 +208,8 @@ function getSelectMenuPermission() {
     });
     return mini.clone(permissions);
 }
-function getPermissionData() {
+
+function getPermissionData(merge, priority) {
     var data = mini.get("permission-setting-grid").getData();
     var list = [];
     $(data).each(function () {
@@ -221,7 +228,7 @@ function getPermissionData() {
                     if (!this.checked)
                         denyField.push(this.field);
                 });
-                if (denyField.length == action.children.length && !action.checked) {
+                if (denyField.length === action.children.length && !action.checked) {
                     return;
                 }
                 //没有全部进行勾选,则进行deny操作
@@ -253,15 +260,22 @@ function getPermissionData() {
             tmp.push(dataAccesses[action]);
         }
         //create data access
-        list.push({permissionId: this.permissionId, actions: actions, dataAccesses: tmp});
+        list.push({
+            permissionId: this.permissionId,
+            actions: actions,
+            dataAccesses: tmp,
+            merge: merge,
+            priority: priority ? priority : 0
+        });
     });
     return list;
 }
+
 function initPermissionTabActive() {
     var tab = mini.get("tabs");
     tab.on("beforeactivechanged", function (e) {
         var tab = e.tab;
-        if (tab.name == "permissionSetting") {
+        if (tab.name === "permissionSetting") {
             var menuPermissions = getSelectMenuPermission();
             var list = [];
             var tmp = [];
@@ -274,12 +288,13 @@ function initPermissionTabActive() {
                     dataAccessesMap[this.action + this.type] = this;
                 });
             });
+
             function isChecked(permission, action, field) {
-                if (old.length == 0)return true;
+                if (old.length === 0) return true;
                 var oldPer = dataMap[permission];
-                if (!oldPer)return true;
+                if (!oldPer) return true;
                 if (field) {
-                    if (!(oldPer.actions.indexOf(action) > -1))return false;
+                    if (!(oldPer.actions.indexOf(action) > -1)) return false;
                     var dataAccess = oldPer.dataAccessesMap[action + "DENY_FIELDS"];
                     if (dataAccess) {
                         return !(mini.decode(dataAccess.config).fields.indexOf(field) > -1);
@@ -291,7 +306,7 @@ function initPermissionTabActive() {
             }
 
             $(menuPermissions).each(function () {
-                if (tmp.indexOf(this.id) != -1)return;
+                if (tmp.indexOf(this.id) !== -1) return;
                 var actions = [];
                 var permission = this;
                 var optionalFields = this.optionalFields;
@@ -303,7 +318,7 @@ function initPermissionTabActive() {
                     var dataAccesses = [];
                     if (oldPer && oldPer.dataAccesses) {
                         $(oldPer.dataAccesses).each(function () {
-                            if (this.type == "DENY_FIELDS")return;
+                            if (this.type == "DENY_FIELDS") return;
                             if (this.action == action.action)
                                 dataAccesses.push(this);
                         });
@@ -336,7 +351,9 @@ function initPermissionTabActive() {
         }
     });
 }
+
 var nowSelectPermission;
+
 function saveDataAccess(applyChildren) {
     var allType = [];
     $(".data-access-table input").each(function () {
@@ -403,6 +420,7 @@ function saveDataAccess(applyChildren) {
         }
     });
 }
+
 function loadCustomSettingGrid() {
     require(["request"], function (request) {
         var list = [];
@@ -424,7 +442,7 @@ function loadCustomSettingGrid() {
                     data.children = [];
                     list.push(data);
                 });
-                if (orgIds.length == 0)return;
+                if (orgIds.length == 0) return;
                 //加载部门,一次性使用in查询出来
                 request.createQuery("department").where()
                     .noPaging()
@@ -477,6 +495,7 @@ function loadCustomSettingGrid() {
         });
     });
 }
+
 function initDataAccessSetting(e) {
     $(".apply-all").hide();
     $(".data-access-table").show();
@@ -510,7 +529,7 @@ function initDataAccessSetting(e) {
         });
         customGrid.filter(function (row) {
             for (var i = 0; i < supportDataAccessTypes.length; i++) {
-                if ((supportDataAccessTypes[i]).indexOf(row.type + "_") != -1) {
+                if ((supportDataAccessTypes[i]).indexOf(row.type + "_") !== -1) {
                     return true;
                 }
             }
@@ -525,7 +544,7 @@ function initDataAccessSetting(e) {
             if (this.type) {
                 $("input[access-type=" + (this.type) + "]").prop("checked", true);
                 var type = this.type;
-                if (this.type.indexOf("CUSTOM_SCOPE") != -1) {
+                if (this.type.indexOf("CUSTOM_SCOPE") !== -1) {
                     customGrid.setEnabled(true);
                     customGrid.setShowCheckBox(true);
                     //加载选中的自定义信息
@@ -557,6 +576,7 @@ function initDataAccessSetting(e) {
     }
 
 }
+
 function initData(type, settingFor) {
     loadCustomSettingGrid();
     require(["request", "miniui-tools", "message"], function (request, tools, message) {
@@ -566,7 +586,7 @@ function initData(type, settingFor) {
             if (settingFor) {
                 request.get("autz-setting/" + type + "/" + settingFor, function (response) {
                     loading.hide();
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         if (!response.result) {
                             return;
                         }
@@ -590,14 +610,14 @@ function initData(type, settingFor) {
         }
 
         request.get("menu?paging=false", function (response) {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 menuList = response.result.data;
                 $(menuList).each(function () {
                     menuMap[this.id] = this;
                 });
                 mini.get("menu-grid").loadList(menuList);
                 request.get("permission?paging=false", function (response) {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         permissionList = response.result.data;
                         $(permissionList).each(function () {
                             permissionMap[this.id] = this;
@@ -616,10 +636,12 @@ function initData(type, settingFor) {
     });
 }
 
-function getData(type, settingFor) {
+function getData(type, settingFor, merge, priority) {
     var data = {type: type, settingFor: settingFor};
     data.menus = mini.get("menu-setting-grid").getData();
-    var details = getPermissionData();
+    var details = getPermissionData(merge, priority);
     data.details = details;
+    data.merge = merge;
+    data.priority = priority;
     return data;
 }
