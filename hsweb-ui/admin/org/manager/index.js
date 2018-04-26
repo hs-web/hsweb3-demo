@@ -183,7 +183,7 @@ importMiniui(function () {
                 }));
                 html.push(
                     tools.createActionButton("岗位赋权", "icon-find", function () {
-                        tools.openWindow("admin/autz-settings/setting.html?priority=30&merge=true&type=person&settingFor=" + row.id,
+                        tools.openWindow("admin/autz-settings/setting.html?priority=30&merge=true&type=position&settingFor=" + row.id,
                             "岗位赋权-" + row.name, "800", "600", function () {
                             });
                     })
@@ -222,11 +222,17 @@ importMiniui(function () {
             };
             person_grid.getColumn("action").renderer = function (e) {
                 var html = [];
-
+                var row = e.record;
                 html.push(tools.createActionButton("编辑", "icon-edit", function () {
                     tools.openWindow("admin/org/manager/person/save.html?id=" + e.record.id, "编辑人员", 800, 650, loadPerson);
                 }));
-
+                html.push(
+                    tools.createActionButton("人员赋权", "icon-find", function () {
+                        tools.openWindow("admin/autz-settings/setting.html?priority=30&merge=true&type=person&settingFor=" + row.id,
+                            "人员赋权-" + row.name, "800", "600", function () {
+                            });
+                    })
+                );
                 return html.join("");
             }
             $(".add-person").on("click", function () {
