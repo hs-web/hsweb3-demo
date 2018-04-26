@@ -41,7 +41,7 @@ window.renderAction = function (e) {
     ];
     html.push(
         tools.createActionButton("角色赋权", "icon-find", function () {
-            tools.openWindow("admin/autz-settings/setting.html?type=role&settingFor=" + row.id, "角色赋权-" + row.name, "800", "600", function () {
+            tools.openWindow("admin/autz-settings/setting.html?priority=20&merge=true&type=role&settingFor=" + row.id, "角色赋权-" + row.name, "800", "600", function () {
 
             });
         })

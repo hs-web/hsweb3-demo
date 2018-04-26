@@ -39,7 +39,7 @@ importMiniui(function () {
             ];
             html.push(
                 tools.createActionButton("用户赋权", "icon-find", function () {
-                    tools.openWindow("admin/autz-settings/setting.html?priority=10&merge=false&type=user&settingFor=" + row.id,
+                    tools.openWindow("admin/autz-settings/setting.html?priority=10&merge=true&type=user&settingFor=" + row.id,
                         "用户赋权-" + row.name, "800", "600", function () {
                         });
                 })
