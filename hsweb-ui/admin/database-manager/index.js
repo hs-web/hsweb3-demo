@@ -69,7 +69,7 @@ importMiniui(function () {
 
         var templateMap = {};
 
-        importResource('/plugins/miniui/themes/bootstrap/skin.css');
+        // importResource('/plugins/miniui/themes/bootstrap/skin.css');
 
         function changeTx(tab) {
             var commitTxButton = $("#commit_tx").unbind("click");

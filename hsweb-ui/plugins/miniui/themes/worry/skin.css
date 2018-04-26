@@ -835,7 +835,7 @@ a:hover.mini-calendar-menu-year {
 .mini-grid .mini-grid-summaryCell {
     font-size: 13px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    border-right: 1px solid transparent;
+    border-right: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
 
 }
@@ -850,7 +850,7 @@ a:hover.mini-calendar-menu-year {
 }
 
 .mini-grid-row:last-child .mini-grid-cell {
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid #e6e6e6;
 }
 
 body .mini-grid-row-hover {
@@ -1066,7 +1066,9 @@ body .mini-pager-num {
 }
 
 /* tree */
-
+.mini-tree-treecell .mini-grid-cell-inner {
+    padding: 4px 0;
+}
 .mini-tree-folder,
 .mini-tree-expand .mini-tree-folder,
 .mini-tree-leaf {
@@ -1089,6 +1091,7 @@ body .mini-pager-num {
 .mini-tree-nodeshow {
     border-color: transparent !important;
     background: transparent !important;
+    vertical-align: middle;
 }
 
 .mini-tree-leaf:before {
@@ -1119,17 +1122,18 @@ body .mini-pager-num {
 .mini-tree-collapse .mini-tree-node-ecicon,
 .mini-tree-expand .mini-tree-node-ecicon {
     background: none;
-    font: normal normal normal 15px/21px FontAwesome;
+    font: normal normal normal 15px/29px FontAwesome;
     color: #72a7cf;
     text-align: center;
     text-decoration: none;
+    vertical-align: middle;
 }
 
 .mini-tree-selectedNode .mini-tree-collapse .mini-tree-node-ecicon-first,
 .mini-tree-selectedNode .mini-tree-collapse .mini-tree-node-ecicon,
 .mini-tree-selectedNode .mini-tree-expand .mini-tree-node-ecicon-first,
 .mini-tree-selectedNode .mini-tree-expand .mini-tree-node-ecicon {
-    color: #fff;
+    /*color: #fff;*/
 }
 
 .mini-tree-treeLine .mini-tree-collapse .mini-tree-node-ecicon-first:before,
@@ -1146,7 +1150,7 @@ body .mini-pager-num {
 
 .mini-tree-nodes-tr .mini-tree-node-ecicon {
     position: relative;
-    top: -7px;
+    vertical-align: middle;
 }
 
 .mini-tree-checkbox {
@@ -1172,6 +1176,7 @@ body .mini-pager-num {
 .mini-tree-treeLine .mini-tree-node-ecicon,
 .mini-tree-treeLine .mini-tree-indent {
     background: transparent;
+    vertical-align: middle;
 }
 
 body .mini-tree-showArrows .mini-tree-expand .mini-tree-node-ecicon {
@@ -1346,6 +1351,7 @@ body .mini-tabs-plain .mini-tabs-headers {
 
 .mini-tab-close-hover {
     color: rgba(0,0,0,0.85);
+    background: none;
 }
 
 .mini-tab-close:before {

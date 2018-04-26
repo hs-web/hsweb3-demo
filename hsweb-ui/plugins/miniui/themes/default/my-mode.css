@@ -226,7 +226,7 @@ td{
 .mini-tree-indent
 {         
     height:29px;
-    padding:4px 0;
+    vertical-align: middle;
 }
 .mini-tree .mini-tree-icon
 {         

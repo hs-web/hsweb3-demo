@@ -28,10 +28,11 @@
 .dynamic-form .form-label {
     float: left;
     display: block;
-    padding: 9px 15px;
+    padding: 0 15px;
     width: 80px;
     font-weight: 400;
-    line-height: 10px;
+    line-height: 30px;
+    height:30px;
     text-align: center;
     border: 1px solid #ddd;
     background: #FBFBFB;
@@ -40,9 +41,10 @@
 
 .dynamic-form .simple-form-label {
     display: block;
-    padding: 9px 6px;
+    padding: 0 6px;
     font-weight: 400;
-    line-height: 10px;
+    line-height: 30px;
+    height:30px;
 }
 .dynamic-form .table .simple-form-label {
     border: 0;
