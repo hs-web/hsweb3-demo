@@ -79,7 +79,11 @@
                 createEditor: function (component, text, value) {
                     var checkbox = $("<input class='mini-radiobuttonlist' name='required' value='" + value + "'>");
 
-                    checkbox.attr("data", JSON.stringify([{id: "required", text: "是"}, {id: 'undefined', checked: true, text: "否"}]));
+                    checkbox.attr("data", JSON.stringify([{id: "required", text: "是"}, {
+                        id: 'undefined',
+                        checked: true,
+                        text: "否"
+                    }]));
                     return checkbox;
                 }
             }
@@ -156,7 +160,11 @@
             value: value,
             createEditor: function (component, text, value) {
                 var checkbox = $("<input class='mini-radiobuttonlist' name='" + id + "' value='" + value + "'>");
-                checkbox.attr("data", JSON.stringify([{id: "true", text: "是"}, {id: 'false', checked: true, text: "否"}]));
+                checkbox.attr("data", JSON.stringify([{id: "true", text: "是"}, {
+                    id: 'false',
+                    checked: true,
+                    text: "否"
+                }]));
                 return checkbox;
             }
         }
@@ -248,7 +256,9 @@
                     });
                 return container;
             };
-            Hidden.icon="iconfont icon-zhanweifuplaceholder20";
+            Hidden.prototype.typeName = "占位";
+
+            Hidden.icon = "iconfont icon-zhanweifuplaceholder20";
             componentRepo.registerComponent("hidden", Hidden);
         }
         /**fieldset**/
@@ -287,7 +297,8 @@
                     });
                 return container;
             };
-            FieldSet.icon="iconfont icon-fengefu";
+            FieldSet.icon = "iconfont icon-fengefu";
+            FieldSet.prototype.typeName = "分割";
 
             componentRepo.registerComponent("fieldset", FieldSet);
         }
@@ -309,7 +320,7 @@
                         id: "bodyHeight",
                         text: "高度",
                         value: 1,
-                        comment:"设置为最小值,高度为自动",
+                        comment: "设置为最小值,高度为自动",
                         createEditor: function (component, text, value, call) {
                             if (!value) {
                                 value = 1;
@@ -335,7 +346,7 @@
                     {
                         id: "fontSize",
                         text: "字体大小",
-                        value: 14,
+                        value: 12,
                         createEditor: function (component, text, value, call) {
                             if (!value) {
                                 value = 1;
@@ -344,7 +355,7 @@
                             html.slider({
                                 orientation: "horizontal",
                                 range: "min",
-                                min: 14,
+                                min: 12,
                                 max: 30,
                                 value: parseInt(value),
                                 slide: function () {
@@ -448,7 +459,9 @@
                     });
                 return container;
             };
-        Text.icon="iconfont icon-biaoqian";
+            Text.prototype.typeName = "文本标签";
+
+            Text.icon = "iconfont icon-biaoqian";
             componentRepo.registerComponent("text", Text);
         }
 
@@ -462,7 +475,9 @@
 
         {
             createClass(TextBox);
-            TextBox.icon="iconfont icon-danhangshurukuang";
+            TextBox.icon = "iconfont icon-danhangshurukuang";
+            TextBox.prototype.typeName = "单行文本";
+
             TextBox.prototype.render = function () {
                 var me = this;
 
@@ -596,7 +611,7 @@
                         id: "bodyHeight",
                         text: "高度",
                         value: "50",
-                        comment:"设置为最小值,高度为自动",
+                        comment: "设置为最小值,高度为自动",
                         createEditor: function (component, text, value, call) {
                             var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
                             html.slider({
@@ -618,7 +633,9 @@
             }
 
             createClass(TextArea, TextBox);
-            TextArea.icon="iconfont icon-duohangshurukuang";
+            TextArea.icon = "iconfont icon-duohangshurukuang";
+            TextArea.prototype.typeName = "多行文本";
+
             componentRepo.registerComponent("textarea", TextArea);
         }
 
@@ -634,7 +651,9 @@
 
             createClass(Password, TextBox);
 
-            Password.icon="iconfont icon-mima";
+            Password.prototype.typeName = "密码文本";
+
+            Password.icon = "iconfont icon-mima";
             componentRepo.registerComponent("password", Password);
         }
 
@@ -651,8 +670,9 @@
             }
 
             createClass(RadioBox, TextBox);
+            RadioBox.prototype.typeName = "单选";
 
-            RadioBox.icon="iconfont icon-biaodankongjiandanxuan";
+            RadioBox.icon = "iconfont icon-biaodankongjiandanxuan";
             componentRepo.registerComponent("radio", RadioBox);
         }
 
@@ -669,7 +689,9 @@
             }
 
             createClass(CheckBox, TextBox);
-            CheckBox.icon="iconfont icon-biaodankongjianfuxuan";
+            CheckBox.prototype.typeName = "多选";
+
+            CheckBox.icon = "iconfont icon-biaodankongjianfuxuan";
             componentRepo.registerComponent("checkbox", CheckBox);
         }
 
@@ -690,7 +712,9 @@
                 //     value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 // });
             }
-            Combobox.icon="iconfont icon-xialakongjian";
+
+            Combobox.icon = "iconfont icon-xialakongjian";
+            Combobox.prototype.typeName = "下拉列表";
 
             createClass(Combobox, TextBox);
 
@@ -713,7 +737,10 @@
                 });
                 this.getProperty("comment").value = "日期选择";
             }
-            Datepicker.icon="iconfont icon-riqixuanze";
+
+            Datepicker.prototype.typeName = "日期选择";
+
+            Datepicker.icon = "iconfont icon-riqixuanze";
             createClass(Datepicker, TextBox);
 
             componentRepo.registerComponent("datepicker", Datepicker);
@@ -730,7 +757,7 @@
                     id: "format",
                     text: "数字格式",
                     value: "n2",
-                    comment:"可手动输入格式:<br/>n0:整数<br/>n1:1位小数<br/>c1:货币格式1位小数<br/>p1:百分比1位小数<br/>自定义:¥#,0.00",
+                    comment: "可手动输入格式:<br/>n0:整数<br/>n1:1位小数<br/>c1:货币格式1位小数<br/>p1:百分比1位小数<br/>自定义:¥#,0.00",
                     createEditor: function (component, text, value) {
                         var checkbox = $("<input style='width: 100%' class='mini-combobox' allowInput='true' name='format' value='" + value + "'>");
                         checkbox.attr("data", JSON.stringify([
@@ -763,8 +790,9 @@
             }
 
             createClass(Spinner, TextBox);
+            Spinner.prototype.typeName = "数字调节";
 
-            Spinner.icon="iconfont icon-shuzishurukuang";
+            Spinner.icon = "iconfont icon-shuzishurukuang";
             componentRepo.registerComponent("spinner", Spinner);
         }
 
@@ -779,6 +807,7 @@
 
             createClass(FileUpload);
 
+            FileUpload.prototype.typeName = "文件上传";
             FileUpload.prototype.render = function () {
                 var me = this;
 
@@ -890,7 +919,7 @@
                 return container;
             };
 
-            FileUpload.icon="iconfont icon-icon-";
+            FileUpload.icon = "iconfont icon-icon-";
             componentRepo.registerComponent("fileupload", FileUpload);
         }
 
@@ -909,8 +938,9 @@
             }
 
             createClass(TreeSelect, TextBox);
+            TreeSelect.prototype.typeName = "树列表";
 
-            TreeSelect.icon="iconfont icon-shuxingkongjian";
+            TreeSelect.icon = "iconfont icon-shuxingkongjian";
 
             componentRepo.registerComponent("treeselect", TreeSelect);
         }
@@ -933,7 +963,9 @@
             }
 
             createClass(ButtonEdit, TextBox);
-            ButtonEdit.icon="iconfont icon-danchuceng";
+            ButtonEdit.prototype.typeName = "弹出选择";
+
+            ButtonEdit.icon = "iconfont icon-danchuceng";
             componentRepo.registerComponent("buttonedit", ButtonEdit);
         }
 
@@ -957,7 +989,7 @@
                     id: "bodyHeight",
                     text: "高度",
                     value: "150",
-                    comment:"设置为最小值,高度为自动",
+                    comment: "设置为最小值,高度为自动",
                     createEditor: function (component, text, value, call) {
                         var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
                         html.slider({
@@ -986,6 +1018,7 @@
 
         createClass(Form, Component, "高级控件");
 
+        Form.prototype.typeName = "子表单";
         Form.prototype.render = function () {
             var me = this;
             var container = this.getContainer(function () {
@@ -1018,7 +1051,7 @@
                 });
             return container;
         };
-        Form.icon="iconfont icon-shifouyunxuweiwanchengpandianrenwukaidan";
+        Form.icon = "iconfont icon-shifouyunxuweiwanchengpandianrenwukaidan";
 
         componentRepo.registerComponent("form", Form);
     }
@@ -1040,7 +1073,7 @@
                     id: "bodyHeight",
                     text: "高度",
                     value: "150",
-                    comment:"设置为最小值,高度为自动",
+                    comment: "设置为最小值,高度为自动",
                     createEditor: function (component, text, value, call) {
                         if (!value) {
                             value = 1;
@@ -1103,8 +1136,9 @@
                 });
             return container;
         };
+        Table.prototype.typeName = "表格表单";
 
-        Table.icon="iconfont icon-biaoge";
+        Table.icon = "iconfont icon-biaoge";
         componentRepo.registerComponent("table", Table);
 
     }
