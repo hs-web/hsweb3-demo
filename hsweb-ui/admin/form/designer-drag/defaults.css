@@ -28,11 +28,12 @@
 .dynamic-form .form-label {
     float: left;
     display: block;
-    padding: 0 15px;
-    width: 80px;
+    padding: 0;
+    width: 110px;
     font-weight: 400;
     line-height: 30px;
     height:30px;
+    overflow: hidden;
     text-align: center;
     border: 1px solid #ddd;
     background: #FBFBFB;
