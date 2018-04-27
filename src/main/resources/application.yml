@@ -10,20 +10,34 @@ spring:
         proxy-target-class: true
     profiles:
       active: dev
-    datasource:
-      filters: stat
-      maxActive: 1000
-      initialSize: 5
-      minIdle: 5
-      maxWait: 5000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 1 from dual
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      maxOpenPreparedStatements: 200
+#    datasource:
+#      filters: stat
+#      maxActive: 1000
+#      initialSize: 5
+#      minIdle: 5
+#      maxWait: 5000
+#      timeBetweenEvictionRunsMillis: 60000
+#      minEvictableIdleTimeMillis: 300000
+#      validationQuery: select 1 from dual
+#      testWhileIdle: true
+#      testOnBorrow: false
+#      testOnReturn: false
+#      poolPreparedStatements: true
+#      maxOpenPreparedStatements: 200
+    jta:
+      status: true
+      atomikos:
+        datasource:
+          xa-data-source-class-name: com.alibaba.druid.pool.xa.DruidXADataSource
+          xa-properties:
+            url : jdbc:h2:file:./data/h2db;DB_CLOSE_ON_EXIT=FALSE
+            username : sa
+            password :
+          max-pool-size: 20
+          borrow-connection-timeout: 1000
+        connectionfactory:
+          max-pool-size: 20
+          local-transaction-mode: true
     resources:
       static-locations: file:./hsweb-ui/,file:./static/,/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/, classpath:/public/
     http:
@@ -47,18 +61,3 @@ mybatis:
   dynamic-datasource: true #开启mybatis动态数据源支持
 fastjson:
   features: WriteDateUseDateFormat
-read:
-   datasource:
-        filters: stat
-        maxActive: 1000
-        initialSize: 5
-        minIdle: 5
-        maxWait: 5000
-        timeBetweenEvictionRunsMillis: 60000
-        minEvictableIdleTimeMillis: 300000
-        validationQuery: select 1 from dual
-        testWhileIdle: true
-        testOnBorrow: false
-        testOnReturn: false
-        poolPreparedStatements: true
-        maxOpenPreparedStatements: 200
