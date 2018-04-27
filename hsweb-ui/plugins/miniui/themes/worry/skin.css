@@ -858,16 +858,16 @@ body .mini-grid-row-hover {
 }
 
 html body .mini-grid-row-selected {
-    background: #3baae3;
+    background: #dcedf5;
 }
 
 html body .mini-grid-row-selected .mini-grid-cell-inner,
 html body .mini-grid-row-selected .mini-grid-cell {
-    color: #fff;
+    /*color: #fff;*/
 }
 
 html body .mini-grid .mini-grid-cell-selected {
-    background: #3baae3;
+    background: #dcedf5;
     padding: 0 3px;
 }
 
@@ -900,7 +900,7 @@ html body .mini-grid .mini-grid-cell-selected {
 }
 
 html body .mini-grid-cell-selected .mini-grid-cell-inner {
-    color: #fff;
+    /*color: #fff;*/
     border: 1px solid #3189b6;
     padding: 2px 0;
 }
@@ -949,7 +949,7 @@ html body .mini-grid-row-selected .mini-grid-checkbox:before {
 
 .mini-grid-row.mini-grid-row-selected .mini-tree-node-ecicon,
 .mini-grid-row-selected .mini-tree-nodeshow .mini-tree-icon {
-    color: #fff;
+    /*color: #fff;*/
 }
 
 /* sort */
