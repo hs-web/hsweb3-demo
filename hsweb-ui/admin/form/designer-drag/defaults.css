@@ -142,6 +142,10 @@
     border-left:1px solid black;
     margin-left:109px;
 }
+.dynamic-form .table .form-text .component-body {
+    border-left:none;
+}
+
 
 .dynamic-form .table .form-item {
     margin-top: 0;
