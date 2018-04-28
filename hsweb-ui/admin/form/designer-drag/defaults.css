@@ -28,15 +28,15 @@
 .dynamic-form .form-label {
     float: left;
     display: block;
-    padding: 0;
     width: 110px;
+    padding:0 8px;
     font-weight: 400;
     line-height: 30px;
-    height:30px;
     overflow: hidden;
     text-align: center;
     border: 1px solid #ddd;
     background: #FBFBFB;
+    box-sizing: border-box;
     /*border-right: 0px;*/
 }
 
@@ -54,10 +54,14 @@
 
 .dynamic-form .input-block .mini-textbox-border {
     border-left: 0px;
+    border-radius: 0;
+    height:30px;
 }
 
 .dynamic-form .input-block .mini-buttonedit-border {
     border-left: 0px;
+    border-radius: 0;
+    height:30px;
 }
 
 .dynamic-form .form-text .input-block .mini-textbox-border {
@@ -89,7 +93,7 @@
 
 .dynamic-form .input-block {
     position: relative;
-    margin-left: 112px
+    margin-left: 110px;
 }
 
 .dynamic-form .form-item {
@@ -134,8 +138,8 @@
 }
 
 .dynamic-form .table .component-body {
-    /*vertical-align: middle;*/
-    /*display: table-cell;*/
+    border-left:1px solid black;
+    margin-left:109px;
 }
 
 .dynamic-form .table .form-item {
@@ -190,6 +194,7 @@
     text-align: center;
     border-radius: 3px;
     overflow: hidden;
+    margin: 2px 0 0 8px;
 }
 .dynamic-form .webuploader-pick-hover {
     background: #00a2d4;
