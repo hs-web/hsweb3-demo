@@ -135,6 +135,7 @@
     background: none;
     border: 0;
     border-right: 1px solid black;
+    height:100%;
 }
 
 .dynamic-form .table .component-body {
@@ -144,6 +145,7 @@
 
 .dynamic-form .table .form-item {
     margin-top: 0;
+    height:100%;
 }
 
 .dynamic-form .table .mini-textbox-border,
