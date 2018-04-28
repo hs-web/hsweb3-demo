@@ -155,12 +155,14 @@
                 var type = component.type;
                 var realComponent = me.createComponent(type, id);
                 realComponent.container = container;
+                realComponent.properties=component.properties;
                 realComponent.render();
+                realComponent.config = component.config;
+
                 $(component.properties)
                     .each(function () {
-                        realComponent.setProperty(this.id, this.value);
+                        realComponent.setProperty(this.id, this.value,true);
                     });
-                realComponent.config = component.config;
                 initEvent(realComponent);
             });
             $(".main-panel").html("").append(html.children());

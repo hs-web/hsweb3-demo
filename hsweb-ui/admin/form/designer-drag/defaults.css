@@ -58,6 +58,13 @@
     height:30px;
 }
 
+
+.dynamic-form .input-block .mini-textarea .mini-textbox-border {
+    border-left: 0px;
+    border-radius: 0;
+    height:100%;
+}
+
 .dynamic-form .input-block .mini-buttonedit-border {
     border-left: 0px;
     border-radius: 0;

@@ -62,6 +62,9 @@ Component.prototype.setProperty = function (property, value, replace) {
         return;
     }
     if (property === "type") {
+        if(!prop.prototype){
+            return;
+        }
         if (!prop.value && prop.prototype.type === value) {
             return;
         }
@@ -156,7 +159,8 @@ componentRepo.supportComponents = {};
 componentRepo.supportComponentsList = [];
 
 componentRepo.registerComponent = function (type, component) {
-    componentRepo.supportComponents[type] = component;
     component.prototype.type = type;
+
+    componentRepo.supportComponents[type] = component;
     componentRepo.supportComponentsList.push(component);
 };

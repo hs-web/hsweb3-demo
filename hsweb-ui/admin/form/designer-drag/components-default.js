@@ -572,7 +572,7 @@
 
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
-                        // container.find('.form-label').first().removeAttr("style");
+                        container.find('.form-label').first().css("display","block");
                         if (name === 'comment') {
                             container.find(".form-label").text(value);
                         } else if (name === 'bodyHeight') {
@@ -635,7 +635,6 @@
             createClass(TextArea, TextBox);
             TextArea.icon = "iconfont icon-duohangshurukuang";
             TextArea.prototype.typeName = "多行文本";
-
             componentRepo.registerComponent("textarea", TextArea);
         }
 
