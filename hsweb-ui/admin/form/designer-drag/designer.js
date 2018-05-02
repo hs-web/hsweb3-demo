@@ -155,7 +155,6 @@
                 var type = component.type;
                 var realComponent = me.createComponent(type, id);
                 realComponent.container = container;
-                realComponent.properties=component.properties;
                 realComponent.render();
                 realComponent.config = component.config;
 

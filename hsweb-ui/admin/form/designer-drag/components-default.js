@@ -70,6 +70,29 @@
                     });
                     return html;
                 }
+            },{
+                id: "height",
+                text: "控件高度",
+                value: "30",
+                createEditor: function (component, text, value, call) {
+                    var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
+                    html.slider({
+                        orientation: "horizontal",
+                        range: "min",
+                        min: 30,
+                        max: 800,
+                        value: value,
+                        slide: function () {
+                            if (call) call();
+                            if(parseInt(arguments[1].value)<=30){
+                                component.setProperty("height", undefined);
+                            }else{
+                                component.setProperty("height", arguments[1].value);
+                            }
+                        }
+                    });
+                    return html;
+                }
             },
             {
                 id: "required",
@@ -78,7 +101,6 @@
                 value: "undefined",
                 createEditor: function (component, text, value) {
                     var checkbox = $("<input class='mini-radiobuttonlist' name='required' value='" + value + "'>");
-
                     checkbox.attr("data", JSON.stringify([{id: "required", text: "是"}, {
                         id: 'undefined',
                         checked: true,
@@ -604,12 +626,14 @@
                 this.properties = createDefaultEditor();
                 this.getProperty("size").value = 12;
                 this.getProperty("comment").value = "多行文本";
+                this.removeProperty("height");
+
                 this.cls = "mini-textarea";
                 this.formText = true;
                 this.properties.push(
                     {
                         id: "bodyHeight",
-                        text: "高度",
+                        text: "控件高度",
                         value: "50",
                         comment: "设置为最小值,高度为自动",
                         createEditor: function (component, text, value, call) {
@@ -812,41 +836,6 @@
 
                 function createInput() {
                     var input = $("<input class='file-name' style='width: 70%;height: 100%'>");
-                    // input.addClass("mini-textbox");
-                    //  $(me.properties).each(function () {
-                    //      var value = this.value;
-                    //      var property = this;
-                    //      if (this.id) {
-                    //          if (this.id === 'type') {
-                    //              return;
-                    //          }
-                    //          if (this.id === 'height') {
-                    //              input.css("height", value);
-                    //          }
-                    //          //脚本
-                    //          if (this.script) {
-                    //              var scriptId = "script_" + (Math.round(Math.random() * 100000000));
-                    //              window[scriptId] = function (obj) {
-                    //                  try {
-                    //                      var func = eval("(function(){return function(component){" +
-                    //                          "\n" +
-                    //                          property.value +
-                    //                          "\n" +
-                    //                          "}})()");
-                    //                      func.call(obj, me);
-                    //                  } catch (e) {
-                    //                      console.log("执行控件脚本失败", this, e);
-                    //                      return;
-                    //                  }
-                    //              };
-                    //              value = scriptId;
-                    //          }
-                    //          input.attr(this.id, value);
-                    //      }
-                    //      if (!this.value || this.value === 'undefined') {
-                    //          input.removeAttr(this.id);
-                    //      }
-                    //  });
                     return input;
                 }
 
@@ -863,7 +852,7 @@
                     var inputContainer = $("<div class=\"input-block\">");
                     var input = createInput();
                     var id = Math.round(Math.random() * 100000000);
-                    var button = $("<div class='file-upload' style='height: 28px; float: left'>")
+                    var button = $("<div class='file-upload' style='height: 30px; float: left'>")
                         .attr("id", "file-" + id)
                         .text("选择文件");
                     var process = $("<div class='process' style='width: 80%'>");
@@ -877,7 +866,7 @@
                 function initFileUploader() {
                     var uploaderContainer = container.find('.file-upload');
                     var id = uploaderContainer.attr("id");
-                    require(["pages/form/designer-drag/file-upload"], function (uploader) {
+                    function initUploader(uploader){
                         uploaderContainer
                             .removeClass('webuploader-container')
                             .html("选择文件");
@@ -886,7 +875,16 @@
                                 return file;
                             }
                         }, true);
-                    })
+                    }
+                    if(window.require){
+                        require(["pages/form/designer-drag/file-upload"], function (uploader) {
+                            initUploader(uploader);
+
+                        })
+                    }else{
+                        initUploader(FileUploader);
+                    }
+
                 }
 
                 initFileUploader();
@@ -981,8 +979,12 @@
             this.removeProperty("required");
             this.removeProperty("emptyText");
             this.removeProperty("showComment");
+            this.removeProperty("height");
+
+
             this.getProperty("comment").value = "子表单";
             this.getProperty("size").value = "12";
+
             this.properties.push(
                 {
                     id: "bodyHeight",
@@ -1067,6 +1069,7 @@
             this.removeProperty("height");
             this.getProperty("comment").value = "表格表单";
             this.getProperty("size").value = "12";
+
             this.properties.push(
                 {
                     id: "bodyHeight",

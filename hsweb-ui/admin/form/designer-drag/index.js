@@ -24,20 +24,24 @@ function initClp(desinger) {
                         message.showTips("格式错误,仅支持json或者html格式!")
                     }
                 }
-                mini.showMessageBox({
-                    title: "请输入粘贴内容",
-                    iconCls: "mini-messagebox-question",
-                    buttons: ["新建", "复制", "取消"],
-                    message: "选择粘贴方式<br>新建: 粘贴为新的表单.<br>复制: 保持粘贴的配置不变",
-                    callback: function (action) {
-                        if (action === '复制') {
-                            desinger.loadConfig(cfg);
+                if (componentRepo.useIdForName) {
+                    desinger.loadConfig(cfg, true);
+                } else {
+                    mini.showMessageBox({
+                        title: "请输入粘贴内容",
+                        iconCls: "mini-messagebox-question",
+                        buttons: ["新建", "复制", "取消"],
+                        message: "选择粘贴方式<br>新建: 粘贴为新的表单.<br>复制: 保持粘贴的配置不变",
+                        callback: function (action) {
+                            if (action === '复制') {
+                                desinger.loadConfig(cfg);
+                            }
+                            if (action === '新建') {
+                                desinger.loadConfig(cfg, true);
+                            }
                         }
-                        if (action === '新建') {
-                            desinger.loadConfig(cfg, true);
-                        }
-                    }
-                });
+                    });
+                }
             });
         })
     });
@@ -200,8 +204,8 @@ importMiniui(function () {
     var optionType = mini.get("optionType");
     var optionalGrid = mini.get("operation-grid");
 
-    window.addOperationData=function () {
-        var data = {text:"新建选项"};
+    window.addOperationData = function () {
+        var data = {text: "新建选项"};
         if (componentRepo.useIdForName) {
             data.id = md5(new Date().getTime() + "" + Math.random());
         }
@@ -253,7 +257,7 @@ importMiniui(function () {
     });
 
     $(".edit-css").on("click", function () {
-        editScript("css", designer.css || "/*.dynamic-form * {\n\tfont-size:20px;\n}/*", function (editor) {
+        editScript("css", designer.css || "/*.dynamic-form {font-size:20px;}/*", function (editor) {
 
         }, function (editor) {
             designer.css = editor.getScript();
