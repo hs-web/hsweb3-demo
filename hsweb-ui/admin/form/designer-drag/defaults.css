@@ -4,7 +4,7 @@
     min-height: 28px;
 }
 
-.dynamic-form .mini-col-12 .form-item{
+.dynamic-form .mini-col-12 .form-item {
     width: 99.7%;
 }
 
@@ -22,14 +22,15 @@
     color: grey;
 }
 
-.dynamic-form .hide-label .form-label{
+.dynamic-form .hide-label .form-label {
     display: none;
 }
+
 .dynamic-form .form-label {
     float: left;
     display: block;
     width: 110px;
-    padding:0 8px;
+    padding: 0 8px;
     font-weight: 400;
     line-height: 30px;
     overflow: hidden;
@@ -45,8 +46,9 @@
     padding: 0 6px;
     font-weight: 400;
     line-height: 30px;
-    height:30px;
+    height: 30px;
 }
+
 .dynamic-form .table .simple-form-label {
     border: 0;
     background: none;
@@ -55,20 +57,19 @@
 .dynamic-form .input-block .mini-textbox-border {
     border-left: 0px;
     border-radius: 0;
-    height:30px;
+    height: 30px;
 }
-
 
 .dynamic-form .input-block .mini-textarea .mini-textbox-border {
     border-left: 0px;
     border-radius: 0;
-    height:100%;
+    height: 100%;
 }
 
 .dynamic-form .input-block .mini-buttonedit-border {
     border-left: 0px;
     border-radius: 0;
-    height:30px;
+    height: 30px;
 }
 
 .dynamic-form .form-text .input-block .mini-textbox-border {
@@ -87,7 +88,6 @@
 .dynamic-form .mini-checkboxlist, .mini-radiobuttonlist {
     line-height: 26px;
 }
-
 
 .dynamic-form .form-text .form-label {
     float: none;
@@ -142,22 +142,26 @@
     background: none;
     border: 0;
     border-right: 1px solid black;
-    height:100%;
+    height: 100%;
 }
 
 .dynamic-form .table .component-body {
-    border-left:0;
-    /*margin-left:109px;*/
-}
-.dynamic-form .table .form-text .component-body {
-    border-left:none;
-    margin-left:0;
+    border-left: 0;
 }
 
+.dynamic-form .table .input-block {
+    margin-left: 109px;
+    border-left: 1px solid black;
+}
+
+.dynamic-form .table .form-text .component-body {
+    border-left: none;
+    margin-left: 0;
+}
 
 .dynamic-form .table .form-item {
     margin-top: 0;
-    height:100%;
+    height: 100%;
 }
 
 .dynamic-form .table .mini-textbox-border,
@@ -190,14 +194,17 @@
 .dynamic-form .table .form-text .input-block .mini-textbox-border {
     border: 0;
 }
+
 .dynamic-form .webuploader-container {
     position: relative;
 }
+
 .dynamic-form .webuploader-element-invisible {
     position: absolute !important;
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px,1px,1px,1px);
+    clip: rect(1px, 1px, 1px, 1px);
 }
+
 .dynamic-form .webuploader-pick {
     position: relative;
     display: inline-block;
@@ -210,12 +217,13 @@
     overflow: hidden;
     margin: 2px 0 0 8px;
 }
+
 .dynamic-form .webuploader-pick-hover {
     background: #00a2d4;
 }
 
 .dynamic-form .webuploader-pick-disable {
     opacity: 0.6;
-    pointer-events:none;
+    pointer-events: none;
 }
 
