@@ -146,8 +146,8 @@
 }
 
 .dynamic-form .table .component-body {
-    border-left:1px solid black;
-    margin-left:109px;
+    border-left:0;
+    /*margin-left:109px;*/
 }
 .dynamic-form .table .form-text .component-body {
     border-left:none;
