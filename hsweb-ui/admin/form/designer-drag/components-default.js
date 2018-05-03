@@ -73,7 +73,7 @@
             },{
                 id: "height",
                 text: "控件高度",
-                value: "30",
+                value: "",
                 createEditor: function (component, text, value, call) {
                     var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
                     html.slider({
