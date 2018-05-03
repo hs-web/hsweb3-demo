@@ -105,6 +105,17 @@ function initRequireJs() {
     });
 }
 
+function getParameter(name, def) {
+    // 获取参数
+    var url = window.location.search;
+    // 正则筛选地址栏
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    // 匹配目标参数
+    var result = url.substr(1).match(reg);
+    //返回参数值
+    return result ? decodeURIComponent(result[2]) : def;
+}
+
 function importJquery(callback) {
     require(["jquery"], callback);
     // importResource("/plugins/jquery/1.10.2/jquery.min.js", callback);
@@ -117,8 +128,11 @@ function importMiniui(callback) {
             callback();
             return;
         }
-        var theme = getCookie("theme", window.miniui_theme ? window.miniui_theme : "worry");
-        var mode = 'my';//getCookie("mode", "large");// window.outerHeight > 1000 ? "large" : "medium");
+
+        var theme = getParameter("_theme", getCookie("theme", window.miniui_theme ? window.miniui_theme : "worry"));
+        var mode = getParameter("_mode", getCookie("mode", 'my'));
+
+        // window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
             importResource(BASE_PATH + "plugins/miniui/themes/default/miniui.css");
