@@ -159,6 +159,9 @@ importMiniui(function () {
 
         require(componentsImport, function () {
             var designer = window.designer = new Designer();
+            window.getDesigner=function () {
+                return designer;
+            }
             initClp(designer);
             designer.init();
             designer.on("configChanged", function () {

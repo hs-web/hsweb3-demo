@@ -5,12 +5,13 @@
         var properties = [
             {
                 id: "name",
-                editor: "textbox",
+                comment: "由字母数字或下划线组成",
                 text: "字段",
                 value: ""
             }, {
                 id: "comment",
                 editor: "textbox",
+                comment: "控件的中文描述",
                 text: "描述",
                 value: "新建控件"
             }, createTrueOrFalseEditor("showComment", "显示描述", "true"), {
@@ -967,7 +968,6 @@
         }
 
     }
-
     /**子表单**/
     {
         function Form(id) {

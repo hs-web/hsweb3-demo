@@ -43,6 +43,9 @@
     Designer.prototype.setConfig = function (config) {
 
     };
+    Designer.prototype.clear=function () {
+        this.loadConfig({});
+    }
     Designer.prototype.getConfig = function () {
         var config = {};
         config.html = this.getHtml();

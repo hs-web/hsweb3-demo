@@ -1,6 +1,5 @@
-importResource("/admin/css/common.css");
-importResource("/admin/css/common.css");
-importResource("/plugins/font-awesome/4.7.0/css/font-awesome.css");
+importResource("admin/css/common.css");
+importResource("plugins/font-awesome/4.7.0/css/font-awesome.css");
 var nowTemplateId, nowTabId;
 var templateUtils = {
     string: {
@@ -33,24 +32,19 @@ var templateUtils = {
 importMiniui(function () {
     require(["miniui-tools", "message", "request"], function (tools, message, request) {
         request.get("user-setting/me/code-generator/all", function (res) {
-            if (res.status === 200) {
-                if (res.status === 200 && res.result && res.result.setting) {
-                    initTemplate(JSON.parse(res.result.setting));
-                } else {
-                    require(["text!template.json"], function (json) {
-                        json = JSON.parse(json);
-                        initTemplate(json);
-                    });
-                }
+            if (res.status === 200 && res.result && res.result.setting) {
+                initTemplate(JSON.parse(res.result.setting));
             } else {
-                message.showTips("获取模板配置失败");
+                require(["text!template.json"], function (json) {
+                    json = JSON.parse(json);
+                    initTemplate(json);
+                });
             }
         });
-
+        $(document.body).fadeIn(200);
+        mini.parse();
 
         var templateMap = {};
-
-        importResource('/plugins/miniui/themes/bootstrap/skin.css');
 
         function createButton(template) {
             templateMap[template.id] = template;
@@ -386,6 +380,7 @@ importMiniui(function () {
             }
         }
 
+        mini.parse();
         var resultTree = mini.get("result");
         resultTree.on("beforedrop", cancelDrop);
         resultTree.on('drawnode', renderIcon);
@@ -413,17 +408,6 @@ importMiniui(function () {
         });
 
         function setCode(node) {
-            if (!scriptEditor) {
-                var loading = message.loading("加载中...");
-                require(['script-editor'], function (editorBuilder) {
-                    editorBuilder.createEditor("script-editor", function (editor) {
-                        scriptEditor = editor;
-                        loading.hide();
-                        setCode(node);
-                    });
-                });
-                return;
-            }
             var file = node.file;
             var ex;
             if (file.indexOf(".") !== -1) {
@@ -434,15 +418,76 @@ importMiniui(function () {
             if (ex === "js") {
                 ex = "javascript";
             }
-            scriptEditor.init(ex, node.template);
+            $(".preview-editor").hide();
+            if (ex === "hf") {
+                $(".form-designer-container").show();
+                var iframe = $("#form-designer")[0];
+                var win = iframe.contentWindow;
+                var conf = getSetting(true);
+                var names = [];
+                for (var t in conf.table) {
+                    names = conf.table[t];
+                }
+                // win.optionalNames = names;
+                function initNewPage() {
+                    win.getDesigner().clear();
+                    $(names).each(function () {
+                        var component = win.getDesigner().addComponent("textbox");
+                        component.setProperty("name", this.name);
+                        component.setProperty("comment", this.comment);
+                    });
+                }
+                if (node.template) {
+                    try {
+                        var config = JSON.parse(node.template);
+                        if (!config || !config.html||!config.components) {
+                            initNewPage();
+                        } else {
+                            win.getDesigner().loadConfig(config);
+                        }
+                    } catch (e) {
+                        initNewPage();
+                    }
+                }else{
+                    initNewPage();
+                }
+                saveCode = function () {
+                    if (nowEditNode) {
+                        nowEditNode.template = JSON.stringify(win.getDesigner().getConfig());
+                    }
+                }
+            } else {
+                $(".script-editor-container").show();
+
+                if (!scriptEditor) {
+                    var loading = message.loading("加载中...");
+                    require(['script-editor'], function (editorBuilder) {
+                        editorBuilder.createEditor("script-editor", function (editor) {
+                            scriptEditor = editor;
+                            loading.hide();
+                            setCode(node);
+                        });
+                    });
+                    return;
+                }
+                scriptEditor.init(ex, node.template);
+                saveCode = function () {
+                    if (scriptEditor && nowEditNode) {
+                        var script = scriptEditor.getScript();
+                        nowEditNode.template = script;
+                    }
+                }
+            }
+
         }
 
-        function saveCode() {
-            if (scriptEditor && nowEditNode) {
-                var script = scriptEditor.getScript();
-                nowEditNode.template = script;
-            }
-        }
+        var saveCode;
+        // function saveCode() {
+        //     if (scriptEditor && nowEditNode) {
+        //         var script = scriptEditor.getScript();
+        //         nowEditNode.template = script;
+        //     }
+        // }
 
         $(".remove-file").on("click", function () {
             var node = resultTree.getSelectedNode();
@@ -584,7 +629,7 @@ importMiniui(function () {
                         this.name = "id";
                     }
                     newColumns.push({comment: this.comment, column: this.name.toLowerCase(), name: templateUtils.string.ul2ca(this.name.toLowerCase()), dataType: this.dataType})
-                })
+                });
                 mini.get(id + "-grid").setData(newColumns);
                 mini.get("database-window").hide();
             });
@@ -662,8 +707,8 @@ importMiniui(function () {
                     type: "dir",
                     children: result
                 };
-                resultTree.addNode(node);
-                resultTree.expandNode(node);
+                resultTree.addNodes(result);
+                resultTree.expandAll();
                 mini.get("var-window").hide();
                 //saveSetting()
             });
@@ -700,6 +745,16 @@ importMiniui(function () {
         $(".download-code").on("click", function () {
             tools.downloadZip(buildZipDownloadContent("", resultTree.getData()), "代码生成结果" + (mini.formatDate(new Date(), 'yyyyMMddHHmmss')) + ".zip");
         });
+        $(".write-code").on("click", function () {
+            var code = resultTree.getData();
+            request.post("dev/tools/file/write", code, function (e) {
+                if (e.status === 200) {
+                    message.showTips("代码已经成功写到:" + e.result);
+                } else {
+                    message.alert(e.message);
+                }
+            })
+        });
 
         function buildZipDownloadContent(path, result) {
             var newList = [];
@@ -723,10 +778,10 @@ importMiniui(function () {
                 path = ogPath;
                 convert(this);
             });
-            console.log(newList);
             return newList;
         }
     });
+
 });
 
 function onBeforeOpen(e) {
