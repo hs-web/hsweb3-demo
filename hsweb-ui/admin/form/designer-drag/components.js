@@ -144,6 +144,7 @@ Component.prototype.resize = function () {
         }else{
             this.container.css("height","");
         }
+        mini.layout();
     }
 };
 Component.prototype.init = function () {

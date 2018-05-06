@@ -1144,4 +1144,112 @@
         componentRepo.registerComponent("table", Table);
 
     }
+
+
+    /**数据表格**/
+    {
+        function DataTable(id) {
+            Component.call(this);
+            this.id = id;
+            this.properties = createDefaultEditor();
+            // this.removeProperty("name");
+            this.removeProperty("required");
+            this.removeProperty("placeholder");
+            this.removeProperty("height");
+            this.getProperty("comment").value = "数据表格";
+            this.getProperty("size").value = "12";
+
+            // this.getProperty("height").value="200";
+            this.properties.push(
+                {
+                    id: "bodyHeight",
+                    text: "高度",
+                    value: "200",
+                    comment: "设置为最小值,高度为自动",
+                    createEditor: function (component, text, value, call) {
+                        var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
+                        html.slider({
+                            orientation: "horizontal",
+                            range: "min",
+                            min: 1,
+                            max: 100,
+                            value: parseInt(value) / 25,
+                            slide: function () {
+                                if (call) call();
+                                var height = parseInt(arguments[1].value) * 25;
+                                if (height === 25) {
+                                    component.setProperty("bodyHeight", "");
+                                } else {
+                                    component.setProperty("bodyHeight", height);
+                                }
+                                mini.parse();
+                            }
+                        });
+                        return html;
+                    }
+                }
+            );
+        }
+
+        createClass(DataTable, Component, "高级控件");
+
+        DataTable.prototype.render = function () {
+            var me = this;
+
+            function createTable() {
+                    var dataGrid = $("<div showPager='false' style='width: 100%;height: 100%' class='mini-datagrid'>");
+
+
+                    dataGrid.append("       <div property=\"columns\">\n" +
+                        "            <!--<div type=\"indexcolumn\"></div>        -->\n" +
+                        "            <div type=\"checkcolumn\" ></div>        \n" +
+                        "            <div field=\"loginname\" width=\"120\" headerAlign=\"center\" allowSort=\"true\">员工帐号</div></div>");
+
+                    return dataGrid;
+            }
+            var container = this.getContainer(function () {
+                var height=me.getProperty("height").value;
+
+                var m = $("<div class='mini-col-12 form-component'>").css("height",height+"px");
+                var fit = $("<fieldset style='border: 0;height: 200px;width: 95%' class='child-form'>").append($("<legend class='edit-focus'>数据表格</legend>"));
+                var body = $("<div class='mini-fit grid-container'>");
+
+                m.append(fit.append(body));
+                return m;
+            });
+            
+            function reinitTable() {
+                    container.find(".grid-container:first").html(createTable());
+
+            }
+
+            reinitTable();
+            this.un("propertiesChanged")
+                .on('propertiesChanged', function (key, value) {
+                    if (key === 'comment') {
+                        container.find("legend:first").text(value);
+                    } else if (key === 'showComment') {
+                        if (value + "" === 'false') {
+                            container.find("legend:first").addClass('form-hidden');
+                        } else {
+                            container.find("legend:first").removeClass('form-hidden');
+                        }
+                    }
+                    else if (key === 'bodyHeight') {
+                        container.find(".table:first").css("height", value);
+                    } else {
+                        reinitTable();
+                        container.find("legend:first").attr(key, value);
+                    }
+                });
+            return container;
+        };
+        DataTable.prototype.typeName = "数据表格";
+
+        DataTable.icon = "iconfont icon-biaoge";
+       // componentRepo.registerComponent("datatable", DataTable);
+
+    }
+
+
 })();
