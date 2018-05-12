@@ -376,7 +376,7 @@
             <url>http://nexus.hsweb.me/content/groups/public/</url>
             <snapshots>
                 <enabled>true</enabled>
-                <!-- <updatePolicy>always</updatePolicy> -->
+                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
         <repository>
