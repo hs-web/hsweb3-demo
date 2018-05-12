@@ -31,9 +31,21 @@ var menus = [
         "permission_id": "",
         "path": "sOrB",
         "sort_index": 1,
-        "describe": "父菜单 ",
+        "describe": " ",
         "url": "",
-        "icon": "",
+        "icon": "fa fa-cogs",
+        "status": 1
+    },
+    {
+        "u_id": "f84b8dacb3ea07ecd811cfb869137b90",
+        "name": "首页设置",
+        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
+        "permission_id": "dashboard",
+        "path": "sOrB-JOQv",
+        "sort_index": 101,
+        "describe": null,
+        "url": "admin/dashboard/list.html",
+        "icon": "fa fa-dashboard",
         "status": 1
     },
     {
@@ -41,11 +53,11 @@ var menus = [
         "name": "菜单管理",
         "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "permission_id": "menu",
-        "path": "sOrB-ocxx",
-        "sort_index": 101,
+        "path": "sOrB-i2ea",
+        "sort_index": 102,
         "describe": null,
-        "url": "/admin/menu/list.html",
-        "icon": "",
+        "url": "admin/menu/list.html",
+        "icon": "fa fa-navicon",
         "status": 1
     },
     {
@@ -53,11 +65,11 @@ var menus = [
         "name": "权限管理",
         "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "permission_id": "permission,autz-setting",
-        "path": "sOrB-InQ5",
-        "sort_index": 102,
+        "path": "sOrB-X27v",
+        "sort_index": 103,
         "describe": null,
-        "url": "/admin/permission/list.html",
-        "icon": null,
+        "url": "admin/permission/list.html",
+        "icon": "fa fa-briefcase",
         "status": 1
     },
     {
@@ -65,11 +77,11 @@ var menus = [
         "name": "角色管理",
         "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "permission_id": "role",
-        "path": "sOrB-Gpa8",
-        "sort_index": 103,
+        "path": "sOrB-4ofL",
+        "sort_index": 104,
         "describe": null,
-        "url": "/admin/role/list.html",
-        "icon": "",
+        "url": "admin/role/list.html",
+        "icon": "fa fa-users",
         "status": 1
     },
     {
@@ -77,11 +89,11 @@ var menus = [
         "name": "用户管理",
         "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
         "permission_id": "user",
-        "path": "sOrB-vSbQ",
-        "sort_index": 104,
+        "path": "sOrB-Dz7b",
+        "sort_index": 105,
         "describe": null,
-        "url": "/admin/user/list.html",
-        "icon": null,
+        "url": "admin/user/list.html",
+        "icon": "fa fa-user",
         "status": 1
     },
     {
@@ -91,9 +103,9 @@ var menus = [
         "permission_id": "",
         "path": "a2o0",
         "sort_index": 2,
-        "describe": null,
+        "describe": " ",
         "url": "",
-        "icon": null,
+        "icon": "fa fa-sitemap",
         "status": 1
     },
     {
@@ -101,11 +113,11 @@ var menus = [
         "name": "机构管理",
         "parent_id": "org-01",
         "permission_id": "organizational",
-        "path": "a2o0-asqwe",
+        "path": "a2o0-iL0F",
         "sort_index": 201,
         "describe": null,
-        "url": "/admin/org/list.html",
-        "icon": null,
+        "url": "admin/org/list.html",
+        "icon": "fa fa-leaf",
         "status": 1
     },
     {
@@ -113,14 +125,13 @@ var menus = [
         "name": "综合设置",
         "parent_id": "org-01",
         "permission_id": "organizational,department,position,person",
-        "path": "a2o0-qweq",
+        "path": "a2o0-A12e",
         "sort_index": 202,
         "describe": null,
-        "url": "/admin/org/manager/index.html",
-        "icon": null,
+        "url": "admin/org/manager/index.html",
+        "icon": "fa fa-sitemap",
         "status": 1
-    }
-    ,
+    },
     {
         "u_id": "dev-01",
         "name": "开发人员工具",
@@ -128,8 +139,9 @@ var menus = [
         "permission_id": "",
         "path": "d010",
         "sort_index": 3,
+        "describe": " ",
         "url": "",
-        "icon": null,
+        "icon": "fa fa-th-list",
         "status": 1
     },
     {
@@ -137,10 +149,11 @@ var menus = [
         "name": "代码生成器",
         "parent_id": "dev-01",
         "permission_id": "file,database-manager,datasource",
-        "path": "d010-001",
+        "path": "d010-jG1V",
         "sort_index": 301,
-        "url": "/admin/code-generator/index.html",
-        "icon": null,
+        "describe": null,
+        "url": "admin/code-generator/index.html",
+        "icon": "fa fa-desktop",
         "status": 1
     },
     {
@@ -148,10 +161,11 @@ var menus = [
         "name": "动态表单",
         "parent_id": "dev-01",
         "permission_id": "form",
-        "path": "d010-002",
+        "path": "d010-6tVw",
         "sort_index": 302,
-        "url": "/admin/form/list.html",
-        "icon": null,
+        "describe": null,
+        "url": "admin/form/list.html",
+        "icon": "fa fa-puzzle-piece",
         "status": 1
     },
     {
@@ -159,10 +173,23 @@ var menus = [
         "name": "模板管理",
         "parent_id": "dev-01",
         "permission_id": "template",
-        "path": "d010-002",
-        "sort_index": 302,
+        "path": "d010-54Ph",
+        "sort_index": 303,
+        "describe": null,
         "url": "pages/template/list.hl",
-        "icon": null,
+        "icon": "fa fa-send-o",
+        "status": 1
+    },
+    {
+        "u_id": "database-manager",
+        "name": "数据库维护",
+        "parent_id": "dev-01",
+        "permission_id": "database-manager,datasource",
+        "path": "d010-FH4w",
+        "sort_index": 304,
+        "describe": null,
+        "url": "admin/database-manager/index.html",
+        "icon": "fa fa-database",
         "status": 1
     },
     {
@@ -170,93 +197,26 @@ var menus = [
         "name": "定时任务",
         "parent_id": "dev-01",
         "permission_id": "schedule",
-        "path": "d010-003",
-        "sort_index": 303,
-        "url": "/admin/schedule/index.html",
-        "icon": null,
+        "path": "d010-V54b",
+        "sort_index": 305,
+        "describe": null,
+        "url": "admin/schedule/index.html",
+        "icon": "fa fa-file-word-o",
         "status": 1
-    }, {
-        "u_id": "database-manager",
-        "name": "数据库维护",
-        "parent_id": "dev-01",
-        "permission_id": "database-manager,datasource",
-        "path": "d010-002",
-        "sort_index": 302,
-        "url": "/admin/database-manager/index.html",
-        "icon": null,
-        "status": 1
-    }
-];
-var permissions = [
-    {
-        "u_id": "permission",
-        "name": "权限管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
-        "optional_fields": "[{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"权限名称\",\"name\":\"name\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"说明\",\"name\":\"describe\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"状态\",\"name\":\"status\"}]"
     },
     {
-        "u_id": "role",
-        "name": "角色管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"查询列表\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":true,\"describe\":\"新增\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":false,\"describe\":\"删除\"}]",
-        "data_access": null,
-        "optional_fields": "[{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"名称\",\"name\":\"name\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"说明\",\"name\":\"describe\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"状态\",\"name\":\"status\"}]"
-    },
-    {
-        "u_id": "menu",
-        "name": "菜单管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"查询列表\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":false,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":true,\"describe\":\"新增\"}]",
-        "optional_fields": "[{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"名称\",\"name\":\"name\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"说明\",\"name\":\"descibe\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"权限ID\",\"name\":\"permissionId\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"URL\",\"name\":\"url\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"图标\",\"name\":\"icon\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"状态\",\"name\":\"status\"}]"
-    },
-    {
-        "u_id": "autz-setting",
-        "name": "权限设置",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":false,\"describe\":\"查询列表\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":false,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":false,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":true,\"describe\":\"新增\"}]",
-        "data_access": null,
-        "optional_fields": "[]"
-    },
-    {
-        "u_id": "user",
-        "name": "用户管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"查询列表\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":true,\"describe\":\"新增\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":false,\"describe\":\"删除\"}]",
-        "data_access": null,
-        "optional_fields": "[{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"姓名\",\"name\":\"name\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"用户名\",\"name\":\"username\"},{\"@type\":\"org.hswebframework.web.entity.authorization.OptionalField\",\"describe\":\"密码\",\"name\":\"password\"}]"
-    }, {
-        "u_id": "organizational",
-        "name": "组织架构",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
-    }, {
-        "u_id": "department",
-        "name": "部门管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
-    }, {
-        "u_id": "position",
-        "name": "岗位管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
-    }, {
-        "u_id": "person",
+        "u_id": "d9b7a672a63d214a1f063bbbacab89ee",
         "name": "人员管理",
-        "describe": "",
-        "status": 1,
-        "actions": "[{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"query\",\"defaultCheck\":true,\"describe\":\"列表查询\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"get\",\"defaultCheck\":true,\"describe\":\"查询明细\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"update\",\"defaultCheck\":true,\"describe\":\"修改\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"delete\",\"defaultCheck\":true,\"describe\":\"删除\"},{\"@type\":\"org.hswebframework.web.entity.authorization.ActionEntity\",\"action\":\"add\",\"defaultCheck\":false,\"describe\":\"新增\"}]",
+        "parent_id": "org-01",
+        "permission_id": "person",
+        "path": "a2o0-vfXJ",
+        "sort_index": 203,
+        "describe": null,
+        "url": "admin/org/person/list.html",
+        "icon": "fa fa-vcard",
+        "status": 1
     }
 ];
-
 var user = [
     {
         "u_id": "4291d7da9005377ec9aec4a71ea837f",
@@ -281,117 +241,6 @@ var autz_setting = [
         "status": 1
     }
 ];
-// var autz_menu = [
-//     {
-//         "u_id": "asdasdqweqweasdas",
-//         "parent_id": null,
-//         "menu_id": "org-01",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM",
-//         "sort_index": 1,
-//         "status": 1,
-//         "level": 1,
-//         "config": null
-//     },{
-//         "u_id": "asdasdqweqweasdas",
-//         "parent_id": null,
-//         "menu_id": "org-01",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM",
-//         "sort_index": 1,
-//         "status": 1,
-//         "level": 1,
-//         "config": null
-//     },
-//     {
-//         "u_id": "asdasdqweqwe",
-//         "parent_id": null,
-//         "menu_id": "org-01",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM",
-//         "sort_index": 1,
-//         "status": 1,
-//         "level": 1,
-//         "config": null
-//     },
-//     {
-//         "u_id": "qweqweqweqwe",
-//         "parent_id": null,
-//         "menu_id": "org-01-01",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM",
-//         "sort_index": 1,
-//         "status": 1,
-//         "level": 1,
-//         "config": null
-//     },
-//     {
-//         "u_id": "qweqweqwe",
-//         "parent_id": null,
-//         "menu_id": "org-01-02",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM",
-//         "sort_index": 1,
-//         "status": 1,
-//         "level": 1,
-//         "config": null
-//     },
-//     {
-//         "u_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-//         "parent_id": null,
-//         "menu_id": "e9dc96d6b677cbae865670e6813f5e8b",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM",
-//         "sort_index": 1,
-//         "status": 1,
-//         "level": 1,
-//         "config": null
-//     },
-//     {
-//         "u_id": "ac6fda029dfa955f99bd50e1ca0a7e4b",
-//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-//         "menu_id": "a52df62b69e21fd756523faf8f0bd986",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM-XE9I",
-//         "sort_index": 101,
-//         "status": 1,
-//         "level": 2,
-//         "config": null
-//     },
-//     {
-//         "u_id": "3e19194f865ed24d624c509d0ce0a1a9",
-//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-//         "menu_id": "8db17b9ba28dd949c926b329af477a08",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM-UWVv",
-//         "sort_index": 102,
-//         "status": 1,
-//         "level": 2,
-//         "config": null
-//     },
-//     {
-//         "u_id": "e6b5aeceaf82ea52f991cb94b6f5c44c",
-//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-//         "menu_id": "42fc4f83d12cc172e4690937eb15752a",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM-f4iK",
-//         "sort_index": 103,
-//         "status": 1,
-//         "level": 2,
-//         "config": null
-//     },
-//     {
-//         "u_id": "15e45349d9c6f09ef7fd6fba180a60e2",
-//         "parent_id": "8bd75f4ef288ffb1a05e9bf3a1733b7d",
-//         "menu_id": "58eba1a4371dd3c0da24fac5da8cadc2",
-//         "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-//         "path": "opyM-d8eW",
-//         "sort_index": 104,
-//         "status": 1,
-//         "level": 2,
-//         "config": null
-//     }
-// ]
 var autz_menu = [];
 menus.forEach(function (menu) {
     autz_menu.push({
@@ -403,102 +252,6 @@ menus.forEach(function (menu) {
         "path": "-"
     });
 });
-var autz_detail = [
-    {
-        "u_id": "adasdasdasd",
-        "permission_id": "database-manager",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"execute\",\"query\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "123123123",
-        "permission_id": "datasource",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"query\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "asdasdqweqwe",
-        "permission_id": "file",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"download\",\"static\",\"upload\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "asdasdasdas",
-        "permission_id": "organizational",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "qweqweqweqwe",
-        "permission_id": "department",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    }, {
-        "u_id": "asdqweqweasdasd",
-        "permission_id": "position",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    }, {
-        "u_id": "asgdfgwertwetr",
-        "permission_id": "person",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "67e15b9dd48462bcd5892fd902fafa16",
-        "permission_id": "permission",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "44ef01ac17c2d74d55b35bc62d891b39",
-        "permission_id": "autz-setting",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "3adb23b8070800d7f6e3dcb835148a83",
-        "permission_id": "menu",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "34d1730a2bc0ff33fbf699ed7c82370d",
-        "permission_id": "role",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    },
-    {
-        "u_id": "f242e8eae3f181601ce632a078d026c2",
-        "permission_id": "user",
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "actions": "Set[\"add\",\"query\",\"get\",\"update\",\"delete\"]",
-        "data_accesses": "[]",
-        "status": 1
-    }
-];
 //版本更新信息
 var versions = [
     // {
@@ -517,11 +270,8 @@ function install(context) {
 
 function initialize(context) {
     var database = context.database;
-
     database.getTable("s_menu").createInsert().values(menus).exec();
-    database.getTable("s_permission").createInsert().values(permissions).exec();
     database.getTable("s_autz_setting").createInsert().values(autz_setting).exec();
-    database.getTable("s_autz_detail").createInsert().values(autz_detail).exec();
     database.getTable("s_autz_menu").createInsert().values(autz_menu).exec();
     database.getTable("s_user").createInsert().values(user).exec();
 }

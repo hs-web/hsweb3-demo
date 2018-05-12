@@ -31,6 +31,14 @@ window.renderAction = function (e) {
         e.sender.removeRow(e.record);
     });
 };
+window.selectIcon=function (e) {
+    require(["pages/selector/icon"],function (iconSelector) {
+        iconSelector(function (icon) {
+            e.sender.setValue(icon);
+            e.sender.setText(icon);
+        });
+    })
+}
 window.renderAction = function (e) {
     var html = [];
     var row = e.record;
@@ -39,8 +47,8 @@ window.renderAction = function (e) {
         grid.addNode({sortIndex: sortIndex}, row.chidren ? row.chidren.length : 0, row);
     }));
 
-    if (row._state == "added" || row._state == "modified") {
-        html.push(tools.createActionButton("保存", "icon-save", function () {
+    if (row._state === "added" || row._state === "modified") {
+        html.push(tools.createActionButton("保存", "fa fa-check text-success", function () {
             var api = "menu/";
             require(["request", "message"], function (request, message) {
                 var loading = message.loading("保存中...");
@@ -60,7 +68,7 @@ window.renderAction = function (e) {
         }));
     }
     html.push(tools.createActionButton("删除菜单", "fa fa-times text-danger", function () {
-        if (row._state == "added") {
+        if (row._state === "added") {
             e.sender.removeNode(row);
         } else {
             require(["request", "message"], function (request, message) {

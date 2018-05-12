@@ -244,7 +244,12 @@
             <artifactId>hsweb-flowable-modeler</artifactId>
             <version>${hsweb.framework.version}</version>
         </dependency>
-
+        <!--首页仪表盘配置-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-dashboard-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
         <!--swagger-->
 
         <dependency>

@@ -4,18 +4,18 @@ require(["authorize"], function (authorize) {
     authorize.parse(document.body);
     window.authorize = authorize;
     importMiniui(function () {
+        mini.parse();
         require(["miniui-tools"], function (tools) {
-            mini.parse();
             window.tools = tools;
             var grid = window.grid = mini.get("data-grid");
             tools.initGrid(grid);
-            var position_grid = mini.get("position-grid");
+            // var position_grid = mini.get("position-grid");
             //加载查询职位选择项
-            require(["request"], function (request) {
-                request.get("position?paging=false",function (response) {
-                    position_grid.loadList(response.result.data,"id","parentId");
-                });
-            });
+            // require(["request"], function (request) {
+            //     request.get("position?paging=false",function (response) {
+            //         position_grid.loadList(response.result.data,"id","parentId");
+            //     });
+            // });
             grid.setUrl(API_BASE_PATH + "person?paging=false");
             $(".search-button").on("click", function () {
                 tools.searchGrid("#search-box", grid, null);

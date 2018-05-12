@@ -8,12 +8,12 @@ window.mini_debugger = false;
 String.prototype.startWith = function (str) {
     var reg = new RegExp("^" + str);
     return reg.test(this);
-}
+};
 
 String.prototype.endWith = function (str) {
     var reg = new RegExp(str + "$");
     return reg.test(this);
-}
+};
 
 /**
  * 获取cooke
@@ -39,9 +39,12 @@ function getCookie(sName, defaultVal) {
 }
 
 function importResource(path, callback) {
-    if (path.indexOf("http") != 0 || path.indexOf("//") != 0) {
-        if (!path.startWith("/"))
+    if (path.indexOf("http") !== 0 || path.indexOf("//") !== 0) {
+        if (!path.startWith("/")) {
             path = window.BASE_PATH + path;
+        } else {
+            path = window.BASE_PATH + (path.substr(1, path.length));
+        }
     }
     var head = document.getElementsByTagName('head')[0];
     if (path.endWith("js")) {
@@ -49,7 +52,7 @@ function importResource(path, callback) {
         script.type = 'text/javascript';
         script.charset = 'utf-8';
         script.timeout = 120000;
-        if (typeof callback != "undefined")
+        if (typeof callback !== "undefined")
             script.async = false;
         script.src = path;
 
@@ -87,7 +90,8 @@ function initRequireJs() {
             }
         },
         shim: {
-            'jquery': {exports: "$"}
+            'jquery': {exports: "$"},
+            'request': {exports: "request"}
         },
         paths: {
             "jquery": [BASE_PATH + "plugins/jquery/1.10.2/jquery.min"],
@@ -96,13 +100,16 @@ function initRequireJs() {
             "request": [BASE_PATH + "plugins/tools/request"], //ajax请求工具
             "miniui-tools": [BASE_PATH + "plugins/miniui/tools"],
             "message": [BASE_PATH + "plugins/miniui/message"],
+            "storejs": [BASE_PATH + "plugins/storejs/store.everything.min"],
             "ace": [BASE_PATH + "plugins/script-editor/ace"],
             "art-template": [BASE_PATH + "plugins/template/art-template"],
             "script-editor": [BASE_PATH + "plugins/script-editor/script-editor"],
             "plugin": [BASE_PATH + "plugins"],
-            "pages": [BASE_PATH + "admin"]
+            "pages": [BASE_PATH + "admin"],
+            "echarts": [BASE_PATH + "plugins/echarts/echarts.min"]
         }
     });
+    require(['request']);
 }
 
 function getParameter(name, def) {
@@ -118,7 +125,6 @@ function getParameter(name, def) {
 
 function importJquery(callback) {
     require(["jquery"], callback);
-    // importResource("/plugins/jquery/1.10.2/jquery.min.js", callback);
 }
 
 function importMiniui(callback) {
@@ -129,30 +135,41 @@ function importMiniui(callback) {
             return;
         }
 
-        var theme = getParameter("_theme", getCookie("theme", window.miniui_theme ? window.miniui_theme : "worry"));
+        var theme = getParameter("_theme", getCookie("theme", window.miniui_theme || "worry"));
         var mode = getParameter("_mode", getCookie("mode", 'my'));
 
         // window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
-            importResource(BASE_PATH + "plugins/miniui/themes/default/miniui.css");
-            importResource(BASE_PATH + "plugins/miniui/themes/icons.css");
-            importResource(BASE_PATH + 'plugins/miniui/themes/' + theme + '/skin.css');
-            importResource(BASE_PATH + "plugins/miniui/themes/default/" + mode + "-mode.css");
-            importResource(BASE_PATH + "plugins/font-awesome/4.7.0/css/font-awesome.min.css");
-            $.ajax({
-                url: BASE_PATH + "plugins/miniui/miniui.js",
-                async: false,
-                cache: true,
-                dataType: "script",
-                success: callback,
-                error: callback
-            });
-            if ($(window))
-                $(window).resize(function () {
-                    if (mini)
-                        mini.layout();
+            importResource("plugins/miniui/themes/default/miniui.css");
+            importResource("plugins/miniui/themes/icons.css");
+            importResource('plugins/miniui/themes/' + theme + '/skin.css');
+            importResource("plugins/miniui/themes/default/" + mode + "-mode.css");
+            importResource("plugins/font-awesome/4.7.0/css/font-awesome.min.css");
+
+            function loadMiniJs() {
+                $.ajax({
+                    url: BASE_PATH + "plugins/miniui/miniui.js",
+                    async: false,
+                    cache: true,
+                    dataType: "script",
+                    success: function () {
+                        $(document.body).fadeIn(300);
+                        callback();
+                    },
+                    error: function () {
+                        loadMiniJs();
+                    }
                 });
+            }
+            loadMiniJs();
+            if ($(window)) {
+                $(window).resize(function () {
+                    if (mini) {
+                        mini.layout();
+                    }
+                });
+            }
         }
 
         if (!window.jQuery && !window.$) {
@@ -165,4 +182,4 @@ function importMiniui(callback) {
     doImport();
 }
 
-importResource(BASE_PATH + "plugins/requirejs/2.3.3/require.min.js", initRequireJs);
+importResource("plugins/requirejs/2.3.3/require.min.js", initRequireJs);

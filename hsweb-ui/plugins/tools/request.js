@@ -1,14 +1,43 @@
-define(["jquery"], function ($) {
+define(["jquery", "storejs"], function ($, storejs) {
     //fix #113 ie8不能使用patch方法的bug
-    if (window.ActiveXObject) {
-        $.ajaxPrefilter(function (options) {
+
+    $.ajaxPrefilter(function (options) {
+        if (window.router) {
+            var url = options.url;
+            if (url.indexOf(window.API_BASE_PATH) === -1) {
+                return;
+            }
+            var uri = url.substr(window.API_BASE_PATH.length, url.length);
+            for (var i = 0; i < window.router.length; i++) {
+                var route = window.router[i];
+                if (typeof route.test === 'string') {
+                    if (new RegExp(route.test).test(uri)) {
+                        if (route.prefix) {
+                            uri = route.prefix + uri;
+                        }
+                        break;
+                    }
+                }
+            }
+            options.url = window.API_BASE_PATH + uri;
+        }
+        if (window.ActiveXObject) {
             if (/^patch$/i.test(options.type)) {
                 options.xhr = function () {
                     return new window.ActiveXObject("Microsoft.XMLHTTP");
                 };
             }
-        });
-    }
+        }
+    });
+
+    $.ajaxSetup({ //设置全局性的Ajax选项
+        beforeSend: function (r) {
+            var token = storejs.get("hsweb-user");
+            if (token) {
+                r.setRequestHeader("hsweb-user", token);
+            }
+        }, cache: true
+    });
 
     function doAjax(url, data, method, callback, syc, requestBody, contentType) {
         var data_tmp = data;
@@ -21,12 +50,22 @@ define(["jquery"], function ($) {
             type: method,
             url: url,
             data: data,
-            cache: false,
+            cache: true,
             async: syc === true,
-            success: callback,
+            success: function () {
+                var xhr = arguments[2];
+                var requestId = xhr.getResponseHeader("request-id");
+                if (callback) {
+                    arguments[0].requestId = requestId;
+                    callback(arguments[0]);
+                }
+            },
             error: function (e) {
+
+                var requestId = e.getResponseHeader("request-id");
+
                 if (e.status === 200) {
-                    msg = {status: 200, result: e.statusText, success: true};
+                    msg = {status: 200, result: e.statusText, success: true, requestId: requestId};
                     return msg;
                 }
                 var msg = {};
@@ -35,22 +74,25 @@ define(["jquery"], function ($) {
                 } else {
                     msg = {status: e.status, message: e.statusText ? e.statusText : "未知错误", success: false};
                 }
+                msg.requestId = requestId;
                 if (msg.status === 401) {
                     if (window.doLogin) {
                         window.doLogin(function () {
                             doAjax(url, data_tmp, method, callback, syc, requestBody);
-                        });
+                        }, msg);
                     } else if (window.top.doLogin) {
                         window.top.doLogin(function () {
                             doAjax(url, data_tmp, method, callback, syc, requestBody);
-                        });
+                        }, msg);
                     } else {
-                        if (callback)
+                        if (callback) {
                             callback(msg);
+                        }
                     }
                 } else {
-                    if (callback)
+                    if (callback) {
                         callback(msg);
+                    }
                 }
             },
             dataType: 'json'
@@ -249,7 +291,10 @@ define(["jquery"], function ($) {
                 return me;
             };
             me.exec = function (callback) {
-                return doAjax(getRequestUrl(api), {data: me.data, terms: me.terms}, "PUT", callback, typeof(callback) !== 'undefined', true);
+                return doAjax(getRequestUrl(api), {
+                    data: me.data,
+                    terms: me.terms
+                }, "PUT", callback, typeof(callback) !== 'undefined', true);
             };
             return me;
         },
