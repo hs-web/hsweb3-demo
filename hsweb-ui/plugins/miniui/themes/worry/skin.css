@@ -1349,13 +1349,15 @@ body .mini-tabs-plain .mini-tabs-headers {
     font-size: 12px;
 }
 
-.mini-tab-close-hover {
+.mini-tab-close-hover,
+.mini-tab-close:hover{
     color: rgba(0,0,0,0.85);
     background: none;
+    margin-top:0;
 }
 
 .mini-tab-close:before {
-    /*content: "\E633";*/
+    display: inline-block;
     content: "\f00d";
 }
 
