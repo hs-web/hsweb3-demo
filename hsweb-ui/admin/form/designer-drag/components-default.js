@@ -53,7 +53,7 @@
                     return html;
                 }
             }, {
-                id: "size",
+                id: "width",
                 text: "控件宽度",
                 value: "4",
                 createEditor: function (component, text, value, call) {
@@ -66,12 +66,12 @@
                         value: value,
                         slide: function () {
                             if (call) call()
-                            component.setProperty("size", arguments[1].value);
+                            component.setProperty("width", arguments[1].value);
                         }
                     });
                     return html;
                 }
-            },{
+            }, {
                 id: "height",
                 text: "控件高度",
                 value: "",
@@ -85,9 +85,9 @@
                         value: value,
                         slide: function () {
                             if (call) call();
-                            if(parseInt(arguments[1].value)<=30){
+                            if (parseInt(arguments[1].value) <= 30) {
                                 component.setProperty("height", undefined);
-                            }else{
+                            } else {
                                 component.setProperty("height", arguments[1].value);
                             }
                         }
@@ -223,35 +223,7 @@
                 this.removeProperty("required");
                 this.removeProperty("emptyText");
                 this.getProperty("comment").value = "占位";
-                this.getProperty("size").value = "12";
-                this.properties.push(
-                    {
-                        id: "height",
-                        text: "高度",
-                        value: 40,
-                        createEditor: function (component, text, value, call) {
-                            if (!value) {
-                                value = 1;
-                            }
-                            var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                            html.slider({
-                                orientation: "horizontal",
-                                range: "min",
-                                min: 1,
-                                max: 200,
-                                value: parseInt(value),
-                                slide: function () {
-                                    if (call) call();
-                                    var val = parseInt(arguments[1].value);
-
-                                    component.setProperty("height", val === 1 ? "" : val);
-                                    mini.parse();
-                                }
-                            });
-                            return html;
-                        }
-                    }
-                );
+                this.getProperty("width").value = "12";
             }
 
             createClass(Hidden);
@@ -294,7 +266,7 @@
                 this.removeProperty("name");
                 this.removeProperty("required");
                 this.getProperty("comment").value = "分割";
-                this.getProperty("size").value = "12";
+                this.getProperty("width").value = "12";
             }
 
             createClass(FieldSet);
@@ -336,35 +308,9 @@
                 this.removeProperty("required");
                 this.removeProperty("emptyText");
                 this.removeProperty("showComment");
+                // this.removeProperty("height");
                 this.getProperty("comment").value = "文本标签";
-                this.getProperty("size").value = "1";
-                this.properties.push(
-                    {
-                        id: "bodyHeight",
-                        text: "高度",
-                        value: 1,
-                        comment: "设置为最小值,高度为自动",
-                        createEditor: function (component, text, value, call) {
-                            if (!value) {
-                                value = 1;
-                            }
-                            var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                            html.slider({
-                                orientation: "horizontal",
-                                range: "min",
-                                min: 1,
-                                max: 200,
-                                value: parseInt(value),
-                                slide: function () {
-                                    if (call) call();
-                                    var val = parseInt(arguments[1].value);
-                                    component.setProperty("bodyHeight", val <= 2 ? "" : val);
-                                }
-                            });
-                            return html;
-                        }
-                    }
-                );
+                this.getProperty("width").value = "1";
                 this.properties.push(
                     {
                         id: "fontSize",
@@ -500,7 +446,18 @@
             createClass(TextBox);
             TextBox.icon = "iconfont icon-danhangshurukuang";
             TextBox.prototype.typeName = "单行文本";
-
+            TextBox.prototype.setHeight = function (height) {
+                if (!height || height <= 1) {
+                    height = "";
+                }
+                if (this.setBodyHeight) {
+                    this.container.find(".component-body")
+                        .first()
+                        .css("height", height ? height + "px" : "");
+                } else {
+                    this.container.css("height", height ? height + "px" : height);
+                }
+            }
             TextBox.prototype.render = function () {
                 var me = this;
 
@@ -568,7 +525,7 @@
 
                 var container = this.getContainer(function () {
                     var m = $("<div>");
-                    m.addClass("mini-col-" + me.getProperty("size").value)
+                    m.addClass("mini-col-" + me.getProperty("width").value)
                         .addClass("form-component");
                     var c = $("<div class=\"form-item brick\">");
                     if (me.formText) {
@@ -579,10 +536,6 @@
                     var input = createInput();
                     label.text(me.getProperty("comment").value);
                     c.append(label).append(inputContainer.append(input));
-                    var bodyHeight = me.getProperty("bodyHeight").value;
-                    if (bodyHeight) {
-                        inputContainer.css("height", bodyHeight);
-                    }
                     m.append(c);
                     return m;
                 });
@@ -593,9 +546,10 @@
                         .append(createInput());
                 }
 
+
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
-                        container.find('.form-label').first().css("display","block");
+                        container.find('.form-label').first().css("display", "block");
                         if (name === 'comment') {
                             container.find(".form-label").text(value);
                         } else if (name === 'bodyHeight') {
@@ -625,39 +579,48 @@
                 Component.call(this);
                 this.id = id;
                 this.properties = createDefaultEditor();
-                this.getProperty("size").value = 12;
+                this.getProperty("width").value = 12;
                 this.getProperty("comment").value = "多行文本";
-                this.removeProperty("height");
+                // this.removeProperty("height");
 
                 this.cls = "mini-textarea";
                 this.formText = true;
-                this.properties.push(
-                    {
-                        id: "bodyHeight",
-                        text: "控件高度",
-                        value: "50",
-                        comment: "设置为最小值,高度为自动",
-                        createEditor: function (component, text, value, call) {
-                            var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                            html.slider({
-                                orientation: "horizontal",
-                                range: "min",
-                                min: 48,
-                                max: 400,
-                                value: parseInt(value),
-                                slide: function () {
-                                    if (call) call();
-                                    component.setProperty("bodyHeight", parseInt(arguments[1].value));
-                                    mini.parse();
-                                }
-                            });
-                            return html;
-                        }
-                    }
-                );
+                // this.properties.push(
+                //     {
+                //         id: "bodyHeight",
+                //         text: "控件高度",
+                //         value: "50",
+                //         comment: "设置为最小值,高度为自动",
+                //         createEditor: function (component, text, value, call) {
+                //             var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
+                //             html.slider({
+                //                 orientation: "horizontal",
+                //                 range: "min",
+                //                 min: 48,
+                //                 max: 400,
+                //                 value: parseInt(value),
+                //                 slide: function () {
+                //                     if (call) call();
+                //                     component.setProperty("bodyHeight", parseInt(arguments[1].value));
+                //                     mini.parse();
+                //                 }
+                //             });
+                //             return html;
+                //         }
+                //     }
+                // );
             }
 
             createClass(TextArea, TextBox);
+
+            TextArea.prototype.setHeight = function (height) {
+                if (!height || height <= 1) {
+                    height = "";
+                }
+                this.setProperty("areaHeight", height);
+                mini.parse();
+            };
+
             TextArea.icon = "iconfont icon-duohangshurukuang";
             TextArea.prototype.typeName = "多行文本";
             componentRepo.registerComponent("textarea", TextArea);
@@ -842,7 +805,7 @@
 
                 var container = this.getContainer(function () {
                     var m = $("<div>");
-                    m.addClass("mini-col-" + me.getProperty("size").value)
+                    m.addClass("mini-col-" + me.getProperty("width").value)
                         .addClass("form-component");
 
                     var c = $("<div class=\"form-item brick\">");
@@ -867,7 +830,8 @@
                 function initFileUploader() {
                     var uploaderContainer = container.find('.file-upload');
                     var id = uploaderContainer.attr("id");
-                    function initUploader(uploader){
+
+                    function initUploader(uploader) {
                         uploaderContainer
                             .removeClass('webuploader-container')
                             .html("选择文件");
@@ -877,12 +841,13 @@
                             }
                         }, true);
                     }
-                    if(window.require){
+
+                    if (window.require) {
                         require(["pages/form/designer-drag/file-upload"], function (uploader) {
                             initUploader(uploader);
 
                         })
-                    }else{
+                    } else {
                         initUploader(FileUploader);
                     }
 
@@ -949,7 +914,7 @@
                 Component.call(this);
                 this.id = id;
                 this.properties = createDefaultEditor();
-                this.getProperty("size").value = 4;
+                this.getProperty("width").value = 4;
                 this.getProperty("comment").value = "弹出选择";
                 this.cls = "mini-buttonedit";
                 this.properties.push(createTrueOrFalseEditor("allowInput", "可手动输入", "true"));
@@ -979,46 +944,23 @@
             this.removeProperty("required");
             this.removeProperty("emptyText");
             this.removeProperty("showComment");
-            this.removeProperty("height");
+            //this.removeProperty("height");
 
 
             this.getProperty("comment").value = "子表单";
-            this.getProperty("size").value = "12";
+            this.getProperty("width").value = "12";
 
-            this.properties.push(
-                {
-                    id: "bodyHeight",
-                    text: "高度",
-                    value: "150",
-                    comment: "设置为最小值,高度为自动",
-                    createEditor: function (component, text, value, call) {
-                        var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                        html.slider({
-                            orientation: "horizontal",
-                            range: "min",
-                            min: 1,
-                            max: 100,
-                            value: parseInt(value) / 25,
-                            slide: function () {
-                                if (call) call();
-                                var height = parseInt(arguments[1].value) * 25;
-                                if (height === 25) {
-                                    component.setProperty("bodyHeight", "");
-                                } else {
-                                    component.setProperty("bodyHeight", height);
-                                }
-                                mini.parse();
-                            }
-                        });
-                        return html;
-                    }
-                }
-            );
             this.properties.push(createTrueOrFalseEditor("hidden", "隐藏标题", "false"));
         }
 
         createClass(Form, Component, "高级控件");
 
+        Form.prototype.setHeight = function (height) {
+            if (!height || height <= 1) {
+                height = "";
+            }
+            this.setProperty("bodyHeight", height);
+        }
         Form.prototype.typeName = "子表单";
         Form.prototype.render = function () {
             var me = this;
@@ -1066,46 +1008,19 @@
             this.removeProperty("name");
             this.removeProperty("required");
             this.removeProperty("placeholder");
-            this.removeProperty("height");
             this.getProperty("comment").value = "表格表单";
-            this.getProperty("size").value = "12";
-
-            this.properties.push(
-                {
-                    id: "bodyHeight",
-                    text: "高度",
-                    value: "150",
-                    comment: "设置为最小值,高度为自动",
-                    createEditor: function (component, text, value, call) {
-                        if (!value) {
-                            value = 1;
-                        }
-                        var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                        html.slider({
-                            orientation: "horizontal",
-                            range: "min",
-                            min: 1,
-                            max: 100,
-                            value: parseInt(value) / 25,
-                            slide: function () {
-                                if (call) call();
-                                var height = parseInt(arguments[1].value) * 25;
-                                if (height === 25) {
-                                    component.setProperty("bodyHeight", "");
-                                } else {
-                                    component.setProperty("bodyHeight", height);
-                                }
-                                mini.parse();
-                            }
-                        });
-                        return html;
-                    }
-                }
-            );
+            this.getProperty("width").value = "12";
+            this.getProperty("height").value = 200;
         }
 
         createClass(Table, Component, "高级控件");
 
+        Table.prototype.setHeight = function (height) {
+            if (!height || height <= 1) {
+                height = "";
+            }
+            this.setProperty("bodyHeight", height);
+        }
         Table.prototype.render = function () {
             var me = this;
             var container = this.getContainer(function () {
@@ -1115,7 +1030,7 @@
                 var text = $("<span>").text("表格表单");
                 c.append(label.append(text));
                 c.append($("<div class='components table'>")
-                    .css("height", me.getProperty("bodyHeight").value + "px"));
+                    .css("height", me.getProperty("height").value + "px"));
                 m.append(c);
                 return m;
             });
@@ -1155,40 +1070,10 @@
             // this.removeProperty("name");
             this.removeProperty("required");
             this.removeProperty("placeholder");
-            this.removeProperty("height");
             this.getProperty("comment").value = "数据表格";
-            this.getProperty("size").value = "12";
+            this.getProperty("width").value = "12";
 
             // this.getProperty("height").value="200";
-            this.properties.push(
-                {
-                    id: "bodyHeight",
-                    text: "高度",
-                    value: "200",
-                    comment: "设置为最小值,高度为自动",
-                    createEditor: function (component, text, value, call) {
-                        var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                        html.slider({
-                            orientation: "horizontal",
-                            range: "min",
-                            min: 1,
-                            max: 100,
-                            value: parseInt(value) / 25,
-                            slide: function () {
-                                if (call) call();
-                                var height = parseInt(arguments[1].value) * 25;
-                                if (height === 25) {
-                                    component.setProperty("bodyHeight", "");
-                                } else {
-                                    component.setProperty("bodyHeight", height);
-                                }
-                                mini.parse();
-                            }
-                        });
-                        return html;
-                    }
-                }
-            );
         }
 
         createClass(DataTable, Component, "高级控件");
@@ -1197,29 +1082,30 @@
             var me = this;
 
             function createTable() {
-                    var dataGrid = $("<div showPager='false' style='width: 100%;height: 100%' class='mini-datagrid'>");
+                var dataGrid = $("<div showPager='false' style='width: 100%;height: 100%' class='mini-datagrid'>");
 
 
-                    dataGrid.append("       <div property=\"columns\">\n" +
-                        "            <!--<div type=\"indexcolumn\"></div>        -->\n" +
-                        "            <div type=\"checkcolumn\" ></div>        \n" +
-                        "            <div field=\"loginname\" width=\"120\" headerAlign=\"center\" allowSort=\"true\">员工帐号</div></div>");
+                dataGrid.append("       <div property=\"columns\">\n" +
+                    "            <!--<div type=\"indexcolumn\"></div>        -->\n" +
+                    "            <div type=\"checkcolumn\" ></div>        \n" +
+                    "            <div field=\"loginname\" width=\"120\" headerAlign=\"center\" allowSort=\"true\">员工帐号</div></div>");
 
-                    return dataGrid;
+                return dataGrid;
             }
-            var container = this.getContainer(function () {
-                var height=me.getProperty("height").value;
 
-                var m = $("<div class='mini-col-12 form-component'>").css("height",height+"px");
+            var container = this.getContainer(function () {
+                var height = me.getProperty("height").value;
+
+                var m = $("<div class='mini-col-12 form-component'>").css("height", height + "px");
                 var fit = $("<fieldset style='border: 0;height: 200px;width: 95%' class='child-form'>").append($("<legend class='edit-focus'>数据表格</legend>"));
                 var body = $("<div class='mini-fit grid-container'>");
 
                 m.append(fit.append(body));
                 return m;
             });
-            
+
             function reinitTable() {
-                    container.find(".grid-container:first").html(createTable());
+                container.find(".grid-container:first").html(createTable());
 
             }
 
@@ -1247,7 +1133,7 @@
         DataTable.prototype.typeName = "数据表格";
 
         DataTable.icon = "iconfont icon-biaoge";
-       // componentRepo.registerComponent("datatable", DataTable);
+        // componentRepo.registerComponent("datatable", DataTable);
 
     }
 

@@ -141,7 +141,7 @@ function importMiniui(callback) {
         // window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
-            importResource("plugins/miniui/themes/default/miniui.3.8.2.css");
+            importResource("plugins/miniui/themes/default/miniui.css");
             importResource("plugins/miniui/themes/icons.css");
             importResource('plugins/miniui/themes/' + theme + '/skin.css');
             importResource("plugins/miniui/themes/default/" + mode + "-mode.css");
@@ -149,7 +149,7 @@ function importMiniui(callback) {
 
             function loadMiniJs() {
                 $.ajax({
-                    url: BASE_PATH + "plugins/miniui/miniui.3.8.2.js",
+                    url: BASE_PATH + "plugins/miniui/miniui.js",
                     async: false,
                     cache: true,
                     dataType: "script",

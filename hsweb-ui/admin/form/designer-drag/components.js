@@ -57,17 +57,17 @@ Component.prototype.setProperty = function (property, value, replace) {
     }
     prop.value = value;
 
-    if (property === 'size' || property === 'mdSize'|| property === 'height') {
+    if (property === 'size' || property === 'width' || property === 'mdSize' || property === 'height') {
         this.resize();
         return;
     }
     if (property === "type") {
-        if(!prop.prototype){
-            return;
-        }
-        if (!prop.value && prop.prototype.type === value) {
-            return;
-        }
+        // if (!prop.prototype) {
+        //     return;
+        // }
+        // if (!prop.value && prop.prototype.type === value) {
+        //     return;
+        // }
         var NewComponent = componentRepo.supportComponents[value];
         if (NewComponent) {
             var comp = new NewComponent(me.id);
@@ -129,21 +129,25 @@ Component.prototype.getContainer = function (newFunc) {
     return container;
 };
 Component.prototype.resize = function () {
-    var size = this.getProperty("size");
+    var size = this.getProperty("size").value || this.getProperty("width").value;
     var height = this.getProperty("height").value;
-    if (size) {
-        size = size.value;
-    }
     if (this.container) {
         this.container.removeClass();
-        this.container.addClass("mini-col-" + (size ? size : 4));
+        this.container.addClass("mini-col-" + (size || 4));
         this.container.addClass("form-component");
-
-        if(height&&height>1){
-            this.container.css("height",height+"px");
-        }else{
-            this.container.css("height","");
+        if(this.setWidth){
+            this.setWidth(size);
         }
+        if (this.setHeight) {
+            this.setHeight(height);
+        } else {
+            if (height && height > 1) {
+                this.container.css("height", height + "px");
+            } else {
+                this.container.css("height", "");
+            }
+        }
+        this.doEvent("resize", size, height);
         mini.layout();
     }
 };
