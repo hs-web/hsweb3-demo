@@ -498,8 +498,8 @@
                                 if (optionConfig.type === 'url') {
                                     input.attr("url", window.API_BASE_PATH + optionConfig.url);
                                     input.attr("textField", optionConfig.textField || 'text');
-                                    input.attr("idField", optionConfig.idField || "id");
-                                    input.attr("dataField", optionConfig.dataField || "text");
+                                    input.attr("valueField", optionConfig.idField || "id");
+                                    input.attr("dataField", optionConfig.dataField || "result.data");
                                     input.attr("ajaxType", optionConfig.ajaxType || "GET");
                                     input.attr("parentField", optionConfig.parentField || "parentId");
                                     input.attr("resultAsTree", optionConfig.resultAsTree || "false");
