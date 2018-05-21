@@ -15,7 +15,6 @@ td {
 }
 
 .mini-button-text {
-    padding: 6px 12px 6px 12px;
     line-height: 16px;
 }
 
@@ -24,11 +23,14 @@ td {
 }
 
 .mini-button .mini-button-icon-text {
-    padding-left: 16px;
+    padding-left: 27px;
 }
 
 .mini-button .mini-button-icon-only {
     padding-left: 18px;
+}
+.mini-button-inner {
+    padding:7px 8px 7px 18px;
 }
 
 .mini-button .mini-button-icon-only .mini-button-icon {

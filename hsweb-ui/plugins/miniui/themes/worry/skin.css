@@ -102,11 +102,7 @@ body .mini-button-plain {
     color: rgba(0,0,0,.65);
     padding:0;
 }
-.mini-button-inner {
-    padding:0;
-}
 .mini-button-text {
-    padding: 4px 12px 4px 12px;
     font-size: 13px;
     display: inline-block;
 }
