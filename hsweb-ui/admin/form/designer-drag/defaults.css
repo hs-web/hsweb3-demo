@@ -227,3 +227,117 @@
     pointer-events: none;
 }
 
+.dynamic-form .file-info {
+    margin-left: 5px;
+    background-color: #FBFBFB;
+    height: 99%;
+    width: 98%;
+    float: left;
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.dynamic-form .multiple .file-info {
+    height: 95px;
+    width: 90px;
+    float: left;
+}
+
+/*.dynamic-form .select-file {*/
+/*margin: auto;*/
+/*position: absolute;*/
+/*top:50%;*/
+/*width: 90%;*/
+/*height: 20px;*/
+/*text-align: center;*/
+/*}*/
+.dynamic-form .select-file {
+    margin: auto;
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    height: 20px;
+    text-align: right;
+}
+
+.dynamic-form .file-info .file-name {
+    width: 100%;
+    height: 70px;
+    /*margin-top: 10px;*/
+    overflow: hidden;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+.dynamic-form .file-upload-container {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #2196f3;
+    position: relative;
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.dynamic-form .file-queue {
+    height: 150px;
+    overflow: hidden;
+}
+
+.dynamic-form .multiple .file-queue {
+    height: 150px;
+    overflow-y: auto;
+}
+
+.dynamic-form .file-info .file-process {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.dynamic-form .file-info .file-upload-process {
+    width: 80%;
+    height: 1.2em;
+    background: #2196f3;
+    border-radius: 2px;
+}
+
+.dynamic-form .file-info .file-upload-percent {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.dynamic-form .file-info .error {
+    background: red;
+}
+.dynamic-form .file-operation{
+    display: none;
+}
+.dynamic-form .multiple .file-operation {
+    position: absolute;
+    /*height: 10p;*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80000000', endColorstr='#80000000') \0;
+    /*background: rgba(0, 0, 0, 0.2);*/
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 9999;
+    text-align: right;
+    display:block;
+}
+
+.dynamic-form .file-upload-container .tips{
+    width: 100%;
+    height: 100%;
+    top: 40px;
+    position: absolute;
+    font-size: 26px;
+    color: grey;
+    text-align: center;
+}

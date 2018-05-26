@@ -129,13 +129,14 @@ Component.prototype.getContainer = function (newFunc) {
     return container;
 };
 Component.prototype.resize = function () {
-    var size = this.getProperty("size").value || this.getProperty("width").value;
+    var size = this.getProperty("width").value || this.getProperty("size").value;
     var height = this.getProperty("height").value;
     if (this.container) {
         this.container.removeClass();
         this.container.addClass("mini-col-" + (size || 4));
         this.container.addClass("form-component");
-        if(this.setWidth){
+        this.container.removeAttr("style");
+        if (this.setWidth) {
             this.setWidth(size);
         }
         if (this.setHeight) {

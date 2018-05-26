@@ -30,6 +30,26 @@
             this.call(args);
         })
     };
+
+    FormParser.prototype.setReadOnly = function (readonly) {
+        if (this.formId) {
+            var form = new mini.Form("#" + this.formId);
+            var fields = form.getFields();
+            for (var i = 0, l = fields.length; i < l; i++) {
+                var c = fields[i];
+                if (c.setReadOnly) c.setReadOnly(readonly);     //只读
+                if (c.setIsValid) c.setIsValid(true);      //去除错误提示
+                if (c.addCls) c.addCls("read-only");          //增加asLabel外观
+            }
+            $(this.components).each(function () {
+                var target = this.target;
+                if (target && target.setReadOnly) {
+                    target.setReadOnly(readonly);
+                }
+            });
+        }
+    };
+
     FormParser.prototype.setData = function (data) {
         if (this.formId) {
             var form = new mini.Form("#" + this.formId);
@@ -98,15 +118,25 @@
                     component.container = componentHtml;
                     component.parser = me;
                     component.render();
+                    var reload = component.reload ? function () {
+                        return component.reload();
+                    } : undefined;
                     $(this.properties).each(function () {
                             var property = this;
                             var value = property.value;
                             if (typeof value === 'undefined') {
                                 return;
                             }
-                            component.setProperty(property.id, value, true);
+                            if (reload) {
+                                component.getProperty(property.id).value = value;
+                            } else {
+                                component.setProperty(property.id, value, true);
+                            }
                         }
                     );
+                    if (reload) {
+                        reload();
+                    }
                 } else {
                     console.warn("不支持的控件类型", JSON.stringify(this))
                 }

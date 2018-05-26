@@ -44,12 +44,11 @@
                             uploader.upload();
                         });
                 }
-                ;
-                uploader.on('uploadSuccess', function (file, response) {
-                    if (response.result) {
-                        uploadCallback(response.result);
-                    }
-                });
+            });
+            uploader.on('uploadSuccess', function (file, response) {
+                if (response.result) {
+                    uploadCallback(response.result);
+                }
             });
         }
     }

@@ -455,10 +455,11 @@
                         .first()
                         .css("height", height ? height + "px" : "");
                 } else {
-                    this.container.css("height", height ? height + "px" : height);
+                    this.container.css("height", height ? height + "px" : "");
                 }
-            }
-            TextBox.prototype.render = function () {
+            };
+            TextBox.prototype.reload = function () {
+                var container = this.container;
                 var me = this;
 
                 function createInput() {
@@ -523,6 +524,19 @@
                     return input;
                 }
 
+                function newInput() {
+                    return container.find(".component-body")
+                        .html("")
+                        .append(createInput());
+                }
+
+                // console.log(me);
+                newInput();
+            };
+
+            TextBox.prototype.render = function () {
+                var me = this;
+                var isNew = false;
                 var container = this.getContainer(function () {
                     var m = $("<div>");
                     m.addClass("mini-col-" + me.getProperty("width").value)
@@ -533,20 +547,15 @@
                     }
                     var label = $("<label class=\"form-label\">");
                     var inputContainer = $("<div class=\"input-block component-body\">");
-                    var input = createInput();
                     label.text(me.getProperty("comment").value);
-                    c.append(label).append(inputContainer.append(input));
+                    c.append(label).append(inputContainer);
                     m.append(c);
+                    isNew = true;
                     return m;
                 });
-
-                function newInput() {
-                    return container.find(".component-body")
-                        .html("")
-                        .append(createInput());
+                if (isNew) {
+                    me.reload();
                 }
-
-
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
                         container.find('.form-label').first().css("display", "block");
@@ -564,7 +573,7 @@
                                 container.find(".component-body").removeClass("input-block");
                             }
                         } else {
-                            newInput();
+                            me.reload();
                         }
                     });
                 return container;
