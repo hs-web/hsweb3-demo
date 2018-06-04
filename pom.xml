@@ -243,7 +243,7 @@
         <dependency>
             <groupId>org.hswebframework.web</groupId>
             <artifactId>hsweb-flowable-modeler</artifactId>
-            <version>${hsweb.framework.version}</version>
+            <version>3.0-SNAPSHOT</version>
         </dependency>
         <!--首页仪表盘配置-->
         <dependency>
