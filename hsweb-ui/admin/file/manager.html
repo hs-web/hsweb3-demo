@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件管理</title>
+    <script data-main="manager.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        #script-editor {
+            margin: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+    </style>
+</head>
+<body style="display: none">
+<div class="mini-fit">
+    <div class="mini-toolbar">
+        <!--<a class="mini-button">-->
+            <!--<i class="fa fa-arrow-left"></i>-->
+        <!--</a>-->
+        <!--<a class="mini-button">-->
+            <!--<i class="fa fa-arrow-right"></i>-->
+        <!--</a>-->
+        <a class="mini-button">
+            <i class="fa fa-repeat reload-file"></i>
+        </a>
+        <input class="mini-textbox" name="fileLocation" style="width: 80%" value="./"/>
+    </div>
+    <div class="mini-fit">
+        <div class="mini-splitter" style="width:100%;height:100%;">
+            <div size="20%" showCollapseButton="true" style="padding:5px;">
+                <div class="mini-fit" style="overflow-y: auto;">
+                    <ul id="fileTree" class="mini-tree" style="width:100%;" showTreeIcon="true" textField="name" idField="absolutePath">
+                    </ul>
+                </div>
+            </div>
+            <div showCollapseButton="true">
+                <div class="mini-fit">
+                    <pre class="editor" id="script-editor"></pre>
+                    <iframe class="editor" frameborder="0" style="width: 100%;height: 100%;" src="../form/designer-drag/index.html" id="form-editor"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -47,7 +47,7 @@ importMiniui(function () {
         });
 
         var dataId = request.getParameter("id");
-        require(["text!config-form.json", "pages/form/designer-drag/components-default"], function (config) {
+        require(["text!config-form.hf", "pages/form/designer-drag/components-default"], function (config) {
             mainForm = new FormParser(JSON.parse(config));
             mainForm.render($("#basic-info"));
 
