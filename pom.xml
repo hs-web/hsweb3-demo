@@ -142,12 +142,6 @@
             <version>${hsweb.framework.version}</version>
         </dependency>
 
-        <!--自定义模块-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-system-module-starter</artifactId>
-            <version>${hsweb.framework.version}</version>
-        </dependency>
         <!--定时调度-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
