@@ -102,7 +102,7 @@ public class UserLockController {
         if (entity == null || !DigestUtils.md5Hex(lockPwd.getLockPassword()).equals(entity.getSetting())) {
             throw new BusinessException("解锁密码错误");
         }
-        userTokenManager.changeTokenState(token.getToken(), TokenState.effective);
+        userTokenManager.changeTokenState(token.getToken(), TokenState.normal);
         return ResponseMessage.ok();
     }
 

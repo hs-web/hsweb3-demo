@@ -336,14 +336,14 @@ function initLogin() {
 
 window.doLogin = function (callback, msg) {
     //登录超时
-    if (msg.result === 'expired') {
+    if (msg.result === 'expired'||msg.result.value==='expired') {
         mini.get("loginWindow").show();
         window.onLoginSuccess = function () {
             initAuthorize(callback);
         };
     }
     //锁定
-    if (msg.result === 'lock') {
+    if (msg.result === 'lock'||msg.result.value==='lock') {
         //显示解锁界面
         mini.get('unLockWindow').show();
         window.onLock = function () {
@@ -353,7 +353,7 @@ window.doLogin = function (callback, msg) {
         }
     }
     //被踢下线了
-    if (msg.result === 'offline') {
+    if (msg.result === 'offline'||msg.result.value==='offline') {
         if (!window.offlineTips) {
             mini.alert("该用户已经在其他地方登录!", "", function () {
                 require(["request"], function (request) {
@@ -366,7 +366,7 @@ window.doLogin = function (callback, msg) {
         }
     }
     //被禁止访问了
-    if (msg.result === 'deny') {
+    if (msg.result === 'deny'||msg.result.value==='deny') {
     }
 };
 
