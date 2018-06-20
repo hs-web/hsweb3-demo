@@ -28,6 +28,10 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>hsweb-ui</directory>
+                <targetPath>static</targetPath>
+            </resource>
         </resources>
         <plugins>
             <plugin>
