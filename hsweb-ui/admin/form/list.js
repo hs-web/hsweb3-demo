@@ -30,15 +30,10 @@ importMiniui(function () {
         search();
 
         $(".add-menu-button").on("click", function () {
-            tools.openWindow("admin/form/save.html", "新建表单", "80%", "80%", function () {
+            tools.openWindow("admin/npx-form/save.html", "新建表单", "80%", "80%", function () {
                 grid.reload();
             });
         });
-        $(".designer-button").on("click",function () {
-            tools.openWindow("admin/form/designer/designer.html", "表单设计器", "80%", "80%", function () {
-              //  grid.reload();
-            });
-        })
     });
 
 })
@@ -53,7 +48,7 @@ window.renderDeploy = function (e) {
                     var loading = message.loading("取消中...");
                     request.put(api, row, function (res) {
                         loading.close();
-                        if (res.status == 200) {
+                        if (res.status === 200) {
                             grid.reload();
                         } else {
                             message.showTips("取消失败:" + res.message, "danger");
@@ -70,7 +65,7 @@ window.renderDeploy = function (e) {
                     var loading = message.loading("发布中...");
                     request.put(api, row, function (res) {
                         loading.close();
-                        if (res.status == 200) {
+                        if (res.status === 200) {
                             grid.reload();
                         } else {
                             message.showTips("发布失败:" + res.message, "danger");
@@ -88,7 +83,7 @@ window.renderAction = function (e) {
     var html = [];
     var row = e.record;
     html.push(tools.createActionButton("编辑", "icon-edit", function () {
-        tools.openWindow("admin/form/save.html?id=" + row.id, "编辑表单" + row.name, "80%", "80%", function () {
+        tools.openWindow("admin/npx-form/save.html?id=" + row.id, "编辑表单" + row.name, "80%", "80%", function () {
             grid.reload();
         });
     }));
@@ -105,7 +100,7 @@ window.renderAction = function (e) {
                     var box = message.loading("删除中...");
                     request["delete"]("dynamic/form/" + row.id, function (response) {
                         box.hide();
-                        if (response.status == 200) {
+                        if (response.status === 200) {
                             grid.reload();
                         } else {
                             message.showTips("删除失败:" + response.message, "danger");
