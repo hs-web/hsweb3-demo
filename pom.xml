@@ -30,10 +30,12 @@
             </resource>
         </resources>
         <plugins>
+            <!--编译插件-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
+                <!--指定编译器版本和字符集-->
                 <configuration>
                     <source>${project.build.jdk}</source>
                     <target>${project.build.jdk}</target>
@@ -41,11 +43,17 @@
                 </configuration>
             </plugin>
 
+            <!--
+            spring-boot插件
+            1. 可以使用命令 mvn spring-boot:run 直接运行项目
+            2. 使用mvn package命令打包为可执行jar,通过jar -jar 运行项目
+            -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
                 <configuration>
+                    <!--启动类-->
                     <mainClass>org.hswebframework.web.demo.Application</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
