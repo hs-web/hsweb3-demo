@@ -86,7 +86,7 @@
                         slide: function () {
                             if (call) call();
                             if (parseInt(arguments[1].value) <= 30) {
-                                component.setProperty("height", undefined);
+                                component.setProperty("height", 0);
                             } else {
                                 component.setProperty("height", arguments[1].value);
                             }
@@ -1055,6 +1055,7 @@
                         }
                     }
                     else if (key === 'bodyHeight') {
+                        console.log(value)
                         container.find(".table:first").css("height", value);
                     } else {
                         container.find("legend:first").attr(key, value);
