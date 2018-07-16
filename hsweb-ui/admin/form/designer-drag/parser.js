@@ -124,9 +124,9 @@
                     $(this.properties).each(function () {
                             var property = this;
                             var value = property.value;
-                            if (typeof value === 'undefined') {
-                                return;
-                            }
+                            // if (typeof value === 'undefined') {
+                            //     return;
+                            // }
                             if (reload) {
                                 component.getProperty(property.id).value = value;
                             } else {
