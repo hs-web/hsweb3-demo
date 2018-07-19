@@ -54,7 +54,6 @@ hsweb:
       allowed-methods: "*"
       allowed-origins: "*"
       enable: true
-
 mybatis:
 #  mapper-location-excludes: classpath*:**/UserMapper.xml  # 不加载的配置
   mapper-locations: classpath*:org/hswebframework/web/demo/**/*Mapper.xml
