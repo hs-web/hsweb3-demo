@@ -708,11 +708,11 @@
                 //     value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 // });
             }
+            createClass(Combobox, TextBox);
 
             Combobox.icon = "iconfont icon-xialakongjian";
             Combobox.prototype.typeName = "下拉列表";
 
-            createClass(Combobox, TextBox);
 
 
             componentRepo.registerComponent("combobox", Combobox);
@@ -733,11 +733,11 @@
                 });
                 this.getProperty("comment").value = "日期选择";
             }
+            createClass(Datepicker, TextBox);
 
             Datepicker.prototype.typeName = "日期选择";
 
             Datepicker.icon = "iconfont icon-riqixuanze";
-            createClass(Datepicker, TextBox);
 
             componentRepo.registerComponent("datepicker", Datepicker);
         }
