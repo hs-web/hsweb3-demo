@@ -30,7 +30,7 @@ importMiniui(function () {
         search();
 
         $(".add-menu-button").on("click", function () {
-            tools.openWindow("admin/npx-form/save.html", "新建表单", "80%", "80%", function () {
+            tools.openWindow("admin/form/save.html", "新建表单", "80%", "80%", function () {
                 grid.reload();
             });
         });
@@ -83,7 +83,7 @@ window.renderAction = function (e) {
     var html = [];
     var row = e.record;
     html.push(tools.createActionButton("编辑", "icon-edit", function () {
-        tools.openWindow("admin/npx-form/save.html?id=" + row.id, "编辑表单" + row.name, "80%", "80%", function () {
+        tools.openWindow("admin/form/save.html?id=" + row.id, "编辑表单" + row.name, "80%", "80%", function () {
             grid.reload();
         });
     }));
