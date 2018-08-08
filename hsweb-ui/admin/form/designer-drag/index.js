@@ -142,8 +142,9 @@ importMiniui(function () {
         "components", "css!defaults", "css!plugin/font-awesome/4.7.0/css/font-awesome.css",
         "css!fonts/iconfont",
         "css!plugin/jquery-ui/jquery-ui.min",
-        'css!designer',
-        "css!designer-custom"], function (Designer, md5, request) {
+        'css!designer'
+        // ,"css!designer-custom"
+    ], function (Designer, md5, request) {
         componentRepo.useIdForName = request.getParameter("useIdForName") === 'true';
 
         var param = request.getParameter("components");

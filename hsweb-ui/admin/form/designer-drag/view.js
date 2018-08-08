@@ -7,7 +7,7 @@ importMiniui(function () {
         require(["pages/form/designer-drag/parser"], function (Parser) {
             require(["pages/form/designer-drag/components-default", "css!pages/form/designer-drag/defaults"], function () {
                 if (window.getConfig) {
-                    var parser = new Parser(window.getConfig());
+                    var parser = window.parser = new Parser(window.getConfig());
                     parser.render($("#preview"));
                     $(".get-form-data").on("click", function () {
                         message.alert(JSON.stringify(parser.getData(false)));

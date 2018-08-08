@@ -86,7 +86,7 @@
                         slide: function () {
                             if (call) call();
                             if (parseInt(arguments[1].value) <= 30) {
-                                component.setProperty("height", 0);
+                                component.setProperty("height", undefined);
                             } else {
                                 component.setProperty("height", arguments[1].value);
                             }
@@ -708,11 +708,11 @@
                 //     value: JSON.stringify([{id: "1", text: '选项1'}, {id: "2", text: '选项2'}])
                 // });
             }
+
             createClass(Combobox, TextBox);
 
             Combobox.icon = "iconfont icon-xialakongjian";
             Combobox.prototype.typeName = "下拉列表";
-
 
 
             componentRepo.registerComponent("combobox", Combobox);
@@ -733,6 +733,7 @@
                 });
                 this.getProperty("comment").value = "日期选择";
             }
+
             createClass(Datepicker, TextBox);
 
             Datepicker.prototype.typeName = "日期选择";
@@ -803,6 +804,63 @@
 
             createClass(FileUpload);
 
+
+            FileUpload.prototype.setValue = function (file) {
+                this.value = file;
+                this.getValue = function () {
+                    return file;
+                }
+            }
+            FileUpload.prototype.setReadOnly = function (readOnly) {
+                this.readOnly = readOnly;
+                var container = this.container;
+                this.initFileUploader();
+
+            };
+            FileUpload.prototype.initFileUploader = function () {
+                var container = this.container;
+                var uploaderContainer = container.find('.file-upload');
+                var id = uploaderContainer.attr("id");
+                var readOnly = this.readOnly;
+                var me = this;
+
+                function initUploader(uploader) {
+                    uploaderContainer
+                        .html(readOnly ? "浏览文件" : "选择文件");
+                    if (!readOnly) {
+                        uploaderContainer.removeClass('webuploader-container');
+                        uploader.initUploader("#" + id, function (file) {
+                            uploaderContainer
+                                .find(".webuploader-pick")
+                                .html("上传成功");
+                            me.getValue = function () {
+                                return file;
+                            }
+                        }, true);
+                    } else {
+                        uploaderContainer.addClass("webuploader-pick");
+
+                        uploaderContainer.unbind("click")
+                            .on("click", function () {
+                                if (me.onViewFile) {
+                                    me.onViewFile(me.getValue());
+                                } else {
+                                    if (me.getValue()) {
+                                        window.open(me.getValue())
+                                    }
+                                }
+                            })
+                    }
+                }
+
+                if (window.require) {
+                    require(["pages/form/designer-drag/file-upload"], function (uploader) {
+                        initUploader(uploader);
+                    })
+                } else {
+                    initUploader(FileUploader);
+                }
+            };
             FileUpload.prototype.typeName = "文件上传";
             FileUpload.prototype.render = function () {
                 var me = this;
@@ -836,33 +894,8 @@
                     return m;
                 });
 
-                function initFileUploader() {
-                    var uploaderContainer = container.find('.file-upload');
-                    var id = uploaderContainer.attr("id");
 
-                    function initUploader(uploader) {
-                        uploaderContainer
-                            .removeClass('webuploader-container')
-                            .html("选择文件");
-                        uploader.initUploader("#" + id, function (file) {
-                            me.getValue = function () {
-                                return file;
-                            }
-                        }, true);
-                    }
-
-                    if (window.require) {
-                        require(["pages/form/designer-drag/file-upload"], function (uploader) {
-                            initUploader(uploader);
-
-                        })
-                    } else {
-                        initUploader(FileUploader);
-                    }
-
-                }
-
-                initFileUploader();
+                me.initFileUploader();
 
                 function newInput() {
                     return container.find(".input-block")
