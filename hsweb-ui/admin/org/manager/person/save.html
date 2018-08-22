@@ -97,7 +97,7 @@
             <td valign="middle" style="border-color: rgb(221, 221, 221);" rowspan="1"
                 colspan="3" width="109">
                 <input class="mini-treeselect" emptyText="机构" name="orgId" valuefield="id"
-                       textfield="name" pinyinfield="namePinYin" valuefromselect="true" clearonload="true"
+                       textfield="fullName" pinyinfield="namePinYin" valuefromselect="true" clearonload="true"
                        allowinput="true" ajaxtype="GET" expandOnLoad="1" resultastree="false" parentfield="parentId"
                        virtualscroll="true" style="width: 45%">
                 <input class="mini-treeselect" parentfield="parentId" clearOnLoad="true" emptyText="部门" textField="name" name="departmentId" style="width:22%">
@@ -112,7 +112,7 @@
      showPager="false" idField="positionId" sortField="sortIndex">
     <div property="columns">
         <div type="indexcolumn" width="20" align="center" headerAlign="center">#</div>
-        <div name="org" field="org.name" width="100" headerAlign="center" align="center">机构</div>
+        <div name="org" field="org.fullName" width="100" headerAlign="center" align="center">机构</div>
         <div name="department" field="department.name" width="100" headerAlign="center" align="center">部门</div>
         <div name="position" field="position.name" width="100" headerAlign="center" align="center">职位</div>
         <div name="action"  width="40" align="center" headerAlign="center">操作</div>
