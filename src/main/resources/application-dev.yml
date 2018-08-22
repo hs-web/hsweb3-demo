@@ -1,6 +1,6 @@
 spring:
     datasource:
-#        url: jdbc:mysql://192.168.50.178:3306/hsweb3?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+#        url: jdbc:mysql://localhost:3306/hsweb3?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
         url : jdbc:h2:file:./data/h2db
         username : sa
         password :
