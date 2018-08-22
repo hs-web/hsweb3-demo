@@ -14,7 +14,7 @@ importMiniui(function () {
     exp.setOrg = function (area) {
         var org = mini.getbyName("orgId");
         org.setValue(area.id);
-        org.setText(area.name);
+        org.setText(area.fullName);
         org.setEnabled(false);
     };
     exp.setParent = function (dep) {
