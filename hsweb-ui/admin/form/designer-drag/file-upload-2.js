@@ -36,7 +36,7 @@
             var uploader = WebUploader.create({
                 swf: BASE_PATH + 'plugins/webuploader/Uploader.swf',
                 //文件上传地址
-                server: BASE_PATH + "api/file-server/file/upload-static",
+                server: BASE_PATH + "file/upload-static",
 
                 pick: conf.pick,
                 compress: false,
@@ -49,9 +49,9 @@
 
             require(["storejs"], function (storejs) {
                 uploader.on('uploadBeforeSend', function (e, param, headers) {
-                    var token = storejs.get("iot-user");
+                    var token = storejs.get("hsweb-user");
                     if (token) {
-                        headers['iot-user'] = token;
+                        headers['hsweb-user'] = token;
                     }
                 });
             });

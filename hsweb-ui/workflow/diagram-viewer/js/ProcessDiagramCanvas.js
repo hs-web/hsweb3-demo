@@ -30,7 +30,8 @@ var ANNOTATION_TEXT_PADDING = 7;
 
 // Colors
 var TASK_COLOR = Color.OldLace; // original: Color.get(255, 255, 204);
-var TASK_STROKE_COLOR = Color.black; /*Color.SlateGrey; */
+var TASK_STROKE_COLOR = Color.black;
+/*Color.SlateGrey; */
 //var EXPANDED_SUBPROCESS_ATTRS = Color.black; /*Color.SlateGrey; */
 var BOUNDARY_EVENT_COLOR = Color.white;
 var CONDITIONAL_INDICATOR_COLOR = Color.get(255, 255, 255);
@@ -38,10 +39,12 @@ var HIGHLIGHT_COLOR = Color.Firebrick1;
 //var SEQUENCEFLOW_COLOR = Color.DimGrey;
 var SEQUENCEFLOW_COLOR = Color.black;
 
-var CATCHING_EVENT_COLOR = Color.black; /* Color.SlateGrey; */
-var START_EVENT_COLOR = Color.get(251,251,251);
-var START_EVENT_STROKE_COLOR = Color.black; /* Color.SlateGrey; */
-var END_EVENT_COLOR = Color.get(251,251,251);
+var CATCHING_EVENT_COLOR = Color.black;
+/* Color.SlateGrey; */
+var START_EVENT_COLOR = Color.get(251, 251, 251);
+var START_EVENT_STROKE_COLOR = Color.black;
+/* Color.SlateGrey; */
+var END_EVENT_COLOR = Color.get(251, 251, 251);
 //var END_EVENT_STROKE_COLOR = Color.black;
 var NONE_END_EVENT_COLOR = Color.Firebrick4;
 var NONE_END_EVENT_STROKE_COLOR = Color.Firebrick4;
@@ -52,10 +55,10 @@ var LABEL_COLOR = Color.get(72, 106, 150);
 
 // Fonts
 var NORMAL_FONT = {font: "10px Arial", opacity: 1, fill: Color.black};
-var LABEL_FONT = {font: "11px Arial", "font-style":"italic", opacity: 1, "fill": LABEL_COLOR};
-var LABEL_FONT_SMOOTH = {font: "10px Arial", "font-style":"italic", opacity: 1, "fill": LABEL_COLOR, stroke: LABEL_COLOR, "stroke-width":.4};
+var LABEL_FONT = {font: "11px Arial", "font-style": "italic", opacity: 1, "fill": LABEL_COLOR};
+var LABEL_FONT_SMOOTH = {font: "10px Arial", "font-style": "italic", opacity: 1, "fill": LABEL_COLOR, stroke: LABEL_COLOR, "stroke-width": .4};
 var TASK_FONT = {font: "11px Arial", opacity: 1, fill: Color.black};
-var TASK_FONT_SMOOTH = {font: "11px Arial", opacity: 1, fill: Color.black, stroke: LABEL_COLOR, "stroke-width":.4};
+var TASK_FONT_SMOOTH = {font: "11px Arial", opacity: 1, fill: Color.black, stroke: LABEL_COLOR, "stroke-width": .4};
 var POOL_LANE_FONT = {font: "11px Arial", opacity: 1, fill: Color.black};
 var EXPANDED_SUBPROCESS_FONT = {font: "11px Arial", opacity: 1, fill: Color.black};
 
@@ -65,9 +68,9 @@ var SEQUENCEFLOW_STROKE = 1.5;
 var SEQUENCEFLOW_HIGHLIGHT_STROKE = 2;
 var THICK_TASK_BORDER_STROKE = 2.5;
 var GATEWAY_TYPE_STROKE = 3.2;
-var END_EVENT_STROKE = NORMAL_STROKE+2;
+var END_EVENT_STROKE = NORMAL_STROKE + 2;
 var MULTI_INSTANCE_STROKE = 1.3;
-var EVENT_SUBPROCESS_ATTRS = 	{"stroke": Color.black, "stroke-width": NORMAL_STROKE, "stroke-dasharray": ". "};
+var EVENT_SUBPROCESS_ATTRS = {"stroke": Color.black, "stroke-width": NORMAL_STROKE, "stroke-dasharray": ". "};
 //var EXPANDED_SUBPROCESS_ATTRS = {"stroke": Color.black, "stroke-width": NORMAL_STROKE, "fill": Color.FloralWhite};
 var EXPANDED_SUBPROCESS_ATTRS = {"stroke": Color.black, "stroke-width": NORMAL_STROKE, "fill": Color.WhiteSmoke};
 var NON_INTERRUPTING_EVENT_STROKE = "- ";
@@ -78,21 +81,21 @@ var EXPANDED_SUBPROCESS_CORNER_ROUND = 10;
 // icons
 var ICON_SIZE = 16;
 var ICON_PADDING = 4;
-var USERTASK_IMAGE = 		"images/deployer/user.png";
-var SCRIPTTASK_IMAGE = 		"images/deployer/script.png";
-var SERVICETASK_IMAGE = 	"images/deployer/service.png";
-var RECEIVETASK_IMAGE = 	"images/deployer/receive.png";
-var SENDTASK_IMAGE = 		"images/deployer/send.png";
-var MANUALTASK_IMAGE = 		"images/deployer/manual.png";
+var USERTASK_IMAGE = "images/deployer/user.png";
+var SCRIPTTASK_IMAGE = "images/deployer/script.png";
+var SERVICETASK_IMAGE = "images/deployer/service.png";
+var RECEIVETASK_IMAGE = "images/deployer/receive.png";
+var SENDTASK_IMAGE = "images/deployer/send.png";
+var MANUALTASK_IMAGE = "images/deployer/manual.png";
 var BUSINESS_RULE_TASK_IMAGE = "images/deployer/business_rule.png";
-var TIMER_IMAGE = 			"images/deployer/timer.png";
-var MESSAGE_CATCH_IMAGE = 	"images/deployer/message_catch.png";
-var MESSAGE_THROW_IMAGE = 	"images/deployer/message_throw.png";
-var ERROR_THROW_IMAGE = 	"images/deployer/error_throw.png";
-var ERROR_CATCH_IMAGE = 	"images/deployer/error_catch.png";
-var SIGNAL_CATCH_IMAGE = 	"images/deployer/signal_catch.png";
-var SIGNAL_THROW_IMAGE = 	"images/deployer/signal_throw.png";
-var MULTIPLE_CATCH_IMAGE = 	"images/deployer/multiple_catch.png";
+var TIMER_IMAGE = "images/deployer/timer.png";
+var MESSAGE_CATCH_IMAGE = "images/deployer/message_catch.png";
+var MESSAGE_THROW_IMAGE = "images/deployer/message_throw.png";
+var ERROR_THROW_IMAGE = "images/deployer/error_throw.png";
+var ERROR_CATCH_IMAGE = "images/deployer/error_catch.png";
+var SIGNAL_CATCH_IMAGE = "images/deployer/signal_catch.png";
+var SIGNAL_THROW_IMAGE = "images/deployer/signal_throw.png";
+var MULTIPLE_CATCH_IMAGE = "images/deployer/multiple_catch.png";
 
 
 var ObjectType = {
@@ -102,14 +105,12 @@ var ObjectType = {
     RHOMBUS: "rhombus"
 };
 
-function OBJ(type){
+function OBJ(type) {
     this.c = null;
     this.type = type;
     this.nestedElements = [];
 };
-OBJ.prototype = {
-
-};
+OBJ.prototype = {};
 
 var CONNECTION_TYPE = {
     SEQUENCE_FLOW: "sequence_flow",
@@ -117,7 +118,7 @@ var CONNECTION_TYPE = {
     ASSOCIATION: "association"
 };
 
-var ProcessDiagramCanvas = function(){
+var ProcessDiagramCanvas = function () {
 };
 ProcessDiagramCanvas.prototype = {
 // var ProcessDiagramCanvas = {
@@ -145,7 +146,7 @@ ProcessDiagramCanvas.prototype = {
     /**
      * Creates an empty canvas with given width and height.
      */
-    init: function(width, height, processDefinitionId){
+    init: function (width, height, processDefinitionId) {
         this.canvasWidth = width;
         this.canvasHeight = height;
 
@@ -178,22 +179,22 @@ ProcessDiagramCanvas.prototype = {
 
         // ninja!
         var RaphaelOriginal = Raphael;
-        this.ninjaPaper =(function (local_raphael) {
+        this.ninjaPaper = (function (local_raphael) {
             var paper = local_raphael(1, 1, 1, 1, processDefinitionId);
             return paper;
         })(Raphael.ninja());
         Raphael = RaphaelOriginal;
     },
-    setPaint: function(color){
+    setPaint: function (color) {
         this.paint = color;
     },
-    getPaint: function(){
+    getPaint: function () {
         return this.paint;
     },
-    setStroke: function(strokeWidth){
+    setStroke: function (strokeWidth) {
         this.strokeWidth = strokeWidth;
     },
-    getStroke: function(){
+    getStroke: function () {
         return this.strokeWidth;
     },
     /*
@@ -201,37 +202,39 @@ ProcessDiagramCanvas.prototype = {
         this.font = this.g.getFont(family, weight);
     },
     */
-    setFont: function(font){
+    setFont: function (font) {
         this.font = font;
     },
-    getFont: function(){
+    getFont: function () {
         return this.font;
     },
-    drawShaddow: function(object){
+    drawShaddow: function (object) {
         var border = object.clone();
-        border.attr({"stroke-width": this.strokeWidth + 6,
+        border.attr({
+            "stroke-width": this.strokeWidth + 6,
             "stroke": Color.white,
             "fill": Color.white,
             "opacity": 1,
-            "stroke-dasharray":null});
+            "stroke-dasharray": null
+        });
         //border.toBack();
         object.toFront();
 
         return border;
     },
 
-    setConextObject: function(obj){
+    setConextObject: function (obj) {
         this.contextObject = obj;
     },
-    getConextObject: function(){
+    getConextObject: function () {
         return this.contextObject;
     },
-    setContextToElement: function(object){
+    setContextToElement: function (object) {
         var contextObject = this.getConextObject();
         object.id = contextObject.id;
         object.data("contextObject", contextObject);
     },
-    onClick: function(event, instance, element){
+    onClick: function (event, instance, element) {
         var overlay = element;
         var set = overlay.data("set");
         var contextObject = overlay.data("contextObject");
@@ -241,7 +244,7 @@ ProcessDiagramCanvas.prototype = {
             ProcessDiagramGenerator.options.on.click.apply(event, args);
         }
     },
-    onRightClick: function(event, instance, element){
+    onRightClick: function (event, instance, element) {
         var overlay = element;
         var set = overlay.data("set");
         var contextObject = overlay.data("contextObject");
@@ -252,7 +255,7 @@ ProcessDiagramCanvas.prototype = {
             ProcessDiagramGenerator.options.on.rightClick.apply(event, args);
         }
     },
-    onHoverIn: function(event, instance, element){
+    onHoverIn: function (event, instance, element) {
         var overlay = element;
         var set = overlay.data("set");
         var contextObject = overlay.data("contextObject");
@@ -266,7 +269,7 @@ ProcessDiagramCanvas.prototype = {
             ProcessDiagramGenerator.options.on.over.apply(event, args);
         }
     },
-    onHoverOut: function(event, instance, element){
+    onHoverOut: function (event, instance, element) {
         var overlay = element;
         var set = overlay.data("set");
         var contextObject = overlay.data("contextObject");
@@ -279,44 +282,52 @@ ProcessDiagramCanvas.prototype = {
             ProcessDiagramGenerator.options.on.out.apply(event, args);
         }
     },
-    addHandlers: function(set, x, y, width, height, type){
+    addHandlers: function (set, x, y, width, height, type) {
         var contextObject = this.getConextObject();
 
-        var cx = x+width/2, cy = y+height/2;
+        var cx = x + width / 2, cy = y + height / 2;
         if (type == "event") {
-            var border = this.g.ellipse(cx, cy, width/2+4, height/2+4);
-            var overlay = this.g.ellipse(cx, cy, width/2, height/2);
+            var border = this.g.ellipse(cx, cy, width / 2 + 4, height / 2 + 4);
+            var overlay = this.g.ellipse(cx, cy, width / 2, height / 2);
         } else if (type == "gateway") {
             // rhombus
-            var border = this.g.path( "M" + (x - 4) + " " + (y + (height / 2)) +
+            var border = this.g.path("M" + (x - 4) + " " + (y + (height / 2)) +
                 "L" + (x + (width / 2)) + " " + (y + height + 4) +
                 "L" + (x + width + 4) + " " + (y + (height / 2)) +
                 "L" + (x + (width / 2)) + " " + (y - 4) +
-                "z" );
-            var overlay = this.g.path(  "M" + x + " " + (y + (height / 2)) +
+                "z");
+            var overlay = this.g.path("M" + x + " " + (y + (height / 2)) +
                 "L" + (x + (width / 2)) + " " + (y + height) +
                 "L" + (x + width) + " " + (y + (height / 2)) +
                 "L" + (x + (width / 2)) + " " + y +
-                "z" );
+                "z");
         } else if (type == "task") {
-            var border = this.g.rect(x - 4, y - 4, width+9, height+9, TASK_CORNER_ROUND+4);
+            var border = this.g.rect(x - 4, y - 4, width + 9, height + 9, TASK_CORNER_ROUND + 4);
             var overlay = this.g.rect(x, y, width, height, TASK_CORNER_ROUND);
         }
 
-        border.attr({stroke: Color.get(132,112,255)/*Color.Tan1*/,"stroke-width": 4, opacity: 0.0});
+        border.attr({stroke: Color.get(132, 112, 255)/*Color.Tan1*/, "stroke-width": 4, opacity: 0.0});
         border.id = contextObject.id + "_border";
 
         set.push(border);
 
-        overlay.attr({stroke: Color.Orange,"stroke-width": 3, fill: Color.get(0,0,0), opacity: 0.0, cursor: "hand"});
-        overlay.data("set",set);
+        overlay.attr({stroke: Color.Orange, "stroke-width": 3, fill: Color.get(0, 0, 0), opacity: 0.0, cursor: "hand"});
+        overlay.data("set", set);
         overlay.id = contextObject.id;
-        overlay.data("contextObject",contextObject);
+        overlay.data("contextObject", contextObject);
 
         var instance = this;
-        overlay.mousedown(function(event){if (event.button == 2) instance.onRightClick(event, instance, this);});
-        overlay.click(function(event){instance.onClick(event, instance, this);});
-        overlay.hover(function(event){instance.onHoverIn(event, instance, this);}, function(event){instance.onHoverOut(event, instance, this);});
+        overlay.mousedown(function (event) {
+            if (event.button == 2) instance.onRightClick(event, instance, this);
+        });
+        overlay.click(function (event) {
+            instance.onClick(event, instance, this);
+        });
+        overlay.hover(function (event) {
+            instance.onHoverIn(event, instance, this);
+        }, function (event) {
+            instance.onHoverOut(event, instance, this);
+        });
     },
 
     /*
@@ -331,7 +342,7 @@ ProcessDiagramCanvas.prototype = {
      *	_drawStartEvent
      */
 
-    drawNoneStartEvent: function(x, y, width, height) {
+    drawNoneStartEvent: function (x, y, width, height) {
         this.g.setStart();
 
         var isInterrupting = undefined;
@@ -341,27 +352,27 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawTimerStartEvent: function(x, y, width, height, isInterrupting, name) {
+    drawTimerStartEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
 
         this._drawStartEvent(x, y, width, height, isInterrupting, null);
 
-        var cx = x + width/2 - this.getStroke()/4;
-        var cy = y + height/2 - this.getStroke()/4;
+        var cx = x + width / 2 - this.getStroke() / 4;
+        var cy = y + height / 2 - this.getStroke() / 4;
 
-        var w = width*.9;// - this.getStroke()*2;
-        var h = height*.9;// - this.getStroke()*2;
+        var w = width * .9;// - this.getStroke()*2;
+        var h = height * .9;// - this.getStroke()*2;
 
         this._drawClock(cx, cy, w, h);
 
         if (this.gebug)
-            var center = this.g.ellipse(cx, cy, 3, 3).attr({stroke:"none", fill: Color.green});
+            var center = this.g.ellipse(cx, cy, 3, 3).attr({stroke: "none", fill: Color.green});
 
         var set = this.g.setFinish();
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawMessageStartEvent: function(x, y, width, height, isInterrupting, name) {
+    drawMessageStartEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
 
         this._drawStartEvent(x, y, width, height, isInterrupting, null);
@@ -372,7 +383,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawErrorStartEvent: function(x, y, width, height, name) {
+    drawErrorStartEvent: function (x, y, width, height, name) {
         this.g.setStart();
         var isInterrupting = undefined;
         this._drawStartEvent(x, y, width, height, isInterrupting);
@@ -383,7 +394,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawSignalStartEvent: function(x, y, width, height, isInterrupting, name) {
+    drawSignalStartEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
         this._drawStartEvent(x, y, width, height, isInterrupting, null);
 
@@ -393,16 +404,16 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawMultipleStartEvent: function(x, y, width, height, isInterrupting, name) {
+    drawMultipleStartEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
 
         this._drawStartEvent(x, y, width, height, isInterrupting, null);
 
-        var cx = x + width/2 - this.getStroke()/4;
-        var cy = y + height/2 - this.getStroke()/4;
+        var cx = x + width / 2 - this.getStroke() / 4;
+        var cy = y + height / 2 - this.getStroke() / 4;
 
-        var w = width*1;
-        var h = height*1;
+        var w = width * 1;
+        var h = height * 1;
 
         this._drawPentagon(cx, cy, w, h);
 
@@ -410,16 +421,16 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    _drawStartEventImage: function(x, y, width, height, image){
-        var cx = x + width/2 - this.getStroke()/2;
-        var cy = y + height/2 - this.getStroke()/2;
+    _drawStartEventImage: function (x, y, width, height, image) {
+        var cx = x + width / 2 - this.getStroke() / 2;
+        var cy = y + height / 2 - this.getStroke() / 2;
 
-        var w = width*.65;// - this.getStroke()*2;
-        var h = height*.65;// - this.getStroke()*2;
+        var w = width * .65;// - this.getStroke()*2;
+        var h = height * .65;// - this.getStroke()*2;
 
-        var img = this.g.image(image, cx-w/2, cy-h/2, w, h);
+        var img = this.g.image(image, cx - w / 2, cy - h / 2, w, h);
     },
-    _drawStartEvent: function(x, y, width, height, isInterrupting){
+    _drawStartEvent: function (x, y, width, height, isInterrupting) {
         var originalPaint = this.getPaint();
         if (typeof(START_EVENT_STROKE_COLOR) != "undefined")
             this.setPaint(START_EVENT_STROKE_COLOR);
@@ -428,20 +439,22 @@ ProcessDiagramCanvas.prototype = {
         width -= this.strokeWidth / 2;
         height -= this.strokeWidth / 2;
 
-        x = x + width/2;
-        y = y + height/2;
+        x = x + width / 2;
+        y = y + height / 2;
 
-        var circle = this.g.ellipse(x, y, width/2, height/2);
+        var circle = this.g.ellipse(x, y, width / 2, height / 2);
 
-        circle.attr({"stroke-width": this.strokeWidth,
+        circle.attr({
+            "stroke-width": this.strokeWidth,
             "stroke": this.paint,
             //"stroke": START_EVENT_STROKE_COLOR,
-            "fill": START_EVENT_COLOR});
+            "fill": START_EVENT_COLOR
+        });
 
         // white shaddow
         this.drawShaddow(circle);
 
-        if (isInterrupting!=null && isInterrupting!=undefined && !isInterrupting)
+        if (isInterrupting != null && isInterrupting != undefined && !isInterrupting)
             circle.attr({"stroke-dasharray": NON_INTERRUPTING_EVENT_STROKE});
 
         this.setContextToElement(circle);
@@ -462,7 +475,7 @@ ProcessDiagramCanvas.prototype = {
      *	_drawNoneEndEvent
      */
 
-    drawNoneEndEvent: function(x, y, width, height) {
+    drawNoneEndEvent: function (x, y, width, height) {
         this.g.setStart();
 
         this._drawNoneEndEvent(x, y, width, height, null, "noneEndEvent");
@@ -471,7 +484,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawErrorEndEvent: function(x, y, width, height) {
+    drawErrorEndEvent: function (x, y, width, height) {
         this.g.setStart();
         var type = "errorEndEvent";
         this._drawNoneEndEvent(x, y, width, height, null, type);
@@ -482,7 +495,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawMessageEndEvent: function(x, y, width, height, name) {
+    drawMessageEndEvent: function (x, y, width, height, name) {
         this.g.setStart();
         var type = "errorEndEvent";
         this._drawNoneEndEvent(x, y, width, height, null, type);
@@ -493,7 +506,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawSignalEndEvent: function(x, y, width, height, name) {
+    drawSignalEndEvent: function (x, y, width, height, name) {
         this.g.setStart();
         var type = "errorEndEvent";
         this._drawNoneEndEvent(x, y, width, height, null, type);
@@ -504,16 +517,16 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawMultipleEndEvent: function(x, y, width, height, name) {
+    drawMultipleEndEvent: function (x, y, width, height, name) {
         this.g.setStart();
         var type = "errorEndEvent";
         this._drawNoneEndEvent(x, y, width, height, null, type);
 
-        var cx = x + width/2;// - this.getStroke();
-        var cy = y + height/2;// - this.getStroke();
+        var cx = x + width / 2;// - this.getStroke();
+        var cy = y + height / 2;// - this.getStroke();
 
-        var w = width*1;
-        var h = height*1;
+        var w = width * 1;
+        var h = height * 1;
 
         var filled = true;
         this._drawPentagon(cx, cy, w, h, filled);
@@ -522,16 +535,16 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawTerminateEndEvent: function(x, y, width, height) {
+    drawTerminateEndEvent: function (x, y, width, height) {
         this.g.setStart();
         var type = "errorEndEvent";
         this._drawNoneEndEvent(x, y, width, height, null, type);
 
-        var cx = x + width/2;// - this.getStroke()/2;
-        var cy = y + height/2;// - this.getStroke()/2;
+        var cx = x + width / 2;// - this.getStroke()/2;
+        var cy = y + height / 2;// - this.getStroke()/2;
 
-        var w = width/2*.6;
-        var h = height/2*.6;
+        var w = width / 2 * .6;
+        var h = height / 2 * .6;
 
         var circle = this.g.ellipse(cx, cy, w, h).attr({fill: Color.black});
 
@@ -539,17 +552,17 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    _drawEndEventImage: function(x, y, width, height, image){
-        var cx = x + width/2 - this.getStroke()/2;
-        var cy = y + height/2 - this.getStroke()/2;
+    _drawEndEventImage: function (x, y, width, height, image) {
+        var cx = x + width / 2 - this.getStroke() / 2;
+        var cy = y + height / 2 - this.getStroke() / 2;
 
-        var w = width*.65;
-        var h = height*.65;
+        var w = width * .65;
+        var h = height * .65;
 
-        var img = this.g.image(image, cx-w/2, cy-h/2, w, h);
+        var img = this.g.image(image, cx - w / 2, cy - h / 2, w, h);
     },
 
-    _drawNoneEndEvent: function(x, y, width, height, image, type) {
+    _drawNoneEndEvent: function (x, y, width, height, image, type) {
         var originalPaint = this.getPaint();
         if (typeof(CATCHING_EVENT_COLOR) != "undefined")
             this.setPaint(CATCHING_EVENT_COLOR);
@@ -569,27 +582,31 @@ ProcessDiagramCanvas.prototype = {
             width -= this.strokeWidth / 2;
         height -= this.strokeWidth / 2;
 
-        x = x + width/2;// + this.strokeWidth/2;
-        y = y + width/2;// + this.strokeWidth/2;
+        x = x + width / 2;// + this.strokeWidth/2;
+        y = y + width / 2;// + this.strokeWidth/2;
 
         // outerCircle
-        var outerCircle = this.g.ellipse(x, y, width/2, height/2);
+        var outerCircle = this.g.ellipse(x, y, width / 2, height / 2);
 
         // white shaddow
         var shaddow = this.drawShaddow(outerCircle);
 
-        outerCircle.attr({"stroke-width": this.strokeWidth,
+        outerCircle.attr({
+            "stroke-width": this.strokeWidth,
             "stroke": strokeColor,
-            "fill": fillColor});
+            "fill": fillColor
+        });
 
         var innerCircleX = x;
         var innerCircleY = y;
-        var innerCircleWidth = width/2 - 2;
-        var innerCircleHeight = height/2 - 2;
+        var innerCircleWidth = width / 2 - 2;
+        var innerCircleHeight = height / 2 - 2;
         var innerCircle = this.g.ellipse(innerCircleX, innerCircleY, innerCircleWidth, innerCircleHeight);
-        innerCircle.attr({"stroke-width": this.strokeWidth,
+        innerCircle.attr({
+            "stroke-width": this.strokeWidth,
             "stroke": strokeColor,
-            "fill": Color.white});
+            "fill": Color.white
+        });
 
         // TODO: implement it
         //var originalPaint = this.getPaint();
@@ -611,18 +628,18 @@ ProcessDiagramCanvas.prototype = {
      */
 
 
-    drawCatchingTimerEvent: function(x, y, width, height, isInterrupting, name) {
+    drawCatchingTimerEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, isInterrupting, null);
 
         var innerCircleWidth = width - 4;
         var innerCircleHeight = height - 4;
 
-        var cx = x + width/2 - this.getStroke()/4;
-        var cy = y + height/2 - this.getStroke()/4;
+        var cx = x + width / 2 - this.getStroke() / 4;
+        var cy = y + height / 2 - this.getStroke() / 4;
 
-        var w = innerCircleWidth*.9;// - this.getStroke()*2;
-        var h = innerCircleHeight*.9;// - this.getStroke()*2;
+        var w = innerCircleWidth * .9;// - this.getStroke()*2;
+        var h = innerCircleHeight * .9;// - this.getStroke()*2;
 
         this._drawClock(cx, cy, w, h);
 
@@ -630,7 +647,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawCatchingErrorEvent: function(x, y, width, height, isInterrupting, name) {
+    drawCatchingErrorEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, isInterrupting, null);
 
@@ -640,7 +657,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawCatchingSignalEvent: function(x, y, width, height, isInterrupting, name) {
+    drawCatchingSignalEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, isInterrupting, null);
 
@@ -650,7 +667,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawCatchingMessageEvent: function(x, y, width, height, isInterrupting, name) {
+    drawCatchingMessageEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, isInterrupting, null);
 
@@ -660,15 +677,15 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawCatchingMultipleEvent: function(x, y, width, height, isInterrupting, name) {
+    drawCatchingMultipleEvent: function (x, y, width, height, isInterrupting, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, isInterrupting, null);
 
-        var cx = x + width/2 - this.getStroke();
-        var cy = y + height/2 - this.getStroke();
+        var cx = x + width / 2 - this.getStroke();
+        var cy = y + height / 2 - this.getStroke();
 
-        var w = width*.9;
-        var h = height*.9;
+        var w = width * .9;
+        var h = height * .9;
 
         this._drawPentagon(cx, cy, w, h);
 
@@ -676,20 +693,20 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    _drawCatchingEventImage: function(x, y, width, height, image){
+    _drawCatchingEventImage: function (x, y, width, height, image) {
         var innerCircleWidth = width - 4;
         var innerCircleHeight = height - 4;
 
-        var cx = x + width/2 - this.getStroke()/2;
-        var cy = y + height/2 - this.getStroke()/2;
+        var cx = x + width / 2 - this.getStroke() / 2;
+        var cy = y + height / 2 - this.getStroke() / 2;
 
-        var w = innerCircleWidth*.6;// - this.getStroke()*2;
-        var h = innerCircleHeight*.6;// - this.getStroke()*2;
+        var w = innerCircleWidth * .6;// - this.getStroke()*2;
+        var h = innerCircleHeight * .6;// - this.getStroke()*2;
 
-        var img = this.g.image(image, cx-w/2, cy-h/2, w, h);
+        var img = this.g.image(image, cx - w / 2, cy - h / 2, w, h);
     },
 
-    _drawCatchingEvent: function(x, y, width, height, isInterrupting, image) {
+    _drawCatchingEvent: function (x, y, width, height, isInterrupting, image) {
         var originalPaint = this.getPaint();
         if (typeof(CATCHING_EVENT_COLOR) != "undefined")
             this.setPaint(CATCHING_EVENT_COLOR);
@@ -698,35 +715,39 @@ ProcessDiagramCanvas.prototype = {
         width -= this.strokeWidth / 2;
         height -= this.strokeWidth / 2;
 
-        x = x + width/2;// + this.strokeWidth/2;
-        y = y + width/2;// + this.strokeWidth/2;
+        x = x + width / 2;// + this.strokeWidth/2;
+        y = y + width / 2;// + this.strokeWidth/2;
 
         // outerCircle
-        var outerCircle = this.g.ellipse(x, y, width/2, height/2);
+        var outerCircle = this.g.ellipse(x, y, width / 2, height / 2);
 
         // white shaddow
         var shaddow = this.drawShaddow(outerCircle);
 
         //console.log("isInterrupting: " + isInterrupting, "x:" , x, "y:",y);
-        if (isInterrupting!=null && isInterrupting!=undefined && !isInterrupting)
+        if (isInterrupting != null && isInterrupting != undefined && !isInterrupting)
             outerCircle.attr({"stroke-dasharray": NON_INTERRUPTING_EVENT_STROKE});
 
-        outerCircle.attr({"stroke-width": this.strokeWidth,
+        outerCircle.attr({
+            "stroke-width": this.strokeWidth,
             "stroke": this.getPaint(),
-            "fill": BOUNDARY_EVENT_COLOR});
+            "fill": BOUNDARY_EVENT_COLOR
+        });
 
         var innerCircleX = x;
         var innerCircleY = y;
-        var innerCircleRadiusX = width/2 - 4;
-        var innerCircleRadiusY = height/2 - 4;
+        var innerCircleRadiusX = width / 2 - 4;
+        var innerCircleRadiusY = height / 2 - 4;
         var innerCircle = this.g.ellipse(innerCircleX, innerCircleY, innerCircleRadiusX, innerCircleRadiusY);
-        innerCircle.attr({"stroke-width": this.strokeWidth,
-            "stroke": this.getPaint()});
+        innerCircle.attr({
+            "stroke-width": this.strokeWidth,
+            "stroke": this.getPaint()
+        });
 
         if (image) {
-            var imageWidth = imageHeight = innerCircleRadiusX*1.2 + this.getStroke()*2;
-            var imageX = innerCircleX-imageWidth/2 - this.strokeWidth/2;
-            var imageY = innerCircleY-imageWidth/2 - this.strokeWidth/2;
+            var imageWidth = imageHeight = innerCircleRadiusX * 1.2 + this.getStroke() * 2;
+            var imageX = innerCircleX - imageWidth / 2 - this.strokeWidth / 2;
+            var imageY = innerCircleY - imageWidth / 2 - this.strokeWidth / 2;
             var img = this.g.image(image, imageX, imageY, imageWidth, imageHeight);
         }
 
@@ -757,7 +778,7 @@ ProcessDiagramCanvas.prototype = {
      *	drawThrowingMultipleEvent
      */
 
-    drawThrowingNoneEvent: function(x, y, width, height, name) {
+    drawThrowingNoneEvent: function (x, y, width, height, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, null, null);
 
@@ -765,7 +786,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawThrowingSignalEvent: function(x, y, width, height, name) {
+    drawThrowingSignalEvent: function (x, y, width, height, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, null, null);
 
@@ -775,7 +796,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawThrowingMessageEvent: function(x, y, width, height, name) {
+    drawThrowingMessageEvent: function (x, y, width, height, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, null, null);
 
@@ -785,15 +806,15 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "event");
     },
 
-    drawThrowingMultipleEvent: function(x, y, width, height, name) {
+    drawThrowingMultipleEvent: function (x, y, width, height, name) {
         this.g.setStart();
         this._drawCatchingEvent(x, y, width, height, null, null);
 
-        var cx = x + width/2 - this.getStroke();
-        var cy = y + height/2 - this.getStroke();
+        var cx = x + width / 2 - this.getStroke();
+        var cy = y + height / 2 - this.getStroke();
 
-        var w = width*.9;
-        var h = height*.9;
+        var w = width * .9;
+        var h = height * .9;
 
         var filled = true;
         this._drawPentagon(cx, cy, w, h, filled);
@@ -817,14 +838,14 @@ ProcessDiagramCanvas.prototype = {
      *	drawSequenceflowWithoutArrow
      */
 
-    _connectFlowToActivity: function(sourceActivityId, destinationActivityId, waypoints){
+    _connectFlowToActivity: function (sourceActivityId, destinationActivityId, waypoints) {
         var sourceActivity = this.g.getById(sourceActivityId);
         var destinationActivity = this.g.getById(destinationActivityId);
         if (sourceActivity == null || destinationActivity == null) {
             if (sourceActivity == null)
-                console.error("source activity["+sourceActivityId+"] not found");
+                console.error("source activity[" + sourceActivityId + "] not found");
             else
-                console.error("destination activity["+destinationActivityId+"] not found");
+                console.error("destination activity[" + destinationActivityId + "] not found");
             return null;
         }
         var bbSourceActivity = sourceActivity.getBBox()
@@ -832,15 +853,15 @@ ProcessDiagramCanvas.prototype = {
 
         var path = [];
         var newWaypoints = [];
-        for(var i = 0; i < waypoints.length; i++){
+        for (var i = 0; i < waypoints.length; i++) {
             var pathType = ""
-            if (i==0)
+            if (i == 0)
                 pathType = "M";
             else
                 pathType = "L";
 
             path.push([pathType, waypoints[i].x, waypoints[i].y]);
-            newWaypoints.push({x:waypoints[i].x, y:waypoints[i].y});
+            newWaypoints.push({x: waypoints[i].x, y: waypoints[i].y});
         }
 
         var ninjaPathSourceActivity = this.ninjaPaper.path(sourceActivity.realPath);
@@ -851,11 +872,11 @@ ProcessDiagramCanvas.prototype = {
         // set target of the flow to the center of the taskObject
         var newPath = path;
         var originalSource = {x: newPath[0][1], y: newPath[0][2]};
-        var originalTarget = {x: newPath[newPath.length-1][1], y: newPath[newPath.length-1][2]};
+        var originalTarget = {x: newPath[newPath.length - 1][1], y: newPath[newPath.length - 1][2]};
         newPath[0][1] = ninjaBBSourceActivity.x + (ninjaBBSourceActivity.x2 - ninjaBBSourceActivity.x ) / 2;
         newPath[0][2] = ninjaBBSourceActivity.y + (ninjaBBSourceActivity.y2 - ninjaBBSourceActivity.y ) / 2;
-        newPath[newPath.length-1][1] = ninjaBBDestinationActivity.x + (ninjaBBDestinationActivity.x2 - ninjaBBDestinationActivity.x ) / 2;
-        newPath[newPath.length-1][2] = ninjaBBDestinationActivity.y + (ninjaBBDestinationActivity.y2 - ninjaBBDestinationActivity.y ) / 2;
+        newPath[newPath.length - 1][1] = ninjaBBDestinationActivity.x + (ninjaBBDestinationActivity.x2 - ninjaBBDestinationActivity.x ) / 2;
+        newPath[newPath.length - 1][2] = ninjaBBDestinationActivity.y + (ninjaBBDestinationActivity.y2 - ninjaBBDestinationActivity.y ) / 2;
 
         var ninjaPathFlowObject = this.ninjaPaper.path(newPath);
         var ninjaBBFlowObject = ninjaPathFlowObject.getBBox();
@@ -882,15 +903,15 @@ ProcessDiagramCanvas.prototype = {
                 var dot = this.g.ellipse(intersectionDestination.x, intersectionDestination.y, diameter, diameter).attr({"fill": Color.white, "stroke": Color.Blue});
             }
 
-            newWaypoints[newWaypoints.length-1].x = intersectionDestination.x;
-            newWaypoints[newWaypoints.length-1].y = intersectionDestination.y;
+            newWaypoints[newWaypoints.length - 1].x = intersectionDestination.x;
+            newWaypoints[newWaypoints.length - 1].y = intersectionDestination.y;
         }
 
         this.ninjaPaper.clear();
         return newWaypoints;
     },
 
-    _drawFlow: function(waypoints, conditional, isDefault, highLighted, withArrowHead, connectionType){
+    _drawFlow: function (waypoints, conditional, isDefault, highLighted, withArrowHead, connectionType) {
         var originalPaint = this.getPaint();
         var originalStroke = this.getStroke();
 
@@ -911,7 +932,7 @@ ProcessDiagramCanvas.prototype = {
             var newWaypoints = this._connectFlowToActivity(contextObject.sourceActivityId, contextObject.destinationActivityId, waypoints);
 
             if (!newWaypoints) {
-                console.error("Error draw flow from '"+contextObject.sourceActivityId+"' to '"+contextObject.destinationActivityId+"' ");
+                console.error("Error draw flow from '" + contextObject.sourceActivityId + "' to '" + contextObject.destinationActivityId + "' ");
                 return;
             }
         }
@@ -938,12 +959,12 @@ ProcessDiagramCanvas.prototype = {
         });
         */
 
-        var last = polyline.getAnchorsCount()-1;
+        var last = polyline.getAnchorsCount() - 1;
         var x = polyline.getAnchor(last).x;
         var y = polyline.getAnchor(last).y;
         //var c = this.g.ellipse(x, y, 5, 5);
 
-        var lastLineIndex = polyline.getLinesCount()-1;
+        var lastLineIndex = polyline.getLinesCount() - 1;
         var line = polyline.getLine(lastLineIndex);
         var firstLine = polyline.getLine(0);
 
@@ -955,7 +976,7 @@ ProcessDiagramCanvas.prototype = {
         if (connectionType == CONNECTION_TYPE.MESSAGE_FLOW) {
             circleTail = this._drawCircleTail(firstLine, connectionType);
         }
-        if(withArrowHead)
+        if (withArrowHead)
             arrowHead = this._drawArrowHead(line, connectionType);
 
         //console.log("isDefault: ", isDefault, ", isDefaultConditionAvailable: ", polyline.isDefaultConditionAvailable);
@@ -987,7 +1008,7 @@ ProcessDiagramCanvas.prototype = {
         polyline.element.data("set", st);
         polyline.element.data("withArrowHead", withArrowHead);
 
-        var polyCloneAttrNormal = {"stroke-width": this.getStroke() + 5, stroke: Color.get(132,112,255), opacity: 0.0, cursor: "hand"};
+        var polyCloneAttrNormal = {"stroke-width": this.getStroke() + 5, stroke: Color.get(132, 112, 255), opacity: 0.0, cursor: "hand"};
         var polyClone = st.clone().attr(polyCloneAttrNormal).hover(function () {
             //if (polyLine.data("isSelected")) return;
             polyClone.attr({opacity: 0.2});
@@ -996,16 +1017,16 @@ ProcessDiagramCanvas.prototype = {
             polyClone.attr({opacity: 0.0});
         });
         polyClone.data("objectId", polyline.element.id);
-        polyClone.click(function(){
+        polyClone.click(function () {
             var instance = this;
             var objectId = instance.data("objectId");
             var object = this.paper.getById(objectId);
             var contextObject = object.data("contextObject");
             if (contextObject) {
-                console.log("[flow], objectId: " + object.id +", flow: " + contextObject.flow);
+                console.log("[flow], objectId: " + object.id + ", flow: " + contextObject.flow);
                 ProcessDiagramGenerator.showFlowInfo(contextObject);
             }
-        }).dblclick(function(){
+        }).dblclick(function () {
             console.log("!!! DOUBLE CLICK !!!");
         }).hover(function (mouseEvent) {
             var instance = this;
@@ -1028,12 +1049,13 @@ ProcessDiagramCanvas.prototype = {
         this.setStroke(originalStroke);
     },
 
-    _drawDefaultSequenceFlowIndicator: function(line) {
+    _drawDefaultSequenceFlowIndicator: function (line) {
         //console.log("line: ", line);
 
-        var len = 10; c = len/2, f = 8;
+        var len = 10;
+        c = len / 2, f = 8;
         var defaultIndicator = this.g.path("M" + (-c) + " " + 0 + "L" + (c) + " " + 0);
-        defaultIndicator.attr("stroke-width", this.getStroke()+0);
+        defaultIndicator.attr("stroke-width", this.getStroke() + 0);
         defaultIndicator.attr("stroke", this.getPaint());
 
 
@@ -1043,11 +1065,11 @@ ProcessDiagramCanvas.prototype = {
         var dx = f * cosAngle;
         var dy = f * sinAngle;
 
-        var x1 = line.x1 + dx + 0*c*cosAngle;
-        var y1 = line.y1 + dy + 0*c*sinAngle;
+        var x1 = line.x1 + dx + 0 * c * cosAngle;
+        var y1 = line.y1 + dy + 0 * c * sinAngle;
 
         defaultIndicator.transform("t" + (x1) + "," + (y1) + "");
-        defaultIndicator.transform("...r" + Raphael.deg(line.angle - 3*Math.PI / 4) + " " + 0 + " " + 0);
+        defaultIndicator.transform("...r" + Raphael.deg(line.angle - 3 * Math.PI / 4) + " " + 0 + " " + 0);
         /*
         var c0 = this.g.ellipse(0, 0, 1, 1).attr({stroke: Color.Blue});
         c0.transform("t" + (line.x1) + "," + (line.y1) + "");
@@ -1058,28 +1080,28 @@ ProcessDiagramCanvas.prototype = {
         return defaultIndicator;
     },
 
-    drawSequenceflow: function(waypoints, conditional, isDefault, highLighted) {
+    drawSequenceflow: function (waypoints, conditional, isDefault, highLighted) {
         var withArrowHead = true;
         this._drawFlow(waypoints, conditional, isDefault, highLighted, withArrowHead, CONNECTION_TYPE.SEQUENCE_FLOW);
     },
 
-    drawMessageflow: function(waypoints, highLighted) {
+    drawMessageflow: function (waypoints, highLighted) {
         var withArrowHead = true;
-        var conditional=isDefault=false;
+        var conditional = isDefault = false;
         this._drawFlow(waypoints, conditional, isDefault, highLighted, withArrowHead, CONNECTION_TYPE.MESSAGE_FLOW);
     },
 
-    drawAssociation: function(waypoints, withArrowHead, highLighted) {
+    drawAssociation: function (waypoints, withArrowHead, highLighted) {
         var withArrowHead = withArrowHead;
-        var conditional=isDefault=false;
+        var conditional = isDefault = false;
         this._drawFlow(waypoints, conditional, isDefault, highLighted, withArrowHead, CONNECTION_TYPE.ASSOCIATION);
     },
 
-    _drawCircleTail: function(line, connectionType){
-        var diameter = ARROW_WIDTH/2*1.5;
+    _drawCircleTail: function (line, connectionType) {
+        var diameter = ARROW_WIDTH / 2 * 1.5;
 
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             line.x1 += .5, line.y1 += .5;
 
         var circleTail = this.g.ellipse(line.x1, line.y1, diameter, diameter);
@@ -1089,18 +1111,18 @@ ProcessDiagramCanvas.prototype = {
         return circleTail;
     },
 
-    _drawArrowHead: function(line, connectionType){
+    _drawArrowHead: function (line, connectionType) {
         var doubleArrowWidth = 2 * ARROW_WIDTH;
 
         if (connectionType == CONNECTION_TYPE.ASSOCIATION)
-            var arrowHead = this.g.path("M-" + (ARROW_WIDTH/2+.5) + " -" + doubleArrowWidth + "L 0 0 L" + (ARROW_WIDTH/2+.5) + " -" + doubleArrowWidth);
+            var arrowHead = this.g.path("M-" + (ARROW_WIDTH / 2 + .5) + " -" + doubleArrowWidth + "L 0 0 L" + (ARROW_WIDTH / 2 + .5) + " -" + doubleArrowWidth);
         else
-            var arrowHead = this.g.path("M0 0L-" + (ARROW_WIDTH/2+.5) + " -" + doubleArrowWidth + "L" + (ARROW_WIDTH/2+.5) + " -" + doubleArrowWidth + "z");
+            var arrowHead = this.g.path("M0 0L-" + (ARROW_WIDTH / 2 + .5) + " -" + doubleArrowWidth + "L" + (ARROW_WIDTH / 2 + .5) + " -" + doubleArrowWidth + "z");
 
         //arrowHead.transform("t" + 0 + ",-" + this.getStroke() + "");
 
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             line.x2 += .5, line.y2 += .5;
 
         arrowHead.transform("t" + line.x2 + "," + line.y2 + "");
@@ -1150,7 +1172,7 @@ ProcessDiagramCanvas.prototype = {
     },
     */
 
-    _drawConditionalSequenceFlowIndicator: function(line){
+    _drawConditionalSequenceFlowIndicator: function (line) {
         var horizontal = (CONDITIONAL_INDICATOR_WIDTH * 0.7);
         var halfOfHorizontal = horizontal / 2;
         var halfOfVertical = CONDITIONAL_INDICATOR_WIDTH / 2;
@@ -1186,7 +1208,7 @@ ProcessDiagramCanvas.prototype = {
         return polygone.element;
     },
 
-    drawSequenceflowWithoutArrow: function(waypoints, conditional, isDefault, highLighted) {
+    drawSequenceflowWithoutArrow: function (waypoints, conditional, isDefault, highLighted) {
         var withArrowHead = false;
         this._drawFlow(waypoints, conditional, isDefault, highLighted, withArrowHead, CONNECTION_TYPE.SEQUENCE_FLOW);
     },
@@ -1195,9 +1217,9 @@ ProcessDiagramCanvas.prototype = {
      * Draw artifacts
      */
 
-    drawPoolOrLane: function(x, y, width, height, name){
+    drawPoolOrLane: function (x, y, width, height, name) {
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             x = Math.round(x) + .5, y = Math.round(y) + .5;
 
         // shape
@@ -1206,7 +1228,7 @@ ProcessDiagramCanvas.prototype = {
         rect.attr(attr);
 
         // Add the name as text, vertical
-        if(name != null && name.length > 0) {
+        if (name != null && name.length > 0) {
             var attr = POOL_LANE_FONT;
 
             // Include some padding
@@ -1218,22 +1240,22 @@ ProcessDiagramCanvas.prototype = {
             var realHeight = this.getStringHeight(truncated, attr);
 
             //console.log("truncated:", truncated, ", height:", height, ", realHeight:", realHeight, ", availableTextSpace:", availableTextSpace, ", realWidth:", realWidth);
-            var newX = x + 2 + realHeight*1 - realHeight/2;
-            var newY = 3 + y + availableTextSpace - (availableTextSpace - realWidth) / 2 - realWidth/2;
+            var newX = x + 2 + realHeight * 1 - realHeight / 2;
+            var newY = 3 + y + availableTextSpace - (availableTextSpace - realWidth) / 2 - realWidth / 2;
             var textElement = this.g.text(newX, newY, truncated).attr(attr);
             //console.log(".getBBox(): ", t.getBBox());
-            textElement.transform("r" + Raphael.deg(270 * Math.PI/180) + " " + newX + " " + newY);
+            textElement.transform("r" + Raphael.deg(270 * Math.PI / 180) + " " + newX + " " + newY);
         }
 
         // TODO: add to set
     },
 
-    _drawTask: function(name, x, y, width, height, thickBorder) {
+    _drawTask: function (name, x, y, width, height, thickBorder) {
         var originalPaint = this.getPaint();
         this.setPaint(TASK_COLOR);
 
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             x = Math.round(x) + .5, y = Math.round(y) + .5;
 
         // shape
@@ -1279,7 +1301,7 @@ ProcessDiagramCanvas.prototype = {
             // Include some padding
             var paddingX = 5;
             var paddingY = 5;
-            var availableTextSpace = width - paddingX*2;
+            var availableTextSpace = width - paddingX * 2;
 
             // TODO: this.setFont
             // var originalFont = this.getFont();
@@ -1294,8 +1316,8 @@ ProcessDiagramCanvas.prototype = {
             //console.log("draw task name: " + name);
             var boxWidth = width - (2 * TEXT_PADDING);
             var boxHeight = height - ICON_SIZE - ICON_PADDING - ICON_PADDING - MARKER_WIDTH - 2 - 2;
-            var boxX = x + width/2 - boxWidth/2;
-            var boxY = y + height/2 - boxHeight/2 + ICON_PADDING + ICON_PADDING - 2 - 2;
+            var boxX = x + width / 2 - boxWidth / 2;
+            var boxY = y + height / 2 - boxHeight / 2 + ICON_PADDING + ICON_PADDING - 2 - 2;
             /*
             var boxWidth = width - (2 * ANNOTATION_TEXT_PADDING);
             var boxHeight = height - (2 * ANNOTATION_TEXT_PADDING);
@@ -1307,7 +1329,7 @@ ProcessDiagramCanvas.prototype = {
         }
     },
 
-    drawTaskLabel: function(text, x, y, boxWidth, boxHeight){
+    drawTaskLabel: function (text, x, y, boxWidth, boxHeight) {
         var originalFont = this.getFont();
         this.setFont(TASK_FONT);
 
@@ -1316,7 +1338,7 @@ ProcessDiagramCanvas.prototype = {
         this.setFont(originalFont);
     },
 
-    drawAnnotationText: function(text, x, y, width, height){
+    drawAnnotationText: function (text, x, y, width, height) {
         //this._drawMultilineText(text, x, y, width, height, "start");
 
         var originalPaint = this.getPaint();
@@ -1331,7 +1353,7 @@ ProcessDiagramCanvas.prototype = {
         this.setFont(originalFont);
     },
 
-    drawLabel: function(text, x, y, width, height){
+    drawLabel: function (text, x, y, width, height) {
         //this._drawMultilineText(text, x, y, width, height, "start");
 
         var originalPaint = this.getPaint();
@@ -1349,7 +1371,7 @@ ProcessDiagramCanvas.prototype = {
         }
 
         // TODO: remove it. It is debug
-        x = x - width/2;
+        x = x - width / 2;
 
         this._drawMultilineText(text, x, y, width, height, MULTILINE_VERTICAL_ALIGN_TOP, MULTILINE_HORIZONTAL_ALIGN_MIDDLE);
 
@@ -1370,21 +1392,21 @@ ProcessDiagramCanvas.prototype = {
     },
     */
 
-    getStringWidth: function(text, fontAttrs){
+    getStringWidth: function (text, fontAttrs) {
         var textElement = this.g.text(0, 0, text).attr(fontAttrs).hide();
         var bb = textElement.getBBox();
 
         //console.log("string width: ", t.getBBox().width);
         return textElement.getBBox().width;
     },
-    getStringHeight: function(text, fontAttrs){
+    getStringHeight: function (text, fontAttrs) {
         var textElement = this.g.text(0, 0, text).attr(fontAttrs).hide();
         var bb = textElement.getBBox();
 
         //console.log("string height: ", t.getBBox().height);
         return textElement.getBBox().height;
     },
-    fitTextToWidth: function(original, width) {
+    fitTextToWidth: function (original, width) {
         var text = original;
 
         // TODO: move attr on parameters
@@ -1415,7 +1437,7 @@ ProcessDiagramCanvas.prototype = {
 
         return text;
     },
-    wrapTextToWidth: function(original, width){
+    wrapTextToWidth: function (original, width) {
 
         //return original;
 
@@ -1431,17 +1453,17 @@ ProcessDiagramCanvas.prototype = {
         var resultText = "";
         var i = 0, j = 0;
         while (text.length > 0) {
-            while (bb.width < width && text.length>0) {
+            while (bb.width < width && text.length > 0) {
                 // remove "\n"
-                wrappedText = wrappedText.substring(0,wrappedText.length-1);
+                wrappedText = wrappedText.substring(0, wrappedText.length - 1);
                 // add new char, add "\n"
-                wrappedText = wrappedText + text.substring(0,1) + "\n";
+                wrappedText = wrappedText + text.substring(0, 1) + "\n";
                 text = text.substring(1);
 
                 textElement.attr({"text": wrappedText});
                 bb = textElement.getBBox();
                 i++;
-                if (i>200) break;
+                if (i > 200) break;
             }
             // remove "\n"
             wrappedText = wrappedText.substring(0, wrappedText.length - 1);
@@ -1452,9 +1474,9 @@ ProcessDiagramCanvas.prototype = {
             }
 
             // return last char to text
-            text = wrappedText.substring(wrappedText.length-1) + text;
+            text = wrappedText.substring(wrappedText.length - 1) + text;
             // remove last char from wrappedText
-            wrappedText = wrappedText.substring(0, wrappedText.length-1) + "\n";
+            wrappedText = wrappedText.substring(0, wrappedText.length - 1) + "\n";
 
             textElement.attr({"text": wrappedText});
             bb = textElement.getBBox();
@@ -1464,7 +1486,7 @@ ProcessDiagramCanvas.prototype = {
             wrappedText = "\n";
 
             j++;
-            if (j>20) break;
+            if (j > 20) break;
         }
         // remove element from paper
         textElement.remove();
@@ -1472,7 +1494,7 @@ ProcessDiagramCanvas.prototype = {
         return resultText;
     },
 
-    wrapTextToWidth2: function(original, width){
+    wrapTextToWidth2: function (original, width) {
         var text = original;
         var wrappedText = "\n";
 
@@ -1485,17 +1507,17 @@ ProcessDiagramCanvas.prototype = {
         var resultText = "";
         var i = 0, j = 0;
         while (text.length > 0) {
-            while (bb.width < width && text.length>0) {
+            while (bb.width < width && text.length > 0) {
                 // remove "\n"
-                wrappedText = wrappedText.substring(0,wrappedText.length-1);
+                wrappedText = wrappedText.substring(0, wrappedText.length - 1);
                 // add new char, add "\n"
-                wrappedText = wrappedText + text.substring(0,1) + "\n";
+                wrappedText = wrappedText + text.substring(0, 1) + "\n";
                 text = text.substring(1);
 
                 textElement.attr({"text": wrappedText});
                 bb = textElement.getBBox();
                 i++;
-                if (i>200) break;
+                if (i > 200) break;
             }
             // remove "\n"
             wrappedText = wrappedText.substring(0, wrappedText.length - 1);
@@ -1506,9 +1528,9 @@ ProcessDiagramCanvas.prototype = {
             }
 
             // return last char to text
-            text = wrappedText.substring(wrappedText.length-1) + text;
+            text = wrappedText.substring(wrappedText.length - 1) + text;
             // remove last char from wrappedText
-            wrappedText = wrappedText.substring(0, wrappedText.length-1) + "\n";
+            wrappedText = wrappedText.substring(0, wrappedText.length - 1) + "\n";
 
             textElement.attr({"text": wrappedText});
             bb = textElement.getBBox();
@@ -1518,7 +1540,7 @@ ProcessDiagramCanvas.prototype = {
             wrappedText = "\n";
 
             j++;
-            if (j>20) break;
+            if (j > 20) break;
         }
         // remove element from paper
         textElement.remove();
@@ -1526,7 +1548,7 @@ ProcessDiagramCanvas.prototype = {
         return resultText;
     },
 
-    drawUserTask: function(name, x, y, width, height) {
+    drawUserTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(USERTASK_IMAGE, x + ICON_PADDING, y + ICON_PADDING, ICON_SIZE, ICON_SIZE);
@@ -1534,7 +1556,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawScriptTask: function(name, x, y, width, height) {
+    drawScriptTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(SCRIPTTASK_IMAGE, x + ICON_PADDING, y + ICON_PADDING, ICON_SIZE, ICON_SIZE);
@@ -1542,7 +1564,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawServiceTask: function(name, x, y, width, height) {
+    drawServiceTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(SERVICETASK_IMAGE, x + ICON_PADDING, y + ICON_PADDING, ICON_SIZE, ICON_SIZE);
@@ -1550,7 +1572,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawReceiveTask: function(name, x, y, width, height) {
+    drawReceiveTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(RECEIVETASK_IMAGE, x + 7, y + 7, ICON_SIZE, ICON_SIZE);
@@ -1558,7 +1580,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawSendTask: function(name, x, y, width, height) {
+    drawSendTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(SENDTASK_IMAGE, x + 7, y + 7, ICON_SIZE, ICON_SIZE);
@@ -1566,7 +1588,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawManualTask: function(name, x, y, width, height) {
+    drawManualTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(MANUALTASK_IMAGE, x + 7, y + 7, ICON_SIZE, ICON_SIZE);
@@ -1574,7 +1596,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawBusinessRuleTask: function(name, x, y, width, height) {
+    drawBusinessRuleTask: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawTask(name, x, y, width, height);
         var img = this.g.image(BUSINESS_RULE_TASK_IMAGE, x + 7, y + 7, ICON_SIZE, ICON_SIZE);
@@ -1582,17 +1604,17 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawExpandedSubProcess: function(name, x, y, width, height, isTriggeredByEvent){
+    drawExpandedSubProcess: function (name, x, y, width, height, isTriggeredByEvent) {
         this.g.setStart();
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             x = Math.round(x) + .5, y = Math.round(y) + .5;
 
         // shape
         var rect = this.g.rect(x, y, width, height, EXPANDED_SUBPROCESS_CORNER_ROUND);
 
         // Use different stroke (dashed)
-        if(isTriggeredByEvent) {
+        if (isTriggeredByEvent) {
             rect.attr(EVENT_SUBPROCESS_ATTRS);
         } else {
             rect.attr(EXPANDED_SUBPROCESS_ATTRS);
@@ -1605,61 +1627,61 @@ ProcessDiagramCanvas.prototype = {
         // Include some padding
         var paddingX = 10;
         var paddingY = 5;
-        var availableTextSpace = width - paddingX*2;
+        var availableTextSpace = width - paddingX * 2;
 
         var truncated = this.fitTextToWidth(name, availableTextSpace);
         var realWidth = this.getStringWidth(truncated, fontAttr);
         var realHeight = this.getStringHeight(truncated, fontAttr);
 
-        var textElement = this.g.text(x + width/2 - realWidth*0/2 + 0*paddingX, y + realHeight/2 + paddingY, truncated).attr(fontAttr);
+        var textElement = this.g.text(x + width / 2 - realWidth * 0 / 2 + 0 * paddingX, y + realHeight / 2 + paddingY, truncated).attr(fontAttr);
 
         var set = this.g.setFinish();
         // TODO: Expanded Sub Process may has specific handlers
         //this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawCollapsedSubProcess: function(name, x, y, width, height, isTriggeredByEvent) {
+    drawCollapsedSubProcess: function (name, x, y, width, height, isTriggeredByEvent) {
         this.g.setStart();
         this._drawCollapsedTask(name, x, y, width, height, false);
         var set = this.g.setFinish();
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    drawCollapsedCallActivity: function(name, x, y, width, height) {
+    drawCollapsedCallActivity: function (name, x, y, width, height) {
         this.g.setStart();
         this._drawCollapsedTask(name, x, y, width, height, true);
         var set = this.g.setFinish();
         this.addHandlers(set, x, y, width, height, "task");
     },
 
-    _drawCollapsedTask: function(name, x, y, width, height, thickBorder) {
+    _drawCollapsedTask: function (name, x, y, width, height, thickBorder) {
         // The collapsed marker is now visualized separately
         this._drawTask(name, x, y, width, height, thickBorder);
     },
 
-    drawCollapsedMarker: function(x, y, width, height){
+    drawCollapsedMarker: function (x, y, width, height) {
         // rectangle
         var rectangleWidth = MARKER_WIDTH;
         var rectangleHeight = MARKER_WIDTH;
 
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             y += .5;
 
         var rect = this.g.rect(x + (width - rectangleWidth) / 2, y + height - rectangleHeight - 3, rectangleWidth, rectangleHeight);
 
         // plus inside rectangle
-        var cx = rect.attr("x") + rect.attr("width")/2;
-        var cy = rect.attr("y") + rect.attr("height")/2;
+        var cx = rect.attr("x") + rect.attr("width") / 2;
+        var cy = rect.attr("y") + rect.attr("height") / 2;
 
         var line = this.g.path(
-            "M" + cx + " " + (cy+2) + "L" + cx + " " + (cy-2) +
-            "M" + (cx-2) + " " + cy + "L" + (cx+2) + " " + cy
+            "M" + cx + " " + (cy + 2) + "L" + cx + " " + (cy - 2) +
+            "M" + (cx - 2) + " " + cy + "L" + (cx + 2) + " " + cy
         ).attr({"stroke-width": this.strokeWidth});
 
     },
 
-    drawActivityMarkers: function(x, y, width, height, multiInstanceSequential, multiInstanceParallel, collapsed){
+    drawActivityMarkers: function (x, y, width, height, multiInstanceSequential, multiInstanceParallel, collapsed) {
         if (collapsed) {
             if (!multiInstanceSequential && !multiInstanceParallel) {
                 this.drawCollapsedMarker(x, y, width, height);
@@ -1684,9 +1706,9 @@ ProcessDiagramCanvas.prototype = {
         }
     },
 
-    drawGateway: function(x, y, width, height) {
+    drawGateway: function (x, y, width, height) {
 
-        var rhombus = this.g.path(	"M" + x + " " + (y + (height / 2)) +
+        var rhombus = this.g.path("M" + x + " " + (y + (height / 2)) +
             "L" + (x + (width / 2)) + " " + (y + height) +
             "L" + (x + width) + " " + (y + (height / 2)) +
             "L" + (x + (width / 2)) + " " + y +
@@ -1705,7 +1727,7 @@ ProcessDiagramCanvas.prototype = {
         return rhombus;
     },
 
-    drawParallelGateway: function(x, y, width, height) {
+    drawParallelGateway: function (x, y, width, height) {
         this.g.setStart();
 
         // rhombus
@@ -1727,7 +1749,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "gateway");
     },
 
-    drawExclusiveGateway: function(x, y, width, height) {
+    drawExclusiveGateway: function (x, y, width, height) {
         this.g.setStart();
 
         // rhombus
@@ -1752,7 +1774,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "gateway");
     },
 
-    drawInclusiveGateway: function(x, y, width, height){
+    drawInclusiveGateway: function (x, y, width, height) {
         this.g.setStart();
 
         // rhombus
@@ -1763,7 +1785,7 @@ ProcessDiagramCanvas.prototype = {
         // circle inside rhombus
         var originalStroke = this.getStroke();
         this.setStroke(GATEWAY_TYPE_STROKE);
-        var circle = this.g.ellipse(width/2 + x, height/2 + y, diameter, diameter);
+        var circle = this.g.ellipse(width / 2 + x, height / 2 + y, diameter, diameter);
         circle.attr({"stroke-width": this.getStroke(), "stroke": this.getPaint()});
 
         this.setStroke(originalStroke);
@@ -1772,7 +1794,7 @@ ProcessDiagramCanvas.prototype = {
         this.addHandlers(set, x, y, width, height, "gateway");
     },
 
-    drawEventBasedGateway: function(x, y, width, height){
+    drawEventBasedGateway: function (x, y, width, height) {
         this.g.setStart();
 
         // rhombus
@@ -1786,20 +1808,20 @@ ProcessDiagramCanvas.prototype = {
 
 
         // draw GeneralPath (polygon)
-        var n=5;
-        var angle = 2*Math.PI/n;
+        var n = 5;
+        var angle = 2 * Math.PI / n;
         var x1Points = [];
         var y1Points = [];
 
-        for ( var index = 0; index < n; index++ ) {
-            var v = index*angle - Math.PI/2;
-            x1Points[index] = x + parseInt(Math.round(width/2)) + parseInt(Math.round((width/4)*Math.cos(v)));
-            y1Points[index] = y + parseInt(Math.round(height/2)) + parseInt(Math.round((height/4)*Math.sin(v)));
+        for (var index = 0; index < n; index++) {
+            var v = index * angle - Math.PI / 2;
+            x1Points[index] = x + parseInt(Math.round(width / 2)) + parseInt(Math.round((width / 4) * Math.cos(v)));
+            y1Points[index] = y + parseInt(Math.round(height / 2)) + parseInt(Math.round((height / 4) * Math.sin(v)));
         }
         //g.drawPolygon(x1Points, y1Points, n);
 
         var path = "";
-        for ( var index = 0; index < n; index++ ) {
+        for (var index = 0; index < n; index++) {
             if (index == 0)
                 path += "M";
             else
@@ -1823,12 +1845,12 @@ ProcessDiagramCanvas.prototype = {
     *  highLightFlow
     */
 
-    drawMultiInstanceMarker: function(sequential, x, y, width, height) {
+    drawMultiInstanceMarker: function (sequential, x, y, width, height) {
         var rectangleWidth = MARKER_WIDTH;
         var rectangleHeight = MARKER_WIDTH;
 
         // anti smoothing
-        if (this.strokeWidth%2 == 1)
+        if (this.strokeWidth % 2 == 1)
             x += .5;//, y += .5;
 
         var lineX = x + (width - rectangleWidth) / 2;
@@ -1839,22 +1861,22 @@ ProcessDiagramCanvas.prototype = {
 
         if (sequential) {
             var line = this.g.path(
-                "M" + lineX + " " + lineY + 							"L" + (lineX + rectangleWidth) + " " + lineY +
-                "M" + lineX + " " + (lineY + rectangleHeight / 2) + 	"L" + (lineX + rectangleWidth) + " " + (lineY + rectangleHeight / 2) +
-                "M" + lineX + " " + (lineY + rectangleHeight) + 		"L" + (lineX + rectangleWidth) + " " + (lineY + rectangleHeight)
+                "M" + lineX + " " + lineY + "L" + (lineX + rectangleWidth) + " " + lineY +
+                "M" + lineX + " " + (lineY + rectangleHeight / 2) + "L" + (lineX + rectangleWidth) + " " + (lineY + rectangleHeight / 2) +
+                "M" + lineX + " " + (lineY + rectangleHeight) + "L" + (lineX + rectangleWidth) + " " + (lineY + rectangleHeight)
             ).attr({"stroke-width": this.strokeWidth});
         } else {
             var line = this.g.path(
-                "M" + lineX + " " + 							lineY + "L" + lineX + " " + 					(lineY + rectangleHeight) +
-                "M" + (lineX + rectangleWidth / 2) + " " + 	lineY + "L" + (lineX + rectangleWidth / 2) + " " + 	(lineY + rectangleHeight) +
-                "M" + (lineX + rectangleWidth) + " " + 		lineY + "L" + (lineX + rectangleWidth) + " " + 		(lineY + rectangleHeight)
+                "M" + lineX + " " + lineY + "L" + lineX + " " + (lineY + rectangleHeight) +
+                "M" + (lineX + rectangleWidth / 2) + " " + lineY + "L" + (lineX + rectangleWidth / 2) + " " + (lineY + rectangleHeight) +
+                "M" + (lineX + rectangleWidth) + " " + lineY + "L" + (lineX + rectangleWidth) + " " + (lineY + rectangleHeight)
             ).attr({"stroke-width": this.strokeWidth});
         }
 
         this.setStroke(originalStroke);
     },
 
-    drawHighLight: function(x, y, width, height){
+    drawHighLight: function (x, y, width, height) {
         var originalPaint = this.getPaint();
         var originalStroke = this.getStroke();
 
@@ -1862,7 +1884,7 @@ ProcessDiagramCanvas.prototype = {
         this.setStroke(THICK_TASK_BORDER_STROKE);
 
         //var c = this.g.rect(x - width/2 - THICK_TASK_BORDER_STROKE, y - height/2 - THICK_TASK_BORDER_STROKE, width + THICK_TASK_BORDER_STROKE*2, height + THICK_TASK_BORDER_STROKE*2, 5);
-        var rect = this.g.rect(x - THICK_TASK_BORDER_STROKE, y - THICK_TASK_BORDER_STROKE, width + THICK_TASK_BORDER_STROKE*2, height + THICK_TASK_BORDER_STROKE*2, TASK_CORNER_ROUND);
+        var rect = this.g.rect(x - THICK_TASK_BORDER_STROKE, y - THICK_TASK_BORDER_STROKE, width + THICK_TASK_BORDER_STROKE * 2, height + THICK_TASK_BORDER_STROKE * 2, TASK_CORNER_ROUND);
         rect.attr("stroke-width", this.strokeWidth);
         rect.attr("stroke", this.getPaint());
 
@@ -1870,7 +1892,7 @@ ProcessDiagramCanvas.prototype = {
         this.setStroke(originalStroke);
     },
 
-    highLightActivity: function(activityId){
+    highLightActivity: function (activityId) {
         var shape = this.g.getById(activityId);
         if (!shape) {
             console.error("Activity " + activityId + " not found");
@@ -1879,7 +1901,7 @@ ProcessDiagramCanvas.prototype = {
 
         var contextObject = shape.data("contextObject");
         if (contextObject)
-            console.log("--> highLightActivity: ["+contextObject.getProperty("type")+"], activityId: " + contextObject.getId());
+            console.log("--> highLightActivity: [" + contextObject.getProperty("type") + "], activityId: " + contextObject.getId());
         else
             console.log("--> highLightActivity: ", shape, shape.data("contextObject"));
 
@@ -1887,7 +1909,7 @@ ProcessDiagramCanvas.prototype = {
         shape.attr("stroke", HIGHLIGHT_COLOR);
     },
 
-    highLightFlow: function(flowId){
+    highLightFlow: function (flowId) {
         var shapeFlow = this.g.getById(flowId);
         if (!shapeFlow) {
             console.error("Flow " + flowId + " not found");
@@ -1896,7 +1918,7 @@ ProcessDiagramCanvas.prototype = {
 
         var contextObject = shapeFlow.data("contextObject");
         if (contextObject)
-            console.log("--> highLightFlow: ["+contextObject.id+"] " + contextObject.flow);
+            console.log("--> highLightFlow: [" + contextObject.id + "] " + contextObject.flow);
         //console.log("--> highLightFlow: ", flow.flow, flow.data("set"));
 
         var st = shapeFlow.data("set");
@@ -1907,16 +1929,16 @@ ProcessDiagramCanvas.prototype = {
         if (withArrowHead)
             st[1].attr("fill", HIGHLIGHT_COLOR);
 
-        st.forEach(function(el){
+        st.forEach(function (el) {
             //console.log("---->", el);
             //el.attr("")
         });
     },
 
 
-    _drawClock: function(cx, cy, width, height){
+    _drawClock: function (cx, cy, width, height) {
 
-        var circle = this.g.ellipse(cx, cy, 1, 1).attr({stroke:"none", fill: Color.get(232, 239, 241)});
+        var circle = this.g.ellipse(cx, cy, 1, 1).attr({stroke: "none", fill: Color.get(232, 239, 241)});
         //var c = this.g.ellipse(cx, cy, width, height).attr({stroke:"none", fill: Color.red});
         //x = cx - width/2;
         //y = cy - height/2;
@@ -1942,31 +1964,31 @@ ProcessDiagramCanvas.prototype = {
         //clock.transform("...s 0.85");
 
         //clock.transform("...s " + .85 + " " + .85);
-        clock.transform("t " + (-2.374) + " " + (-2.374)	);
-        clock.transform("...t -" + (15.5-2.374) + " -" + (15.5-2.374)	);
-        clock.transform("...s " + 1*(width/35) + " " + 1*(height/35));
+        clock.transform("t " + (-2.374) + " " + (-2.374));
+        clock.transform("...t -" + (15.5 - 2.374) + " -" + (15.5 - 2.374));
+        clock.transform("...s " + 1 * (width / 35) + " " + 1 * (height / 35));
         clock.transform("...T " + cx + " " + cy);
         //clock.transform("t " + (cx-width/2) + " " + (cy-height/2));
 
         //console.log(".getBBox(): ", clock.getBBox());
         //console.log(".attr(): ", c.attrs);
-        circle.attr("rx", clock.getBBox().width/2);
-        circle.attr("ry", clock.getBBox().height/2);
+        circle.attr("rx", clock.getBBox().width / 2);
+        circle.attr("ry", clock.getBBox().height / 2);
 
         //return circle
     },
 
-    _drawPentagon: function(cx, cy, width, height, filled){
+    _drawPentagon: function (cx, cy, width, height, filled) {
         // draw GeneralPath (polygon)
-        var n=5;
-        var angle = 2*Math.PI/n;
+        var n = 5;
+        var angle = 2 * Math.PI / n;
         var waypoints = [];
 
-        for ( var index = 0; index < n; index++ ) {
-            var v = index*angle - Math.PI/2;
+        for (var index = 0; index < n; index++) {
+            var v = index * angle - Math.PI / 2;
             var point = {};
-            point.x = -width*1.2/2 + parseInt(Math.round(width*1.2/2)) + parseInt(Math.round((width*1.2/4)*Math.cos(v)));
-            point.y = -height*1.2/2 + parseInt(Math.round(height*1.2/2)) + parseInt(Math.round((height*1.2/4)*Math.sin(v)));
+            point.x = -width * 1.2 / 2 + parseInt(Math.round(width * 1.2 / 2)) + parseInt(Math.round((width * 1.2 / 4) * Math.cos(v)));
+            point.y = -height * 1.2 / 2 + parseInt(Math.round(height * 1.2 / 2)) + parseInt(Math.round((height * 1.2 / 4) * Math.sin(v)));
             waypoints[index] = point;
         }
 
@@ -1977,15 +1999,15 @@ ProcessDiagramCanvas.prototype = {
         else
             polygone.element.attr("fill", Color.white);
 
-        polygone.element.transform("s " + 1*(width/35) + " " + 1*(height/35));
+        polygone.element.transform("s " + 1 * (width / 35) + " " + 1 * (height / 35));
         polygone.element.transform("...T " + cx + " " + cy);
     },
 
     //_drawMultilineText: function(text, x, y, boxWidth, boxHeight, textAnchor) {
-    _drawMultilineText: function(text, x, y, boxWidth, boxHeight, verticalAlign, horizontalAlign) {
+    _drawMultilineText: function (text, x, y, boxWidth, boxHeight, verticalAlign, horizontalAlign) {
         if (!text || text == "")
             return;
-
+        y += 5;
         // Autostretch boxHeight if boxHeight is 0
         if (boxHeight == 0)
             verticalAlign = MULTILINE_VERTICAL_ALIGN_TOP;
@@ -2004,7 +2026,7 @@ ProcessDiagramCanvas.prototype = {
         //console.log("text: ", text.replace(/\n/g, "?"));
 
         if (height) {
-            var availableLinesCount = parseInt(height/lineHeight);
+            var availableLinesCount = parseInt(height / lineHeight);
             //console.log("availableLinesCount: " + availableLinesCount);
         }
 
@@ -2023,7 +2045,8 @@ ProcessDiagramCanvas.prototype = {
                 }
             }
             i++;
-        };
+        }
+        ;
         //console.log(layouts);
 
         measurer.rafaelTextObject.attr({"text": layouts.join("\n")});
@@ -2033,20 +2056,20 @@ ProcessDiagramCanvas.prototype = {
 
         var bb = measurer.rafaelTextObject.getBBox();
         // TODO: there is somethin wrong with wertical align. May be: measurer.rafaelTextObject.attr({"y": y + height/2 - bb.height/2})
-        measurer.rafaelTextObject.attr({"y": y + bb.height/2});
+        measurer.rafaelTextObject.attr({"y": y + bb.height / 2});
         //var bb = measurer.rafaelTextObject.getBBox();
 
-        if (measurer.rafaelTextObject.attr("text-anchor") == MULTILINE_HORIZONTAL_ALIGN_MIDDLE )
-            measurer.rafaelTextObject.attr("x",  x +  boxWidth/2);
-        else if (measurer.rafaelTextObject.attr("text-anchor") == MULTILINE_HORIZONTAL_ALIGN_RIGHT )
-            measurer.rafaelTextObject.attr("x",  x +  boxWidth);
+        if (measurer.rafaelTextObject.attr("text-anchor") == MULTILINE_HORIZONTAL_ALIGN_MIDDLE)
+            measurer.rafaelTextObject.attr("x", x + boxWidth / 2);
+        else if (measurer.rafaelTextObject.attr("text-anchor") == MULTILINE_HORIZONTAL_ALIGN_RIGHT)
+            measurer.rafaelTextObject.attr("x", x + boxWidth);
 
         var boxStyle = {stroke: Color.LightSteelBlue2, "stroke-width": 1.0, "stroke-dasharray": "- "};
         //var box = this.g.rect(x+.5, y + .5, width, height).attr(boxStyle);
-        var textAreaCX = x + boxWidth/2;
+        var textAreaCX = x + boxWidth / 2;
         var height = boxHeight;
         if (!height) height = bb.height;
-        var textAreaCY = y + height/2;
+        var textAreaCY = y + height / 2;
         var dotLeftTop = this.g.ellipse(x, y, 3, 3).attr({"stroke-width": 0, fill: Color.LightSteelBlue, stroke: "none"}).hide();
         var dotCenter = this.g.ellipse(textAreaCX, textAreaCY, 3, 3).attr({fill: Color.LightSteelBlue2, stroke: "none"}).hide();
 
@@ -2061,7 +2084,7 @@ ProcessDiagramCanvas.prototype = {
         //debugSet.show();
     },
 
-    drawTextAnnotation: function(text, x, y, width, height){
+    drawTextAnnotation: function (text, x, y, width, height) {
         var lineLength = 18;
         var path = [];
         path.push(["M", x + lineLength, y]);
@@ -2069,8 +2092,8 @@ ProcessDiagramCanvas.prototype = {
         path.push(["L", x, y + height]);
         path.push(["L", x + lineLength, y + height]);
 
-        path.push(["L", x + lineLength, y + height -1]);
-        path.push(["L", x + 1, y + height -1]);
+        path.push(["L", x + lineLength, y + height - 1]);
+        path.push(["L", x + 1, y + height - 1]);
         path.push(["L", x + 1, y + 1]);
         path.push(["L", x + lineLength, y + 1]);
         path.push(["z"]);
@@ -2079,8 +2102,8 @@ ProcessDiagramCanvas.prototype = {
 
         var boxWidth = width - (2 * ANNOTATION_TEXT_PADDING);
         var boxHeight = height - (2 * ANNOTATION_TEXT_PADDING);
-        var boxX = x + width/2 - boxWidth/2;
-        var boxY = y + height/2 - boxHeight/2;
+        var boxX = x + width / 2 - boxWidth / 2;
+        var boxY = y + height / 2 - boxHeight / 2;
 
         // for debug
         var rectStyle = {stroke: Color(112, 146, 190), "stroke-width": 1.0, "stroke-dasharray": "- "};
@@ -2090,8 +2113,8 @@ ProcessDiagramCanvas.prototype = {
         this.drawAnnotationText(text, boxX, boxY, boxWidth, boxHeight);
     },
 
-    drawLabel111111111: function(text, x, y, width, height, labelAttrs){
-        var  debug = false;
+    drawLabel111111111: function (text, x, y, width, height, labelAttrs) {
+        var debug = false;
 
         // text
         if (text != null && text != undefined && text != "") {
@@ -2106,8 +2129,8 @@ ProcessDiagramCanvas.prototype = {
             var realWidth = this.getStringWidth(wrappedText, attr);
             var realHeight = this.getStringHeight(wrappedText, attr);
 
-            var textAreaCX = x + width/2;
-            var textAreaCY = y + 3 + height + this.getStringHeight(wrappedText, attr)/2;
+            var textAreaCX = x + width / 2;
+            var textAreaCY = y + 3 + height + this.getStringHeight(wrappedText, attr) / 2;
 
             var textX = textAreaCX;
             var textY = textAreaCY;
@@ -2117,14 +2140,14 @@ ProcessDiagramCanvas.prototype = {
                 switch (labelAttrs.align) {
                     case "left":
                         textAttrs["text-anchor"] = "start";
-                        textX = textX - realWidth/2;
+                        textX = textX - realWidth / 2;
                         break;
                     case "center":
                         textAttrs["text-anchor"] = "middle";
                         break;
                     case "right":
                         textAttrs["text-anchor"] = "end";
-                        textX = textX + realWidth/2;
+                        textX = textX + realWidth / 2;
                         break;
                 }
             }
@@ -2132,11 +2155,11 @@ ProcessDiagramCanvas.prototype = {
                 if (true) {
                     // Draw frameborder
                     var textAreaStyle = {stroke: Color.LightSteelBlue2, "stroke-width": 1.0, "stroke-dasharray": "- "};
-                    var textAreaX = textAreaCX - realWidth/2;
-                    var textAreaY = textAreaCY+.5 - realHeight/2;
+                    var textAreaX = textAreaCX - realWidth / 2;
+                    var textAreaY = textAreaCY + .5 - realHeight / 2;
                     var textArea = this.g.rect(textAreaX, textAreaY, realWidth, realHeight).attr(textAreaStyle);
 
-                    var textAreaLines = this.g.path("M" + textAreaX + " " + textAreaY + "L" + (textAreaX+realWidth) + " " + (textAreaY+realHeight) + "M" +  + (textAreaX+realWidth) + " " + textAreaY + "L" + textAreaX + " " + (textAreaY+realHeight));
+                    var textAreaLines = this.g.path("M" + textAreaX + " " + textAreaY + "L" + (textAreaX + realWidth) + " " + (textAreaY + realHeight) + "M" + +(textAreaX + realWidth) + " " + textAreaY + "L" + textAreaX + " " + (textAreaY + realHeight));
                     textAreaLines.attr(textAreaStyle);
 
                     this.g.ellipse(textAreaCX, textAreaCY, 3, 3).attr({fill: Color.LightSteelBlue2, stroke: "none"});
@@ -2148,25 +2171,26 @@ ProcessDiagramCanvas.prototype = {
             //console.log("label ", label.id, ", ", wrappedText);
 
             if (this.fontSmoothing) {
-                label.attr({stroke: LABEL_COLOR, "stroke-width":.4});
+                label.attr({stroke: LABEL_COLOR, "stroke-width": .4});
             }
 
             // debug
             if (debug) {
                 var imageAreaStyle = {stroke: Color.grey61, "stroke-width": 1.0, "stroke-dasharray": "- "};
-                var imageArea = this.g.rect(x+.5, y+.5, width, height).attr(imageAreaStyle);
-                var imageAreaLines = this.g.path("M" + x + " " + y + "L" + (x+width) + " " + (y+height) + "M" +  + (x+width) + " " + y + "L" + x + " " + (y+height));
+                var imageArea = this.g.rect(x + .5, y + .5, width, height).attr(imageAreaStyle);
+                var imageAreaLines = this.g.path("M" + x + " " + y + "L" + (x + width) + " " + (y + height) + "M" + +(x + width) + " " + y + "L" + x + " " + (y + height));
                 imageAreaLines.attr(imageAreaStyle);
                 var dotStyle = {fill: Color.Coral, stroke: "none"};
                 this.g.ellipse(x, y, 3, 3).attr(dotStyle);
-                this.g.ellipse(x+width, y, 2, 2).attr(dotStyle);
-                this.g.ellipse(x+width, y+height, 2, 2).attr(dotStyle);
-                this.g.ellipse(x, y+height, 2, 2).attr(dotStyle);
+                this.g.ellipse(x + width, y, 2, 2).attr(dotStyle);
+                this.g.ellipse(x + width, y + height, 2, 2).attr(dotStyle);
+                this.g.ellipse(x, y + height, 2, 2).attr(dotStyle);
             }
 
             return label;
         }
     },
 
-    vvoid: function(){}
+    vvoid: function () {
+    }
 };

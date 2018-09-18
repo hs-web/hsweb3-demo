@@ -106,7 +106,10 @@ function initRequireJs() {
             "script-editor": [BASE_PATH + "plugins/script-editor/script-editor"],
             "plugin": [BASE_PATH + "plugins"],
             "pages": [BASE_PATH + "admin"],
-            "echarts": [BASE_PATH + "plugins/echarts/echarts.min"]
+            "echarts": [BASE_PATH + "plugins/echarts/echarts.min"],
+            "search-box": [BASE_PATH + "admin/commons/search-box"],
+            "admin": [BASE_PATH + "admin"],
+            "workflow": [BASE_PATH + "workflow"]
         }
     });
     require(['request']);

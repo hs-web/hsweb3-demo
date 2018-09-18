@@ -10,18 +10,38 @@
 <body style="display: none">
 <div class="mini-fit">
     <div class="mini-toolbar" style="border-bottom:0;">
-        <table id="search-box">
-            <tr>
-                <td>姓名:<input name="name" class="mini-textbox"/></td>
-                <td>邮箱:<input name="email" class="mini-textbox"/></td>
-                <td>联系电话:<input name="phone" class="mini-textbox"/></td>
-                <!--<td>所属职位:<input id="position-grid" class="mini-treeselect" style="min-width: 200px;" multiSelect="false"  valueFromSelect="false"
-                                name="positionId" textField="name" valueField="id" parentField="parentId"  allowInput="false"
-                                showRadioButton="true" showFolderCheckBox="false"/></td>-->
-                <td><a class="mini-button search-button" plain="true" iconCls="icon-search">搜索</a></td>
-                <td><a class="mini-button add-button" iconCls="fa fa-plus">新建人员</a></td>
-            </tr>
-        </table>
+        <div id="search-box" class="mini-clearfix search-box">
+            <div class="mini-col-4 form-component">
+                <div class="form-item">
+                    <label class="form-label">姓名：</label>
+                    <div class="input-block component-body">
+                        <input name="name" style="width: 100%" class="mini-textbox"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-6 form-component">
+                <div class="form-item">
+                    <label class="form-label">所属机构：</label>
+                    <div class="input-block component-body">
+                        <input class="mini-treeselect" emptyText="机构" name="id$person-in-org" valuefield="id"
+                               showNullItem="true"
+                               textfield="name" valuefromselect="true" clearonload="true"
+                               allowinput="true" expandOnLoad="1" resultastree="false" parentfield="parentId"
+                               virtualscroll="true" style="width: 32.33%">
+                        <input class="mini-treeselect" showNullItem="true" parentfield="parentId" clearOnLoad="true" showNullItem="true"
+                               emptyText="部门" textField="name" name="id$person-in-department" style="width: 32.33%">
+                        <input class="mini-treeselect" showNullItem="true" parentfield="parentId" clearOnLoad="true"
+                               emptyText="岗位" textField="name" showNullItem="true" id="positionId"
+                               name="id$person-in-position" style="width: 32.33%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="operate-button">
+            <span autz="autz.hasPermission('person','add')">
+                <a class="mini-button add-button"><i class="fa fa-plus"></i> 新建人员</a>
+            </span>
+        </div>
     </div>
     <div class="mini-fit">
         <div id="data-grid" class="mini-treegrid" style="width:100%;height:100%;margin: auto;"
@@ -31,23 +51,17 @@
              allowCellEdit="true" allowCellSelect="true" sortField="sortIndex"
              allowDrag="true" allowDrop="true" treeColumn="index">
             <div property="columns">
-                <!--<div type="indexcolumn" name="index" width="80" align="center" headerAlign="center">拖动可排序</div>-->
                 <div field="name" headerAlign="center" align="center" width="150">姓名
-                    <!--<input property="editor" emptyText="姓名" class="mini-textbox"/>-->
                 </div>
                 <div field="sex" renderer="renderSex" headerAlign="center" align="center" width="50">性别
-                    <!--<input property="editor"  emptyText="性别" class="mini-textbox"/>-->
                 </div>
                 <div field="email" headerAlign="center" align="center" width="150">邮箱
-                    <!--<input property="editor" emptyText="邮箱" class="mini-textbox"/>-->
                 </div>
                 <div field="phone" width="150" headerAlign="center" align="center">联系电话
-                    <!--<input property="editor" emptyText="联系电话" class="mini-textbox"/>-->
                 </div>
                 <div field="status" renderer="renderStatus" headerAlign="center" align="center" width="50">状态
-                    <!--<input property="editor" emptyText="状态" class="mini-textbox"/>-->
                 </div>
-                <div  renderer="renderAction" width="80" headerAlign="center" align="center">
+                <div autz="autz.hasPermission('person', 'update','delete')" renderer="renderAction" width="80" headerAlign="center" align="center">
                     操作
                 </div>
             </div>

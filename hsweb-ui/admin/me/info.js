@@ -60,7 +60,7 @@ importMiniui(function () {
                     person.departmentId = "";
                     person.positionId = "";
                     if (person.photo) {
-                        $(".photo").attr("src", BASE_PATH + "file/download/" + person.photo);
+                        $("#photo").attr("src", person.photo);
                     }
                     $("#sex_" + person.sex).prop("checked", true);
                     new mini.Form("#data-form").setData(person);
@@ -83,6 +83,37 @@ importMiniui(function () {
                     }
                 }
             });
+
+            var uploaderInstance;
+            require(["pages/form/designer-drag/file-upload-2"], function (Uploader) {
+                uploaderInstance = Uploader.initUploader({
+                    // container: $("#upload-photo"),
+                    accept: "image",
+                    pick: {
+                        id: "#choose-photo",
+                        multiple: false
+                    },
+                    process: function (file, percentage) {
+
+                    },
+                    callback: function (file, info) {
+                        $("#photo").attr("src", info);
+                    },
+                    uploadError: function (file, response) {
+                        // message.showTips("上传失败:" + response.message, "danger")
+                    },
+                    onAdd: function (file) {
+                        uploaderInstance.makeThumb(file, function (error, src) {
+                            if (error) {
+                                return;
+                            }
+                            var img = $("#photo")
+                                .attr("src", src);
+                            $("#")
+                        }, 100, 115);
+                    }
+                });
+            })
         });
 
     }
@@ -106,6 +137,7 @@ importMiniui(function () {
             $(mini.get("position-grid").getData()).each(function () {
                 data.positionIds.push(this.positionId);
             });
+            data.photo = $("#photo").attr("src");
             var box = message.loading("提交中...", "");
             func(api, data, function (e) {
                 box.hide();
