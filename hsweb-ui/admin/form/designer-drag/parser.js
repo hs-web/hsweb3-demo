@@ -31,6 +31,46 @@
         })
     };
 
+    FormParser.prototype.getbyName = function (name) {
+        return this.getComponent(function (comp) {
+            return comp.getProperty('name').value === name
+        })
+    };
+    FormParser.prototype.get = function (id) {
+        return this.getComponent(function (comp) {
+            return comp.id === id;
+        })
+    };
+
+    FormParser.prototype.getComponent = function (call) {
+        for (var i = 0; i < this.components.length; i++) {
+            if (call(this.components[i].target)) {
+                return this.components[i].target;
+            }
+        }
+        return null;
+    };
+
+    FormParser.prototype.setErrors = function (errorMessage) {
+        var me = this;
+        if (typeof errorMessage === 'string') {
+            errorMessage = mini.decode(errorMessage);
+        }
+        if (errorMessage) {
+            $(errorMessage).each(function () {
+                var field = mini.getbyName(this.field);
+                if (field) {
+                    field.setIsValid(false);
+                    field.setErrorText(this.message);
+                } else {
+                    var component = me.getbyName(this.field);
+                    if (component && component.setError) {
+                        component.setError(this);
+                    }
+                }
+            });
+        }
+    }
     FormParser.prototype.setReadOnly = function (readonly) {
         if (this.formId) {
             var form = new mini.Form("#" + this.formId);
@@ -57,8 +97,9 @@
             form.setData(data);
             $(this.components).each(function () {
                 var target = this.target;
-                if (target && target.setValue) {
-                    target.setValue(name, data);
+                var val = data[this.target.getProperty('name').value];
+                if (target && val && target.setValue) {
+                    target.setValue(val, data);
                 }
             });
             this.doEvent("setData", this);
@@ -112,7 +153,8 @@
                 var id = this.id;
                 var Component = componentRepo.supportComponents[this.type];
                 if (Component) {
-                    var componentHtml = html.find("[hs-id='" + id + "']");
+                    var componentHtml = $("[hs-id='" + id + "'],.hs-id-" + id);
+
                     var component = new Component(id);
                     this.target = component;
                     component.container = componentHtml;

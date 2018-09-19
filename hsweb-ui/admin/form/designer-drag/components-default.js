@@ -826,7 +826,7 @@
 
                 function initUploader(uploader) {
                     uploaderContainer
-                        .html(readOnly ? "浏览文件" : "选择文件");
+                        .html(readOnly ? "预览文件" : "选择文件");
                     if (!readOnly) {
                         uploaderContainer.removeClass('webuploader-container');
                         uploader.initUploader("#" + id, function (file) {
