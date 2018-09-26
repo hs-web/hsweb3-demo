@@ -59,6 +59,9 @@
         var html = $("<div>").html(config.html);
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
+            if (componentRepo.useIdForName) {
+                this.components[id].getProperty("name").value = id;
+            }
             var component = jQuery.extend({}, this.components[id]);
             if (container.length === 0 || component.removed) {
                 component.container.remove();
