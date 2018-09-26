@@ -18,6 +18,9 @@
         if (supportComponents[type]) {
             var component = this.components[id] = new supportComponents[type](id);
             component.parser = this;
+            if (componentRepo.useIdForName) {
+                this.components[id].getProperty("name").value = id;
+            }
             return component;
         }
         return undefined;
@@ -43,7 +46,7 @@
     Designer.prototype.setConfig = function (config) {
 
     };
-    Designer.prototype.clear=function () {
+    Designer.prototype.clear = function () {
         this.loadConfig({});
     }
     Designer.prototype.getConfig = function () {
@@ -163,7 +166,7 @@
 
                 $(component.properties)
                     .each(function () {
-                        realComponent.setProperty(this.id, this.value,true);
+                        realComponent.setProperty(this.id, this.value, true);
                     });
                 initEvent(realComponent);
             });
