@@ -119,6 +119,22 @@ define(["jquery", "storejs"], function ($, storejs) {
         me.terms = [];
         me.sorts = [];
         me.nowType = "and";
+        function buildSort(sorts) {
+            var tmp = {};
+            $(sorts).each(function (i, e) {
+                for (var f in e) {
+                    if (f !== 'sorts')
+                        tmp["sorts[" + i + "]." + f] = e[f];
+                    else {
+                        var tmpTerms = buildSort(e[f]);
+                        for (var f2 in tmpTerms) {
+                            tmp["sorts[" + i + "]." + f2] = tmpTerms[f2];
+                        }
+                    }
+                }
+            });
+            return tmp
+        }
 
         function bindOperate(operate) {
             function accept(k, t, v) {
@@ -127,7 +143,7 @@ define(["jquery", "storejs"], function ($, storejs) {
             }
 
             var mapping = [
-                "gt", "gte", "lt", "lte", "like", "nlike", "in", "is", "eq"
+                "gt", "gte", "lt", "lte", "like", "nlike", "in", "is", "eq", "not"
             ];
             $(mapping).each(function () {
                 var type = this + "";
@@ -157,8 +173,12 @@ define(["jquery", "storejs"], function ($, storejs) {
         bindOperate(me);
         me.getParams = function () {
             var tmp = me.buildParam(me.terms);
+            var sorts = buildSort(me.sorts);
             for (var f in tmp) {
                 me.param[f] = tmp[f];
+            }
+            for (var f in sorts) {
+                me.param[f] = sorts[f];
             }
             return me.param;
         };
@@ -177,7 +197,7 @@ define(["jquery", "storejs"], function ($, storejs) {
         me.and = function (k, v, t) {
             me.nowType = "and";
             if (k && v)
-                me.terms.push({column: k, termType: t ? "eq" : t, type: me.nowType, value: v});
+                me.terms.push({column: k, termType: t, type: me.nowType, value: v});
             return me;
         };
         me.orNest = function () {
@@ -195,13 +215,13 @@ define(["jquery", "storejs"], function ($, storejs) {
             fun.and = function (k, v, t) {
                 fun.nowType = "and";
                 if (k && v)
-                    fun.terms.push({column: k, termType: t ? "eq" : t, value: v, type: 'and'});
+                    fun.terms.push({column: k, termType: t, value: v, type: 'and'});
                 return fun;
             };
             fun.or = function (k, v, t) {
                 fun.nowType = "or";
                 if (k && v)
-                    nest.terms.push({column: k, termType: t ? "eq" : t, value: v, type: 'or'});
+                    nest.terms.push({column: k, termType: t, value: v, type: 'or'});
                 return fun;
             };
             fun.exec = me.exec;
@@ -219,7 +239,7 @@ define(["jquery", "storejs"], function ($, storejs) {
         me.or = function (k, v, t) {
             me.nowType = "or";
             if (k && v)
-                me.terms.push({column: k, termType: t ? "eq" : t, value: v, type: me.nowType});
+                me.terms.push({column: k, termType: t, value: v, type: me.nowType});
             return me;
         };
 
@@ -323,22 +343,6 @@ define(["jquery", "storejs"], function ($, storejs) {
                 return me;
             };
 
-            function buildSort(sorts) {
-                var tmp = {};
-                $(sorts).each(function (i, e) {
-                    for (var f in e) {
-                        if (f !== 'sorts')
-                            tmp["sorts[" + i + "]." + f] = e[f];
-                        else {
-                            var tmpTerms = buildSort(e[f]);
-                            for (var f2 in tmpTerms) {
-                                tmp["sorts[" + i + "]." + f2] = tmpTerms[f2];
-                            }
-                        }
-                    }
-                });
-                return tmp
-            }
 
             me.orderByAsc = function (f) {
                 me.sorts.push({"name": f, "order": "asc"});
@@ -356,15 +360,8 @@ define(["jquery", "storejs"], function ($, storejs) {
                 return me;
             };
             me.exec = function (callback) {
-                var tmp = me.buildParam(me.terms);
-                var sorts = buildSort(me.sorts);
-                for (var f in tmp) {
-                    me.param[f] = tmp[f];
-                }
-                for (var f in sorts) {
-                    me.param[f] = sorts[f];
-                }
-                return doAjax(getRequestUrl(api), me.param, "GET", callback, typeof(callback) !== 'undefined', false);
+
+                return doAjax(getRequestUrl(api), me.getParams(), "GET", callback, typeof(callback) !== 'undefined', false);
             };
             return me;
         }

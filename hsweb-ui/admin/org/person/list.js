@@ -9,7 +9,7 @@ require(["authorize"], function (authorize) {
             new SearchBox({
                 container: $("#search-box"),
                 onSearch: search,
-                initSize: 2
+                initSize:2
             }).init();
             window.tools = tools;
             var grid = window.grid = mini.get("data-grid");
@@ -26,6 +26,7 @@ require(["authorize"], function (authorize) {
             dept.on("valueChanged", changeDep);
             var position = mini.getbyName("id$person-in-position");
             position.on("valueChanged", search);
+
 
 
             function search() {
