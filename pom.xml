@@ -15,9 +15,9 @@
         <java.version>1.8</java.version>
         <project.build.jdk>${java.version}</project.build.jdk>
 
-        <hsweb.framework.version>3.0.1</hsweb.framework.version>
+        <hsweb.framework.version>3.0.2</hsweb.framework.version>
 
-        <hsweb.expands.version>3.0.1</hsweb.expands.version>
+        <hsweb.expands.version>3.0.2</hsweb.expands.version>
 
     </properties>
 
