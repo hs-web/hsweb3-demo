@@ -185,8 +185,10 @@
             } else {
                 $(".main-panel").append(component.render());
             }
-            reloadMiniui();
-            initComponentList();
+            setTimeout(function () {
+                reloadMiniui();
+                initComponentList();
+            }, 10);
             return component;
         };
 
@@ -336,7 +338,9 @@
                                 // initPropertiesEditor(component);
                                 me.doEvent("configChanged", me);
                                 me.nowEditComponent = component;
-                                mini.parse();
+                                window.setTimeout(function () {
+                                    mini.parse();
+                                }, 1)
                                 if (component.onInit) {
                                     component.onInit();
                                 }
@@ -350,7 +354,9 @@
                                 item.replaceWith(children);
                                 initDroppable();
                                 children.find('.form-label,legend,input,.component-info,.edit-on-focus').first().click();
-                                initComponentList();
+                                window.setTimeout(function () {
+                                    initComponentList();
+                                }, 1)
                             }
                         },
                         connectWith: ".component"
