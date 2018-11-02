@@ -18,12 +18,27 @@
         if (supportComponents[type]) {
             var component = this.components[id] = new supportComponents[type](id);
             component.parser = this;
+            component._uid = id;
             if (componentRepo.useIdForName) {
                 this.components[id].getProperty("name").value = id;
             }
             return component;
         }
         return undefined;
+    };
+    Designer.prototype.get = function (id) {
+        return this.getComponent(function (comp) {
+            return comp.id === id || comp._uid === id;
+        })
+    };
+
+    Designer.prototype.getComponent = function (call) {
+        for (var i = 0; i < this.components.length; i++) {
+            if (call(this.components[i].target)) {
+                return this.components[i].target;
+            }
+        }
+        return null;
     };
     Designer.prototype.setReadOnly = function (readOnly) {
 
@@ -151,6 +166,9 @@
 
             $(components).each(function () {
                 var id = this.id;
+                if (!this._uid) {
+                    this._uid = id;
+                }
                 var container = html.find("[hs-id=" + id + "]");
                 if (container.length === 0) {
                     return;
@@ -166,17 +184,31 @@
                 realComponent.container = container;
                 realComponent.render();
                 realComponent.config = component.config;
-
+                var reload = realComponent.reload ? function () {
+                    return realComponent.reload();
+                } : undefined;
                 $(component.properties)
                     .each(function () {
-                        realComponent.setProperty(this.id, this.value, true);
+                        if (reload) {
+                            realComponent.getProperty(this.id).value = this.value;
+                        } else {
+                            realComponent.setProperty(this.id, this.value, true);
+                        }
                     });
-                initEvent(realComponent);
+                if (reload) {
+                    reload();
+                }
+                window.setTimeout(function () {
+                    initEvent(realComponent);
+                }, 1);
             });
             $(".main-panel").html("").append(html.children());
-            initDroppable();
-            reloadMiniui();
-            initComponentList();
+            window.setTimeout(function () {
+                initDroppable();
+                reloadMiniui();
+                initComponentList();
+            }, 1);
+
         };
         me.insertComponent = function (type) {
             var component = newComponent(type);
@@ -320,6 +352,7 @@
             var cache = {};
 
             function initDroppable() {
+                var droping=false;
                 $(".components")
                     .sortable({
                         // revert:"valid",
@@ -328,7 +361,7 @@
                         }, start: function (event, ui) {
                             var item = ui.item;
                             var type = item.attr("hs-type");
-                            if (type) {
+                            if (type&&!droping) {
                                 item.css("width", "100%");
                                 var component = newComponent(type);
                                 var html = component.getContainer();
@@ -340,13 +373,15 @@
                                 me.nowEditComponent = component;
                                 window.setTimeout(function () {
                                     mini.parse();
-                                }, 1)
+                                }, 1);
                                 if (component.onInit) {
                                     component.onInit();
                                 }
                             }
+                            droping=true;
                             // initDroppable();
                         }, stop: function (event, ui) {
+                            droping=false;
                             var item = ui.item;
                             var type = item.attr("hs-type");
                             if (type) {

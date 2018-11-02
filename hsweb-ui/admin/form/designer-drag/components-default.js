@@ -434,12 +434,182 @@
             componentRepo.registerComponent("text", Text);
         }
 
+        var logicSupport = {
+            "is": function (s, t) {
+                return (s + "") === (t + "");
+            }, "lt": function (s, t) {
+                return parseFloat(s) < parseFloat(t);
+            }, "gt": function (s, t) {
+                return parseFloat(s) > parseFloat(t);
+            }, "gte": function (s, t) {
+                return parseFloat(s) >= parseFloat(t);
+            }, "lte": function (s, t) {
+                return parseFloat(s) <= parseFloat(t);
+            }
+        };
+
+        var targetSupport = {
+            "value": function (conf, component) {
+                return conf.target;
+            },
+            "component": function (conf, component) {
+                var target = conf.target;
+                if (component.parser) {
+                    var targetComp = component.parser.get(target);
+                    if (targetComp.getValue) {
+                        return targetComp.getValue();
+                    }
+                    if (targetComp.inputId) {
+                        return mini.get(targetComp.inputId).getValue();
+                    }
+                }
+                return null;
+            },
+            "currentTime": function (conf, comp) {
+                return new Date();
+            }
+        };
+
+        /**
+         *  [
+         *          "conditions":[
+         *              {"type":"logic","logic":"=",targetType:"component | value | currentTime",target:"1"}
+         *          ],
+         *          operation: [
+         *              {"type":"component-operation",action:"hide", "target":"user,age"},
+         *              {"type":"show-message","message":"呵呵"},
+         *              {"type":"script","message":"alert(1234)"}
+         *          ]
+         *  ]
+         */
+        var fireSupport = {
+            "conditions": {
+                "logic": function (conf, component) {
+                    var logic = logicSupport[conf.logic];
+                    var target = targetSupport[conf.targetType];
+                    var thisValue = this.value || component.getValue();
+                    var targetValue = target ? target(conf, component) : null;
+
+                    return logic && logic(thisValue, targetValue);
+
+                },
+                "always": function (conf, component) {
+                    return true;
+                },
+                "script": function (conf, component) {
+                    var script = conf.script;
+                    if (script) {
+                        try {
+                            var func = eval("(function(){return function(component,me){" +
+                                "\n" +
+                                script +
+                                "\n" +
+                                "}})()");
+                            return func.call(this, component, component);
+                        } catch (e) {
+                            console.log("执行控件变更事件条件脚本失败", this, e);
+                            return false;
+                        }
+                    }
+                }
+            },
+            "operations": {
+                "component-operation": function (conf, component) {
+                    var target = conf.target;
+                    var action = conf.action;
+                    var targetComponent = function () {
+                        return component.parser ? component.parser.get(target) : null;
+                    }();
+                    if (!targetComponent) {
+                        log.warn("无法获取到要操作的控件:", target, " config:", conf)
+                        return;
+                    }
+                    if (action === 'hide') {
+                        targetComponent.hide();
+                    } else if (action === 'writeAble') {
+                        targetComponent.setReadOnly(false);
+                    } else if (action === 'readonly') {
+                        targetComponent.setReadOnly(true);
+                    } else if (action === 'show') {
+                        targetComponent.show();
+                    } else if (action === 'setValue') {
+                        if (targetComponent.setValue) {
+                            targetComponent.setValue(conf.value);
+                        }
+                    }
+                },
+                "message": function (conf) {
+                    if (window.message) {
+                        message.alert(conf.message);
+                    } else {
+                        require(['message'], function (message) {
+                            message.alert(conf.message);
+                        })
+                    }
+                },
+                "script": function (conf, component) {
+                    var script = conf.script;
+                    if (script) {
+                        try {
+                            var func = eval("(function(){return function(component,me){" +
+                                "\n" +
+                                script +
+                                "\n" +
+                                "}})()");
+                            func.call(this, component, component);
+                        } catch (e) {
+                            console.log("执行控件变更事件操作脚本失败", this, e);
+                            return;
+                        }
+                    }
+                }
+            },
+        }
+
         /**单行文本**/
         function TextBox(id) {
             Component.call(this);
             this.id = id;
             this.properties = createDefaultEditor();
             this.getProperty("comment").value = "单行文本";
+            this.properties.push({
+                id: "onValueChanged",
+                editor: "textbox",
+                text: "值变更事件",
+                script: true,
+                fire: function (component) {
+                    var value = component.getProperty('onValueChanged').value;
+                    var source = this;
+                    if (!value) {
+                        return "";
+                    }
+                    if (typeof value === "string") {
+                        value = JSON.parse(value);
+                    }
+                    $(value).each(function () {
+                        var conf = this;
+                        for (var i = 0; i < conf.conditions.length; i++) {
+                            var condition = conf.conditions[i];
+                            var support = fireSupport.conditions[condition.type];
+                            if (!support || !support.call(source, condition, component)) {
+                                return;
+                            }
+                        }
+                        for (var i = 0; i < conf.operations.length; i++) {
+                            var operation = conf.operations[i];
+                            var support = fireSupport.operations[operation.type];
+                            if (support) {
+                                support.call(source, operation, component);
+                            }
+                        }
+                    });
+
+                },
+                createEditor: function (component, text, value, call) {
+
+                    return "";
+                }
+            })
         }
 
         {
@@ -458,81 +628,156 @@
                     this.container.css("height", height ? height + "px" : "");
                 }
             };
+            TextBox.prototype.setValue = function (value) {
+                this.value = value;
+                var input = mini.get(this.inputId);
+                if (input) {
+                    input.setValue(value);
+                }
+            }
+
+            TextBox.prototype.loadData = function () {
+                var me = this;
+                var optionConfig = this.getProperty("option").value;
+                if (!optionConfig) {
+                    return;
+                }
+
+                var input = mini.get(this.inputId);
+                if (!input) {
+                    mini.parse();
+                    input = mini.get(this.inputId);
+                }
+                var cache = window.optionCache || (window.optionCache = {});
+
+                if (optionConfig.type === 'url') {
+                    input.setTextField(optionConfig.textField || 'text');
+                    input.setValueField(optionConfig.idField || "id");
+                    input.setDataField(optionConfig.dataField || "result.data");
+                    input.setAjaxType(optionConfig.ajaxType || "GET");
+                    if (input.setClearOnLoad) {
+                        input.setClearOnLoad(false);
+                    }
+                    if (input.setParentField)
+                        input.setParentField(optionConfig.parentField || "parentId");
+                    if (input.setResultAsTree)
+                        input.setResultAsTree(optionConfig.resultAsTree || "false");
+                    if (cache[optionConfig.url]) {
+                        input.setData(cache[optionConfig.url]);
+                    } else {
+                        function getProperty(obj, field) {
+                            var fs = field.split(".");
+                            var tmp = obj;
+                            for (var i = 0; i < fs.length; i++) {
+                                var v = fs[i];
+                                if (!tmp) {
+                                    return null;
+                                }
+                                tmp = tmp[v];
+                            }
+                            return tmp;
+                        }
+
+                        require(['request'], function (request) {
+                            request.get(optionConfig.url, function (response) {
+                                if (response.status === 200) {
+                                    var data = getProperty(response, optionConfig.dataField || "result.data");
+                                    if (input.loadList && optionConfig.resultAsTree + "" === 'false') {
+                                        input.loadList(data);
+                                    } else {
+                                        input.setData(data);
+                                    }
+                                    if (me.value) {
+                                        input.setValue(me.value);
+                                    }
+                                }
+                            })
+                        })
+                    }
+                    // input.setUrl(window.API_BASE_PATH + optionConfig.url);
+                } else if (optionConfig.type === 'data') {
+                    input.setData(optionConfig.data);
+                }
+            }
+
+            TextBox.prototype.createInput = function () {
+                var me = this;
+                var container = this.container;
+                var inputId = "I" + (Math.round(Math.random() * 1000000000));
+                me.inputId = inputId;
+                var input = $("<input style='width: 100%;height: 100%'>");
+                input.attr("id", inputId);
+                input.addClass(me.cls || "mini-textbox");
+                $(me.properties).each(function () {
+                    var value = this.getValue ? this.getValue(me) : this.value;
+                    var property = this;
+                    if (this.id) {
+                        if (this.id === 'type') {
+                            return;
+                        }
+                        if (this.id === 'height') {
+                            input.css("height", value);
+                        }
+                        //脚本
+                        if (this.script) {
+                            var scriptId = "script_" + (Math.round(Math.random() * 100000000));
+                            window[scriptId] = function (obj) {
+                                try {
+                                    var func = property.fire ? property.fire :
+                                        eval("(function(){return function(component){" +
+                                            "\n" +
+                                            (property.getScript ? property.getScript : property.value) +
+                                            "\n" +
+                                            "}})()");
+                                    func.call(obj, me);
+                                } catch (e) {
+                                    console.log("执行控件脚本失败", this, e);
+                                    return;
+                                }
+                            };
+                            value = scriptId;
+                        }
+                        //数据选项
+                        if (this.id === 'option') {
+                            var optionConfig = value;
+
+                        } else if (this.id === 'showComment') {
+                            if (this.value + "" === 'true') {
+                                container.find(".form-item")
+                                    .removeClass("hide-comment");
+                            } else {
+                                container.find(".form-item")
+                                    .addClass("hide-comment");
+                            }
+                        } else {
+                            input.attr(this.id, value);
+                        }
+                    }
+                    if (!this.value || this.value === 'undefined') {
+                        input.removeAttr(this.id);
+                    }
+                });
+                return input;
+            }
+
             TextBox.prototype.reload = function () {
                 var container = this.container;
                 var me = this;
 
-                function createInput() {
-                    var input = $("<input style='width: 100%;height: 100%'>");
-                    input.addClass(me.cls || "mini-textbox");
-                    $(me.properties).each(function () {
-                        var value = this.getValue ? this.getValue(me) : this.value;
-                        var property = this;
-                        if (this.id) {
-                            if (this.id === 'type') {
-                                return;
-                            }
-                            if (this.id === 'height') {
-                                input.css("height", value);
-                            }
-                            //脚本
-                            if (this.script) {
-                                var scriptId = "script_" + (Math.round(Math.random() * 100000000));
-                                window[scriptId] = function (obj) {
-                                    try {
-                                        var func = eval("(function(){return function(component){" +
-                                            "\n" +
-                                            property.value +
-                                            "\n" +
-                                            "}})()");
-                                        func.call(obj, me);
-                                    } catch (e) {
-                                        console.log("执行控件脚本失败", this, e);
-                                        return;
-                                    }
-                                };
-                                value = scriptId;
-                            }
-                            //数据选项
-                            if (this.id === 'option') {
-                                var optionConfig = value;
-                                if (optionConfig.type === 'url') {
-                                    input.attr("url", window.API_BASE_PATH + optionConfig.url);
-                                    input.attr("textField", optionConfig.textField || 'text');
-                                    input.attr("valueField", optionConfig.idField || "id");
-                                    input.attr("dataField", optionConfig.dataField || "result.data");
-                                    input.attr("ajaxType", optionConfig.ajaxType || "GET");
-                                    input.attr("parentField", optionConfig.parentField || "parentId");
-                                    input.attr("resultAsTree", optionConfig.resultAsTree || "false");
-                                } else if (optionConfig.type === 'data') {
-                                    if (!window.optionalData) {
-                                        window.optionalData = {};
-                                    }
-                                    var id = "optional_" + Math.round(Math.random() * 10000);
-                                    window.optionalData[id] = optionConfig.data;
-                                    value = "window.optionalData." + id;
-                                    input.attr("data", value);
-                                }
-                            } else {
-                                input.attr(this.id, value);
-                            }
-                        }
-                        if (!this.value || this.value === 'undefined') {
-                            input.removeAttr(this.id);
-                        }
-                    });
-                    return input;
-                }
-
                 function newInput() {
                     return container.find(".component-body")
                         .html("")
-                        .append(createInput());
+                        .append(me.createInput());
                 }
 
-                // console.log(me);
                 newInput();
-            };
+                mini.parse();
+                if (me.loadData) {
+                    window.setTimeout(function () {
+                        me.loadData();
+                    }, 50);
+                }
+            }
 
             TextBox.prototype.render = function () {
                 var me = this;
@@ -558,20 +803,13 @@
                 }
                 this.un("propertiesChanged")
                     .on('propertiesChanged', function (name, value) {
-                        container.find('.form-label').first().css("display", "block");
+                        container.find('.form-label').first().css("display", "");
                         if (name === 'comment') {
-                            container.find(".form-label").text(value);
+                            value = value.replace(/( )/g, "<span style='space'></span>");
+                            value = value.replace(/(\*)/g, "<span class='star'>*</span>");
+                            container.find(".form-label").html(value);
                         } else if (name === 'bodyHeight') {
                             container.find(".input-block").css("height", value);
-                        }
-                        else if (name === 'showComment') {
-                            if (value + "" === 'true') {
-                                container.find(".form-label").show();
-                                container.find(".component-body").addClass("input-block");
-                            } else {
-                                container.find(".form-label").hide();
-                                container.find(".component-body").removeClass("input-block");
-                            }
                         } else {
                             me.reload();
                         }
@@ -594,30 +832,6 @@
 
                 this.cls = "mini-textarea";
                 this.formText = true;
-                // this.properties.push(
-                //     {
-                //         id: "bodyHeight",
-                //         text: "控件高度",
-                //         value: "50",
-                //         comment: "设置为最小值,高度为自动",
-                //         createEditor: function (component, text, value, call) {
-                //             var html = $("<div style='margin-left: 4px;position: relative;top: 9px;width: 92%'>");
-                //             html.slider({
-                //                 orientation: "horizontal",
-                //                 range: "min",
-                //                 min: 48,
-                //                 max: 400,
-                //                 value: parseInt(value),
-                //                 slide: function () {
-                //                     if (call) call();
-                //                     component.setProperty("bodyHeight", parseInt(arguments[1].value));
-                //                     mini.parse();
-                //                 }
-                //             });
-                //             return html;
-                //         }
-                //     }
-                // );
             }
 
             createClass(TextArea, TextBox);
@@ -881,12 +1095,12 @@
                     }
                     var label = $("<label class=\"form-label\">");
                     var inputContainer = $("<div class=\"input-block\">");
-                    var input = createInput();
+                    // var input = createInput();
                     var id = Math.round(Math.random() * 100000000);
                     var button = $("<div class='file-upload' style='height: 30px; float: left'>")
                         .attr("id", "file-" + id)
                         .text("选择文件");
-                    var process = $("<div class='process' style='width: 80%'>");
+                    //  var process = $("<div class='process' style='width: 80%'>");
 
                     label.text(me.getProperty("comment").value);
                     c.append(label).append(inputContainer.append(button));

@@ -38,7 +38,7 @@
     };
     FormParser.prototype.get = function (id) {
         return this.getComponent(function (comp) {
-            return comp.id === id;
+            return comp.id === id||comp._uid===id;
         })
     };
 
@@ -97,9 +97,17 @@
             form.setData(data);
             $(this.components).each(function () {
                 var target = this.target;
-                var val = data[this.target.getProperty('name').value];
-                if (target && val && target.setValue) {
-                    target.setValue(val, data);
+                var name = this.target.getProperty('name').value;
+
+                if (name) {
+                    var nestName = name.split(".");
+                    var val = data;
+                    for (var i = 0; i < nestName.length; i++) {
+                        val = val[nestName[i]];
+                    }
+                    if (target && val && target.setValue) {
+                        target.setValue(val, data);
+                    }
                 }
             });
             this.doEvent("setData", this);
@@ -166,9 +174,6 @@
                     $(this.properties).each(function () {
                             var property = this;
                             var value = property.value;
-                            // if (typeof value === 'undefined') {
-                            //     return;
-                            // }
                             if (reload) {
                                 component.getProperty(property.id).value = value;
                             } else {

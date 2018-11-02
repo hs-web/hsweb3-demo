@@ -34,6 +34,11 @@
             display: none;
         }
 
+        .value-change-splitter {
+            border: 0;
+            border-bottom: 1px solid #aed0ea;
+        }
+
     </style>
 </head>
 <body style="display: none">
@@ -79,7 +84,7 @@
                             <div property="columns">
                                 <!--<div header="组件类型" headerAlign='center' field="type"></div>-->
                                 <div header="描述" width="80" headerAlign='center' align="center" field="name"></div>
-                                <div header="操作" width="20" headerAlign='center'name="action"></div>
+                                <div header="操作" width="20" headerAlign='center' name="action"></div>
                             </div>
                         </div>
                     </div>
@@ -203,7 +208,7 @@
                                 <span class="title-button" style="width: 30px">
                                 操作
                                 </span>
-                                <span class="title-button icon-add add-operation-data"onclick="addOperationData()"></span>
+                                <span class="title-button icon-add add-operation-data" onclick="addOperationData()"></span>
                             </div>
                         </div>
                     </div>
@@ -212,6 +217,266 @@
         </div>
     </div>
 </div>
+
+<!--值变更事件-->
+<div id="on-value-change-window" allowResize="true" showFooter="true" showModal="false" class="mini-window" title="值变更事件"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-optional" plain="true" iconCls="icon-ok">完成编辑</a>
+    </div>
+    <div id="tabs1" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;"
+         arrowPosition="side" showNavMenu="true">
+        <div name="action1" title="事件1">
+            <div class="mini-splitter" style="width:100%;height:100%;">
+                <div size="50%" showCollapseButton="true" style="padding: 5px;overflow-y: auto">
+                    <div class=" dynamic-form mini-clearfix">
+                        <div class="mini-col-12" style="position: relative;text-align: center">
+                            <a class="mini-button" style="font-size: 16px" plain="true" iconCls="icon-add">&nbsp;如果</a>
+                        </div>
+                    </div>
+                    <hr class="value-change-splitter">
+                    <div class=" dynamic-form mini-clearfix" id="value-change-condition-0">
+                        <div class="mini-col-12" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件类型</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-combobox" value="logic" name="type" data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var conditionLogicData = [
+                                            {'id': 'is', 'text': '值等于'},
+                                            {'id': 'gt', 'text': '值大于'},
+                                            {'id': 'gte', 'text': '值大于等于'},
+                                            {'id': 'lt', 'text': '值小于'},
+                                            {'id': 'lte', 'text': '值小于等于'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="is" name="logic" data="conditionLogicData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">值</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+                        </div>
+
+                    </div>
+                    <hr class="value-change-splitter">
+                    <div class=" dynamic-form mini-clearfix" id="value-change-condition-1">
+                        <div class="mini-col-12" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件类型</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-combobox" value="logic" name="type" data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var conditionLogicData = [
+                                            {'id': 'is', 'text': '值等于'},
+                                            {'id': 'gt', 'text': '值大于'},
+                                            {'id': 'gte', 'text': '值大于等于'},
+                                            {'id': 'lt', 'text': '值小于'},
+                                            {'id': 'lte', 'text': '值小于等于'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="is" name="logic" data="conditionLogicData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">值</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+                        </div>
+
+                    </div>
+                    <hr class="value-change-splitter">
+                    <div class=" dynamic-form mini-clearfix" id="value-change-condition-2">
+                        <div class="mini-col-12" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件类型</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-combobox" value="logic" name="type" data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var conditionLogicData = [
+                                            {'id': 'is', 'text': '值等于'},
+                                            {'id': 'gt', 'text': '值大于'},
+                                            {'id': 'gte', 'text': '值大于等于'},
+                                            {'id': 'lt', 'text': '值小于'},
+                                            {'id': 'lte', 'text': '值小于等于'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="is" name="logic" data="conditionLogicData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">值</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div showCollapseButton="true" style="padding: 5px">
+                    <div class="dynamic-form mini-clearfix" id="value-change-operation">
+                        <div class="mini-col-12" style="position: relative;text-align: center">
+                            <a class="mini-button" style="font-size: 16px" plain="true" iconCls="icon-add">&nbsp;就执行</a>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">动作</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var operationData = [
+                                            {'id': 'component-operation', 'text': '其他控件'},
+                                            {'id': 'message', 'text': '弹出提示'},
+                                            {'id': 'script', 'text': '执行脚本'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="component-operation" name="type" data="operationData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 component-operation" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">操作</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var operationActionData = [
+                                            {'id': 'hide', 'text': '隐藏'},
+                                            {'id': 'show', 'text': '显示'},
+                                            {'id': 'readonly', 'text': '设置为只读'},
+                                            {'id': 'writeAble', 'text': '设置为可写'},
+                                            {'id': 'value', 'text': '修改值'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="hide" name="type" data="operationActionData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 component-operation" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">控件</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-buttonedit" name="target"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mini-col-12 condition-logic" style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此动作</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="value-change-condition-template">
+    <div class=" dynamic-form mini-clearfix">
+        <div class="mini-col-12" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">条件类型</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="logic" name="type" data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 condition-logic" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">条件</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="is" name="logic" data="conditionLogicData"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 condition-logic" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">值</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12" style="position: relative; text-align: center;margin-top: 5px">
+            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="value-change-operation-template">
+    <div class="dynamic-form mini-clearfix">
+        <div class="mini-col-12" style="position: relative;text-align: center">
+            <a class="mini-button" style="font-size: 16px" plain="true" iconCls="icon-add">&nbsp;就执行</a>
+        </div>
+        <div class="mini-col-12 condition-logic" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">动作</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="component-operation" name="type" data="operationData"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 component-operation" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">操作</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="hide" name="type" data="operationActionData"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 component-operation" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">控件</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-buttonedit" name="target"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="mini-col-12" style="position: relative; text-align: center;margin-top: 5px">
+            <a class="mini-button" plain="true" iconCls="icon-remove">删除此动作</a>
+        </div>
+    </div>
+</script>
 
 <div title="选择数据库表" showFooter="true" showToolBar="true" allowResize="true" class="mini-window" id="database-window"
      style="width: 800px;height: 600px">

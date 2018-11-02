@@ -34,6 +34,16 @@ Component.prototype.getProperty = function (name) {
     }
     return {};
 };
+Component.prototype.hide = function () {
+    if (this.container) {
+        this.container.hide();
+    }
+}
+Component.prototype.show = function () {
+    if (this.container) {
+        this.container.show();
+    }
+}
 Component.prototype.removeProperty = function (name) {
     var indexOf = this.properties.indexOf(this.getProperty(name));
     if (indexOf !== -1) {
