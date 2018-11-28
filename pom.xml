@@ -15,7 +15,7 @@
         <java.version>1.8</java.version>
         <project.build.jdk>${java.version}</project.build.jdk>
 
-        <hsweb.framework.version>3.0.2</hsweb.framework.version>
+        <hsweb.framework.version>3.0.4-SNAPSHOT</hsweb.framework.version>
 
         <hsweb.expands.version>3.0.2</hsweb.expands.version>
 
@@ -93,6 +93,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.hswebframework</groupId>
+            <artifactId>hsweb-printer-core</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
         <!--test-->
 
         <dependency>

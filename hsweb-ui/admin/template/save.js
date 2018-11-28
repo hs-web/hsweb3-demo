@@ -68,11 +68,30 @@ var types = [
             }
         }
     }, {
-        text: "HTML",
-        id: "html"
-    }, {
-        text: "文本",
-        id: "text"
+        text: "打印模板",
+        id: "prt",
+        createEditor: function (data) {
+            var iframe = $("<iframe frameborder='0' style='border:0px;width: 100%;height: 100%;min-height: 750px; margin: auto; position: relative'>");
+            iframe.attr("src", window.BASE_PATH + "admin/print-designer/index.html"
+            );
+            var win;
+
+            function init() {
+                win = iframe[0].contentWindow;
+                if (win) {
+                    win.returnShow(JSON.parse(data));
+                }
+            }
+
+            init();
+            $(iframe).on("load", init);
+            return {
+                html: iframe,
+                getConfig: function () {
+                    return win.getElConfig();
+                }
+            }
+        }
     }
 ];
 

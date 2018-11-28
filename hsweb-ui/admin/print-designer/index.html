@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>draw-index</title>
+    <style type="text/css">
+        html, body, #drawing {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+
+    <script src="js/svg.min.js"></script>
+    <script src="js/svg.draw.min.js"></script>
+    <script src="js/svg.draggable.min.js"></script>
+    <script src="js/svg.select.min.js"></script>
+    <script src="js/svg.resize.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/draw-action.js"></script>
+    <script src="js/tool.js"></script>
+    <script data-main="index.js" src="../boot.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/draw.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/svg.select.css">
+</head>
+
+<body>
+<div class="contains">
+    <!-- 左侧边栏 -->
+    <div class="sidebar-left">
+        <h2 style="margin-top:0;">制表工具栏</h2>
+        <div id="btn-form">
+            <button onclick="rect()" class="btn-rect" data-create="rect">矩形</button>
+            <button onclick="linex()" class="btn-line" data-create="line">横线</button>
+            <button onclick="liney()" class="btn-line" data-create="line">竖线</button>
+            <button onclick="textSvg()" class="btn-text" data-create="text">文字</button>
+            <button onclick="img()" class="btn-img" data-create="img">图片</button>
+            <button onclick="slfline()" class="btn-img" data-create="line">自画线</button>
+            <button onclick="slfrect()" class="btn-img" data-create="rect">自画矩形</button>
+
+        </div>
+
+       <!-- <h2>删除</h2>
+        <div>
+            <button onclick="deleteSvgObj()" id="del-btn">删除</button>
+        </div>-->
+        <h2>元素属性</h2>
+        <h5>基本属性</h5>
+        <form class="attrs-form">
+            请选择元素！
+        </form>
+
+
+        <form action="javascript:void(0)" class="imgArea" style="display:none;">
+            <h5>图片属性</h5>
+            <p class="">
+                <label style="width:100px;margin:0 20px 0 20px">data:</label>
+                <input class="imgData" type="text" value="">
+            </p>
+            <p class="">
+                <label style="width:100px;;margin:0 20px 0 20px;">type:</label>
+                <select class="imgType" style="width:165px;">
+                    <option value="barCode">条形码</option>
+                    <option value="qrCode">二维码</option>
+                    <option value="static">静态图片</option>
+                </select>
+            </p>
+        </form>
+        <form>
+            <h5>元素循环</h5>
+            <div class="filler loop-set">
+                <p>
+                    <span style="width:180px;margin:0 20px 0 20px">循环方向:</span>
+                    <select class="loop-direction" style="width:100px;">
+                        <option value="">不循环</option>
+                        <option value="portrait">纵向</option>
+                        <option value="transverse">横向</option>
+                    </select>
+                </p>
+                <p>
+                    <span style="width:180px;margin:0 20px 0 20px">循环标识:</span>
+                    <input style="width:100px;" class="loop-data" type="text" value="">
+                </p>
+                <p>
+                    <span style="width:180px;margin:0 20px 0 20px">循环次数:</span>
+                    <input style="width:100px;" class="loop-num" type="number">
+                </p>
+                <p>
+                    <span style="width:180px;margin:0 20px 0 20px">循环间距:</span>
+                    <input class="loop-spacing" style="width:100px;" type="text" value="100">
+                </p>
+
+            </div>
+        </form>
+        <form action="javascript:void(0)">
+            <h5>元素是否可见</h5>
+            <div>
+                <p>
+                    <label style="margin:0 0 0 20px">可见标识：</label>
+                    <input id="visible" type="text" value="">
+                </p>
+            </div>
+        </form>
+
+        <form>
+            <h5>元素颜色</h5>
+            <div>
+
+                <!-- 填充 -->
+                <p>
+                    <label  style="width: 100px;">背景颜色：</label>
+                    <input class="color" id="fill" type="color" value="#80ffff">
+                </p>
+
+                <!-- 填充 -->
+                <p>
+                    <label  style="width: 100px;">边框颜色：</label>
+                    <input class="color" id="stroke" type="color" value="#bbbbbb">
+                </p>
+                <p>
+                    <label style="width: 100px;">边框颜宽度：</label>
+                    <input id="strokeWidth" type="number" value="1">
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <!-- 主区域 -->
+
+    <div class="main A4 rp72" style="margin: auto">
+        <div id="svgAera" style="margin: auto;"></div>
+    </div>
+    <!-- 右侧边栏 -->
+    <div class="sidebar-right">
+        <h2 style="margin-top:0;">纸张格式<span style="font-size:12px;">（默认A4纸）</span></h2>
+        <div>
+            <button onclick="mianSize('A4')">A4纸</button>
+            <button onclick="mianSize('34A')">1/3A4纸</button>
+        </div>
+        <h2 style="margin-top:0;">分辨率设置<span style="font-size:12px;">（默认72dpi）</span></h2>
+        <div>
+            <button onclick="rpSize('rp72')">72dpi</button>
+            <button onclick="rpSize('rp96')">96dpi</button>
+        </div>
+        <form action="javascript:void(0)" class="textArea" style="display:none;">
+            <h2>文本属性</h2>
+            <p class="">
+                <label style="width:100px;margin:0 20px 0 20px">显示内容:</label>
+                <input class="display-content" type="text" value="">
+            </p>
+            <p class="">
+                <label style="width:100px;margin:0 20px 0 20px">替换内容:</label>
+                <input class="replace-content" type="text" value="">
+            </p>
+            <p class="">
+                <label style="width:100px;margin:0 20px 0 20px">字体大小:</label>
+                <input class="textSize" type="number" value="18">
+            </p>
+            <p class="">
+                <label style="width:100px;margin:0 20px 0 20px">宽度:</label>
+                <input class="textWidth" type="number" value="100">
+            </p>
+            <p class="">
+                <label style="width:100px;margin:0 20px 0 20px">高度:</label>
+                <input class="textHeight" type="number" value="10">
+            </p>
+            <p class="">
+                <label style="width:100px;;margin:0 20px 0 20px;">横向位置:</label>
+                <select class="textAlign" style="width:165px;">
+                    <option value="left">居左</option>
+                    <option value="center">居中</option>
+                    <option value="right">居右</option>
+                    <option value="both">both</option>
+                </select>
+            </p>
+            <p class="">
+                <label style="width:100px;;margin:0 20px 0 20px;">纵向位置:</label>
+                <select class="textVerticalAlign" style="width:165px;">
+                    <option value="top">居下</option>
+                    <option value="center">居中</option>
+                    <option value="bottom">居上</option>
+                </select>
+            </p>
+            <p class="">
+                <label style="width:100px;;margin:0 20px 0 20px;">字体粗细:</label>
+                <select class="textWeight" style="width:165px;">
+                    <option value="normal">normal</option>
+                    <option value="bold">bold</option>
+                    <option value="bolder">bolder</option>
+                    <option value="lighter">lighter</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
+                    <option value="400">400</option>
+                    <option value="500">500</option>
+                    <option value="600">600</option>
+                    <option value="700">700</option>
+                    <option value="800">800</option>
+                    <option value="900">900</option>
+                </select>
+            </p>
+            <p class="">
+                <label style="width:100px;;margin:0 20px 0 20px;">字体:</label>
+                <select class="textFamily" style="width:165px;">
+                    <option value="宋体">宋体</option>
+                    <option value="微软雅黑">微软雅黑</option>
+                    <option value="新宋体">新宋体</option>
+                    <option value="隶属">隶属</option>
+                    <option value="楷体">楷体</option>
+                    <option value="黑体">黑体</option>
+                    <option value="幼园">幼园</option>
+                    <option value="Small fonts">Small fonts</option>
+                </select>
+            </p>
+        </form>
+        <form action="javascript:void(0)">
+            <h2>设置画板背景</h2>
+            <p class="">
+                <input type="file" class="bgPath" onchange="setBg(this)"/>
+                <input type="button" class="reduction type-btn" value="取消背景图" onclick="reduction()"/>
+            </p>
+
+        </form>
+        <h2 style="margin-top:0;">模板配置</span></h2>
+        <div>
+            <!--<textarea class="returnText" rows="10" style="width:97%"></textarea>-->
+            <input onclick="complete()" type="button" class="type-btn" value="完成模板编辑"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
