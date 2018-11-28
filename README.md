@@ -13,6 +13,11 @@ http://cdn-blog.jetbrains.org.cn/doc/all.html
     $ ./mvnw spring-boot:run
 ```
 
+docker:
+```bash
+    $ docker run --rm -p 8089:8089 hsweb/hsweb-demo:3.0 
+```
+
 或者导入ide,等待maven依赖下载完后执行: 
 ``org.hswebframework.web.demo.Application.main``
 
