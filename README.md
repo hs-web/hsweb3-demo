@@ -15,7 +15,7 @@ http://cdn-blog.jetbrains.org.cn/doc/all.html
 
 docker:
 ```bash
-    $ docker run --rm -p 8089:8089 hsweb/hsweb-demo:3.0 
+    $ docker run -d --name hsweb3-demo -p 8089:8089 hsweb/hsweb-demo:3.0
 ```
 
 或者导入ide,等待maven依赖下载完后执行: 
