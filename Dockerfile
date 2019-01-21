@@ -1,4 +1,4 @@
-FROM java:8-alpine
+FROM java:8
 
 COPY target/hsweb-demo.jar /app.jar
 COPY hsweb-ui /hsweb-ui

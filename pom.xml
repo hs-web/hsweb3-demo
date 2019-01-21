@@ -6,7 +6,7 @@
 
     <groupId>org.hswebframework.web</groupId>
     <artifactId>hsweb-demo</artifactId>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
