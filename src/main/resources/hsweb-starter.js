@@ -23,233 +23,236 @@ var info = {
     author: "admin@hsweb.me",
     comment: "演示系统"
 };
-var menus = [
-    {
-        "u_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "name": "系统设置",
-        "parent_id": "-1",
-        "permission_id": "",
-        "path": "sOrB",
-        "sort_index": 1,
-        "describe": " ",
-        "url": "",
-        "icon": "fa fa-cogs",
-        "status": 1
-    },
-    {
-        "u_id": "f84b8dacb3ea07ecd811cfb869137b90",
-        "name": "首页设置",
-        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "permission_id": "dashboard",
-        "path": "sOrB-JOQv",
-        "sort_index": 101,
-        "describe": null,
-        "url": "admin/dashboard/list.html",
-        "icon": "fa fa-dashboard",
-        "status": 1
-    },
-    {
-        "u_id": "8db17b9ba28dd949c926b329af477a08",
-        "name": "菜单管理",
-        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "permission_id": "menu",
-        "path": "sOrB-i2ea",
-        "sort_index": 102,
-        "describe": null,
-        "url": "admin/menu/list.html",
-        "icon": "fa fa-navicon",
-        "status": 1
-    },
-    {
-        "u_id": "a52df62b69e21fd756523faf8f0bd986",
-        "name": "权限管理",
-        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "permission_id": "permission,autz-setting",
-        "path": "sOrB-X27v",
-        "sort_index": 103,
-        "describe": null,
-        "url": "admin/permission/list.html",
-        "icon": "fa fa-briefcase",
-        "status": 1
-    },
-    {
-        "u_id": "42fc4f83d12cc172e4690937eb15752a",
-        "name": "角色管理",
-        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "permission_id": "role",
-        "path": "sOrB-4ofL",
-        "sort_index": 104,
-        "describe": null,
-        "url": "admin/role/list.html",
-        "icon": "fa fa-users",
-        "status": 1
-    },
-    {
-        "u_id": "58eba1a4371dd3c0da24fac5da8cadc2",
-        "name": "用户管理",
-        "parent_id": "e9dc96d6b677cbae865670e6813f5e8b",
-        "permission_id": "user",
-        "path": "sOrB-Dz7b",
-        "sort_index": 105,
-        "describe": null,
-        "url": "admin/user/list.html",
-        "icon": "fa fa-user",
-        "status": 1
-    },
-    {
-        "u_id": "org-01",
-        "name": "组织架构",
-        "parent_id": "-1",
-        "permission_id": "",
-        "path": "a2o0",
-        "sort_index": 2,
-        "describe": " ",
-        "url": "",
-        "icon": "fa fa-sitemap",
-        "status": 1
-    },
-    {
-        "u_id": "org-01-01",
-        "name": "机构管理",
-        "parent_id": "org-01",
-        "permission_id": "organizational",
-        "path": "a2o0-iL0F",
-        "sort_index": 201,
-        "describe": null,
-        "url": "admin/org/list.html",
-        "icon": "fa fa-leaf",
-        "status": 1
-    },
-    {
-        "u_id": "org-01-02",
-        "name": "综合设置",
-        "parent_id": "org-01",
-        "permission_id": "organizational,department,position,person",
-        "path": "a2o0-A12e",
-        "sort_index": 202,
-        "describe": null,
-        "url": "admin/org/manager/index.html",
-        "icon": "fa fa-sitemap",
-        "status": 1
-    },
-    {
-        "u_id": "dev-01",
-        "name": "开发人员工具",
-        "parent_id": "-1",
-        "permission_id": "",
-        "path": "d010",
-        "sort_index": 3,
-        "describe": " ",
-        "url": "",
-        "icon": "fa fa-th-list",
-        "status": 1
-    }
-    ,
-    {
-        "u_id": "datasource-manager",
-        "name": "数据源管理",
-        "parent_id": "dev-01",
-        "permission_id": "datasource",
-        "path": "d010-jG1A",
-        "sort_index": 301,
-        "describe": null,
-        "url": "admin/datasource/list.html",
-        "icon": "fa fa-database",
-        "status": 1
-    },
-    {
-        "u_id": "code-gen",
-        "name": "代码生成器",
-        "parent_id": "dev-01",
-        "permission_id": "file,database-manager,datasource",
-        "path": "d010-jG1V",
-        "sort_index": 302,
-        "describe": null,
-        "url": "admin/code-generator/index.html",
-        "icon": "fa fa-desktop",
-        "status": 1
-    },
-    {
-        "u_id": "dyn-form",
-        "name": "动态表单",
-        "parent_id": "dev-01",
-        "permission_id": "form",
-        "path": "d010-6tVw",
-        "sort_index": 303,
-        "describe": null,
-        "url": "admin/form/list.html",
-        "icon": "fa fa-puzzle-piece",
-        "status": 1
-    },
-    {
-        "u_id": "template",
-        "name": "模板管理",
-        "parent_id": "dev-01",
-        "permission_id": "template",
-        "path": "d010-54Ph",
-        "sort_index": 304,
-        "describe": null,
-        "url": "pages/template/list.hl",
-        "icon": "fa fa-send-o",
-        "status": 1
-    },
-    {
-        "u_id": "database-manager",
-        "name": "数据库维护",
-        "parent_id": "dev-01",
-        "permission_id": "database-manager,datasource",
-        "path": "d010-FH4w",
-        "sort_index": 305,
-        "describe": null,
-        "url": "admin/database-manager/index.html",
-        "icon": "fa fa-database",
-        "status": 1
-    },
-    {
-        "u_id": "quartz",
-        "name": "定时任务",
-        "parent_id": "dev-01",
-        "permission_id": "schedule",
-        "path": "d010-V54b",
-        "sort_index": 306,
-        "describe": null,
-        "url": "admin/schedule/index.html",
-        "icon": "fa fa-file-word-o",
-        "status": 1
-    },
-    {
-        "u_id": "d9b7a672a63d214a1f063bbbacab89ee",
-        "name": "人员管理",
-        "parent_id": "org-01",
-        "permission_id": "person",
-        "path": "a2o0-vfXJ",
-        "sort_index": 203,
-        "describe": null,
-        "url": "admin/org/person/list.html",
-        "icon": "fa fa-vcard",
-        "status": 1
-    }
-];
+var menus = [{
+    "describe": " ",
+    "icon": "fa fa-cogs",
+    "id": "e9dc96d6b677cbae865670e6813f5e8b",
+    "name": "系统设置",
+    "parentId": "-1",
+    "path": "sOrB",
+    "permissionId": "",
+    "sortIndex": 1,
+    "status": 1,
+    "url": ""
+}, {
+    "describe": " ",
+    "icon": "fa fa-sitemap",
+    "id": "org-01",
+    "name": "组织架构",
+    "parentId": "-1",
+    "path": "a2o0",
+    "permissionId": "",
+    "sortIndex": 2,
+    "status": 1,
+    "url": ""
+}, {
+    "describe": " ",
+    "icon": "fa fa-th-list",
+    "id": "dev-01",
+    "name": "开发人员工具",
+    "parentId": "-1",
+    "path": "d010",
+    "permissionId": "",
+    "sortIndex": 3,
+    "status": 1,
+    "url": ""
+}, {
+    "icon": "fa fa-deaf",
+    "id": "b7f349813e3e67348c78f069f92ced46",
+    "name": "工作流",
+    "parentId": "-1",
+    "path": "0I2J",
+    "sortIndex": 4,
+    "status": 1
+},  {
+    "icon": "fa fa-book",
+    "id": "915f4a85cbbac4b757956a99333ae2a7",
+    "name": "数据字典",
+    "parentId": "e9dc96d6b677cbae865670e6813f5e8b",
+    "path": "sOrB-fhFG",
+    "permissionId": "dictionary",
+    "sortIndex": 101,
+    "status": 1,
+    "url": "admin/dictionary/list.html"
+}, {
+    "icon": "fa fa-navicon",
+    "id": "8db17b9ba28dd949c926b329af477a08",
+    "name": "菜单管理",
+    "parentId": "e9dc96d6b677cbae865670e6813f5e8b",
+    "path": "sOrB-i2ea",
+    "permissionId": "menu",
+    "sortIndex": 102,
+    "status": 1,
+    "url": "admin/menu/list.html"
+}, {
+    "icon": "fa fa-briefcase",
+    "id": "a52df62b69e21fd756523faf8f0bd986",
+    "name": "权限管理",
+    "parentId": "e9dc96d6b677cbae865670e6813f5e8b",
+    "path": "sOrB-X27v",
+    "permissionId": "permission,autz-setting",
+    "sortIndex": 103,
+    "status": 1,
+    "url": "admin/permission/list.html"
+}, {
+    "icon": "fa fa-users",
+    "id": "42fc4f83d12cc172e4690937eb15752a",
+    "name": "角色管理",
+    "parentId": "e9dc96d6b677cbae865670e6813f5e8b",
+    "path": "sOrB-4ofL",
+    "permissionId": "role",
+    "sortIndex": 104,
+    "status": 1,
+    "url": "admin/role/list.html"
+}, {
+    "icon": "fa fa-user",
+    "id": "58eba1a4371dd3c0da24fac5da8cadc2",
+    "name": "用户管理",
+    "parentId": "e9dc96d6b677cbae865670e6813f5e8b",
+    "path": "sOrB-Dz7b",
+    "permissionId": "user",
+    "sortIndex": 105,
+    "status": 1,
+    "url": "admin/user/list.html"
+}, {
+    "icon": "fa fa-dashboard",
+    "id": "f84b8dacb3ea07ecd811cfb869137b90",
+    "name": "首页设置",
+    "parentId": "e9dc96d6b677cbae865670e6813f5e8b",
+    "path": "sOrB-JOQv",
+    "permissionId": "dashboard",
+    "sortIndex": 106,
+    "status": 1,
+    "url": "admin/dashboard/list.html"
+}, {
+    "icon": "fa fa-leaf",
+    "id": "org-01-01",
+    "name": "机构管理",
+    "parentId": "org-01",
+    "path": "a2o0-iL0F",
+    "permissionId": "organizational",
+    "sortIndex": 201,
+    "status": 1,
+    "url": "admin/org/list.html"
+}, {
+    "icon": "fa fa-sitemap",
+    "id": "org-01-02",
+    "name": "综合设置",
+    "parentId": "org-01",
+    "path": "a2o0-A12e",
+    "permissionId": "organizational,department,position,person",
+    "sortIndex": 202,
+    "status": 1,
+    "url": "admin/org/manager/index.html"
+}, {
+    "icon": "fa fa-vcard",
+    "id": "d9b7a672a63d214a1f063bbbacab89ee",
+    "name": "人员管理",
+    "parentId": "org-01",
+    "path": "a2o0-vfXJ",
+    "permissionId": "person",
+    "sortIndex": 203,
+    "status": 1,
+    "url": "admin/org/person/list.html"
+}, {
+    "icon": "fa fa-database",
+    "id": "datasource-manager",
+    "name": "数据源管理",
+    "parentId": "dev-01",
+    "path": "d010-jG1A",
+    "permissionId": "datasource",
+    "sortIndex": 301,
+    "status": 1,
+    "url": "admin/datasource/list.html"
+}, {
+    "icon": "fa fa-desktop",
+    "id": "code-gen",
+    "name": "代码生成器",
+    "parentId": "dev-01",
+    "path": "d010-jG1V",
+    "permissionId": "file,database-manager,datasource",
+    "sortIndex": 302,
+    "status": 1,
+    "url": "admin/code-generator/index.html"
+}, {
+    "icon": "fa fa-puzzle-piece",
+    "id": "dyn-form",
+    "name": "动态表单",
+    "parentId": "dev-01",
+    "path": "d010-6tVw",
+    "permissionId": "form",
+    "sortIndex": 303,
+    "status": 1,
+    "url": "admin/form/list.html"
+}, {
+    "icon": "fa fa-send-o",
+    "id": "template",
+    "name": "模板管理",
+    "parentId": "dev-01",
+    "path": "d010-54Ph",
+    "permissionId": "template",
+    "sortIndex": 304,
+    "status": 1,
+    "url": "pages/template/list.hl"
+}, {
+    "icon": "fa fa-database",
+    "id": "database-manager",
+    "name": "数据库维护",
+    "parentId": "dev-01",
+    "path": "d010-FH4w",
+    "permissionId": "database-manager,datasource",
+    "sortIndex": 305,
+    "status": 1,
+    "url": "admin/database-manager/index.html"
+}, {
+    "icon": "fa fa-file-word-o",
+    "id": "quartz",
+    "name": "定时任务",
+    "parentId": "dev-01",
+    "path": "d010-V54b",
+    "permissionId": "schedule",
+    "sortIndex": 306,
+    "status": 1,
+    "url": "admin/schedule/index.html"
+}, {
+    "icon": "fa fa-object-ungroup",
+    "id": "9d65115ee9788c0e1fe8bf95e67e10da",
+    "name": "模型管理",
+    "parentId": "b7f349813e3e67348c78f069f92ced46",
+    "path": "0I2J-5ALi",
+    "permissionId": "workflow-model",
+    "sortIndex": 401,
+    "url": "admin/workflow/model/list.html"
+}, {
+    "icon": "fa fa-map-signs",
+    "id": "8a2fd0aebdc2eef1de66a19bfc66823f",
+    "name": "流程管理",
+    "parentId": "b7f349813e3e67348c78f069f92ced46",
+    "path": "0I2J-IoqP",
+    "permissionId": "workflow-definition",
+    "sortIndex": 402,
+    "url": "admin/workflow/define/list.html"
+}];
+
+
 var user = [
     {
-        "u_id": "4291d7da9005377ec9aec4a71ea837f",
+        "id": "4291d7da9005377ec9aec4a71ea837f",
         "name": "超级管理员",
         "username": "admin",
         "password": "ba7a97be0609c22fa1d300691dfcd790",
         "salt": "HX8Hr5Yd",
         "status": 1,
-        "last_login_ip": null,
-        "last_login_time": null,
-        "creator_id": "admin",
-        "create_time": 1497160610259
+        "creatorId": "admin",
+        "createTime": new Date().getTime()
     }
 ];
 
 var autz_setting = [
     {
-        "u_id": "98d74130b3cb06afc0ae8e5b57a6c052",
+        "id": "98d74130b3cb06afc0ae8e5b57a6c052",
         "type": "user",
-        "setting_for": "4291d7da9005377ec9aec4a71ea837f",
+        "settingFor": "4291d7da9005377ec9aec4a71ea837f",
         "describe": null,
         "status": 1
     }
@@ -257,12 +260,12 @@ var autz_setting = [
 var autz_menu = [];
 menus.forEach(function (menu) {
     autz_menu.push({
-        u_id: org.hswebframework.web.id.IDGenerator.MD5.generate(),
-        parent_id: "-1",
-        menu_id: menu.u_id,
+        id: org.hswebframework.web.id.IDGenerator.MD5.generate(),
+        parentId: "-1",
+        menuId: menu.id,
         status: 1,
-        "setting_id": "98d74130b3cb06afc0ae8e5b57a6c052",
-        "path": "-"
+        settingId: "98d74130b3cb06afc0ae8e5b57a6c052",
+        path: "-"
     });
 });
 //版本更新信息
