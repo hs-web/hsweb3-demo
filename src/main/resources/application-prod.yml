@@ -4,7 +4,7 @@ spring:
         username : sa
         password :
         type: com.alibaba.druid.pool.DruidDataSource
-        validation-query: select 1
+        validationQuery: select 1
 logging:
   level:
     access-logger: INFO
