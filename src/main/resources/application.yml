@@ -11,20 +11,21 @@ spring:
     profiles:
       active: dev
     datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
       filters: stat
-      maxActive: 1000
-      initialSize: 5
-      minIdle: 5
-      maxWait: 5000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 1 from dual
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      maxOpenPreparedStatements: 200
-#    jta:
+      max-active: 1000
+      initial-size: 5
+      min-idle: 5
+      max-wait: 50000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      validation-query: select 1
+      time-between-eviction-runs-millis: 60000
+      max-open-prepared-statements: 2000
+  #    jta:
 #      status: true
 #      atomikos:
 #        datasource:

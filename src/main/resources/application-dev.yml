@@ -4,7 +4,6 @@ spring:
         url : jdbc:h2:file:./data/h2db
         username : sa
         password :
-        type: com.alibaba.druid.pool.DruidDataSource
 logging:
   level:
     org.hswebframework: DEBUG
