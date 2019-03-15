@@ -563,7 +563,7 @@
                         }
                     }
                 }
-            },
+            }
         }
 
         /**单行文本**/
@@ -808,7 +808,16 @@
                             value = value.replace(/( )/g, "<span style='space'></span>");
                             value = value.replace(/(\*)/g, "<span class='star'>*</span>");
                             container.find(".form-label").html(value);
-                        } else if (name === 'bodyHeight') {
+                        } else if (name === 'showComment') {
+                            container.find(".input-block").addClass("component-body");
+                            if (value + "" === 'true') {
+                                container.find(".form-label").show();
+                                container.find(".component-body").addClass("input-block");
+                            } else {
+                                container.find(".form-label").hide();
+                                container.find(".component-body").removeClass("input-block");
+                            }
+                        }  else if (name === 'bodyHeight') {
                             container.find(".input-block").css("height", value);
                         } else {
                             me.reload();
