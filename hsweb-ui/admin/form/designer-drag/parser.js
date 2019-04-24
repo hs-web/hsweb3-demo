@@ -135,6 +135,7 @@
         }
     };
 
+
     FormParser.prototype.render = function (el) {
         var customEvents = {};
         var me = this;

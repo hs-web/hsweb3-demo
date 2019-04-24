@@ -242,8 +242,7 @@
                     .on('propertiesChanged', function (key, value) {
                         if (key === 'comment') {
                             container.find("legend").text(value);
-                        }
-                        else if (key === 'height') {
+                        } else if (key === 'height') {
                             container.find("fieldset").css("height", value);
                         } else {
                             container.find("legend").attr(key, value);
@@ -817,7 +816,7 @@
                                 container.find(".form-label").hide();
                                 container.find(".component-body").removeClass("input-block");
                             }
-                        }  else if (name === 'bodyHeight') {
+                        } else if (name === 'bodyHeight') {
                             container.find(".input-block").css("height", value);
                         } else {
                             me.reload();
@@ -1130,8 +1129,7 @@
                     .on('propertiesChanged', function (name, value) {
                         if (name === 'comment') {
                             container.find(".form-label").text(value);
-                        }
-                        else if (name === 'showComment') {
+                        } else if (name === 'showComment') {
                             container.find(".input-block").addClass("component-body");
                             if (value + "" === 'true') {
                                 container.find(".form-label").show();
@@ -1244,8 +1242,7 @@
                 .on('propertiesChanged', function (key, value) {
                     if (key === 'comment') {
                         container.find("legend").text(value);
-                    }
-                    else if (key === 'bodyHeight') {
+                    } else if (key === 'bodyHeight') {
                         container.find("fieldset:first").css("height", value);
                     } else if (key === 'hidden') {
                         if (value === 'false') {
@@ -1270,7 +1267,7 @@
             this.id = id;
             this.properties = createDefaultEditor();
             this.removeProperty("placeholder");
-            this.removeProperty("name");
+            // this.getProperty("name").hide;
             this.removeProperty("required");
             this.removeProperty("placeholder");
             this.getProperty("comment").value = "表格表单";
@@ -1285,7 +1282,54 @@
                 height = "";
             }
             this.setProperty("bodyHeight", height);
-        }
+        };
+        Table.prototype.getValue = function (data, validate) {
+            var me = this;
+            var form = new mini.Form("#" + this.id);
+            form.validate();
+            if (validate && form.isValid() === false) {
+                return;
+            }
+            var data = form.getData(false);
+            me.container.children().select("[hs-id]")
+                .each(function () {
+                    var target = me.parser.get($(this).attr("hs-id"));
+                    if (target === me) {
+                        return;
+                    }
+                    if (target && target.getValue) {
+                        var nameProperty = target.getProperty("name");
+                        var value = nameProperty.getValue ? nameProperty.getValue(target) : nameProperty.value;
+                        data[value] = target.getValue(data, validate);
+                    }
+                });
+            return data;
+        };
+
+        Table.prototype.setValue = function (value, data) {
+            var me = this;
+            var form = new mini.Form("#" + this.id);
+            form.setData(value);
+            me.container.children().select("[hs-id]")
+                .each(function () {
+                    var target = me.parser.get($(this).attr("hs-id"));
+                    if (target === me) {
+                        return;
+                    }
+                    if (target && target.setValue) {
+                        var name = target.getProperty('name').value;
+                        if (name) {
+                            var nestName = name.split(".");
+                            var val = value;
+                            for (var i = 0; i < nestName.length; i++) {
+                                val = val[nestName[i]];
+                            }
+                            target.setValue(val, data);
+                        }
+                    }
+                });
+        };
+
         Table.prototype.render = function () {
             var me = this;
             var container = this.getContainer(function () {
@@ -1300,6 +1344,7 @@
                 m.append(c);
                 return m;
             });
+            container.attr("id", me.id);
 
             this.un("propertiesChanged")
                 .on('propertiesChanged', function (key, value) {
@@ -1314,8 +1359,7 @@
                         } else {
                             container.find("legend:first").removeClass('form-hidden');
                         }
-                    }
-                    else if (key === 'bodyHeight') {
+                    } else if (key === 'bodyHeight') {
                         container.find(".table:first").css("height", value);
                     } else {
                         container.find("legend:first").attr(key, value);
@@ -1390,8 +1434,7 @@
                         } else {
                             container.find("legend:first").removeClass('form-hidden');
                         }
-                    }
-                    else if (key === 'bodyHeight') {
+                    } else if (key === 'bodyHeight') {
                         container.find(".table:first").css("height", value);
                     } else {
                         reinitTable();
