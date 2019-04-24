@@ -3,7 +3,10 @@ window.BASE_PATH = "/";
 //api服务地址
 window.API_BASE_PATH = "/";
 
+
+
 window.mini_debugger = false;
+window.profile = 'prod';
 
 String.prototype.startWith = function (str) {
     var reg = new RegExp("^" + str);
@@ -26,7 +29,7 @@ function getCookie(sName, defaultVal) {
     var lastMatch = null;
     for (var i = 0; i < aCookie.length; i++) {
         var aCrumb = aCookie[i].split("=");
-        if (sName == aCrumb[0]) {
+        if (sName === aCrumb[0]) {
             lastMatch = aCrumb;
         }
     }
@@ -144,35 +147,57 @@ function importMiniui(callback) {
         // window.outerHeight > 1000 ? "large" : "medium");
 
         function loadMini() {
-            importResource("plugins/miniui/themes/default/miniui.3.8.2.css");
-            importResource("plugins/miniui/themes/icons.css");
-            importResource('plugins/miniui/themes/' + theme + '/skin.css');
-            importResource("plugins/miniui/themes/default/" + mode + "-mode.css");
-            importResource("plugins/font-awesome/4.7.0/css/font-awesome.min.css");
+            if (window.ActiveXObject) {
+                require(["plugin/tools/jquery.xdomainrequest.min"]);
+            }
+            if (!window.doLogin) {
+                require(["authorize"], function (authorize) {
+                    authorize.parse(document.body);
+                    window.authorize = authorize;
+                    doLoadMiniui();
+                });
+            } else {
+                doLoadMiniui()
+            }
 
-            function loadMiniJs() {
-                $.ajax({
-                    url: BASE_PATH + "plugins/miniui/miniui.3.8.2.js",
-                    async: false,
-                    cache: true,
-                    dataType: "script",
-                    success: function () {
-                        $(document.body).fadeIn(300);
-                        callback();
-                    },
-                    error: function () {
-                        loadMiniJs();
-                    }
-                });
-            }
-            loadMiniJs();
-            if ($(window)) {
-                $(window).resize(function () {
-                    if (mini) {
+            function doLoadMiniui() {
+                importResource("plugins/miniui/themes/default/miniui.3.8.2.css");
+                importResource("plugins/miniui/themes/icons.css");
+                importResource('plugins/miniui/themes/' + theme + '/skin.css');
+                importResource("plugins/miniui/themes/default/" + mode + "-mode.css");
+                importResource("plugins/font-awesome/4.7.0/css/font-awesome.min.css");
+
+                function success() {
+                    $(document.body).fadeIn(300);
+                    callback();
+                    window.setTimeout(function () {
                         mini.layout();
-                    }
-                });
+                    }, 100);
+                }
+
+                function loadMiniJs() {
+                    $.ajax({
+                        url: BASE_PATH + "plugins/miniui/miniui.3.8.2.js",
+                        async: false,
+                        cache: true,
+                        dataType: "script",
+                        success: success,
+                        error: function (e) {
+                            loadMiniJs();
+                        }
+                    });
+                }
+
+                loadMiniJs();
+                if ($(window)) {
+                    $(window).resize(function () {
+                        if (mini) {
+                            mini.layout();
+                        }
+                    });
+                }
             }
+
         }
 
         if (!window.jQuery && !window.$) {
