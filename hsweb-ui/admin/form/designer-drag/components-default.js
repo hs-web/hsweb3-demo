@@ -1230,7 +1230,7 @@
         Form.prototype.render = function () {
             var me = this;
             var container = this.getContainer(function () {
-                var m = $("<div class='mini-col-12 form-component'>");
+                var m = $("<div class='mini-col-12 form-component child-form-component'>");
                 var c = $("<fieldset class=\"brick child-form\">");
                 var label = $("<legend title='渲染时会被移除' style='font-size: 20px'>");
                 var text = $("<span>").text("子表单");
@@ -1289,20 +1289,25 @@
         Table.prototype.render = function () {
             var me = this;
             var container = this.getContainer(function () {
-                var m = $("<div class='mini-col-12 form-component'>");
+                var m = $("<div class='mini-col-12 form-component child-form-component'>");
                 var c = $("<fieldset style='border: 0;' class=\"brick child-form\">");
-                var label = $("<legend align='center' title='表格表单' style='font-size: 20px'>");
-                var text = $("<span>").text("表格表单");
+                var label = $("<legend  title='表格表单' style='font-size: 20px;padding: 0;width: 100%'>");
+                var text = $("<div class='child-form-title' style=\"width:100%;text-align:center;\">表格表单</div>").text("表格表单");
+
                 c.append(label.append(text));
                 c.append($("<div class='components table'>")
                     .css("height", me.getProperty("height").value + "px"));
                 m.append(c);
                 return m;
             });
+
             this.un("propertiesChanged")
                 .on('propertiesChanged', function (key, value) {
+                    container.addClass("child-form-component");
                     if (key === 'comment') {
-                        container.find("legend:first").text(value);
+                        var text = $("<div class='child-form-title' style=\"width:100%;text-align:center;\"></div>").text(value);
+
+                        container.find("legend:first").html(text);
                     } else if (key === 'showComment') {
                         if (value + "" === 'false') {
                             container.find("legend:first").addClass('form-hidden');
@@ -1311,7 +1316,6 @@
                         }
                     }
                     else if (key === 'bodyHeight') {
-                        console.log(value)
                         container.find(".table:first").css("height", value);
                     } else {
                         container.find("legend:first").attr(key, value);

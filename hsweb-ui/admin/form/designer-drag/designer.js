@@ -66,20 +66,20 @@
     }
     Designer.prototype.getConfig = function () {
         var config = {};
-        config.html = this.getHtml();
+
         config.javascript = this.javascript;
         config.css = this.css;
         config.useIdForName = componentRepo.useIdForName;
         var components = [];
-        var html = $("<div>").html(config.html);
+        var html = $("<div>").html( this.getHtml());
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
             if (componentRepo.useIdForName) {
                 this.components[id].getProperty("name").value = id;
             }
             var component = jQuery.extend({}, this.components[id]);
-            if (container.length === 0 || component.removed) {
-                component.container.remove();
+            if (container.length === 0 || component.removed===true) {
+                container.remove();
                 continue;
             }
             delete component.container;
@@ -87,6 +87,7 @@
             delete component.parser;
             components.push(component);
         }
+        config.html =html[0].innerHTML;
         config.components = components;
         return config;
     };
