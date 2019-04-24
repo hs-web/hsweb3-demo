@@ -1218,7 +1218,7 @@
 
         createClass(Form, Component, "高级控件");
 
-        Table.prototype.getValue = function (data, validate) {
+        Form.prototype.getValue = function (data, validate) {
             var me = this;
             var form = new mini.Form("#" + this.id);
             form.validate();
@@ -1241,7 +1241,7 @@
             return data;
         };
 
-        Table.prototype.setValue = function (value, data) {
+        Form.prototype.setValue = function (value, data) {
             var me = this;
             var form = new mini.Form("#" + this.id);
             form.setData(value);
@@ -1286,6 +1286,8 @@
                 m.append(c);
                 return m;
             });
+            container.attr("id", me.id);
+
             this.un("propertiesChanged")
                 .on('propertiesChanged', function (key, value) {
                     if (key === 'comment') {
