@@ -1203,7 +1203,7 @@
             this.id = id;
             this.properties = createDefaultEditor();
             this.removeProperty("placeholder");
-            this.removeProperty("name");
+            // this.removeProperty("name");
             this.removeProperty("required");
             this.removeProperty("emptyText");
             this.removeProperty("showComment");
@@ -1218,12 +1218,60 @@
 
         createClass(Form, Component, "高级控件");
 
+        Table.prototype.getValue = function (data, validate) {
+            var me = this;
+            var form = new mini.Form("#" + this.id);
+            form.validate();
+            if (validate && form.isValid() === false) {
+                return;
+            }
+            var data = form.getData(false);
+            me.container.children().select("[hs-id]")
+                .each(function () {
+                    var target = me.parser.get($(this).attr("hs-id"));
+                    if (target === me) {
+                        return;
+                    }
+                    if (target && target.getValue) {
+                        var nameProperty = target.getProperty("name");
+                        var value = nameProperty.getValue ? nameProperty.getValue(target) : nameProperty.value;
+                        data[value] = target.getValue(data, validate);
+                    }
+                });
+            return data;
+        };
+
+        Table.prototype.setValue = function (value, data) {
+            var me = this;
+            var form = new mini.Form("#" + this.id);
+            form.setData(value);
+            me.container.children().select("[hs-id]")
+                .each(function () {
+                    var target = me.parser.get($(this).attr("hs-id"));
+                    if (target === me) {
+                        return;
+                    }
+                    if (target && target.setValue) {
+                        var name = target.getProperty('name').value;
+                        if (name) {
+                            var nestName = name.split(".");
+                            var val = value;
+                            for (var i = 0; i < nestName.length; i++) {
+                                val = val[nestName[i]];
+                            }
+                            target.setValue(val, data);
+                        }
+                    }
+                });
+        };
+
+
         Form.prototype.setHeight = function (height) {
             if (!height || height <= 1) {
                 height = "";
             }
             this.setProperty("bodyHeight", height);
-        }
+        };
         Form.prototype.typeName = "子表单";
         Form.prototype.render = function () {
             var me = this;
