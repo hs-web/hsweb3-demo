@@ -1399,7 +1399,7 @@
             var container = this.getContainer(function () {
                 var m = $("<div class='mini-col-12 form-component child-form-component'>");
                 var c = $("<fieldset style='border: 0;' class=\"brick child-form\">");
-                var label = $("<legend  title='表格表单' style='font-size: 20px;padding: 0;width: 100%'>");
+                var label = $("<legend title='表格表单' style='font-size: 20px;padding: 0;width: 100%'>");
                 var text = $("<div class='child-form-title' style=\"width:100%;text-align:center;\">表格表单</div>").text("表格表单");
 
                 text.css("text-align", me.getProperty("title-align").value);
@@ -1414,6 +1414,11 @@
             this.un("propertiesChanged")
                 .on('propertiesChanged', function (key, value) {
                     container.addClass("child-form-component");
+                    container.find("legend:first").css({
+                        "font-size": "20px",
+                        "padding": "0",
+                        "width": "100%"
+                    });
                     if (key === 'comment') {
                         var text = $("<div class='child-form-title' style=\"width:100%;text-align:center;\"></div>").text(value);
                         text.css("text-align", me.getProperty("title-align").value);
