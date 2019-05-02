@@ -1323,6 +1323,20 @@
             this.getProperty("comment").value = "表格表单";
             this.getProperty("width").value = "12";
             this.getProperty("height").value = 200;
+            this.properties.push({
+                id: "title-align",
+                editor: "combobox",
+                text: "标题位置",
+                value: "center",
+                createEditor: function (component, text, value) {
+                    var checkbox = $("<input class='mini-combobox' name='title-align' value='" + value + "'>");
+                    checkbox.attr("data", JSON.stringify([
+                        {id: "left", text: "左"},
+                        {id: "center", text: "中"},
+                        {id: "right", text: "右"}]));
+                    return checkbox;
+                }
+            })
         }
 
         createClass(Table, Component, "高级控件");
@@ -1388,6 +1402,7 @@
                 var label = $("<legend  title='表格表单' style='font-size: 20px;padding: 0;width: 100%'>");
                 var text = $("<div class='child-form-title' style=\"width:100%;text-align:center;\">表格表单</div>").text("表格表单");
 
+                text.css("text-align", me.getProperty("title-align").value);
                 c.append(label.append(text));
                 c.append($("<div class='components table'>")
                     .css("height", me.getProperty("height").value + "px"));
@@ -1401,8 +1416,12 @@
                     container.addClass("child-form-component");
                     if (key === 'comment') {
                         var text = $("<div class='child-form-title' style=\"width:100%;text-align:center;\"></div>").text(value);
+                        text.css("text-align", me.getProperty("title-align").value);
 
-                        container.find("legend:first").html(text);
+                        container.find("legend:first")
+                            .html(text);
+                    } else if (key === 'title-align') {
+                        container.find(".child-form-title:first").css("text-align", value);
                     } else if (key === 'showComment') {
                         if (value + "" === 'false') {
                             container.find("legend:first").addClass('form-hidden');
