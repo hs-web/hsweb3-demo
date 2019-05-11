@@ -72,6 +72,8 @@
         config.useIdForName = componentRepo.useIdForName;
         var components = [];
         var html = $("<div>").html( this.getHtml());
+        html.find(".mini-button .ui-sortable-handle").remove();
+
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
             if (componentRepo.useIdForName) {
@@ -208,6 +210,8 @@
                 initDroppable();
                 reloadMiniui();
                 initComponentList();
+                $(".main-panel").find(".mini-button.ui-sortable-handle").remove();
+
             }, 1);
 
         };

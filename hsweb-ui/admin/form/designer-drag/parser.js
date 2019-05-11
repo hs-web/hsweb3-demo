@@ -157,6 +157,8 @@
             .html(me.html);
         $(el).html("")
             .append(html);
+        html.find(".mini-button.ui-sortable-handle").remove();
+
         $(me.components)
             .each(function () {
                 var id = this.id;
