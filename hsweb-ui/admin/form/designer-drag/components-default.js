@@ -229,11 +229,13 @@
             createClass(Hidden);
 
             Hidden.prototype.render = function () {
+                var me = this;
                 var container = this.getContainer(function () {
                     var m = $("<div class='mini-col-12 form-component'>");
-                    var c = $("<fieldset style='border:0px;' class=\"brick\">");
+                    var c = $("<fieldset style='border:0;' class=\"brick\">");
                     var label = $("<legend class='form-hidden' title='渲染时会被移除' style='font-size: 20px'>")
                         .text("占位");
+                    c.css("height", me.getProperty("height").value || 37);
                     c.append(label);
                     m.append(c);
                     return m;
