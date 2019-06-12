@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{RyC9:function(e,t,r){"use strict";r.r(t);var n=r("q1tI"),a=r.n(n);t.default=function(){return a.a.createElement("p",{style:{textAlign:"center"}},"Want to add more pages? Please refer to"," ",a.a.createElement("a",{href:"https://umijs.org/guide/block.html",target:"_blank",rel:"noopener noreferrer"},"umi block"),"。")}}}]);

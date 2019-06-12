@@ -2,6 +2,7 @@ package org.hswebframework.web.demo;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
 import org.hswebframework.web.authorization.basic.configuration.EnableAopAuthorize;
+import org.hswebframework.web.authorization.basic.web.SessionIdUserTokenParser;
 import org.hswebframework.web.authorization.listener.event.AuthorizingHandleBeforeEvent;
 import org.hswebframework.web.dao.Dao;
 import org.hswebframework.web.dev.tools.EnableDevTools;
@@ -10,6 +11,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.EventListener;
@@ -30,6 +32,12 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
     }
+
+    @Bean
+    public SessionIdUserTokenParser sessionIdUserTokenParser(){
+        return new SessionIdUserTokenParser();
+    }
+
 
     @EventListener
     public void onApplicationEvent(AuthorizingHandleBeforeEvent event) {

@@ -17,6 +17,18 @@ services:
       MYSQL_ROOT_PASSWORD: 12345
       MYSQL_DATABASE: hsweb
     ports:
-    - "3306:3306"
+    - "13306:3306"
+  hsweb-antd:
+    image: registry.cn-shenzhen.aliyuncs.com/zmcsoft/hsweb-antd
+    links:
+      - "mysql:mysql"
+    volumes:
+      - "data:/data"
+    environment:
+      spring.profiles.active: prod
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysql
 volumes:
   database:
