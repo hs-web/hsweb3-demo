@@ -51,10 +51,14 @@ hsweb:
       name: hsweb-demo
       version: 3.0.0
     cors:
-      allowed-headers: "*"
-      allowed-methods: "*"
-      allowed-origins: "*"
       enable: true
+      configs:
+        - /**:
+            allowed-headers: "*"
+            allowed-methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+            allowed-origins: "*"
+            allow-credentials: true
+            maxAge: 1800
     authorize:
       two-factor:
         enable: true # 开启双重验证

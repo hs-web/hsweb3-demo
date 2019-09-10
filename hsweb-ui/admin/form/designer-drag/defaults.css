@@ -39,6 +39,7 @@
     background: #FBFBFB;
     box-sizing: border-box;
     /*border-right: 0px;*/
+    font-size: 13px;
 }
 .dynamic-form .simple-form-label {
     display: block;
@@ -109,6 +110,20 @@
 .dynamic-form .form-text .input-block {
     margin-left: 0px;
 }
+
+.dynamic-form .grid-container {
+    margin-top: 5px;
+}
+
+.dynamic-form .tab-container {
+    margin-top: 5px;
+}
+
+
+.dynamic-form .table .grid-container{
+    margin-top: 0;
+}
+
 
 .dynamic-form .table .form-component {
     border: 0;
@@ -193,6 +208,129 @@
 .dynamic-form .table .form-text .input-block .mini-textbox-border {
     border: 0;
 }
+
+.dynamic-form .table .mini-grid-border{
+    border: 0;
+}
+
+.dynamic-form .table .mini-grid-table tr:first-child{
+    border: 0;
+    padding: 0;
+}
+
+.dynamic-form .table .mini-grid-headerCell{
+    background-color: white;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+    border-left: 0;
+}
+
+.dynamic-form .table .mini-grid-cell{
+    background-color: white;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+    border-left: 0;
+}
+
+.dynamic-form .table .mini-grid-rightCell{
+    border-right: 0;
+    border-bottom: black 1px solid;
+    padding: 0;
+}
+
+
+.dynamic-form .table .mini-grid-cell-inner
+{
+    padding-top:3px;
+    padding-bottom:3px;
+    font-size:13px;
+}
+.dynamic-form .table .mini-grid-headerCell-inner
+{
+    padding-top:5px;
+    padding-bottom:5px;
+    font-size:13px;
+}
+.dynamic-form .table .mini-grid-headerCell-outer
+{
+    padding-left:4px;
+    padding-right:2px;
+}
+.dynamic-form .table .mini-grid-columnproxy
+{
+    padding-top:2px;
+    padding-bottom:4px;
+}
+.dynamic-form .table .mini-grid-allowsort,
+.mini-grid-sortIcon
+{
+    margin-left:4px;
+}
+
+
+.dynamic-form .table .mini-grid-headerCell-outer{
+    padding: 0;
+}
+
+.dynamic-form .table .mini-grid-rightCell .mini-grid-column-splitter{
+    padding: 0;
+    right: 0;
+}
+.dynamic-form .table .mini-grid-rows tr:nth-last-child(1) td{
+    border-bottom: 0;
+}
+.dynamic-form .table .mini-panel-border{
+    border-bottom: 0;
+
+}
+.dynamic-form .table .mini-grid-columns-view{
+    padding: 0;
+}
+
+
+
+
+/*tabs*/
+
+.dynamic-form .table div[tabs-component]{
+    border-right: 0;
+    border-bottom: 0;
+}
+.dynamic-form .table .mini-tabs-header{
+    border-right: 1px black solid;
+}
+
+.dynamic-form .table .mini-tab{
+    border-color: black;
+    border-radius: 0;
+    border-top: 0;
+    border-left:0;
+    background-color: white;
+}
+.dynamic-form .table .mini-tabs-space2,.mini-tabs-firstSpace{
+    width: 0;
+    border: 0;
+}
+.dynamic-form .table .mini-tabs-firstSpace div{
+    width: 0;
+}
+.dynamic-form .table .mini-tabs-space2 div{
+    width: 0;
+}
+.dynamic-form .table .mini-tabs-space{
+    border-color: black;
+}
+.dynamic-form .table .mini-tabs-bodys{
+    padding: 0;
+    border-right: 0;
+}
+.dynamic-form .table .tab-container{
+    margin-top: 0;
+}
+.dynamic-form .table .mini-tabs-buttons{
+    padding: 0;
+}
+
 
 .dynamic-form .webuploader-container {
     position: relative;

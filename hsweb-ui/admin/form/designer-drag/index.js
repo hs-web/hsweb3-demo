@@ -259,6 +259,17 @@ importMiniui(function () {
             e.sender.removeNode(e.record);
         })
     };
+
+    mini.get("data-table-datagrid").getColumn("action").renderer = function (e) {
+        return tools.createActionButton("删除", "icon-remove", function () {
+            e.sender.removeNode(e.record);
+        })
+    };
+    mini.get("tabs-datagrid").getColumn("action").renderer = function (e) {
+        return tools.createActionButton("删除", "icon-remove", function () {
+            e.sender.removeNode(e.record);
+        })
+    };
     $(".edit-javascript").on("click", function () {
         editScript("javascript", designer.javascript || "// this为formParser对象." +
             "\n// this.on('load',function(){ this.setData({ })  })", function (editor) {

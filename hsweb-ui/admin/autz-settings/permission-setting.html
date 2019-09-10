@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>权限设置</title>
+    <script data-main="permission-setting.js" src="../boot.js" type="text/javascript"></script>
+</head>
+<body style="display: none">
+<div id="layout" class="mini-layout" style="width:100%;height:92%;">
+
+    <div  title="快捷导航" expanded="false" showProxyText="true" width="220" region="east"
+         showCloseButton="true" showSplitIcon="true">
+        <ul id="permission-tree" class="mini-tree" style="width:100%;padding:5px;height: 100%" showTreeIcon="true" textField="name" idField="id">
+        </ul>
+    </div>
+    <div title="center"  region="center">
+        <div class="mini-fit" id="permission-container">
+
+        </div>
+    </div>
+</div>
+
+<div style="width: 100px;margin: 10px auto auto;">
+    <a class="mini-button save-button">保存</a>
+    <a class="mini-button close-button" plain="true">关闭</a>
+</div>
+
+<div class="mini-window" allowResize="true" showToolbar="true" id="fieldWindow" style="width: 600px;height: 400px"
+     title="字段权限">
+    <div property="toolbar" style="padding:5px;">
+        <a class="mini-button save-field-access">保存</a>
+        <a class="mini-button" plain="true" onclick="mini.get('fieldWindow').hide()">关闭</a>
+    </div>
+    <div class="mini-fit" id="field-access-container">
+    </div>
+</div>
+
+<div class="mini-window" allowResize="true" showToolbar="true" id="dataAccessWindow" style="width: 600px;height: 400px"
+     title="数据权限">
+    <div property="toolbar" style="padding:5px;">
+        <a class="mini-button save-data-access">保存</a>
+        <a class="mini-button" plain="true" onclick="mini.get('dataAccessWindow').hide()">关闭</a>
+    </div>
+    <div class="mini-fit" id="data-access-container">
+        <div class="data-access-group OWN_USER">
+            <div class="data-access-title ">
+                <span>仅限本人的数据</span>
+            </div>
+            <div class="data-access-action-list">
+                <input id="OWN_USER" class="mini-checkboxlist">
+            </div>
+        </div>
+
+        <div class="data-access-group POSITION_SCOPE">
+            <div class="data-access-title ">
+                <span>仅限本人和下属的数据</span>
+            </div>
+            <div class="data-access-action-list">
+                <input id="POSITION_SCOPE" class="mini-checkboxlist">
+            </div>
+        </div>
+
+        <div class="data-access-group DEPARTMENT_SCOPE">
+            <div class="data-access-title ">
+                <span>仅限所在部门的数据</span>
+            </div>
+            <div class="data-access-action-list">
+                <input id="DEPARTMENT_SCOPE" class="mini-checkboxlist">
+            </div>
+        </div>
+
+        <div class="data-access-group ORG_SCOPE">
+            <div class="data-access-title ">
+                <span>仅限所在机构的数据</span>
+            </div>
+            <div class="data-access-action-list">
+                <input id="ORG_SCOPE" class="mini-checkboxlist">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+<style type="text/css">
+    .mini-panel-toolbar {
+        background: white;
+        padding: 4px;
+    }
+
+    .field-access-group, .data-access-group {
+        width: 95%;
+        margin: auto;
+        min-height: 30px;
+        border-bottom: 1px solid #c9c9c9;
+        font-size: 16px;
+    }
+
+    .field-access-title, .data-access-title {
+        float: left;
+        height: 25px;
+        line-height: 25px;
+        width: 150px;
+    }
+
+    .data-access-title span {
+        cursor: pointer;
+    }
+
+
+    span.mini-tools-edit {
+        width: 16px;
+        height: 16px;
+        background: url(../../plugins/miniui/themes/icons/edit.gif) no-repeat;
+    }
+
+    .mini-panel-border {
+        border: 1px solid white;
+    }
+
+    .mini-list-icon {
+        font-size: 18px;
+        height: 13px;
+    }
+
+    .mini-checkboxlist table {
+        width: 100%;
+    }
+
+    .mini-checkboxlist-td {
+        width: 24.99999%;
+    }
+
+    .mini-checkboxlist table label, .mini-radiobuttonlist table label {
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .panel-button {
+        margin-right: 10px;
+        color: #0b93d9;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>

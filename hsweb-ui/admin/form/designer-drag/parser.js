@@ -38,7 +38,7 @@
     };
     FormParser.prototype.get = function (id) {
         return this.getComponent(function (comp) {
-            return comp.id === id||comp._uid===id;
+            return comp.id === id || comp._uid === id;
         })
     };
 
@@ -109,6 +109,9 @@
                         target.setValue(val, data);
                     }
                 }
+                if (target.setData) {
+                    target.setData(data);
+                }
             });
             this.doEvent("setData", this);
         }
@@ -152,11 +155,13 @@
                 console.log("加载表单脚本失败", e);
             }
         }
+
         var html = $("<div class='mini-fit dynamic-form'>")
             .attr("id", formId)
             .html(me.html);
-        $(el).html("")
-            .append(html);
+
+        $(el).html("").append(html);
+
         html.find(".mini-button.ui-sortable-handle").remove();
 
         $(me.components)
@@ -164,32 +169,34 @@
                 var id = this.id;
                 var Component = componentRepo.supportComponents[this.type];
                 if (Component) {
-                    var componentHtml = $("[hs-id='" + id + "'],.hs-id-" + id);
-
-                    var component = new Component(id);
-                    this.target = component;
-                    component.container = componentHtml;
-                    component.parser = me;
-                    component.render();
-                    var reload = component.reload ? function () {
-                        return component.reload();
-                    } : undefined;
-                    $(this.properties).each(function () {
-                            var property = this;
-                            var value = property.value;
-                            if (reload) {
-                                component.getProperty(property.id).value = value;
-                            } else {
-                                component.setProperty(property.id, value, true);
+                 //   window.setTimeout(function () {
+                        var componentHtml = html.find("[hs-id='" + id + "'],.hs-id-" + id);
+                        var component = new Component(id);
+                        this.target = component;
+                        component.container = componentHtml;
+                        component.parser = me;
+                        component.render();
+                        var reload = component.reload ? function () {
+                            return component.reload(false);
+                        } : undefined;
+                        $(this.properties).each(function () {
+                                var property = this;
+                                var value = property.value;
+                                if (reload) {
+                                    component.getProperty(property.id).value = value;
+                                } else {
+                                    component.setProperty(property.id, value, true);
+                                }
                             }
+                        );
+                        if (reload) {
+                            reload();
                         }
-                    );
-                    if (reload) {
-                        reload();
-                    }
+                 //   }, 1)
                 } else {
                     console.warn("不支持的控件类型", JSON.stringify(this))
                 }
+
             });
 
         me.formId = formId;

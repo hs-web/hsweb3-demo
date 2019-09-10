@@ -156,7 +156,7 @@
         }
     }
 
-    function createScriptEditor(id, text, lang) {
+    function createScriptEditor(id, text, lang, dft) {
         return {
             id: id,
             text: text,
@@ -165,7 +165,7 @@
             createEditor: function (component, text, value) {
                 var button = $("<a class='mini-button' plain='true' onclick='window.edit_script_" + id + "' iconCls='icon-edit'>");
                 window['edit_script_' + id] = function () {
-                    editScript(lang, component.getProperty(id).value || "", null, function (editor) {
+                    editScript(lang, component.getProperty(id).value || dft || "", null, function (editor) {
                         component.setProperty(id, editor.getScript());
                         mini.parse();
                     });
@@ -208,6 +208,15 @@
 
         }
     }
+
+    var template = (function () {
+        var pattern = /\{(\w*[:]*[=]*\w+)\}(?!})/g;
+        return function (template, json) {
+            return template.replace(pattern, function (match, key, value) {
+                return json[key] || '';
+            });
+        }
+    })();
 
     /**基础组件**/
     {
@@ -573,44 +582,44 @@
             this.id = id;
             this.properties = createDefaultEditor();
             this.getProperty("comment").value = "单行文本";
-            this.properties.push({
-                id: "onValueChanged",
-                editor: "textbox",
-                text: "值变更事件",
-                script: true,
-                fire: function (component) {
-                    var value = component.getProperty('onValueChanged').value;
-                    var source = this;
-                    if (!value) {
-                        return "";
-                    }
-                    if (typeof value === "string") {
-                        value = JSON.parse(value);
-                    }
-                    $(value).each(function () {
-                        var conf = this;
-                        for (var i = 0; i < conf.conditions.length; i++) {
-                            var condition = conf.conditions[i];
-                            var support = fireSupport.conditions[condition.type];
-                            if (!support || !support.call(source, condition, component)) {
-                                return;
-                            }
-                        }
-                        for (var i = 0; i < conf.operations.length; i++) {
-                            var operation = conf.operations[i];
-                            var support = fireSupport.operations[operation.type];
-                            if (support) {
-                                support.call(source, operation, component);
-                            }
-                        }
-                    });
-
-                },
-                createEditor: function (component, text, value, call) {
-
-                    return "";
-                }
-            })
+            // this.properties.push({
+            //     id: "onValueChanged",
+            //     editor: "textbox",
+            //     text: "值变更事件",
+            //     script: true,
+            //     fire: function (component) {
+            //         var value = component.getProperty('onValueChanged').value;
+            //         var source = this;
+            //         if (!value) {
+            //             return "";
+            //         }
+            //         if (typeof value === "string") {
+            //             value = JSON.parse(value);
+            //         }
+            //         $(value).each(function () {
+            //             var conf = this;
+            //             for (var i = 0; i < conf.conditions.length; i++) {
+            //                 var condition = conf.conditions[i];
+            //                 var support = fireSupport.conditions[condition.type];
+            //                 if (!support || !support.call(source, condition, component)) {
+            //                     return;
+            //                 }
+            //             }
+            //             for (var i = 0; i < conf.operations.length; i++) {
+            //                 var operation = conf.operations[i];
+            //                 var support = fireSupport.operations[operation.type];
+            //                 if (support) {
+            //                     support.call(source, operation, component);
+            //                 }
+            //             }
+            //         });
+            //
+            //     },
+            //     createEditor: function (component, text, value, call) {
+            //
+            //         return "";
+            //     }
+            // })
         }
 
         {
@@ -635,71 +644,82 @@
                 if (input) {
                     input.setValue(value);
                 }
-            }
+            };
 
-            TextBox.prototype.loadData = function () {
+            TextBox.prototype.loadData = function (autoParse) {
                 var me = this;
                 var optionConfig = this.getProperty("option").value;
                 if (!optionConfig) {
                     return;
                 }
+                var cache = window.optionCache || (window.optionCache = {});
 
                 var input = mini.get(this.inputId);
                 if (!input) {
-                    mini.parse();
-                    input = mini.get(this.inputId);
-                }
-                var cache = window.optionCache || (window.optionCache = {});
-
-                if (optionConfig.type === 'url') {
-                    input.setTextField(optionConfig.textField || 'text');
-                    input.setValueField(optionConfig.idField || "id");
-                    input.setDataField(optionConfig.dataField || "result.data");
-                    input.setAjaxType(optionConfig.ajaxType || "GET");
-                    if (input.setClearOnLoad) {
-                        input.setClearOnLoad(false);
+                    if (autoParse !== false) {
+                        mini.parse();
+                        input = mini.get(this.inputId);
                     }
-                    if (input.setParentField)
-                        input.setParentField(optionConfig.parentField || "parentId");
-                    if (input.setResultAsTree)
-                        input.setResultAsTree(optionConfig.resultAsTree || "false");
-                    if (cache[optionConfig.url]) {
-                        input.setData(cache[optionConfig.url]);
-                    } else {
-                        function getProperty(obj, field) {
-                            var fs = field.split(".");
-                            var tmp = obj;
-                            for (var i = 0; i < fs.length; i++) {
-                                var v = fs[i];
-                                if (!tmp) {
-                                    return null;
-                                }
-                                tmp = tmp[v];
-                            }
-                            return tmp;
+                    if (!input) {
+                        var container = me.container;
+                        var inputHtml = container.find("input");
+                        inputHtml.attr(optionConfig);
+                        if (optionConfig.type === 'data') {
+                            cache[me.id] = optionConfig.data;
+                            inputHtml.attr("data", "window.optionCache._data_" + me.id)
                         }
-
-                        require(['request'], function (request) {
-                            request.get(optionConfig.url, function (response) {
-                                if (response.status === 200) {
-                                    var data = getProperty(response, optionConfig.dataField || "result.data");
-                                    if (input.loadList && optionConfig.resultAsTree + "" === 'false') {
-                                        input.loadList(data);
-                                    } else {
-                                        input.setData(data);
-                                    }
-                                    if (me.value) {
-                                        input.setValue(me.value);
-                                    }
-                                }
-                            })
-                        })
                     }
-                    // input.setUrl(window.API_BASE_PATH + optionConfig.url);
-                } else if (optionConfig.type === 'data') {
-                    input.setData(optionConfig.data);
+                } else {
+                    if (optionConfig.type === 'url') {
+                        input.setTextField(optionConfig.textField || 'text');
+                        input.setValueField(optionConfig.idField || "id");
+                        input.setDataField(optionConfig.dataField || "result.data");
+                        input.setAjaxType(optionConfig.ajaxType || "GET");
+                        if (input.setClearOnLoad) {
+                            input.setClearOnLoad(false);
+                        }
+                        if (input.setParentField)
+                            input.setParentField(optionConfig.parentField || "parentId");
+                        if (input.setResultAsTree)
+                            input.setResultAsTree(optionConfig.resultAsTree || "false");
+                        if (cache[optionConfig.url]) {
+                            input.setData(cache[optionConfig.url]);
+                        } else {
+                            function getProperty(obj, field) {
+                                var fs = field.split(".");
+                                var tmp = obj;
+                                for (var i = 0; i < fs.length; i++) {
+                                    var v = fs[i];
+                                    if (!tmp) {
+                                        return null;
+                                    }
+                                    tmp = tmp[v];
+                                }
+                                return tmp;
+                            }
+
+                            require(['request'], function (request) {
+                                request.get(optionConfig.url, function (response) {
+                                    if (response.status === 200) {
+                                        var data = getProperty(response, optionConfig.dataField || "result.data");
+                                        if (input.loadList && optionConfig.resultAsTree + "" === 'false') {
+                                            input.loadList(data);
+                                        } else {
+                                            input.setData(data);
+                                        }
+                                        if (me.value) {
+                                            input.setValue(me.value);
+                                        }
+                                    }
+                                })
+                            })
+                        }
+                        // input.setUrl(window.API_BASE_PATH + optionConfig.url);
+                    } else if (optionConfig.type === 'data') {
+                        input.setData(optionConfig.data);
+                    }
                 }
-            }
+            };
 
             TextBox.prototype.createInput = function () {
                 var me = this;
@@ -761,7 +781,7 @@
                 return input;
             }
 
-            TextBox.prototype.reload = function () {
+            TextBox.prototype.reload = function (autoParse) {
                 var container = this.container;
                 var me = this;
 
@@ -772,10 +792,13 @@
                 }
 
                 newInput();
-                mini.parse();
+                if (autoParse !== false) {
+                    mini.parse();
+                }
+
                 if (me.loadData) {
                     window.setTimeout(function () {
-                        me.loadData();
+                        me.loadData(autoParse);
                     }, 50);
                 }
             }
@@ -1198,6 +1221,171 @@
         }
 
     }
+
+    /**嵌入网页**/
+    {
+        function IFrame(id) {
+            Component.call(this);
+            this.id = id;
+            this.properties = createDefaultEditor();
+            this.removeProperty("placeholder");
+            // this.removeProperty("name");
+            this.removeProperty("required");
+            this.removeProperty("emptyText");
+            this.removeProperty("showComment");
+            //this.removeProperty("height");
+
+
+            this.getProperty("comment").value = "嵌入网页";
+            this.getProperty("width").value = "12";
+
+            this.properties.push(createTrueOrFalseEditor("hidden", "隐藏标题", "true"));
+
+
+            this.properties.push({
+                id: "url",
+                text: "URL",
+                value: "",
+                editor: "textbox"
+            });
+
+            this.properties.push(createScriptEditor("script", "脚本", "javascript", "" +
+                "var me = this;\n" +
+                "//me.url = 'user.html?id={id}';\n" +
+                "me.onload=function(e){" +
+                "\n" +
+                "var win = e.frameWindow;" +
+                "\n}" +
+                ""))
+
+        }
+
+        createClass(IFrame, Component, "高级控件");
+
+        // IFrame.prototype.getValue = function (data, validate) {
+        //
+        //     return data;
+        // };
+
+        IFrame.prototype.setData = function (data) {
+            this._data = data;
+        }
+
+        IFrame.prototype.setValue = function (value, data) {
+            this._value = value;
+            this._data = data;
+            this.render();
+        };
+
+
+        IFrame.prototype.setHeight = function (height) {
+            if (!height || height <= 1) {
+                height = "";
+            }
+
+            this.container.find(".iframe-container:first").css("height", height);
+        };
+
+
+        IFrame.prototype.reload = function () {
+            var me = this;
+            var iframeContainer = this.container.find(".iframe-container:first");
+            var config = mini.clone({
+                url: this.getProperty("url").value,
+                script: this.getProperty("script").value
+            });
+            if (!config.url && !config.script) {
+                return;
+            }
+            if (config.url && !config.url.startWith('http')) {
+                config.url = window.BASE_PATH + config.url;
+            }
+            if (config.url && config.url.indexOf("{") !== -1) {
+                config.url = template(config.url, this._data || {});
+            }
+            var callback = {
+                url: config.url,
+                data: me._data,
+                component: me
+            };
+
+            if (config.script) {
+                try {
+                    var fun = window.eval("(function(){" +
+                        "return function(){" +
+                        "\n" +
+                        config.script +
+                        "\n" +
+                        "}" +
+                        "})()");
+                    fun.call(callback);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            if (callback.url && callback.url.indexOf("{") !== -1) {
+                callback.url = template(callback.url, this._data || {});
+            }
+
+            iframeContainer
+                .unbind('load')
+                .on("load", function () {
+                    if (callback.onload) {
+                        callback.onload({
+                            frame: iframeContainer[0],
+                            frameWindow: iframeContainer[0].contentWindow,
+                            data: me._data,
+                            value: me._value
+                        })
+                    }
+                });
+
+            iframeContainer.attr("src", callback.url);
+
+        };
+        IFrame.prototype.typeName = "嵌入网页";
+        IFrame.prototype.render = function () {
+            var me = this;
+            var container = this.getContainer(function () {
+                var m = $("<div class='mini-col-12 form-component'>");
+                var c = $("<fieldset style='border: 0;padding: 0;margin-top: 5px' class=\"brick child-form\">");
+                var label = $("<legend title='渲染时会被移除' class='form-hidden' style='font-size: 20px;border: 0;padding: 0'>");
+                var text = $("<span>").text("嵌入网页");
+                c.append(label.append(text));
+                c.append("<iframe class='iframe-container' frameborder='0' style='border: 0; position: relative;width: 100%;height: 100%'>");
+                c.css("height", me.getProperty("bodyHeight").value + "px");
+
+                m.append(c);
+                return m;
+            });
+            container.attr("id", me.id);
+
+            me.reload();
+
+            this.un("propertiesChanged")
+                .on('propertiesChanged', function (key, value) {
+                    if (key === 'comment') {
+                        container.find("legend").text(value);
+                    } else if (key === 'url' || key === 'script') {
+                        me.reload();
+                    } else if (key === 'hidden') {
+                        if (value === 'false') {
+                            container.find("legend:first").removeClass("form-hidden");
+                        } else {
+                            container.find("legend:first").addClass("form-hidden");
+                        }
+                    } else {
+                        container.find("legend:first").attr(key, value);
+                    }
+                });
+            return container;
+        };
+        IFrame.icon = "iconfont icon-shifouyunxuweiwanchengpandianrenwukaidan";
+
+        componentRepo.registerComponent("iframe", IFrame);
+    }
+
     /**子表单**/
     {
         function Form(id) {
@@ -1312,6 +1500,7 @@
 
         componentRepo.registerComponent("form", Form);
     }
+
     /**自适应表格**/
     {
         function Table(id) {
@@ -1450,6 +1639,146 @@
 
     }
 
+    /**选项卡**/
+    {
+        function Tabs(id) {
+            Component.call(this);
+            this.id = id;
+            this.properties = createDefaultEditor();
+            // this.removeProperty("name");
+            this.removeProperty("required");
+            this.removeProperty("placeholder");
+            this.getProperty("comment").value = "选项卡";
+            this.getProperty("showComment").value = false;
+            this.getProperty("width").value = "12";
+
+            this.getProperty("height").value = 200;
+
+            this.properties.push({
+                id: "tabs",
+                text: "选项卡配置",
+                value: [{"id": "00001", "title": "选项1"}],
+                createEditor: function (component, text, value) {
+                    var editButton = $("<a class='mini-button' onclick='window.__edit_tabs_conf' plain='true' iconCls='icon-edit'>");
+                    editButton.text("编辑");
+                    window.__edit_tabs_conf = function () {
+                        mini.get('tabs-window').show();
+                        var grid = mini.get("tabs-datagrid");
+                        grid.setData(value);
+                        $(".edit-tabs-ok")
+                            .unbind("click")
+                            .on("click", function () {
+                                component.setProperty('tabs', grid.getData());
+                                mini.get('tabs-window').hide()
+                            })
+                    };
+                    return editButton;
+                }
+            })
+        }
+
+        createClass(Tabs, Component, "高级控件");
+        Tabs.prototype.setHeight = function (height) {
+            if (!height) {
+                height = 'auto';
+            }
+            this.container.find(".mini-tabs:first").css("height", height);
+
+            this.container
+                .find(".tab-container-form")
+                .children()
+                .css("height", height !== 'auto' ? parseInt(height) - 80 : 'auto');
+
+        };
+
+        Tabs.prototype.setData = function (e) {
+            this._data = e;
+            // this.reload();
+        };
+
+        Tabs.prototype.createTabs = function () {
+            var me = this;
+            var tabBody = $("<div style='width: 100%;height: auto;padding: 0' class='mini-tabs'>");
+            var height = me.getProperty("height").value || 'auto';
+            tabBody.css("height", height);
+            tabBody.attr("id", "tab-obj-" + me.id);
+
+            var tabs = me.getProperty('tabs').value;
+            if (typeof tabs === 'string') {
+                tabs = JSON.parse(tabs);
+            }
+
+            $(tabs).each(function () {
+                var tab = $("<div>");
+                tab.attr("title", this.title);
+                var url = this.url;
+                if (this.url) {
+                    if (url && url.indexOf("{") !== -1) {
+                        url = template(url, me._data || {});
+                    }
+                    tab.attr("url", url)
+                }
+                tab.append($("<div class='child-form tab-container-form' style='border: 0;'>")
+                    .attr("id", "tab-" + this.id)
+                    .append($("<div class='components' style='min-height: 50px'>")));
+                tabBody.append(tab);
+            });
+            return tabBody;
+        };
+
+        Tabs.prototype.reload = function () {
+            var me = this;
+            var tabsContainer = me.createTabs();
+            //console.log(tabsContainer[0].outerHTML);
+            me.container
+                .find('.tab-container-form')
+                .each(function () {
+                    var thisTab = $(this);
+                    var id = thisTab.attr("id");
+                    if (id) {
+                        tabsContainer.find("#" + id).replaceWith(thisTab);
+                    }
+                });
+
+            me.container
+                .find(".tab-container:first")
+                .html(tabsContainer);
+            mini.parse();
+        };
+
+        Tabs.prototype.render = function () {
+            var me = this;
+
+            var container = this.getContainer(function () {
+                var m = $("<div tabs-component class='mini-col-12 form-component child-form-component'>");
+
+                m.append($("<div class='tab-container'>"));
+                window.setTimeout(function () {
+                    me.reload();
+                }, 20);
+                return m;
+            });
+
+
+            this.un("propertiesChanged")
+                .on('propertiesChanged', function (key, value) {
+                    if (key === 'comment') {
+                        container.find("legend:first").text(value);
+                    } else if (key === 'tabs') {
+                        me.reload();
+                    } else if (key === 'bodyHeight') {
+                        container.find(".tab-container-form:first").css("height", value);
+                    } else {
+                        container.find("legend:first").attr(key, value);
+                    }
+                });
+            return container;
+        };
+        Tabs.prototype.typeName = "选项卡";
+
+        Tabs.icon = "iconfont icon-shuxingkongjian";
+        componentRepo.registerComponent("tabs", Tabs);
+    }
 
     /**数据表格**/
     {
@@ -1463,57 +1792,112 @@
             this.getProperty("comment").value = "数据表格";
             this.getProperty("width").value = "12";
 
-            // this.getProperty("height").value="200";
+            this.getProperty("height").value = "200";
+
+            this.properties.push({
+                id: "columns",
+                text: "列配置",
+                value: [{"field": "name", "header": "名称"}],
+                createEditor: function (component, text, value) {
+                    var editButton = $("<a class='mini-button' onclick='window.__edit_data_table_conf' plain='true' iconCls='icon-edit'>");
+                    editButton.text("编辑");
+
+                    window.__edit_data_table_conf = function () {
+                        mini.get('data-table-window').show();
+                        var grid = mini.get("data-table-datagrid");
+                        grid.setData(value);
+                        $(".edit-columns-ok")
+                            .unbind("click")
+                            .on("click", function () {
+                                component.setProperty('columns', grid.getData());
+                                mini.get('data-table-window').hide()
+                            })
+                    };
+                    return editButton;
+                }
+            })
         }
 
         createClass(DataTable, Component, "高级控件");
+
+        DataTable.prototype.setValue = function (val, data) {
+            mini.get('grid-' + this.id)
+                .setData(val);
+        };
+
+        DataTable.prototype.getValue = function (data) {
+            var data = mini.clone(mini.get('grid-' + this.id).getData());
+            $(data).each(function () {
+                delete this._id;
+                delete this._uid;
+            });
+            return data;
+        };
+
+        DataTable.prototype.setHeight = function (height) {
+            if (height === 0 || height === '' || typeof height === 'undefined') {
+                height = "auto";
+            }
+            this.container
+                .find("#grid-" + this.id)
+                .css("height", height);
+        };
 
         DataTable.prototype.render = function () {
             var me = this;
 
             function createTable() {
-                var dataGrid = $("<div showPager='false' style='width: 100%;height: 100%' class='mini-datagrid'>");
+                var dataGrid = $("<div showPager='false' style='width: 100%;height:auto' class='mini-datagrid'>");
+                var columns = me.getProperty("columns").value || [];
 
+                dataGrid.attr("id", "grid-" + me.id);
+                dataGrid.css("height", me.getProperty("height").value || 'auto');
 
-                dataGrid.append("       <div property=\"columns\">\n" +
-                    "            <!--<div type=\"indexcolumn\"></div>        -->\n" +
-                    "            <div type=\"checkcolumn\" ></div>        \n" +
-                    "            <div field=\"loginname\" width=\"120\" headerAlign=\"center\" allowSort=\"true\">员工帐号</div></div>");
+                var columnsHtml = $("<div property='columns'>");
+                dataGrid.append(columnsHtml);
+                $(columns).each(function () {
+                    var conf = mini.clone(this);
+                    conf.headerAlign = conf.headerAlign || 'center';
+                    conf.align = conf.align || 'center';
+
+                    var column = $("<div>").attr(conf);
+                    columnsHtml.append(column)
+                });
 
                 return dataGrid;
             }
 
             var container = this.getContainer(function () {
                 var height = me.getProperty("height").value;
+                var m = $("<div class='mini-col-12 form-component'>");
 
-                var m = $("<div class='mini-col-12 form-component'>").css("height", height + "px");
-                var fit = $("<fieldset style='border: 0;height: 200px;width: 95%' class='child-form'>").append($("<legend class='edit-focus'>数据表格</legend>"));
-                var body = $("<div class='mini-fit grid-container'>");
+                m.append($("<div class='grid-container'>").css({
+                    "min-height": "50px"
+                }));
 
-                m.append(fit.append(body));
                 return m;
             });
 
             function reinitTable() {
                 container.find(".grid-container:first").html(createTable());
-
+                mini.parse()
             }
 
-            reinitTable();
+             reinitTable();
             this.un("propertiesChanged")
                 .on('propertiesChanged', function (key, value) {
                     if (key === 'comment') {
                         container.find("legend:first").text(value);
+                    } else if (key === 'columns') {
+
+                        reinitTable();
                     } else if (key === 'showComment') {
                         if (value + "" === 'false') {
                             container.find("legend:first").addClass('form-hidden');
                         } else {
                             container.find("legend:first").removeClass('form-hidden');
                         }
-                    } else if (key === 'bodyHeight') {
-                        container.find(".table:first").css("height", value);
                     } else {
-                        reinitTable();
                         container.find("legend:first").attr(key, value);
                     }
                 });
@@ -1522,7 +1906,7 @@
         DataTable.prototype.typeName = "数据表格";
 
         DataTable.icon = "iconfont icon-biaoge";
-        // componentRepo.registerComponent("datatable", DataTable);
+        componentRepo.registerComponent("datatable", DataTable);
 
     }
 

@@ -14,3 +14,12 @@
     /*border: 1px solid red;*/
     color: red;
 }
+.remove-component{
+    margin-top: 10px;
+}
+.cut-component{
+    margin-top: 10px;
+}
+.paste-component{
+    margin-top: 10px;
+}
