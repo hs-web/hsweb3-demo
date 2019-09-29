@@ -6,7 +6,7 @@
 
     <groupId>org.hswebframework.web</groupId>
     <artifactId>hsweb-demo</artifactId>
-    <version>3.0.1</version>
+    <version>3.1.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
@@ -15,7 +15,7 @@
         <java.version>1.8</java.version>
         <project.build.jdk>${java.version}</project.build.jdk>
 
-        <hsweb.framework.version>3.0.9</hsweb.framework.version>
+        <hsweb.framework.version>3.1.0-SNAPSHOT</hsweb.framework.version>
 
         <hsweb.expands.version>3.0.2</hsweb.expands.version>
 
@@ -172,12 +172,7 @@
             <version>${hsweb.framework.version}</version>
         </dependency>
 
-        <!--定时调度-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-system-schedule-starter</artifactId>
-            <version>${hsweb.framework.version}</version>
-        </dependency>
+
         <!--动态脚本-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>

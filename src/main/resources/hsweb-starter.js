@@ -281,15 +281,16 @@ var JDBCType = java.sql.JDBCType;
 
 function install(context) {
     var database = context.database;
-
+    //3.1.0中暂时不支持此功能
 }
 
 function initialize(context) {
     var database = context.database;
-    database.getTable("s_menu").createInsert().values(menus).exec();
-    database.getTable("s_autz_setting").createInsert().values(autz_setting).exec();
-    database.getTable("s_autz_menu").createInsert().values(autz_menu).exec();
-    database.getTable("s_user").createInsert().values(user).exec();
+    database.dml().insert("s_menu").values(menus).execute().sync();
+
+    database.dml().insert("s_autz_setting").values(autz_setting).execute().sync();
+    database.dml().insert("s_autz_menu").values(autz_menu).execute().sync();
+    database.dml().insert("s_user").values(user).execute().sync();
 }
 
 //设置依赖
