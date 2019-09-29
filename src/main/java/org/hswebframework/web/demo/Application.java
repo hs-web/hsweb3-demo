@@ -22,7 +22,7 @@ import org.springframework.context.event.EventListener;
 @EnableAopAuthorize //启用aop权限控制
 @EnableSwagger2Doc
 @EnableDevTools //开启开发人员工具，生产环境慎用
-@EnableEasyormRepository("org.hswebframework.web.demo")
+@EnableEasyormRepository("org.hswebframework.web.demo.crud.entity")
 public class Application {
 
     public static void main(String[] args) {
