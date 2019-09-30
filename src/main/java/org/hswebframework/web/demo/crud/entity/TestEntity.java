@@ -23,7 +23,7 @@ public class TestEntity extends SimpleGenericEntity<String> {
     private Integer age;
 
     @Column
-    @ColumnType(jdbcType = JDBCType.LONGNVARCHAR)
+    @ColumnType(jdbcType = JDBCType.LONGVARCHAR)
     @JsonCodec
     private List<String> tags;
 
