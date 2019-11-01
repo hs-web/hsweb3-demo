@@ -1,13 +1,12 @@
-importResource("/admin/css/common.css");
-importResource("/admin/css/common.css");
-importResource("/plugins/font-awesome/4.7.0/css/font-awesome.css");
+importResource("admin/css/common.css");
+importResource("plugins/font-awesome/4.7.0/css/font-awesome.css");
 var repeat = [
     {id: "replace", text: "替换"},
     {id: "append", text: "追加"},
     {id: "ignore", text: "忽略"}
 ];
 importMiniui(function () {
-    importResource('/plugins/miniui/themes/bootstrap/skin.css');
+    importResource('plugins/miniui/themes/bootstrap/skin.css');
     mini.parse();
     require(["miniui-tools", "script-editor", "message"], function (tools, editorBuilder, message) {
         var saveBefore = [];

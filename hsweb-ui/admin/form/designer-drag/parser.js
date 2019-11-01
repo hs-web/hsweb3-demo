@@ -30,6 +30,66 @@
             this.call(args);
         })
     };
+
+    FormParser.prototype.getbyName = function (name) {
+        return this.getComponent(function (comp) {
+            return comp.getProperty('name').value === name
+        })
+    };
+    FormParser.prototype.get = function (id) {
+        return this.getComponent(function (comp) {
+            return comp.id === id || comp._uid === id;
+        })
+    };
+
+    FormParser.prototype.getComponent = function (call) {
+        for (var i = 0; i < this.components.length; i++) {
+            if (call(this.components[i].target)) {
+                return this.components[i].target;
+            }
+        }
+        return null;
+    };
+
+    FormParser.prototype.setErrors = function (errorMessage) {
+        var me = this;
+        if (typeof errorMessage === 'string') {
+            errorMessage = mini.decode(errorMessage);
+        }
+        if (errorMessage) {
+            $(errorMessage).each(function () {
+                var field = mini.getbyName(this.field);
+                if (field) {
+                    field.setIsValid(false);
+                    field.setErrorText(this.message);
+                } else {
+                    var component = me.getbyName(this.field);
+                    if (component && component.setError) {
+                        component.setError(this);
+                    }
+                }
+            });
+        }
+    }
+    FormParser.prototype.setReadOnly = function (readonly) {
+        if (this.formId) {
+            var form = new mini.Form("#" + this.formId);
+            var fields = form.getFields();
+            for (var i = 0, l = fields.length; i < l; i++) {
+                var c = fields[i];
+                if (c.setReadOnly) c.setReadOnly(readonly);     //只读
+                if (c.setIsValid) c.setIsValid(true);      //去除错误提示
+                if (c.addCls) c.addCls("read-only");          //增加asLabel外观
+            }
+            $(this.components).each(function () {
+                var target = this.target;
+                if (target && target.setReadOnly) {
+                    target.setReadOnly(readonly);
+                }
+            });
+        }
+    };
+
     FormParser.prototype.setData = function (data) {
         if (this.formId) {
             var form = new mini.Form("#" + this.formId);
@@ -37,8 +97,20 @@
             form.setData(data);
             $(this.components).each(function () {
                 var target = this.target;
-                if (target && target.setValue) {
-                    target.setValue(name, data);
+                var name = this.target.getProperty('name').value;
+
+                if (name) {
+                    var nestName = name.split(".");
+                    var val = data;
+                    for (var i = 0; i < nestName.length; i++) {
+                        val = val[nestName[i]];
+                    }
+                    if (target && val && target.setValue) {
+                        target.setValue(val, data);
+                    }
+                }
+                if (target.setData) {
+                    target.setData(data);
                 }
             });
             this.doEvent("setData", this);
@@ -66,6 +138,7 @@
         }
     };
 
+
     FormParser.prototype.render = function (el) {
         var customEvents = {};
         var me = this;
@@ -82,34 +155,48 @@
                 console.log("加载表单脚本失败", e);
             }
         }
+
         var html = $("<div class='mini-fit dynamic-form'>")
             .attr("id", formId)
             .html(me.html);
-        $(el).html("")
-            .append(html);
+
+        $(el).html("").append(html);
+
+        html.find(".mini-button.ui-sortable-handle").remove();
+
         $(me.components)
             .each(function () {
                 var id = this.id;
                 var Component = componentRepo.supportComponents[this.type];
                 if (Component) {
-                    var componentHtml = html.find("[hs-id='" + id + "']");
-                    var component = new Component(id);
-                    this.target = component;
-                    component.container = componentHtml;
-                    component.parser = me;
-                    component.render();
-                    $(this.properties).each(function () {
-                            var property = this;
-                            var value = property.value;
-                            if (typeof value === 'undefined') {
-                                return;
+                 //   window.setTimeout(function () {
+                        var componentHtml = html.find("[hs-id='" + id + "'],.hs-id-" + id);
+                        var component = new Component(id);
+                        this.target = component;
+                        component.container = componentHtml;
+                        component.parser = me;
+                        component.render();
+                        var reload = component.reload ? function () {
+                            return component.reload(false);
+                        } : undefined;
+                        $(this.properties).each(function () {
+                                var property = this;
+                                var value = property.value;
+                                if (reload) {
+                                    component.getProperty(property.id).value = value;
+                                } else {
+                                    component.setProperty(property.id, value, true);
+                                }
                             }
-                            component.setProperty(property.id, value, true);
+                        );
+                        if (reload) {
+                            reload();
                         }
-                    );
+                 //   }, 1)
                 } else {
                     console.warn("不支持的控件类型", JSON.stringify(this))
                 }
+
             });
 
         me.formId = formId;

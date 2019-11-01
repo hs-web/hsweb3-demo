@@ -7,6 +7,7 @@ importMiniui(function () {
         var grid = window.grid = mini.get("datagrid");
         tools.initGrid(grid);
         grid.setUrl(API_BASE_PATH + "permission");
+
         function search() {
             tools.searchGrid("#search-box", grid);
         }
@@ -14,30 +15,39 @@ importMiniui(function () {
         $(".search-button").click(search);
         tools.bindOnEnter("#search-box", search);
         $(".add-button").click(function () {
-            tools.openWindow("admin/permission/save.html", "添加权限信息", "80%", "80%", function (e) {
+            tools.openWindow("admin/permission/save.html", "添加权限信息", "800", "600", function (e) {
                 grid.reload();
-            })
+            });
         });
         search();
     });
 });
 
+
 window.renderStatus = function (e) {
-    return e.value == 1 ? "正常" : "失效";
+    return e.value === 1 ? "正常" : "失效";
 }
+
 function edit(id) {
-    tools.openWindow("admin/permission/save.html?id=" + id, "编辑权限信息", "80%", "80%", function (e) {
+    tools.openWindow("admin/permission/save.html?id=" + id, "编辑权限信息", "800", "600", function (e) {
         grid.reload();
     })
 }
+
 function updatePermissionStatus(id, status) {
 
 }
+
 window.renderAction = function (e) {
     var row = e.record;
     var html = [
         tools.createActionButton("编辑", "icon-edit", function () {
             edit(row.id);
+        }),
+        tools.createActionButton("设置权限", "icon-find", function () {
+            tools.openWindow("admin/autz-settings/permission.html?id=" + row.id, "分配权限", "80%", "80%", function (e) {
+                grid.reload();
+            })
         })
     ];
     /*if (row.status == 0) {
@@ -55,7 +65,7 @@ window.renderAction = function (e) {
     }*/
     html.push(
         tools.createActionButton("删除", "icon-remove", function () {
-            if (row._state == "added") {
+            if (row._state === "added") {
                 e.sender.removeNode(row);
             } else {
                 require(["request", "message"], function (request, message) {
@@ -73,6 +83,9 @@ window.renderAction = function (e) {
                 })
             }
         })
+    );
+    html.push(
+
     )
     return html.join("");
 }

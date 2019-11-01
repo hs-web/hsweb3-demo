@@ -4,7 +4,7 @@
     min-height: 28px;
 }
 
-.dynamic-form .mini-col-12 .form-item{
+.dynamic-form .mini-col-12 .form-item {
     width: 99.7%;
 }
 
@@ -22,31 +22,33 @@
     color: grey;
 }
 
-.dynamic-form .hide-label .form-label{
+.dynamic-form .hide-label .form-label {
     display: none;
 }
+
 .dynamic-form .form-label {
     float: left;
     display: block;
-    padding: 0;
     width: 110px;
+    padding: 0 8px;
     font-weight: 400;
     line-height: 30px;
-    height:30px;
     overflow: hidden;
     text-align: center;
     border: 1px solid #ddd;
     background: #FBFBFB;
+    box-sizing: border-box;
     /*border-right: 0px;*/
+    font-size: 13px;
 }
-
 .dynamic-form .simple-form-label {
     display: block;
     padding: 0 6px;
     font-weight: 400;
     line-height: 30px;
-    height:30px;
+    height: 30px;
 }
+
 .dynamic-form .table .simple-form-label {
     border: 0;
     background: none;
@@ -54,10 +56,20 @@
 
 .dynamic-form .input-block .mini-textbox-border {
     border-left: 0px;
+    border-radius: 0;
+    height: 30px;
+}
+
+.dynamic-form .input-block .mini-textarea .mini-textbox-border {
+    border-left: 0px;
+    border-radius: 0;
+    height: 100%;
 }
 
 .dynamic-form .input-block .mini-buttonedit-border {
     border-left: 0px;
+    border-radius: 0;
+    height: 30px;
 }
 
 .dynamic-form .form-text .input-block .mini-textbox-border {
@@ -77,7 +89,6 @@
     line-height: 26px;
 }
 
-
 .dynamic-form .form-text .form-label {
     float: none;
     width: 100%;
@@ -89,7 +100,7 @@
 
 .dynamic-form .input-block {
     position: relative;
-    margin-left: 112px
+    margin-left: 110px;
 }
 
 .dynamic-form .form-item {
@@ -99,6 +110,20 @@
 .dynamic-form .form-text .input-block {
     margin-left: 0px;
 }
+
+.dynamic-form .grid-container {
+    margin-top: 5px;
+}
+
+.dynamic-form .tab-container {
+    margin-top: 5px;
+}
+
+
+.dynamic-form .table .grid-container{
+    margin-top: 0;
+}
+
 
 .dynamic-form .table .form-component {
     border: 0;
@@ -131,15 +156,26 @@
     background: none;
     border: 0;
     border-right: 1px solid black;
+    height: 100%;
 }
 
 .dynamic-form .table .component-body {
-    /*vertical-align: middle;*/
-    /*display: table-cell;*/
+    border-left: 0;
+}
+
+.dynamic-form .table .input-block {
+    margin-left: 109px;
+    border-left: 1px solid black;
+}
+
+.dynamic-form .table .form-text .component-body {
+    border-left: none;
+    margin-left: 0;
 }
 
 .dynamic-form .table .form-item {
     margin-top: 0;
+    height: 100%;
 }
 
 .dynamic-form .table .mini-textbox-border,
@@ -172,14 +208,140 @@
 .dynamic-form .table .form-text .input-block .mini-textbox-border {
     border: 0;
 }
+
+.dynamic-form .table .mini-grid-border{
+    border: 0;
+}
+
+.dynamic-form .table .mini-grid-table tr:first-child{
+    border: 0;
+    padding: 0;
+}
+
+.dynamic-form .table .mini-grid-headerCell{
+    background-color: white;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+    border-left: 0;
+}
+
+.dynamic-form .table .mini-grid-cell{
+    background-color: white;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+    border-left: 0;
+}
+
+.dynamic-form .table .mini-grid-rightCell{
+    border-right: 0;
+    border-bottom: black 1px solid;
+    padding: 0;
+}
+
+
+.dynamic-form .table .mini-grid-cell-inner
+{
+    padding-top:3px;
+    padding-bottom:3px;
+    font-size:13px;
+}
+.dynamic-form .table .mini-grid-headerCell-inner
+{
+    padding-top:5px;
+    padding-bottom:5px;
+    font-size:13px;
+}
+.dynamic-form .table .mini-grid-headerCell-outer
+{
+    padding-left:4px;
+    padding-right:2px;
+}
+.dynamic-form .table .mini-grid-columnproxy
+{
+    padding-top:2px;
+    padding-bottom:4px;
+}
+.dynamic-form .table .mini-grid-allowsort,
+.mini-grid-sortIcon
+{
+    margin-left:4px;
+}
+
+
+.dynamic-form .table .mini-grid-headerCell-outer{
+    padding: 0;
+}
+
+.dynamic-form .table .mini-grid-rightCell .mini-grid-column-splitter{
+    padding: 0;
+    right: 0;
+}
+.dynamic-form .table .mini-grid-rows tr:nth-last-child(1) td{
+    border-bottom: 0;
+}
+.dynamic-form .table .mini-panel-border{
+    border-bottom: 0;
+
+}
+.dynamic-form .table .mini-grid-columns-view{
+    padding: 0;
+}
+
+
+
+
+/*tabs*/
+
+.dynamic-form .table div[tabs-component]{
+    border-right: 0;
+    border-bottom: 0;
+}
+.dynamic-form .table .mini-tabs-header{
+    border-right: 1px black solid;
+}
+
+.dynamic-form .table .mini-tab{
+    border-color: black;
+    border-radius: 0;
+    border-top: 0;
+    border-left:0;
+    background-color: white;
+}
+.dynamic-form .table .mini-tabs-space2,.mini-tabs-firstSpace{
+    width: 0;
+    border: 0;
+}
+.dynamic-form .table .mini-tabs-firstSpace div{
+    width: 0;
+}
+.dynamic-form .table .mini-tabs-space2 div{
+    width: 0;
+}
+.dynamic-form .table .mini-tabs-space{
+    border-color: black;
+}
+.dynamic-form .table .mini-tabs-bodys{
+    padding: 0;
+    border-right: 0;
+}
+.dynamic-form .table .tab-container{
+    margin-top: 0;
+}
+.dynamic-form .table .mini-tabs-buttons{
+    padding: 0;
+}
+
+
 .dynamic-form .webuploader-container {
     position: relative;
 }
+
 .dynamic-form .webuploader-element-invisible {
     position: absolute !important;
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px,1px,1px,1px);
+    clip: rect(1px, 1px, 1px, 1px);
 }
+
 .dynamic-form .webuploader-pick {
     position: relative;
     display: inline-block;
@@ -190,13 +352,150 @@
     text-align: center;
     border-radius: 3px;
     overflow: hidden;
+    margin: 2px 0 0 8px;
 }
+
 .dynamic-form .webuploader-pick-hover {
     background: #00a2d4;
 }
 
 .dynamic-form .webuploader-pick-disable {
     opacity: 0.6;
-    pointer-events:none;
+    pointer-events: none;
 }
 
+.dynamic-form .file-info {
+    margin-left: 5px;
+    background-color: #FBFBFB;
+    height: 99%;
+    width: 98%;
+    float: left;
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.dynamic-form .multiple .file-info {
+    height: 95px;
+    width: 90px;
+    float: left;
+}
+
+/*.dynamic-form .select-file {*/
+/*margin: auto;*/
+/*position: absolute;*/
+/*top:50%;*/
+/*width: 90%;*/
+/*height: 20px;*/
+/*text-align: center;*/
+/*}*/
+.dynamic-form .select-file {
+    margin: auto;
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    height: 20px;
+    text-align: right;
+}
+
+.dynamic-form .file-info .file-name {
+    width: 100%;
+    height: 70px;
+    /*margin-top: 10px;*/
+    overflow: hidden;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+.dynamic-form .file-upload-container {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #2196f3;
+    position: relative;
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.dynamic-form .file-queue {
+    height: 150px;
+    overflow: hidden;
+}
+
+.dynamic-form .multiple .file-queue {
+    height: 150px;
+    overflow-y: auto;
+}
+
+.dynamic-form .file-info .file-process {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.dynamic-form .file-info .file-upload-process {
+    width: 80%;
+    height: 1.2em;
+    background: #2196f3;
+    border-radius: 2px;
+}
+
+.dynamic-form .file-info .file-upload-percent {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.dynamic-form .file-info .error {
+    background: red;
+}
+.dynamic-form .file-operation{
+    display: none;
+}
+.dynamic-form .multiple .file-operation {
+    position: absolute;
+    /*height: 10p;*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80000000', endColorstr='#80000000') \0;
+    /*background: rgba(0, 0, 0, 0.2);*/
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 9999;
+    text-align: right;
+    display:block;
+}
+.dynamic-form .table .table{
+    padding: 0;
+    margin: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 100%;
+}
+
+.dynamic-form .table .child-form{
+    padding: 0;
+    margin: 0;
+    border-left: 0;
+    width: 100%;
+}
+.dynamic-form .table .child-form .child-form-title{
+    border-right: 1px black solid;
+
+}
+.dynamic-form .table .child-form-component{
+    border-right: 0;
+    border-bottom: 0;
+}
+.dynamic-form .file-upload-container .tips{
+    width: 100%;
+    height: 100%;
+    top: 40px;
+    position: absolute;
+    font-size: 26px;
+    color: grey;
+    text-align: center;
+}

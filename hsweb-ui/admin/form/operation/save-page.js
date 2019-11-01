@@ -33,7 +33,8 @@ define(["pages/template/parser", "message"], function (parser, message) {
 
             var data = config.data || {};
             var windowId = "window_" + Math.round(Math.random() * 100000);
-            var div = config.el || $("<div class='mini-window' allowResize='true' showCloseButton='false' showToolbar='true'  style='width: 80%;height: 80%'>");
+            var div = config.el || $("<div class='mini-window' allowResize='true' showCloseButton='false' showToolbar='true' " +
+                " style='width: 80%;height: 80%;display: none'>");
 
             var toolbar = $("<div property='toolbar'>");
             div.append(toolbar);
@@ -42,6 +43,8 @@ define(["pages/template/parser", "message"], function (parser, message) {
             var undo = $("<a class='mini-button reset-form' plain='true' iconCls='icon-undo'>").text("重新填写");
             var close = $("<a class='mini-button close-form' plain='true' iconCls='icon-remove'>").text("关闭");
             toolbar.append(submit).append(undo).append(close);
+            var body =$("<div class='mini-fit'>");
+            div.append(body);
             div.attr("id", windowId);
             if (!config.el) {
                 div.attr({
@@ -59,7 +62,7 @@ define(["pages/template/parser", "message"], function (parser, message) {
                 $("#" + windowId + " " + selector).unbind("click").on("click", call);
             }
 
-            parser(div, template, {
+            parser(body, template, {
                     beforeLoad: function () {
                         if (config.beforeLoad) {
                             config.beforeLoad({
@@ -86,8 +89,9 @@ define(["pages/template/parser", "message"], function (parser, message) {
                                 if (data && onSubmit) {
                                     onSubmit(data, {
                                         close: function () {
-                                            if (mini.get(windowId))
+                                            if (mini.get(windowId)) {
                                                 mini.get(windowId).hide();
+                                            }
                                         }, form: formParser
                                     });
                                 }
@@ -101,8 +105,9 @@ define(["pages/template/parser", "message"], function (parser, message) {
                                         return;
                                     }
                                 }
-                                if (mini.get(windowId))
+                                if (mini.get(windowId)) {
                                     mini.get(windowId).hide();
+                                }
                                 div.remove();
                             });
                             loading.hide();

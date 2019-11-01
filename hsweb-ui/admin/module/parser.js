@@ -17,7 +17,7 @@
  * }
  *
  */
-define(["miniui-tools", "authorize", "request", "message"], function (tools, autz, request, message) {
+define(["miniui-tools", "authorize", "request", "message","search-box"], function (tools, autz, request, message,SearchBox) {
 
 
     function Parser(config) {
@@ -78,40 +78,38 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                 }
             }
         ];
+
+        function createConditionContainer(cfg, input) {
+            var temp = [
+                "<div class=\"mini-col-", cfg.size || 4, " form-component\">"
+                , "<div class=\"form-item\">"
+                , "<label class=\"form-label\">", cfg.text, "</label>"
+                , "<div class=\"input-block component-body\"> </div></div> </div>"
+            ]
+            var container = $(temp.join(""));
+            container.find(".component-body").append(input);
+            return container;
+        }
+
         this.conditionTypeList = [
             {
                 name: "文本输入",
                 id: "textbox",
                 create: function (config) {
-                    var container = $("<div style='text-align: right;margin-top: 10px' class=\"mini-col-" + config.size + "\">");
-                    var label = $("<label class='form-label'>").text(config.text)
-                        .css({
-                            "width": "200px",
-                            "text-align": "right"
-                        });
-                    var input = $("<input style='width: 70%' class='mini-textbox'>")
+                    var input = $("<input style='width: 100%' class='mini-textbox'>")
                         .attr(config.editor)
                         .attr("name", config.id);
-                    container.append(label).append(input);
-                    return container;
+                    return createConditionContainer(config,input);
                 }
             },
             {
                 name: "日期",
                 id: "date",
                 create: function (config) {
-                    var container = $("<div style='text-align: right;margin-top: 10px' class=\"mini-col-" + config.size + "\">");
-                    var label = $("<label class='form-label'>").text(config.text)
-                        .css({
-                            "width": "200px",
-                            "text-align": "right"
-                        });
-                    var input = $("<input style='width: 70%' class='mini-datepicker'>")
+                    var input = $("<input style='width: 100%' class='mini-datepicker'>")
                         .attr(config.editor)
                         .attr("name", config.id);
-                    ;
-                    container.append(label).append(input);
-                    return container;
+                    return createConditionContainer(config,input);
                 }
             }
         ];
@@ -141,7 +139,7 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
                         "\n}})()");
                     fun.call(me);
                 } catch (e) {
-                    console.log(script,e);
+                    console.log(script, e);
                 }
             }
         };
@@ -360,41 +358,49 @@ define(["miniui-tools", "authorize", "request", "message"], function (tools, aut
             call.call(me);
         }
         var toolbarHtml = $("<div class='mini-toolbar' style='border-bottom: 0px'>");
-        var toolbar = $("<div>");
+        var toolbar = $("<div class=\"operate-button\">");
         var formId = "form_" + Math.round(Math.random() * 100000);
-        var condition = $("<div style='max-width: 1280px;margin: auto' class='mini-clearfix'>")
+        var condition = $("<div style='max-width: 1280px;margin: auto' class='search-box mini-clearfix'>")
             .attr("id", formId);
 
         toolbarHtml
-            .append(toolbar)
-            .append(condition);
+            .append(condition)
+            .append(toolbar);
 
-        var searchButton = $("<a class='mini-button' iconCls='icon-search' plain='true'>").text("搜索");
-        var resetButton = $("<a class='mini-button' iconCls='icon-undo' plain='true'>").text("重置条件");
+        // var searchButton = $("<a class='mini-button' iconCls='icon-search' plain='true'>").text("搜索");
+        // var resetButton = $("<a class='mini-button' iconCls='icon-undo' plain='true'>").text("重置条件");
 
         var grid = $("<div class='mini-fit'>");
         container.html("")
             .append(toolbarHtml)
             .append(grid);
-        me.parseToolbar(toolbar, config.toolbar);
+
+
         me.parseCondition(condition, config.condition);
+        me.parseToolbar(toolbar, config.toolbar);
         var conditionLen = condition.children().length;
 
-        if (conditionLen > 0) {
-            condition.append($("<div class='mini-col-" + (conditionLen > 3 ? 12 : 3) + "' style='margin-top: 10px;text-align: center'>").append(searchButton).append(resetButton));
-        }
+        // if (conditionLen > 0) {
+        //     condition.append($("<div class='mini-col-" + (conditionLen > 3 ? 12 : 3) + "' style='margin-top: 10px;text-align: center'>").append(searchButton).append(resetButton));
+        // }
         var callQuery;
 
         // condition.find("input").attr("onenter",callQuery);
 
         me.parseDataGrid(grid, config.table, function (func) {
-            searchButton.attr("onclick", me.createOnclick(function () {
-                callQuery();
-            }));
-            resetButton.attr("onclick", me.createOnclick(function () {
-                me.resetQuery();
-            }));
             mini.parse();
+            new SearchBox({
+                container:condition,
+                onSearch: function () {
+                    callQuery();
+                },
+                onReset:function(){
+                    me.resetQuery();
+                },
+                initSize: 2
+            }).init();
+
+
             var gridObj = func();
             me.grid = gridObj;
             me.resetQuery = function () {

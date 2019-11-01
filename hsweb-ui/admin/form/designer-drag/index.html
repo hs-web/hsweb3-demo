@@ -34,6 +34,11 @@
             display: none;
         }
 
+        .value-change-splitter {
+            border: 0;
+            border-bottom: 1px solid #aed0ea;
+        }
+
     </style>
 </head>
 <body style="display: none">
@@ -41,9 +46,11 @@
     <table style="width:100%;">
         <tr>
             <td style="width:100%;">
-                <a class="mini-button menu-group-dev edit-javascript" iconCls="icon-application-edit" plain="true">编辑JS</a>
+                <a class="mini-button menu-group-dev edit-javascript" iconCls="icon-application-edit"
+                   plain="true">编辑JS</a>
                 <a class="mini-button menu-group-dev edit-css" iconCls="icon-application-edit" plain="true">编辑CSS</a>
-                <a class="mini-button menu-group-dev select-from-database" iconCls="icon-database" plain="true">从数据库中选择</a>
+                <a class="mini-button menu-group-dev select-from-database" iconCls="icon-database"
+                   plain="true">从数据库中选择</a>
                 <span class="separator menu-group-dev"></span>
                 <a class="mini-button menu-group-user save-button" iconCls="icon-save" plain="true">保存</a>
                 <a class="mini-button menu-group-user copy-button" iconCls="icon-page-white-copy" plain="true">复制</a>
@@ -62,14 +69,14 @@
         </div>
     </div>
     <div showCollapseButton="false" style="border: 0">
-        <div class="mini-splitter" style="width:100%;height:100%;">
+        <div class="mini-splitter" style="width:100%;height:95%;">
             <div>
                 <div class="mini-fit dynamic-form main-panel components mini-clearfix" style="padding: 10px;">
                 </div>
             </div>
             <div size="250" showCollapseButton="true">
                 <div class="mini-fit">
-                    <div class="dynamic-form mini-clearfix" id="component-properties">
+                    <div class="dynamic-form mini-clearfix" id="component-properties" style="padding-bottom: 10px;">
 
                     </div>
                     <div class="mini-fit">
@@ -79,7 +86,7 @@
                             <div property="columns">
                                 <!--<div header="组件类型" headerAlign='center' field="type"></div>-->
                                 <div header="描述" width="80" headerAlign='center' align="center" field="name"></div>
-                                <div header="操作" width="20" headerAlign='center'name="action"></div>
+                                <div header="操作" width="20" headerAlign='center' name="action"></div>
                             </div>
                         </div>
                     </div>
@@ -119,7 +126,8 @@
             <div class="form-item brick">
                 <label class="form-label">选项来源</label>
                 <div class="input-block">
-                    <input style="width: 100%" class="mini-combobox" name="type" id="optionType" data="[{'id':'data','text':'配置'},{'id':'url','text':'接口'}]"/>
+                    <input style="width: 100%" class="mini-combobox" name="type" id="optionType"
+                           data="[{'id':'data','text':'配置'},{'id':'url','text':'接口'}]"/>
                 </div>
             </div>
         </div>
@@ -152,7 +160,8 @@
             <div class="form-item brick">
                 <label class="form-label">文本字段</label>
                 <div class="input-block">
-                    <input name="textField" style="width: 100%" emptyText="选项显示的文本字段,默认为:text" class="mini-textbox" id="textField"/>
+                    <input name="textField" style="width: 100%" emptyText="选项显示的文本字段,默认为:text" class="mini-textbox"
+                           id="textField"/>
                 </div>
             </div>
         </div>
@@ -168,7 +177,8 @@
             <div class="form-item brick">
                 <label class="form-label">树形结构</label>
                 <div class="input-block">
-                    <input style="width: 100%" class="mini-radiobuttonlist" value="false" name="resultAsTree" data="[{'id':'true','text':'是'},{'id':'false','text':'否'}]"/>
+                    <input style="width: 100%" class="mini-radiobuttonlist" value="false" name="resultAsTree"
+                           data="[{'id':'true','text':'是'},{'id':'false','text':'否'}]"/>
                 </div>
             </div>
         </div>
@@ -192,7 +202,9 @@
                          editNextOnEnterKey="true" editNextRowCell="true" allowLeafDropIn="true"
                          allowDrag="true" allowDrop="true" iconField="iconCls" treeColumn="index" idField="field">
                         <div property="columns">
-                            <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">序号(拖动排序)</div>
+                            <div type="indexcolumn" name="index" headerAlign="center" align="center" width="20">
+                                序号(拖动排序)
+                            </div>
                             <div field="id" name="id" width="40" headerAlign="center">标识
                                 <input property="editor" class="mini-textbox"/>
                             </div>
@@ -203,7 +215,8 @@
                                 <span class="title-button" style="width: 30px">
                                 操作
                                 </span>
-                                <span class="title-button icon-add add-operation-data"onclick="addOperationData()"></span>
+                                <span class="title-button icon-add add-operation-data"
+                                      onclick="addOperationData()"></span>
                             </div>
                         </div>
                     </div>
@@ -212,6 +225,282 @@
         </div>
     </div>
 </div>
+
+<!--值变更事件-->
+<div id="on-value-change-window" allowResize="true" showFooter="true" showModal="false" class="mini-window"
+     title="值变更事件"
+     style="width: 800px;height: 600px;">
+    <div property="footer" style="text-align:right;padding: 5px 15px 5px 5px;">
+        <a class="mini-button save-optional" plain="true" iconCls="icon-ok">完成编辑</a>
+    </div>
+    <div id="tabs1" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;"
+         arrowPosition="side" showNavMenu="true">
+        <div name="action1" title="事件1">
+            <div class="mini-splitter" style="width:100%;height:100%;">
+                <div size="50%" showCollapseButton="true" style="padding: 5px;overflow-y: auto">
+                    <div class=" dynamic-form mini-clearfix">
+                        <div class="mini-col-12" style="position: relative;text-align: center">
+                            <a class="mini-button" style="font-size: 16px" plain="true" iconCls="icon-add">&nbsp;如果</a>
+                        </div>
+                    </div>
+                    <hr class="value-change-splitter">
+                    <div class=" dynamic-form mini-clearfix" id="value-change-condition-0">
+                        <div class="mini-col-12" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件类型</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-combobox" value="logic" name="type"
+                                           data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var conditionLogicData = [
+                                            {'id': 'is', 'text': '值等于'},
+                                            {'id': 'gt', 'text': '值大于'},
+                                            {'id': 'gte', 'text': '值大于等于'},
+                                            {'id': 'lt', 'text': '值小于'},
+                                            {'id': 'lte', 'text': '值小于等于'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="is" name="logic"
+                                           data="conditionLogicData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">值</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic"
+                             style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+                        </div>
+
+                    </div>
+                    <hr class="value-change-splitter">
+                    <div class=" dynamic-form mini-clearfix" id="value-change-condition-1">
+                        <div class="mini-col-12" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件类型</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-combobox" value="logic" name="type"
+                                           data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var conditionLogicData = [
+                                            {'id': 'is', 'text': '值等于'},
+                                            {'id': 'gt', 'text': '值大于'},
+                                            {'id': 'gte', 'text': '值大于等于'},
+                                            {'id': 'lt', 'text': '值小于'},
+                                            {'id': 'lte', 'text': '值小于等于'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="is" name="logic"
+                                           data="conditionLogicData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">值</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic"
+                             style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+                        </div>
+
+                    </div>
+                    <hr class="value-change-splitter">
+                    <div class=" dynamic-form mini-clearfix" id="value-change-condition-2">
+                        <div class="mini-col-12" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件类型</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-combobox" value="logic" name="type"
+                                           data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">条件</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var conditionLogicData = [
+                                            {'id': 'is', 'text': '值等于'},
+                                            {'id': 'gt', 'text': '值大于'},
+                                            {'id': 'gte', 'text': '值大于等于'},
+                                            {'id': 'lt', 'text': '值小于'},
+                                            {'id': 'lte', 'text': '值小于等于'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="is" name="logic"
+                                           data="conditionLogicData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">值</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 condition-logic"
+                             style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div showCollapseButton="true" style="padding: 5px">
+                    <div class="dynamic-form mini-clearfix" id="value-change-operation">
+                        <div class="mini-col-12" style="position: relative;text-align: center">
+                            <a class="mini-button" style="font-size: 16px" plain="true" iconCls="icon-add">&nbsp;就执行</a>
+                        </div>
+                        <div class="mini-col-12 condition-logic" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">动作</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var operationData = [
+                                            {'id': 'component-operation', 'text': '其他控件'},
+                                            {'id': 'message', 'text': '弹出提示'},
+                                            {'id': 'script', 'text': '执行脚本'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="component-operation"
+                                           name="type" data="operationData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 component-operation" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">操作</label>
+                                <div class="input-block">
+                                    <script type="text/javascript">
+                                        var operationActionData = [
+                                            {'id': 'hide', 'text': '隐藏'},
+                                            {'id': 'show', 'text': '显示'},
+                                            {'id': 'readonly', 'text': '设置为只读'},
+                                            {'id': 'writeAble', 'text': '设置为可写'},
+                                            {'id': 'value', 'text': '修改值'}
+                                        ]
+                                    </script>
+                                    <input style="width: 100%" class="mini-combobox" value="hide" name="type"
+                                           data="operationActionData"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mini-col-12 component-operation" style="position: relative;">
+                            <div class="form-item brick">
+                                <label class="form-label">控件</label>
+                                <div class="input-block">
+                                    <input style="width: 100%" class="mini-buttonedit" name="target"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mini-col-12 condition-logic"
+                             style="position: relative; text-align: center;margin-top: 5px">
+                            <a class="mini-button" plain="true" iconCls="icon-remove">删除此动作</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="value-change-condition-template">
+    <div class=" dynamic-form mini-clearfix">
+        <div class="mini-col-12" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">条件类型</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="logic" name="type"
+                           data="[{'id':'logic','text':'逻辑'},{'id':'script','text':'脚本'}]"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 condition-logic" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">条件</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="is" name="logic" data="conditionLogicData"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 condition-logic" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">值</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-textbox" name="value"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12" style="position: relative; text-align: center;margin-top: 5px">
+            <a class="mini-button" plain="true" iconCls="icon-remove">删除此条件</a>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="value-change-operation-template">
+    <div class="dynamic-form mini-clearfix">
+        <div class="mini-col-12" style="position: relative;text-align: center">
+            <a class="mini-button" style="font-size: 16px" plain="true" iconCls="icon-add">&nbsp;就执行</a>
+        </div>
+        <div class="mini-col-12 condition-logic" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">动作</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="component-operation" name="type"
+                           data="operationData"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 component-operation" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">操作</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-combobox" value="hide" name="type"
+                           data="operationActionData"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 component-operation" style="position: relative;">
+            <div class="form-item brick">
+                <label class="form-label">控件</label>
+                <div class="input-block">
+                    <input style="width: 100%" class="mini-buttonedit" name="target"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="mini-col-12" style="position: relative; text-align: center;margin-top: 5px">
+            <a class="mini-button" plain="true" iconCls="icon-remove">删除此动作</a>
+        </div>
+    </div>
+</script>
 
 <div title="选择数据库表" showFooter="true" showToolBar="true" allowResize="true" class="mini-window" id="database-window"
      style="width: 800px;height: 600px">
@@ -223,7 +512,8 @@
     </div>
     <div class="mini-fit">
         <div id="database-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
-             editNextOnEnterKey="true" showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
+             editNextOnEnterKey="true" showFilterRow="true" treeColumn="name" nodesField="columns"
+             editNextRowCell="true">
             <div property="columns">
                 <div name="name" field="name" width="120" headerAlign="center" align="left">名称
                     <input id="nameFilter" emptyText="按名称搜索" property="filter" class="mini-textbox" style="width:100%;"
@@ -232,7 +522,8 @@
                 <div name="dataType" field="dataType" width="120" headerAlign="center" align="center">类型
                 </div>
                 <div field="comment" width="120" headerAlign="center" align="center">备注
-                    <input id="commentFilter" emptyText="按备注搜索" property="filter" class="mini-textbox" style="width:100%;"
+                    <input id="commentFilter" emptyText="按备注搜索" property="filter" class="mini-textbox"
+                           style="width:100%;"
                            onvaluechanged="onFilterChanged"/>
                 </div>
                 <div name="action" width="50" headerAlign="center" align="center">操作
@@ -241,6 +532,73 @@
         </div>
     </div>
 </div>
+
+
+<div title="配置列" showFooter="true" showToolBar="false" allowResize="true" class="mini-window" id="data-table-window"
+     style="width: 800px;height: 600px">
+    <div property="footer" style="padding:5px;text-align: right">
+        <a class="mini-button edit-columns-ok" iconCls="icon-ok">确定</a>
+    </div>
+    <div class="mini-fit">
+        <div id="data-table-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
+             editNextOnEnterKey="true" allowCellEdit="true" allowCellSelect="true"
+             allowDrag="true" allowDrop="true" showTreeIcon="false" treeColumn="index" editNextRowCell="true">
+            <div property="columns">
+                <div type="indexcolumn" headerAlign="center" name="index">#</div>
+                <div name="field" field="field" width="120" headerAlign="center" align="center">字段
+                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                </div>
+                <div name="displayField" field="displayField" width="120" headerAlign="center" align="center">文本字段
+                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                </div>
+                <div name="header" field="header" width="120" headerAlign="center" align="center">标题
+                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                </div>
+                <div name="width" field="width" width="80" headerAlign="center" align="center">宽度
+                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                </div>
+                <div name="action" width="50" headerAlign="center" align="center">
+                    <span class="title-button" style="width: 30px">操作</span>
+                    <span class="title-button icon-add" onclick="mini.get('data-table-datagrid').addNode({})"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div title="选项卡配置" showFooter="true" showToolBar="false" allowResize="true" class="mini-window" id="tabs-window"
+     style="width: 800px;height: 600px">
+    <div property="footer" style="padding:5px;text-align: right">
+        <a class="mini-button edit-tabs-ok" iconCls="icon-ok">确定</a>
+    </div>
+    <div class="mini-fit">
+        <div id="tabs-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
+             editNextOnEnterKey="true" allowCellEdit="true" allowCellSelect="true"
+             allowDrag="true" allowDrop="true" showTreeIcon="false" treeColumn="index" editNextRowCell="true">
+            <div property="columns">
+                <div type="indexcolumn" headerAlign="center" name="index">#</div>
+                <div name="title" field="title" width="120" headerAlign="center" align="center">标题
+                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                </div>
+
+                <div name="url" field="url" width="180" headerAlign="center" align="center">URL
+                    <input property="editor" class="mini-textbox" style="width:100%;"/>
+                </div>
+
+                <!-- <div name="onload" field="header" width="120" headerAlign="center" align="center">事件-->
+
+<!--                </div>-->
+                <div name="action" width="50" headerAlign="center" align="center">
+                    <span class="title-button" style="width: 30px">操作</span>
+                    <span class="title-button icon-add" onclick="mini.get('tabs-datagrid').addNode({id:md5(new Date().getTime())})"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>

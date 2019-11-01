@@ -18,9 +18,27 @@
         if (supportComponents[type]) {
             var component = this.components[id] = new supportComponents[type](id);
             component.parser = this;
+            component._uid = id;
+            if (componentRepo.useIdForName) {
+                this.components[id].getProperty("name").value = id;
+            }
             return component;
         }
         return undefined;
+    };
+    Designer.prototype.get = function (id) {
+        return this.getComponent(function (comp) {
+            return comp.id === id || comp._uid === id;
+        })
+    };
+
+    Designer.prototype.getComponent = function (call) {
+        for (var i = 0; i < this.components.length; i++) {
+            if (call(this.components[i].target)) {
+                return this.components[i].target;
+            }
+        }
+        return null;
     };
     Designer.prototype.setReadOnly = function (readOnly) {
 
@@ -43,19 +61,27 @@
     Designer.prototype.setConfig = function (config) {
 
     };
+    Designer.prototype.clear = function () {
+        this.loadConfig({});
+    }
     Designer.prototype.getConfig = function () {
         var config = {};
-        config.html = this.getHtml();
+
         config.javascript = this.javascript;
         config.css = this.css;
         config.useIdForName = componentRepo.useIdForName;
         var components = [];
-        var html = $("<div>").html(config.html);
+        var html = $("<div>").html(this.getHtml());
+        html.find(".mini-button .ui-sortable-handle").remove();
+
         for (var id in this.components) {
             var container = html.find("[hs-id=" + id + "]");
+            if (componentRepo.useIdForName) {
+                this.components[id].getProperty("name").value = id;
+            }
             var component = jQuery.extend({}, this.components[id]);
-            if (container.length === 0 || component.removed) {
-                component.container.remove();
+            if (container.length === 0 || component.removed === true) {
+                container.remove();
                 continue;
             }
             delete component.container;
@@ -63,6 +89,7 @@
             delete component.parser;
             components.push(component);
         }
+        config.html = html[0].innerHTML;
         config.components = components;
         return config;
     };
@@ -90,12 +117,17 @@
             }
         }
 
+        var lastClickTime = new Date().getTime();
+
         function initEvent(component) {
             var html = component.render();
+            //  console.trace(html[0].outerHTML)
+            html.unbind("click")
+                .on('click', doFocus);
             // $('.main-panel').append(html);
             // $('.gridly').gridly();
             function focus() {
-                initPropertiesEditor(component);
+                initPropertiesEditor(component, false);
                 $(".main-panel").find(".form-label,legend,.component-info,.edit-on-focus").removeClass('edit-focus');
                 $(".component-info").parent().parent().removeClass('edit-focus');
 
@@ -114,69 +146,110 @@
                 component.doEvent("focus");
             }
 
+            function doFocus() {
+                var row = new Date().getTime();
+                if (row - lastClickTime < 50) {
+                    return true;
+                }
+                lastClickTime = row;
+                focus();
+            }
+
             component.focus = focus;
 
-            if (html.find(".child-form").length) {
-                html.find('.child-form legend,.edit-on-focus').first().unbind('click').on('click', focus);
-            } else {
-                html.find('.form-label,legend,.component-info,.edit-on-focus')
-                    .unbind('click')
-                    .on('click', focus);
-                html.find('input,textarea,select')
-                    .unbind('click')
-                    .on("click", focus);
-            }
-            component.un("typeChanged").on("typeChanged", function (newComponent) {
-                me.components[component.id] = newComponent;
-                initEvent(newComponent);
-                initPropertiesEditor(newComponent);
-            });
+            // if (html.find(".child-form").length) {
+            //     html.find('.child-form legend,.edit-on-focus')
+            //         .first()
+            //         .unbind('click')
+            //         .on('click', focus);
+            //
+            // } else {
+            //     html.find('.form-label,legend,.component-info,.edit-on-focus')
+            //         .unbind('click')
+            //         .on('click', focus);
+            //
+            //     html.find('input,textarea,select')
+            //         .unbind('click')
+            //         .on("click", focus);
+            // }
+
+            component.un("typeChanged")
+                .on("typeChanged", function (newComponent) {
+                    me.components[component.id] = newComponent;
+                    initEvent(newComponent);
+                    initPropertiesEditor(newComponent);
+                });
             return component;
         }
 
         me.loadConfig = function (config, newId) {
-            var html = $("<div>").html(config.html);
+            var panel = $(".main-panel");
+
+            var html = panel.html("").append(config.html);
+
+            $(".panel").find(".mini-button.ui-sortable-handle").remove();
+
             var components = config.components;
             me.javascript = config.javascript;
             me.css = config.css;
 
             $(components).each(function () {
+                var component = this;
                 var id = this.id;
+                if (!this._uid) {
+                    this._uid = id;
+                }
                 var container = html.find("[hs-id=" + id + "]");
                 if (container.length === 0) {
+                    console.log(1)
                     return;
                 }
+
                 if (newId) {
                     id = md5(new Date().getTime() + "" + Math.random());
                     container.attr("hs-id", id);
                     this.id = id;
                 }
-                var component = this;
                 var type = component.type;
                 var realComponent = me.createComponent(type, id);
                 realComponent.container = container;
                 realComponent.render();
+                realComponent.config = component.config;
+                var reload = realComponent.reload ? function () {
+                    return realComponent.reload(false);
+                } : undefined;
                 $(component.properties)
                     .each(function () {
-                        realComponent.setProperty(this.id, this.value);
+                        if (reload) {
+                            realComponent.getProperty(this.id).value = this.value;
+                        } else {
+                            realComponent.setProperty(this.id, this.value, true);
+                        }
                     });
-                realComponent.config = component.config;
+                if (reload) {
+                    reload();
+                }
                 initEvent(realComponent);
             });
-            $(".main-panel").html("").append(html.children());
-            initDroppable();
-            reloadMiniui();
-            initComponentList();
+
+            window.setTimeout(function () {
+                initDroppable();
+                reloadMiniui();
+                initComponentList();
+            }, 1);
+
         };
         me.insertComponent = function (type) {
             var component = newComponent(type);
             if (me.nowEditComponent && me.nowEditComponent.type === 'form') {
                 me.nowEditComponent.container.find(".components").append(component.render());
             } else {
-                $(".main-panel").append(component.render());
+                $(".main-panel").append(component.container);
             }
-            reloadMiniui();
-            initComponentList();
+            setTimeout(function () {
+                reloadMiniui();
+                initComponentList();
+            }, 10);
             return component;
         };
 
@@ -270,7 +343,7 @@
 
                 var div = $("<div style='width: 100%; position: relative;' class='component'>")
                     .attr("hs-type", component.componentName);
-                var a = $("<a class='mini-button' style='border-left: 0;border-right: 0;padding: 0 border-top: 0;text-align: left; max-width: 100%; width: 100%; height: 60px;line-height: 60px;font-size:1em;'>")
+                var a = $("<a class='mini-button' style='border-left: 0;border-right: 0;padding: 0 border-top: 0;text-align: left; display:block; margin: 8px; height: 48px;line-height: 48px;font-size:16px;'>")
                 // .attr("iconCls",component.icon)
                     .html("<span style='margin-left: 1em'></span><b class='" + component.icon + "'></b><span style='margin-left: 1em'></span>" + componentObj.getProperty("comment").value);
                 div.append(a);
@@ -308,6 +381,7 @@
             var cache = {};
 
             function initDroppable() {
+                var droping = false;
                 $(".components")
                     .sortable({
                         // revert:"valid",
@@ -316,7 +390,7 @@
                         }, start: function (event, ui) {
                             var item = ui.item;
                             var type = item.attr("hs-type");
-                            if (type) {
+                            if (type && !droping) {
                                 item.css("width", "100%");
                                 var component = newComponent(type);
                                 var html = component.getContainer();
@@ -326,21 +400,27 @@
                                 // initPropertiesEditor(component);
                                 me.doEvent("configChanged", me);
                                 me.nowEditComponent = component;
-                                mini.parse();
+                                window.setTimeout(function () {
+                                    mini.parse();
+                                }, 1);
                                 if (component.onInit) {
                                     component.onInit();
                                 }
                             }
+                            droping = true;
                             // initDroppable();
                         }, stop: function (event, ui) {
+                            droping = false;
                             var item = ui.item;
                             var type = item.attr("hs-type");
                             if (type) {
                                 var children = item.children();
                                 item.replaceWith(children);
                                 initDroppable();
-                                children.find('.form-label,legend,input,.component-info,.edit-on-focus').first().click();
-                                initComponentList();
+                                children.click();
+                                window.setTimeout(function () {
+                                    initComponentList();
+                                }, 1)
                             }
                         },
                         connectWith: ".component"
@@ -356,7 +436,7 @@
             function newComponent(type) {
                 var id = md5(new Date().getTime() + "" + Math.random());
                 var component = me.createComponent(type, id);
-                var html = component.render();
+                component.render();
                 // $('.main-panel').append(html);
                 // $('.gridly').gridly();
                 initEvent(component)
@@ -390,9 +470,20 @@
             function paste() {
                 if (cutTemp) {
                     if (me.nowEditComponent && me.nowEditComponent.container.find('.components').length > 0) {
-                        me.nowEditComponent.container
-                            .find(".components").first()
-                            .append(cutTemp.container);
+
+                        me.nowEditComponent
+                            .container
+                            .find(".components")
+                            .each(function () {
+                                var _com = $(this);
+                                if (_com.height <= 0) {
+                                    return
+                                }
+                                _com.append(cutTemp.container)
+                            });
+                        // me.nowEditComponent.container
+                        //     .find(".components").first()
+                        //     .append(cutTemp.container);
                     } else {
                         if (me.nowEditComponent) {
                             me.nowEditComponent.container.after(cutTemp.container);
@@ -413,7 +504,7 @@
 
             }
 
-            function initPropertiesEditor(component) {
+            function initPropertiesEditor(component, initEvent) {
                 var designer = me;
                 saveProperties();
                 var properties = component.getProperties();
@@ -484,7 +575,10 @@
                         me.doEvent("configChanged", me);
                     });
                 });
-                initEvent(component);
+                if (initEvent !== false) {
+                    initEvent(component);
+                }
+
             }
 
             function fixLayout() {

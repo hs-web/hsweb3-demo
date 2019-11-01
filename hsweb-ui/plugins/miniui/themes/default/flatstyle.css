@@ -1,0 +1,595 @@
+﻿
+/* base */
+
+.mini-modal
+{
+    background:#fff;    
+    opacity: .6;
+    filter: alpha(opacity=60);
+}
+.mini-mask-background
+{
+    background:#fff;
+    opacity: 0;
+    filter: alpha(opacity=0);    
+    
+}
+
+.mini-popup,
+.mini-window,
+.mini-menu-open,
+.mini-shadow
+{    
+    -moz-box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);    
+}
+.mini-shadow
+{
+    display:block !important;
+}
+
+/* button */
+span.mini-button-allow
+{
+    margin-top:-2px;
+}
+.mini-button-icon
+{   
+    width:16px;
+    height:16px;
+    margin-top:-8px;    
+    line-height:16px;  
+}
+.mini-button .mini-button-icon-only .mini-button-icon
+{
+    left:5px;    
+}
+
+/* textbox & buttonedit */
+
+.mini-buttonedit-button
+{
+    /*border-width:0px !important;*/
+    /*border-width:1px !important;
+    border-color:transparent !important;*/
+    border-color:transparent;
+    background:none;
+    /*width:18px;height:20px;*/
+}
+
+.mini-buttonedit-button-hover,
+.mini-buttonedit-hover .mini-buttonedit-trigger,
+.mini-buttonedit-focus .mini-buttonedit-trigger
+{
+    border-color:transparent;
+}
+
+.mini-htmlfile .mini-buttonedit-button
+{
+    /*margin:0;
+    border-width:1px !important;*/
+}
+
+/* spinner */
+.mini-buttonedit-up span,
+.mini-buttonedit-down span
+{
+    font-size:12px;
+    line-height:9px;
+    min-height:9px;
+}
+
+.mini-buttonedit-close{
+    opacity: 0.65;
+    filter: alpha(opacity=65);  
+}
+.mini-buttonedit-button,
+.mini-buttonedit-up span, .mini-buttonedit-down span
+{
+    opacity: 0.85;
+    filter: alpha(opacity=85);    
+}
+.mini-buttonedit-close:hover,
+.mini-buttonedit-button:hover, .mini-buttonedit-focus .mini-button-trigger, .mini-buttonedit-popup .mini-button-trigger,
+.mini-buttonedit-up:hover span, .mini-buttonedit-down:hover span
+{
+    opacity: 1;
+    filter: alpha(opacity=100); 
+}
+
+/* tools */
+.mini-panel .mini-tools
+{
+    top:5px;
+}
+.mini-tools span
+{
+    opacity: 0.75;
+    filter: alpha(opacity=75);    
+}
+.mini-tools span:hover
+{
+    opacity: 1;
+    filter: alpha(opacity=100); 
+}
+
+/* menu */
+.mini-menuitem-allow,
+.mini-menuitem-icon
+{
+    top:4px;
+}
+.mini-menu-horizontal .mini-menuitem-allow
+{
+    /*position:relative;
+    top:-4px;*/
+    margin-top:2px;
+}
+
+.mini-menu-inner
+{
+    padding:0;
+}
+.mini-menuitem
+{
+    border-width:0;
+    padding:0;    
+}
+.mini-menuitem-inner {
+    padding: 2px 22px 2px 28px;
+}
+.mini-separator
+{
+    margin:1px 0;
+}
+.mini-menu-horizontal, .mini-menu-horizontal .mini-menu-border
+{
+    border-radius:0;
+}
+.mini-menu-horizontal .mini-menuitem
+{
+    border-width:1px;
+    border-radius:6px;
+}
+
+/* grid */
+.mini-grid-checkbox.mini-icon,
+.mini-tree-checkbox.mini-icon
+{
+    text-align:left;
+}
+
+.mini-tree-checkbox,
+.mini-grid-checkbox,
+.mini-grid-radio
+{
+    min-width:16px !important;
+    min-height:16px !important;  
+    font-size:16px !important;  
+    line-height:16px !important;  
+}    
+
+.mini-grid-sortIcon
+{
+    position:relative;
+    top:-1px;
+}
+
+.mini-grid-ecIcon.mini-icon
+{
+    line-height:20px;
+}
+
+/* tree */
+.mini-tree-icon
+{
+    background-image:none;
+}
+.mini-tree .mini-tree-icon
+{
+    font-size:16px;
+    line-height:22px;     
+    text-align:left;
+}
+
+/* tabs */
+.mini-tabs .mini-tab-close
+{
+    border-width:0px;    
+    position:relative;
+    top:-1px;
+    font-size:13px;
+}
+.mini-tab-active
+{
+    font-weight:bold;
+}
+
+/* calendar */
+.mini-calendar-date 
+{
+    border-color:transparent;
+}
+
+/*.mini-calendar-title
+{
+    font-weight:bold;
+}*/
+.mini-calendar-selected,
+.mini-calendar-menu-selected,
+.mini-calendar-menu-month,
+.mini-calendar-menu-year
+{
+    border-color:transparent;
+}
+.mini-calendar-prev, .mini-calendar-next
+{
+    top:4px;
+}
+
+/* checkbox */
+.mini-checkbox
+{
+    line-height:22px;
+}
+.mini-checkbox-icon.mini-icon
+{   
+    text-align:left;
+    padding-left:2px;
+}
+
+/* pager */
+body .mini-pager-reload
+{
+    font-size:13px;
+}
+body .mini-pager-num
+{
+    height:22px;
+    line-height:20px;
+}
+
+/* list */
+.mini-list-icon.mini-icon
+{
+    text-align:left;
+}
+
+/*=======================================================================*/
+/* icon */
+.mini-icon
+{
+    font: normal normal normal 16px/1 FontAwesome;
+    background:none;
+    text-align:center;
+    vertical-align:middle; 
+    min-width:16px;
+    min-height:16px;
+    line-height:16px;
+    text-decoration:none;
+}
+
+.mini-menuitem-allow:before
+{
+    content: "\f0da";    
+}
+
+.mini-menu-horizontal .mini-menuitem-allow:before,
+.mini-button-allow:before
+{
+    content: "\f0d7";    
+}
+
+.mini-tree-leaf:before
+{
+    content: "\f15b";
+}
+.mini-tree-folder:before
+{
+    content: "\f07b";    
+}
+.mini-tree-expand .mini-tree-folder:before 
+{
+    content: "\f07c";
+}
+
+/*.mini-tools .mini-tools-collapse,
+.mini-tools .mini-tools-expand,
+.mini-tools .mini-tools-close
+{
+    background:none;    
+}*/
+.mini-tools-collapse:before
+{
+    content: "\f077";
+}
+.mini-panel-collapse .mini-tools-collapse:before,
+.mini-outlookbar-expand > .mini-outlookbar-groupHeader .mini-tools-collapse:before
+{
+    /*content: "\f107"*/
+    content: "\f078";
+}
+.mini-tools-close:before
+{
+    content: "\f00d";   
+}
+.mini-tools-max:before
+{
+    content: "\f2d0";
+    font-size:12px;
+}
+.mini-tools-restore:before
+{
+    content: "\f2d2";    
+    font-size:12px;
+}
+
+.mini-calendar-yearPrev:before
+{
+    content: "\f100";    
+}
+.mini-calendar-yearNext:before
+{
+    content: "\f101";    
+}
+.mini-calendar-monthPrev:before,
+.mini-calendar-menu-prevYear:before
+{
+    content: "\f104";    
+}
+.mini-calendar-monthNext:before,
+.mini-calendar-menu-nextYear:before
+{
+    content: "\f105";    
+}
+
+.mini-checkcolumn .mini-grid-checkbox:before,
+.mini-grid-checkbox:before
+{
+     content: "\f096";
+}
+
+.mini-grid-row-selected .mini-checkcolumn .mini-grid-checkbox:before,
+.mini-grid-headerCell.mini-checkcolumn .mini-grid-checkbox.mini-grid-checkbox-checked:before ,
+.mini-grid-checkbox.mini-grid-checkbox-checked:before,
+.mini-menuitem-checked .mini-menuitem-icon:before
+{
+    content: "\f046";/* content: "\f14a"; */
+}
+.mini-grid-desc .mini-grid-sortIcon:before { 
+    content: "\f0d7";
+}
+.mini-grid-asc .mini-grid-sortIcon:before {
+        content: "\f0d8";
+}
+.mini-grid-allowsort:before
+{
+    content: "\f0dc";
+    font-size:13px;
+}
+
+.mini-grid-ecIcon:before
+{
+    content: "\f067";
+}
+.mini-grid-expandRow .mini-grid-ecIcon:before
+{
+    content: "\f068";
+}
+
+.mini-radiobuttonlist-item .mini-list-icon:before,
+.mini-tree-radio:before,
+.mini-grid-radio-checked:before, .mini-checkcolumn .mini-grid-radio:before
+{
+     content: "\f10c";   
+} 
+.mini-radiobuttonlist-item-selected .mini-list-icon:before,
+.mini-tree-selectedNode .mini-tree-radio:before,.mini-grid-row-selected .mini-tree-radio:before,
+.mini-grid-radio-checked:before, .mini-grid-row-selected .mini-checkcolumn .mini-grid-radio:before
+{
+    content: "\f192";
+}
+
+.mini-list-icon:before
+{
+     content: "\f096";   
+}
+.mini-checkboxlist-item-selected .mini-list-icon:before
+{
+     content: "\f046";
+}
+
+.mini-checkbox-check:before,
+.mini-checkbox-icon:before
+{
+     content: "\f096";    
+}
+.mini-checkbox-checked .mini-checkbox-icon:before
+{
+     content: "\f046";   
+}
+
+.mini-tree-checkbox:before
+{
+    content: "\f096";    
+}
+.mini-tree-checkbox-checked:before
+{
+    content: "\f046";    
+}
+
+.mini-pager-first:before 
+{
+    content: "\f100";    
+}
+.mini-pager-prev:before  {
+    content: "\f104";
+}
+.mini-pager-next:before  {
+    content: "\f105"; 
+}
+.mini-pager-last:before  {
+    content: "\f101"; 
+}
+.mini-pager-reload:before  {
+    content: "\f021";
+}
+
+.mini-tab-close-hover:hover
+{
+   content: "\f00d";
+}
+.mini-tab-close:before
+{ 
+    content: "\f00d";
+}
+.mini-tabs-leftButton:before {
+    content: "\f0d9";
+}
+.mini-tabs-rightButton:before {
+    content: "\f0da";
+}
+.mini-tabs-tabmenu:before {
+    content: "\f0d7";
+}
+
+.mini-buttonedit-trigger .mini-buttonedit-icon:before
+{
+     /*content: "\f0d7";   */
+     content: "\f141";
+     font-size:14px;
+}
+.mini-buttonedit-close:before
+{
+    content: "\f00d"; 
+    font-size:12px;          
+}
+
+.mini-popupedit .mini-buttonedit-trigger .mini-buttonedit-icon:before
+{
+     content: "\f0d7";   
+}
+.mini-datepicker .mini-buttonedit-trigger .mini-buttonedit-icon:before
+{
+    content: "\f073";   
+}
+
+.mini-buttonedit-up span:before
+{
+    content: "\f0d8";      
+}
+.mini-buttonedit-down span:before
+{
+    content: "\f0d7";     
+}
+
+.mini-filteredit .mini-buttonedit-icon:before
+{
+    content: "\f0b0";
+}
+
+.mini-layout-region-west .mini-layout-region-header .mini-tools-collapse:before
+{
+    content: "\f053";    
+}
+.mini-layout-region-east .mini-layout-region-header .mini-tools-collapse:before
+{
+    content: "\f054";  
+}
+.mini-layout-proxy-west .mini-tools-collapse:before
+{
+    content: "\f054";    
+}
+.mini-layout-proxy-east .mini-tools-collapse:before
+{
+    content: "\f053"; 
+}
+.mini-layout-proxy-north .mini-tools-collapse:before,
+.mini-layout-proxy-south .mini-tools-collapse:before
+{
+    content: "\f078";
+}
+
+.mini-menu-topArrow:before
+{
+    content: "\f077";
+}
+.mini-menu-bottomArrow:before
+{
+    content: "\f078";
+}
+
+/* no background */
+.mini-checkboxlist-item .mini-list-icon,
+.mini-radiobuttonlist-item .mini-list-icon,
+.mini-popupedit .mini-buttonedit-trigger .mini-buttonedit-icon,
+.mini-datepicker .mini-buttonedit-trigger .mini-buttonedit-icon,
+.mini-filteredit .mini-buttonedit-icon,
+span.mini-buttonedit-button-hover, .mini-buttonedit-hover .mini-buttonedit-trigger, .mini-buttonedit-button-pressed,.mini-buttonedit-popup .mini-buttonedit-trigger,
+.mini-buttonedit-up span, .mini-buttonedit-down span,
+.mini-layout-region .mini-layout-region-header .mini-tools span,
+.mini-tab-close,
+.mini-grid-checkbox, .mini-grid-radio,
+.mini-grid-checkbox-checked, .mini-grid-row-selected .mini-checkcolumn .mini-grid-checkbox,
+.mini-tools .mini-tools-collapse, .mini-tools .mini-tools-close, .mini-tools .mini-tools-max, .mini-tools .mini-tools-restore,
+.mini-calendar-menu-prevYear, .mini-calendar-menu-nextYear,
+.mini-outlookbar .mini-outlookbar-expand .mini-tools-collapse,
+mini-tabs-plain .mini-tabs-scrollCt,
+.mini-tabs .mini-tabs-plain .mini-tabs-space, .mini-tabs .mini-tabs-plain .mini-tabs-space2,
+.mini-tabs-leftButton, .mini-tabs-rightButton, .mini-tabs-tabmenu,
+.mini-calendar-header,
+.mini-menu .mini-menuitem-checked .mini-menuitem-icon,
+.mini-menu-horizontal .mini-menu-border, .mini-menu-horizontal .mini-menuitem-allow,
+.mini-tree-selectedNode .mini-tree-radio,.mini-grid-row-selected .mini-tree-radio,
+.mini-grid-radio-checked, .mini-grid-row-selected .mini-checkcolumn .mini-grid-radio,
+.mini-grid-ecIcon, .mini-grid-expandRow .mini-grid-ecIcon,
+.mini-tree-expand .mini-tree-folder
+/*,
+.mini-pager-first, .mini-pager-prev, .mini-pager-next, .mini-pager-last, .mini-pager-reload*/
+{
+    background:none;
+}
+
+/* family */
+/*
+.mini-widget, body, 
+.mini-button, .mini-menuitem, .mini-layout-region-header, .mini-panel-header,
+.mini-outlookbar-groupHeader,
+.mini-grid-headerCell, .mini-grid-cell, .mini-grid-columnproxy,
+.mini-listbox td,
+.mini-calendar, .mini-calendar-button,
+.mini-tabs, 
+.mini-tree,
+.mini-textbox-input,
+.mini-buttonedit-input,
+.mini-textboxlist-input,
+.mini-textboxlist,
+.mini-pager,
+.mini-checkboxlist table label, .mini-radiobuttonlist table label,
+.mini-checkbox,
+.mini-checkboxlist, .mini-radiobuttonlist, .mini-radiobuttonlist label,
+.mini-layout,
+.mini-calendar, .mini-calendar-menu-month, mini-calendar-date, mini-calendar-menu-year, .mini-calendar-title
+{
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:13px;
+}*/
+
+/* corner */
+.mini-corner-all,
+.mini-button,
+.mini-window, .mini-window > .mini-panel-border,
+.mini-menu, .mini-menu-border,
+.mini-tab,
+.mini-tree-nodeshow,
+.mini-textboxlist, .mini-textboxlist-border
+.mini-textbox, .mini-textbox-border,
+.mini-buttonedit, .mini-buttonedit-border,
+.mini-htmlfile .mini-buttonedit-button,
+.mini-calendar-button,
+body .mini-pager-num,
+.mini-tooltip-inner
+{
+    /*border-radius:6px;*/
+}

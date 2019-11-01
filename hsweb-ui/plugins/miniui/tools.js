@@ -299,7 +299,8 @@ define(function () {
             grid.setAjaxOptions({
                 type: "GET",
                 async: true,
-                dataType: "json"
+                dataType: "json",
+                cache:true
             });
             grid.un("loaderror", function (e) {
             });
@@ -317,16 +318,16 @@ define(function () {
                 require(["message", "logger"], function (message, logger) {
                     try {
                         var res = mini.decode(xhr.responseText);//#115
-                        if (res.status == 401) {
+                        if (res.status === 401) {
                             if (window.doLogin) {
                                 window.doLogin(function () {
                                     grid.reload()
-                                });
+                                },res);
                             }
                             else if (window.top.doLogin) {
                                 window.top.doLogin(function () {
                                     grid.reload()
-                                });
+                                },res);
                             } else {
                                 message.showTips("请登录", "danger");
                             }

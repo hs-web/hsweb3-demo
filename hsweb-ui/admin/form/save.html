@@ -6,8 +6,25 @@
     <meta name="renderer" content="webkit"/>
     <title>动态表单</title>
     <script data-main="save.js" src="../boot.js" type="text/javascript"></script>
+    <script type="text/css">
+        #script-editor {
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+
+    </script>
 </head>
-<body>
+<body style="display: none">
 <div class="mini-fit">
     <div id="tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:90%;" plain="true">
         <div title="基本信息">
@@ -104,10 +121,10 @@
                         </div>
                     </div>
 
-                    <div field="validator" headerAlign="center" align="center" width="80">验证器
+                    <div field="validator" name="validator" headerAlign="center" align="center" width="80">验证器
 
                     </div>
-                    <div field="dictConfig" headerAlign="center" align="center" width="80">数据字典
+                    <div name="dictConfig" field="dictConfig" headerAlign="center" align="center" width="80">数据字典
                     </div>
                     <div headerAlign="center" align="center" width="80">其他配置
                     </div>
@@ -124,7 +141,7 @@
         <div title="表关联设置">
             <div id="correlations-grid" class="mini-datagrid" allowCellEdit="true" allowCellSelect="true" style="width:100%;height:100%;margin: auto;" showPager="false">
                 <div property="columns">
-                    <div field="name" headerAlign="center" align="center" width="80">目标表名
+                    <div field="target" headerAlign="center" align="center" width="80">目标表名
                         <input property="editor" class="mini-textbox"/>
                     </div>
                     <div field="alias" headerAlign="center" align="center" width="80">别名
@@ -139,25 +156,32 @@
                     <div headerAlign="center" align="center" width="80">其他配置
                     </div>
                     <div renderer="renderAction" width="50" headerAlign="center" align="center">
-                        操作
+                         <span class="title-button" style="width: 30px">
+                                操作
+                        </span>
+                        <span class="title-button icon-add" onclick="mini.get('correlations-grid').addRow({})"></span>
                     </div>
                 </div>
             </div>
         </div>
+
         <div title="触发器设置">
             <div id="triggers-grid" class="mini-datagrid" allowCellEdit="true" allowCellSelect="true" style="width:100%;height:100%;margin: auto;" showPager="false">
                 <div property="columns">
-                    <div field="trigger" headerAlign="center" align="center" width="80">触发器类型
-                        <input property="editor" name="triggerData" class="mini-combobox"/>
+                    <div field="trigger" headerAlign="center" align="center" width="80">触发器条件
+                        <input property="editor" data="triggerData" textField="id" name="triggerData" class="mini-combobox"/>
                     </div>
-                    <div field="language" headerAlign="center" align="center" width="80">触发器脚本语言
-                        <input property="editor" name="triggerLangData" class="mini-combobox"/>
+                    <div field="language" name="language" headerAlign="center" align="center" width="80">触发器脚本语言
+                        <input property="editor" data="scriptLanguages" textField="id" name="triggerLangData" class="mini-combobox"/>
                     </div>
-                    <div field="script" headerAlign="center" align="center" width="80">脚本内容
+                    <div field="script" name="script" headerAlign="center" align="center" width="80">脚本内容
 
                     </div>
                     <div renderer="renderAction" width="50" headerAlign="center" align="center">
-                        操作
+                        <span class="title-button" style="width: 30px">
+                                操作
+                        </span>
+                        <span class="title-button icon-add" onclick="mini.get('triggers-grid').addRow({})"></span>
                     </div>
                 </div>
             </div>
@@ -166,6 +190,56 @@
 
     <div style="width: 100px;margin: auto">
         <a class="mini-button save-button" plain="true" iconCls="icon-save">保存</a>
+    </div>
+
+    <div id="validatorEditor" class="mini-window" title="编辑验证器" style="width:500px;height:450px;"
+         showMaxButton="false" showCollapseButton="false" showShadow="false"
+         showToolbar="true" showFooter="false" showModal="false" allowResize="false" allowDrag="true">
+        <div property="toolbar" style="padding:5px;">
+            <a class="mini-button save-validator">完成编辑</a>
+            <a class="mini-button" plain="true" onclick="mini.get('validatorEditor').hide()">取消</a>
+            <a class="mini-button add-validator">
+                <i class="fa fa-plus"> 添加规则</i>
+            </a>
+        </div>
+        <div id="validatorConfig" class="mini-fit mini-clearfix" style="font-size: 14px">
+        </div>
+    </div>
+
+    <div id="dictEditor" class="mini-window" title="编辑数据字典配置" style="width:500px;height:450px;"
+         showMaxButton="false" showCollapseButton="false" showShadow="false"
+         showToolbar="true" showFooter="false" showModal="false" allowResize="false" allowDrag="true">
+        <div property="toolbar" style="padding:5px;">
+            <a class="mini-button save-dict">完成编辑</a>
+            <a class="mini-button" plain="true" onclick="mini.get('dictEditor').hide()">取消</a>
+        </div>
+        <div id="dictConfigFrom" class="mini-fit mini-clearfix" style="font-size: 14px">
+            <div class="mini-col-12">
+                类型: <input name="type" style="width: 80%" id="dictType" class="mini-combobox" data="dictType"/>
+                <br><br>
+                字段: <input name="toField" emptyText="查询时,会将枚举设置的字段添加到查询结果中." style="width: 40%" class="mini-textbox"/>
+                对象: <input name="config.writeObject" value="true" data="[{id:'true',text:'是'},{id:'false',text:'否'}]" style="width:80px" class="mini-combobox"/>
+                <br><br>
+                多选: <input name="config.multi" value="true" data="[{id:'true',text:'是'},{id:'false',text:'否'}]" style="width:80px" class="mini-combobox"/>
+                快速: <input name="config.fast" value="true" data="[{id:'true',text:'是'},{id:'false',text:'否'}]" style="width:80px" class="mini-combobox"/>
+
+            </div>
+            <div id="dictConfigDiv" class="mini-col-12 mini-clearfix">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="scriptEditor" class="mini-window" title="脚本编辑器" style="width:800px;height:600px;"
+         showMaxButton="false" showCollapseButton="false" showShadow="false"
+         showToolbar="true" showFooter="false" showModal="false" allowResize="true" allowDrag="true">
+        <div property="toolbar" style="padding:5px;">
+            <a class="mini-button save-script-editor">完成编辑</a>
+            <a class="mini-button" plain="true" onclick="mini.get('scriptEditor').hide()">取消</a>
+        </div>
+        <div id="script-editor" class="mini-fit">
+
+        </div>
     </div>
 </div>
 </body>

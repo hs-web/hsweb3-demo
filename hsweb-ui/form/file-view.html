@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script type="text/javascript" charset="utf-8" src="../plugins/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="../plugins/miniui/themes/default/miniui.css" type="text/css">
+    <link rel="stylesheet" href="../plugins/miniui/themes/icons.css" type="text/css">
+
+    <link rel="stylesheet" href="../plugins/miniui/themes/pure/skin.css" type="text/css">
+
+    <link rel="stylesheet" href="../plugins/miniui/themes/default/large-mode.css" type="text/css">
+    <script type="text/javascript" charset="utf-8" src="../plugins/miniui/miniui.js"></script>
+
+    <!--表单设计器配置-->
+    <link rel="stylesheet" href="../admin/css/common.css" type="text/css">
+    <link type="text/css" rel="stylesheet" href="../admin/form/designer-drag/defaults.css">
+    <script type="text/javascript" charset="utf-8" src="../admin/form/designer-drag/components.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../admin/form/designer-drag/components-default.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../admin/form/designer-drag/parser.js"></script>
+    <!--文件上传-->
+    <script type="text/javascript" charset="utf-8" src="../plugins/webuploader/webuploader.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../admin/form/designer-drag/file-upload.js"></script>
+
+    <!--<style type="text/css">-->
+        <!--*{-->
+            <!--padding: 0;-->
+            <!--border: 0;-->
+        <!--}-->
+    <!--</style>-->
+</head>
+<body>
+    <div id="form">
+
+    </div>
+<div style="width: 100px;margin: auto">
+<a class="mini-button" onclick="save" iconCls="icon-save" plain="true">提交</a>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+var config = {"html":"\n                <div class=\"mini-col-12 form-component\" hs-id=\"01c1f9b38049a72e2220a7d257c7fcd9\"><fieldset style=\"border: 0;\" class=\"brick child-form\"><legend align=\"center\" title=\"表格表单\" style=\"font-size: 20px\" class=\"\"><span>表格表单</span></legend><div class=\"components table ui-sortable\" style=\"\"><div class=\"mini-col-4 form-component\" hs-id=\"2eedc26f0b6296c69a6350a3f162da30\"><div class=\"form-item brick\"><label class=\"form-label\">单行文本</label><div class=\"input-block component-body\"><span class=\"mini-textbox\" style=\"border-width: 0px; width: 100%; height: 30px; padding: 0px;\"><span class=\"mini-textbox-border\"><input type=\"text\" class=\"mini-textbox-input\" autocomplete=\"off\" placeholder=\"\"></span><input type=\"hidden\"></span></div></div></div><div class=\"mini-col-4 form-component\" hs-id=\"4c8bbdc1bbc06e8a2e44288ac0aee455\"><div class=\"form-item brick\"><label class=\"form-label\">下拉列表</label><div class=\"input-block component-body\"><span class=\"mini-buttonedit mini-combobox mini-popupedit\" style=\"border-width: 0px; width: 100%; height: 30px; padding: 0px;\"><span class=\"mini-buttonedit-border\"><input type=\"text\" class=\"mini-buttonedit-input\" autocomplete=\"off\" placeholder=\"\"><span class=\"mini-buttonedit-buttons\"><span class=\"mini-buttonedit-close\" name=\"close\"></span><span title=\"\" name=\"trigger\" class=\"mini-buttonedit-button mini-buttonedit-trigger\" onmouseover=\"O001(this,'mini-buttonedit-button-hover');\" onmouseout=\"o11O(this,'mini-buttonedit-button-hover');\"><span class=\"mini-buttonedit-icon \"></span></span></span></span><input name=\"\" type=\"hidden\" value=\"\"></span></div></div></div><div class=\"mini-col-4 form-component\" hs-id=\"8b34ad4ba0a4d779993d8b157ea33cc3\"><div class=\"form-item brick\"><label class=\"form-label\">多选</label><div class=\"input-block component-body\"><div class=\"mini-checkboxlist\" style=\"border-width: 0px; height: 30px; width: 100%; padding: 0px;\"><table cellpadding=\"0\" border=\"0\" cellspacing=\"0\" style=\"display:table;\"><tbody><tr><td><div class=\"mini-list-inner\"><div id=\"mini-277$0\" index=\"0\" class=\"mini-checkboxlist-item \" style=\"\"><span class=\"mini-list-icon\"></span><input style=\"display:none;\" onmousedown=\"this._checked = this.checked;\" onclick=\"this.checked = this._checked\" value=\"1\" id=\"mini-277$ck$0\" type=\"checkbox\"><label for=\"mini-277$ck$0\" onclick=\"return false;\">选项1</label></div><div id=\"mini-277$1\" index=\"1\" class=\"mini-checkboxlist-item \" style=\"\"><span class=\"mini-list-icon\"></span><input style=\"display:none;\" onmousedown=\"this._checked = this.checked;\" onclick=\"this.checked = this._checked\" value=\"2\" id=\"mini-277$ck$1\" type=\"checkbox\"><label for=\"mini-277$ck$1\" onclick=\"return false;\">选项2</label></div></div><div class=\"mini-errorIcon\"></div><input type=\"hidden\"></td></tr></tbody></table></div></div></div></div><div class=\"mini-col-12 form-component\" hs-id=\"f02a54d0286135b6fa952a80ad9e2fa7\"><div class=\"form-item brick form-text\"><label class=\"form-label\">多行文本</label><div class=\"input-block component-body\" style=\"height: 50px;\"><span class=\"mini-textbox mini-textarea\" style=\"border-width: 0px; height: 30px; width: 100%; padding: 0px;\"><span class=\"mini-textbox-border\"><textarea class=\"mini-textbox-input\" autocomplete=\"off\" placeholder=\"\" style=\"height: 28px;\"></textarea></span><input type=\"hidden\"></span></div></div></div><div class=\"mini-col-4 form-component\" hs-id=\"b75d44122bd1f4af47705945c5c7b87e\"><div class=\"form-item brick\"><label class=\"form-label\">数字调节</label><div class=\"input-block component-body\"><span class=\"mini-buttonedit mini-spinner\" style=\"border-width: 0px; width: 100%; height: 30px; padding: 0px;\"><span class=\"mini-buttonedit-border\"><input type=\"text\" class=\"mini-buttonedit-input\" autocomplete=\"off\" placeholder=\"\"><span class=\"mini-buttonedit-buttons\"><span class=\"mini-buttonedit-close\" name=\"close\"></span><span name=\"trigger\" class=\"mini-buttonedit-button mini-buttonedit-trigger\" onmouseover=\"O001(this,'mini-buttonedit-button-hover');\" onmouseout=\"o11O(this,'mini-buttonedit-button-hover');\"><span class=\"mini-buttonedit-up\"><span></span></span><span class=\"mini-buttonedit-down\"><span></span></span></span></span></span><input name=\"\" type=\"hidden\"></span></div></div></div><div class=\"mini-col-4 form-component\" hs-id=\"876ed3f72e73008d7392ef7d5a855527\"><div class=\"form-item brick\"><label class=\"form-label\">文件上传</label><div class=\"input-block\"><div class=\"file-upload webuploader-container\" style=\"height: 28px; float: left\" id=\"file-62756565\"><div class=\"webuploader-pick\">选择文件</div><div id=\"rt_rt_1ccfop5fp1fqn1trn19bb1rs7gj515\" style=\"position: absolute; top: 2px; left: 8px; width: 64px; height: 26px; overflow: hidden; bottom: auto; right: auto;\"><input type=\"file\" name=\"file\" class=\"webuploader-element-invisible\"><label style=\"opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);\"></label></div></div></div></div></div><div class=\"mini-col-4 form-component\" hs-id=\"cc4c8831d53f46ed28b34d2f34a03088\"><div class=\"form-item brick\"><label class=\"form-label\">树列表</label><div class=\"input-block component-body\"><span class=\"mini-buttonedit mini-treeselect mini-popupedit\" style=\"border-width: 0px; width: 100%; height: 30px; padding: 0px;\"><span class=\"mini-buttonedit-border\"><input type=\"text\" class=\"mini-buttonedit-input\" autocomplete=\"off\" placeholder=\"\"><span class=\"mini-buttonedit-buttons\"><span class=\"mini-buttonedit-close\" name=\"close\"></span><span title=\"\" name=\"trigger\" class=\"mini-buttonedit-button mini-buttonedit-trigger\" onmouseover=\"O001(this,'mini-buttonedit-button-hover');\" onmouseout=\"o11O(this,'mini-buttonedit-button-hover');\"><span class=\"mini-buttonedit-icon \"></span></span></span></span><input name=\"\" type=\"hidden\" value=\"\"></span></div></div></div></div></fieldset></div>","useIdForName":false,"components":[{"config":{},"properties":[{"id":"comment","editor":"textbox","text":"描述","value":"表格表单"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"12"},{"id":"bodyHeight","text":"高度","value":"","comment":"设置为最小值,高度为自动"}],"id":"01c1f9b38049a72e2220a7d257c7fcd9","typeName":"表格表单","type":"table"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":""},{"id":"comment","editor":"textbox","text":"描述","value":"单行文本"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"}],"id":"2eedc26f0b6296c69a6350a3f162da30","typeName":"单行文本","type":"textbox"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":""},{"id":"comment","editor":"textbox","text":"描述","value":"多行文本"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":12},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"},{"id":"bodyHeight","text":"高度","value":"50","comment":"设置为最小值,高度为自动"}],"id":"f02a54d0286135b6fa952a80ad9e2fa7","cls":"mini-textarea","formText":true,"typeName":"多行文本","type":"textarea"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":""},{"id":"comment","editor":"textbox","text":"描述","value":"下拉列表"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"},{"id":"option","text":"选项配置","value":{"type":"data","data":[{"id":"1","text":"选项1"},{"id":"2","text":"选项2"}]}},{"id":"allowInput","text":"可手动输入","value":"true"},{"id":"multiSelect","text":"多选","value":"false"}],"id":"4c8bbdc1bbc06e8a2e44288ac0aee455","cls":"mini-combobox","type":"combobox","typeName":"单行文本"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":""},{"id":"comment","editor":"textbox","text":"描述","value":"多选"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"},{"id":"option","text":"选项配置","value":{"type":"data","data":[{"id":"1","text":"选项1"},{"id":"2","text":"选项2"}]}}],"id":"8b34ad4ba0a4d779993d8b157ea33cc3","cls":"mini-checkboxlist","typeName":"多选","type":"checkbox"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":""},{"id":"comment","editor":"textbox","text":"描述","value":"数字调节"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"},{"id":"format","text":"数字格式","value":"n2","comment":"可手动输入格式:<br/>n0:整数<br/>n1:1位小数<br/>c1:货币格式1位小数<br/>p1:百分比1位小数<br/>自定义:¥#,0.00"},{"id":"minValue","text":"最小值","value":"0"},{"id":"maxValue","text":"最大值","value":"99999999"},{"id":"increment","text":"增量","value":"1"}],"id":"b75d44122bd1f4af47705945c5c7b87e","cls":"mini-spinner","typeName":"数字调节","type":"spinner"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":"file"},{"id":"comment","editor":"textbox","text":"描述","value":"文件上传"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"}],"id":"876ed3f72e73008d7392ef7d5a855527","typeName":"文件上传","type":"fileupload"},{"config":{},"properties":[{"id":"name","editor":"textbox","text":"字段","value":""},{"id":"comment","editor":"textbox","text":"描述","value":"树列表"},{"id":"showComment","text":"显示描述","value":"true"},{"id":"emptyText","text":"提示","value":""},{"id":"type","editor":"textbox","text":"控件类型"},{"id":"size","text":"控件宽度","value":"4"},{"id":"height","text":"控件高度","value":"30"},{"id":"required","editor":"radio","text":"是否必填","value":"undefined"},{"id":"option","text":"选项配置","value":{"type":"data","data":[{"id":"1","text":"选项1","expanded":false,"_id":1,"_uid":1,"_pid":-1,"_level":0},{"id":"2","text":"选项2","expanded":false,"_id":2,"_uid":2,"_pid":-1,"_level":0}]}},{"id":"allowInput","text":"可手动输入","value":"true"},{"id":"multiSelect","text":"多选","value":"false"}],"id":"cc4c8831d53f46ed28b34d2f34a03088","cls":"mini-treeselect","typeName":"树列表","type":"treeselect"}]};
+
+    //使用控件的id作为表单元素的name
+    config.useIdForName=true;
+
+    var parser = new FormParser(config);
+
+    parser.render($("#form"));
+    //设置为只读
+    parser.setReadOnly(true);
+    //设置数据
+    parser.setData({"file":"http://www.baidu.com"});
+
+parser.getbyName('file').onViewFile=function (url) {
+    alert(url);
+    mini.get('view-file').show();
+    //下载地址
+    $(".download-file").attr("href",url);
+    //预览地址
+    $("#view-file-frame").attr("src",url);
+
+    $('.close-view-file').unbind("click").on('click',function () {
+        mini.get('view-file').hide();
+    })
+}
+
+    function save() {
+        //获取数据
+        alert(JSON.stringify(parser.getData(true)));
+    }
+
+</script>
+<div title="文件预览" id="view-file" showFooter="true" style="width: 800px;height: 600px" class="mini-window">
+    <div property="footer" style="text-align: right">
+        <a class="mini-button download-file"  target="_blank">下载</a>
+        <a class="mini-button close-view-file"  target="_blank">关闭</a>
+    </div>
+    <div class="mini-fit">
+        <iframe style="width: 100%;height: 100%;border: 0" frameborder="0" id="view-file-frame">
+
+        </iframe>
+    </div>
+</div>

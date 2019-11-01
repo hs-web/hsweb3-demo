@@ -1,14 +1,43 @@
-define(["jquery"], function ($) {
+define(["jquery", "storejs"], function ($, storejs) {
     //fix #113 ie8不能使用patch方法的bug
-    if (window.ActiveXObject) {
-        $.ajaxPrefilter(function (options) {
+
+    $.ajaxPrefilter(function (options) {
+        if (window.router) {
+            var url = options.url;
+            if (url.indexOf(window.API_BASE_PATH) === -1) {
+                return;
+            }
+            var uri = url.substr(window.API_BASE_PATH.length, url.length);
+            for (var i = 0; i < window.router.length; i++) {
+                var route = window.router[i];
+                if (typeof route.test === 'string') {
+                    if (new RegExp(route.test).test(uri)) {
+                        if (route.prefix) {
+                            uri = route.prefix + uri;
+                        }
+                        break;
+                    }
+                }
+            }
+            options.url = window.API_BASE_PATH + uri;
+        }
+        if (window.ActiveXObject) {
             if (/^patch$/i.test(options.type)) {
                 options.xhr = function () {
                     return new window.ActiveXObject("Microsoft.XMLHTTP");
                 };
             }
-        });
-    }
+        }
+    });
+
+    $.ajaxSetup({ //设置全局性的Ajax选项
+        beforeSend: function (r) {
+            var token = storejs.get("hsweb-user");
+            if (token) {
+                r.setRequestHeader("hsweb-user", token);
+            }
+        }, cache: true
+    });
 
     function doAjax(url, data, method, callback, syc, requestBody, contentType) {
         var data_tmp = data;
@@ -21,12 +50,22 @@ define(["jquery"], function ($) {
             type: method,
             url: url,
             data: data,
-            cache: false,
+            cache: true,
             async: syc === true,
-            success: callback,
+            success: function () {
+                var xhr = arguments[2];
+                var requestId = xhr.getResponseHeader("request-id");
+                if (callback) {
+                    arguments[0].requestId = requestId;
+                    callback(arguments[0]);
+                }
+            },
             error: function (e) {
+
+                var requestId = e.getResponseHeader("request-id");
+
                 if (e.status === 200) {
-                    msg = {status: 200, result: e.statusText, success: true};
+                    msg = {status: 200, result: e.statusText, success: true, requestId: requestId};
                     return msg;
                 }
                 var msg = {};
@@ -35,22 +74,25 @@ define(["jquery"], function ($) {
                 } else {
                     msg = {status: e.status, message: e.statusText ? e.statusText : "未知错误", success: false};
                 }
+                msg.requestId = requestId;
                 if (msg.status === 401) {
                     if (window.doLogin) {
                         window.doLogin(function () {
                             doAjax(url, data_tmp, method, callback, syc, requestBody);
-                        });
+                        }, msg);
                     } else if (window.top.doLogin) {
                         window.top.doLogin(function () {
                             doAjax(url, data_tmp, method, callback, syc, requestBody);
-                        });
+                        }, msg);
                     } else {
-                        if (callback)
+                        if (callback) {
                             callback(msg);
+                        }
                     }
                 } else {
-                    if (callback)
+                    if (callback) {
                         callback(msg);
+                    }
                 }
             },
             dataType: 'json'
@@ -77,6 +119,22 @@ define(["jquery"], function ($) {
         me.terms = [];
         me.sorts = [];
         me.nowType = "and";
+        function buildSort(sorts) {
+            var tmp = {};
+            $(sorts).each(function (i, e) {
+                for (var f in e) {
+                    if (f !== 'sorts')
+                        tmp["sorts[" + i + "]." + f] = e[f];
+                    else {
+                        var tmpTerms = buildSort(e[f]);
+                        for (var f2 in tmpTerms) {
+                            tmp["sorts[" + i + "]." + f2] = tmpTerms[f2];
+                        }
+                    }
+                }
+            });
+            return tmp
+        }
 
         function bindOperate(operate) {
             function accept(k, t, v) {
@@ -85,7 +143,7 @@ define(["jquery"], function ($) {
             }
 
             var mapping = [
-                "gt", "gte", "lt", "lte", "like", "nlike", "in", "is", "eq"
+                "gt", "gte", "lt", "lte", "like", "nlike", "in", "is", "eq", "not"
             ];
             $(mapping).each(function () {
                 var type = this + "";
@@ -115,8 +173,12 @@ define(["jquery"], function ($) {
         bindOperate(me);
         me.getParams = function () {
             var tmp = me.buildParam(me.terms);
+            var sorts = buildSort(me.sorts);
             for (var f in tmp) {
                 me.param[f] = tmp[f];
+            }
+            for (var f in sorts) {
+                me.param[f] = sorts[f];
             }
             return me.param;
         };
@@ -135,7 +197,7 @@ define(["jquery"], function ($) {
         me.and = function (k, v, t) {
             me.nowType = "and";
             if (k && v)
-                me.terms.push({column: k, termType: t ? "eq" : t, type: me.nowType, value: v});
+                me.terms.push({column: k, termType: t, type: me.nowType, value: v});
             return me;
         };
         me.orNest = function () {
@@ -153,13 +215,13 @@ define(["jquery"], function ($) {
             fun.and = function (k, v, t) {
                 fun.nowType = "and";
                 if (k && v)
-                    fun.terms.push({column: k, termType: t ? "eq" : t, value: v, type: 'and'});
+                    fun.terms.push({column: k, termType: t, value: v, type: 'and'});
                 return fun;
             };
             fun.or = function (k, v, t) {
                 fun.nowType = "or";
                 if (k && v)
-                    nest.terms.push({column: k, termType: t ? "eq" : t, value: v, type: 'or'});
+                    nest.terms.push({column: k, termType: t, value: v, type: 'or'});
                 return fun;
             };
             fun.exec = me.exec;
@@ -177,7 +239,7 @@ define(["jquery"], function ($) {
         me.or = function (k, v, t) {
             me.nowType = "or";
             if (k && v)
-                me.terms.push({column: k, termType: t ? "eq" : t, value: v, type: me.nowType});
+                me.terms.push({column: k, termType: t, value: v, type: me.nowType});
             return me;
         };
 
@@ -222,9 +284,9 @@ define(["jquery"], function ($) {
             var index = 0;
             for (var f in data) {
                 if (data[f] === "") continue;
-                if (f.indexOf('$LIKE') != -1 && data[f].indexOf('%') == -1) data[f] = "%" + data[f] + "%";
-                if (f.indexOf('$START') != -1) data[f] = "%" + data[f];
-                if (f.indexOf('$END') != -1) data[f] = data[f] + "%";
+                if (f.indexOf('$LIKE') !== -1 && data[f].indexOf('%') === -1) data[f] = "%" + data[f] + "%";
+                if (f.indexOf('$START') !== -1) data[f] = "%" + data[f];
+                if (f.indexOf('$END') !== -1) data[f] = data[f] + "%";
                 queryParam["terms[" + (index) + "].column"] = f;
                 queryParam["terms[" + (index) + "].value"] = data[f];
                 index++;
@@ -249,7 +311,10 @@ define(["jquery"], function ($) {
                 return me;
             };
             me.exec = function (callback) {
-                return doAjax(getRequestUrl(api), {data: me.data, terms: me.terms}, "PUT", callback, typeof(callback) !== 'undefined', true);
+                return doAjax(getRequestUrl(api), {
+                    data: me.data,
+                    terms: me.terms
+                }, "PUT", callback, typeof(callback) !== 'undefined', true);
             };
             return me;
         },
@@ -278,22 +343,6 @@ define(["jquery"], function ($) {
                 return me;
             };
 
-            function buildSort(sorts) {
-                var tmp = {};
-                $(sorts).each(function (i, e) {
-                    for (var f in e) {
-                        if (f !== 'sorts')
-                            tmp["sorts[" + i + "]." + f] = e[f];
-                        else {
-                            var tmpTerms = buildSort(e[f]);
-                            for (var f2 in tmpTerms) {
-                                tmp["sorts[" + i + "]." + f2] = tmpTerms[f2];
-                            }
-                        }
-                    }
-                });
-                return tmp
-            }
 
             me.orderByAsc = function (f) {
                 me.sorts.push({"name": f, "order": "asc"});
@@ -311,15 +360,8 @@ define(["jquery"], function ($) {
                 return me;
             };
             me.exec = function (callback) {
-                var tmp = me.buildParam(me.terms);
-                var sorts = buildSort(me.sorts);
-                for (var f in tmp) {
-                    me.param[f] = tmp[f];
-                }
-                for (var f in sorts) {
-                    me.param[f] = sorts[f];
-                }
-                return doAjax(getRequestUrl(api), me.param, "GET", callback, typeof(callback) !== 'undefined', false);
+
+                return doAjax(getRequestUrl(api), me.getParams(), "GET", callback, typeof(callback) !== 'undefined', false);
             };
             return me;
         }

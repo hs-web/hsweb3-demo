@@ -13,10 +13,19 @@ http://cdn-blog.jetbrains.org.cn/doc/all.html
     $ ./mvnw spring-boot:run
 ```
 
+docker:
+```bash
+    $ docker run -d --name hsweb3-demo -p 8089:8089 hsweb/hsweb-demo:3.0.1
+```
+
 或者导入ide,等待maven依赖下载完后执行: 
 ``org.hswebframework.web.demo.Application.main``
 
-启动成功后打开: http://localhost:8089 ,帐号:admin 密码:admin
+启动成功后打开: http://localhost:8089 ,帐号:admin 密码:admin.
+
+## 数据库
+demo默认使用h2作为数据库,可直接修改`application-dev.yml`配置中的:`spring.datasource.url`,
+启动服务会自动初始化数据.目前支持:`h2`,`oracle`,`mysql`,`postgresql`.
 
 ## 无法下载依赖?
 查看maven的settings.xml是否配置了私服,删掉或者mirrorOf不要为*

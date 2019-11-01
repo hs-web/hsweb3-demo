@@ -7,6 +7,9 @@
     <title>代码生成器</title>
     <script data-main="index.js" src="../boot.js" type="text/javascript"></script>
     <style type="text/css">
+        *,body,span{
+            font-family: "YaHei Consolas Hybrid";
+        }
         #script-editor {
             margin: 0;
             position: absolute;
@@ -49,8 +52,8 @@
         }
     </style>
 </head>
-<body>
-<div class="mini-fit">
+<body style="display: none">
+<div class="mini-fit" >
     <div id="main" class="mini-layout" style="width:100%;height:100%;">
         <div title="模板列表" showProxyText="true" region="west" width="200" expanded="true" showSplitIcon="true">
             <div class="template-container" style="text-align: center"></div>
@@ -59,7 +62,7 @@
             <div class="mini-toolbar" style="padding: 0px">
                 <!--<a class="mini-button review" plain="true" iconCls="fa fa-eye">预览</a>-->
                 <a class="mini-button download-code" plain="true" iconCls="fa fa-cloud-download">下载</a>
-                <a class="mini-button" plain="true" iconCls="fa fa-laptop">写出</a>
+                <a class="mini-button write-code" plain="true" iconCls="fa fa-laptop">写出</a>
             </div>
             <div class="mini-fit">
                 <ul id="result" class="mini-tree" style="width:100%;height:100%;"
@@ -88,17 +91,17 @@
             <ul id="operation-menu" class="mini-menu">
                 <li class="save-setting" iconCls="fa fa-save" plain="true">保存变量配置</li>
                 <li class="save-all-setting" iconCls="fa fa-table" plain="true">保存全部配置</li>
-                <li class="save-new-setting" iconCls="fa fa-file-text-o" plain="true">另存为</li>
-                <li class="download-setting" iconCls="fa fa-cloud-download" plain="true">下载当前配置</li>
+                <!--<li class="save-new-setting" iconCls="fa fa-file-text-o" plain="true">另存为</li>-->
+                <!--<li class="download-setting" iconCls="fa fa-cloud-download" plain="true">下载当前配置</li>-->
             </ul>
             <ul id="file-menu" class="mini-menu">
                 <li class="save-template" iconCls="fa fa-save" plain="true">保存模板</li>
                 <li class="edit-template" iconCls="fa fa-edit" plain="true">编辑模板</li>
                 <li class="add-template" iconCls="fa fa-plus" plain="true">添加模板</li>
                 <li class="copy-template" iconCls="fa fa-copy" plain="true">复制当前选中模板</li>
-                <li class="upload-template" iconCls="fa fa-cloud-upload" plain="true">上传模板</li>
+                <!--<li class="upload-template" iconCls="fa fa-cloud-upload" plain="true">上传模板</li>-->
                 <li class="download-template" iconCls="fa fa-cloud-download" plain="true">下载模板</li>
-                <li class="remove-template" iconCls="fa fa-remove red" plain="true">删除模板</li>
+                <!--<li class="remove-template" iconCls="fa fa-remove red" plain="true">删除模板</li>-->
             </ul>
 
             <div class="mini-fit">
@@ -135,12 +138,11 @@
         </div>
         <div class="mini-fit">
             <div id="database-datagrid" class="mini-treegrid" style="width:100%;height:100%;" showPager="false"
-                 editNextOnEnterKey="true"showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
+                 editNextOnEnterKey="true" showFilterRow="true" treeColumn="name" nodesField="columns" editNextRowCell="true">
                 <div property="columns">
                     <div name="name" field="name" width="120" headerAlign="center" align="left">名称
                         <input id="nameFilter" emptyText="按名称搜索" property="filter" class="mini-textbox" style="width:100%;"
-                               onvaluechanged="onFilterChanged"
-                        />
+                               onvaluechanged="onFilterChanged"/>
                     </div>
                     <div name="dataType" field="dataType" width="120" headerAlign="center" align="center">类型
                     </div>
@@ -155,7 +157,7 @@
         </div>
     </div>
 
-    <div title="代码预览" showFooter="true" showCloseButton="false" showModal="false" allowResize="true" class="mini-window"
+    <div title="代码预览" showFooter="true" showMaxButton="true" showCloseButton="false" showModal="false" allowResize="true" class="mini-window"
          id="review-window"
          style="width: 80%;height: 80%">
         <div class="mini-toolbar" style="text-align: right">
@@ -164,7 +166,7 @@
         </div>
         <div class="mini-fit">
             <div class="mini-splitter" style="width:100%;height:100%;">
-                <div size="360" showCollapseButton="true" style="padding:5px;">
+                <div size="250" showCollapseButton="true" style="padding:5px;">
                     <div class="mini-fit">
                         <ul id="review-tree" class="mini-tree" style="width:100%;height:100%;"
                             showTreeIcon="true" textField="file" parentField="parentId" resultAsTree="true"
@@ -175,8 +177,14 @@
                     </div>
                 </div>
                 <div showCollapseButton="true">
-                    <div class="mini-fit">
-                        <pre class="script-editor" id="script-editor"></pre>
+                    <div class="mini-fit" style="overflow: hidden">
+                        <pre class="script-editor preview-editor script-editor-container" id="script-editor"></pre>
+
+                        <iframe class="preview-editor form-designer-container" id="form-designer"
+                                style="border:none;width: 100%;height: 100%;position: relative;display: none;overflow: hidden"
+                                src="../form/designer-drag/index.html?hideToolbar=save-button,write-source">
+
+                        </iframe>
                     </div>
                 </div>
             </div>

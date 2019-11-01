@@ -28,7 +28,7 @@ importMiniui(function () {
                 var loading = message.loading("提交中");
                 func(api, data, function (response) {
                     loading.close();
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         message.showTips("保存成功");
                         if (!id) id = response.result;
                     } else {
@@ -46,14 +46,14 @@ function loadData(id) {
         var loading = message.loading("加载中...");
         request.get("user/" + id, function (response) {
             loading.hide();
-            if (response.status == 200) {
+            if (response.status === 200) {
                 response.result.password = defaultPassword;
                 new mini.Form("#basic-info").setData(response.result);
                 var roleGrid = mini.get("datagrid");
                 $(response.result.roles).each(function (i, roleId) {
                     var rows = [];
                     roleGrid.findRow(function (row) {
-                        if (row.id == roleId) rows.push(row);
+                        if (row.id === roleId) rows.push(row);
                     });
                     roleGrid.selects(rows);
                 });
@@ -66,11 +66,11 @@ function loadData(id) {
 function getDataAndValidate() {
     var form = new mini.Form("#basic-info");
     form.validate();
-    if (form.isValid() == false) {
+    if (form.isValid() === false) {
         return;
     }
     var data = form.getData();
-    if (data.password == defaultPassword) {
+    if (data.password === defaultPassword) {
         delete data.password;
     }
     var roles = [];

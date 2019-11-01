@@ -1,0 +1,75 @@
+﻿.menu {
+    position: relative;
+    cursor: pointer;    
+    background: #42485b;
+    color: #fff;
+}
+
+ul, li 
+{
+    position:relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-title {
+    display: block;
+    line-height: 36px;
+}
+.menu-title:hover {
+    background: #00C1DE;
+}
+/*.menu-title:hover {
+    background: #4a5064;
+}*/
+
+.menu-arrow {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+}
+
+.menu-arrow:after {
+    content: "\f104";    
+}
+
+.open > a > .menu-arrow:after {
+    content: "\f106";    
+}
+
+.menu-text
+{
+    padding-left:6px;
+}
+
+.menu ul
+{
+    display:none;
+}
+
+.menu .open > ul
+{
+    display:block;
+}
+
+.menu ul
+{
+    background-color: #333744;    
+}
+
+.menu-title
+{
+    padding-left:15px;
+}
+
+.menu ul .menu-title
+{
+    padding-left:40px;
+}
+
+.menu ul ul .menu-title
+{
+    padding-left:60px;
+}

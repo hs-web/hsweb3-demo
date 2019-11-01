@@ -24,27 +24,33 @@ function initClp(desinger) {
                         message.showTips("格式错误,仅支持json或者html格式!")
                     }
                 }
-                mini.showMessageBox({
-                    title: "请输入粘贴内容",
-                    iconCls: "mini-messagebox-question",
-                    buttons: ["新建", "复制", "取消"],
-                    message: "选择粘贴方式<br>新建: 粘贴为新的表单.<br>复制: 保持粘贴的配置不变",
-                    callback: function (action) {
-                        if (action === '复制') {
-                            desinger.loadConfig(cfg);
+                if (componentRepo.useIdForName) {
+                    desinger.loadConfig(cfg, true);
+                } else {
+                    mini.showMessageBox({
+                        title: "请输入粘贴内容",
+                        iconCls: "mini-messagebox-question",
+                        buttons: ["新建", "复制", "取消"],
+                        message: "选择粘贴方式<br>新建: 粘贴为新的表单.<br>复制: 保持粘贴的配置不变",
+                        callback: function (action) {
+                            if (action === '复制') {
+                                desinger.loadConfig(cfg);
+                            }
+                            if (action === '新建') {
+                                desinger.loadConfig(cfg, true);
+                            }
                         }
-                        if (action === '新建') {
-                            desinger.loadConfig(cfg, true);
-                        }
-                    }
-                });
+                    });
+                }
             });
         })
     });
     require(["clipboard.min.js"], function (Clipboard) {
         var clipboard = new Clipboard('.copy-button', {
             text: function (trigger) {
-                return JSON.stringify(desinger.getConfig());
+                var json = JSON.stringify(desinger.getConfig());
+
+                return json;
             }
         });
 
@@ -52,13 +58,17 @@ function initClp(desinger) {
             require(["message"], function (message) {
                 message.showTips("已将配置内容复制到粘贴板");
             });
-            // console.log(e);
+            //console.log(e);
             e.clearSelection();
         });
 
         clipboard.on('error', function (e) {
-            //console.error('Action:', e.action);
-            // console.error('Trigger:', e.trigger);
+            console.error('ERROR:', e);
+            editScript("text", e.text, function (editor) {
+
+            }, function (editor) {
+
+            },"自动复制失败,请手动复制.");
         });
     });
     $(".preview-button").on("click", function () {
@@ -138,7 +148,9 @@ importMiniui(function () {
         "components", "css!defaults", "css!plugin/font-awesome/4.7.0/css/font-awesome.css",
         "css!fonts/iconfont",
         "css!plugin/jquery-ui/jquery-ui.min",
-        'css!designer'], function (Designer, md5, request) {
+        'css!designer'
+        // ,"css!designer-custom"
+    ], function (Designer, md5, request) {
         componentRepo.useIdForName = request.getParameter("useIdForName") === 'true';
 
         var param = request.getParameter("components");
@@ -155,6 +167,9 @@ importMiniui(function () {
 
         require(componentsImport, function () {
             var designer = window.designer = new Designer();
+            window.getDesigner = function () {
+                return designer;
+            }
             initClp(designer);
             designer.init();
             designer.on("configChanged", function () {
@@ -179,7 +194,8 @@ importMiniui(function () {
         window.tools = tools;
         window.message = message;
     });
-    window.editScript = function (lang, script, call, onSubmit) {
+    window.editScript = function (lang, script, call, onSubmit,title) {
+        mini.get("script-editor-window").setTitle(title||"脚本编辑");
         require(['script-editor'], function (editorBuilder) {
             editorBuilder.createEditor("script-editor", function (editor) {
                 editor.init(lang, script);
@@ -200,8 +216,8 @@ importMiniui(function () {
     var optionType = mini.get("optionType");
     var optionalGrid = mini.get("operation-grid");
 
-    window.addOperationData=function () {
-        var data = {text:"新建选项"};
+    window.addOperationData = function () {
+        var data = {text: "新建选项"};
         if (componentRepo.useIdForName) {
             data.id = md5(new Date().getTime() + "" + Math.random());
         }
@@ -243,6 +259,17 @@ importMiniui(function () {
             e.sender.removeNode(e.record);
         })
     };
+
+    mini.get("data-table-datagrid").getColumn("action").renderer = function (e) {
+        return tools.createActionButton("删除", "icon-remove", function () {
+            e.sender.removeNode(e.record);
+        })
+    };
+    mini.get("tabs-datagrid").getColumn("action").renderer = function (e) {
+        return tools.createActionButton("删除", "icon-remove", function () {
+            e.sender.removeNode(e.record);
+        })
+    };
     $(".edit-javascript").on("click", function () {
         editScript("javascript", designer.javascript || "// this为formParser对象." +
             "\n// this.on('load',function(){ this.setData({ })  })", function (editor) {
@@ -253,7 +280,7 @@ importMiniui(function () {
     });
 
     $(".edit-css").on("click", function () {
-        editScript("css", designer.css || "/*.dynamic-form * {\n\tfont-size:20px;\n}/*", function (editor) {
+        editScript("css", designer.css || "/*.dynamic-form {font-size:20px;}/*", function (editor) {
 
         }, function (editor) {
             designer.css = editor.getScript();

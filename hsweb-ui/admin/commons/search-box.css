@@ -1,0 +1,35 @@
+.search-box .buttons {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+}
+
+.search-box .input-block {
+    position: relative;
+    margin-left: 110px;
+}
+
+.search-box .form-component {
+    margin-top: 10px;
+}
+
+.search-box .form-label {
+    float: left;
+    display: block;
+    width: 110px;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 30px;
+    overflow: hidden;
+    text-align: right;
+    /*border: 1px solid #ddd;*/
+    /*background: #FBFBFB;*/
+    box-sizing: border-box;
+    /*border-right: 0px;*/
+}
+
+.operate-button {
+    margin-top: 10px;
+    padding-left: 10px;
+}

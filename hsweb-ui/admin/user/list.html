@@ -7,16 +7,18 @@
     <title>用户管理</title>
     <!--加载后执行list.js-->
     <script data-main="list.js" src="../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+    </style>
 </head>
-<body>
-<div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+<body style="display: none">
+<div class="mini-toolbar" style="border-bottom:0;">
     <table id="search-box">
         <tr>
             <td>姓名:<input name="name$LIKE" class="mini-textbox"/></td>
             <td>用户名:<input name="username$LIKE" class="mini-textbox"/></td>
             <td>
                 <a class="mini-button search-button" plain="true" iconCls="icon-search">搜索</a>
-                <a class="mini-button add-button" plain="true" iconCls="icon-add">添加用户</a>
+                <a class="mini-button add-button" iconCls="fa-plus">添加用户</a>
             </td>
         </tr>
     </table>

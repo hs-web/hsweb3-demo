@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>工作流流程定义管理</title>
+    <script data-main="list.js" src="../../boot.js" type="text/javascript"></script>
+</head>
+<body style="display: none">
+<div class="mini-toolbar" style="border-bottom:0;">
+    <table id="search-box">
+        <tr>
+            <td>名称:<input name="processDefinitionName$LIKE" class="mini-textbox"/></td>
+            <td>
+                <a class="mini-button search-button" plain="true" iconCls="icon-search">搜索</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="datagrid" class="mini-datagrid" style="width:100%;height:100%;margin: auto;"
+         idField="id" showPager="true">
+        <div property="columns">
+            <div name="id" sortField="processDefinitionId" field="id" headerAlign="center" align="center" allowSort="true" width="80">ID</div>
+            <div field="name" sortField="processDefinitionName" width="100" headerAlign="center" allowSort="true" align="center">名称</div>
+            <div field="key" sortField="processDefinitionKey" headerAlign="center" align="center">KEY</div>
+            <div field="description" sortField="processDefinitionDescription" width="120" headerAlign="center" align="center" allowSort="true">说明</div>
+            <div name="action" renderer="renderAction" headerAlign="center" align="center">操作</div>
+        </div>
+    </div>
+</div>
+<div id="add-model" title="添加模型" showFooter="true" style="width: 500px;height: 350px" class="mini-window">
+    <div property="footer" style="padding:5px;">
+        <a class="mini-button create-model-button">创建</a> <a class="mini-button" plain="true"><i class=""></i>关闭</a>
+    </div>
+    <div class="mini-fit" id="addModelForm" style="font-size: 16px">
+        KEY:<input class="mini-textbox" style="width: 100%" required name="key"/>
+        <br> <br>
+        名称:<input class="mini-textbox" style="width: 100%" required name="name"/>
+        <br> <br>
+        说明:<input class="mini-textbox" style="width: 100%" name="description"/>
+    </div>
+</div>
+</body>
+</html>

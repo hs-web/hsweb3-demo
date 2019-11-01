@@ -10,34 +10,35 @@ spring:
         proxy-target-class: true
     profiles:
       active: dev
-#    datasource:
-#      filters: stat
-#      maxActive: 1000
-#      initialSize: 5
-#      minIdle: 5
-#      maxWait: 5000
-#      timeBetweenEvictionRunsMillis: 60000
-#      minEvictableIdleTimeMillis: 300000
-#      validationQuery: select 1 from dual
-#      testWhileIdle: true
-#      testOnBorrow: false
-#      testOnReturn: false
-#      poolPreparedStatements: true
-#      maxOpenPreparedStatements: 200
-    jta:
-      status: true
-      atomikos:
-        datasource:
-          xa-data-source-class-name: com.alibaba.druid.pool.xa.DruidXADataSource
-          xa-properties:
-            url : jdbc:h2:file:./data/h2db;DB_CLOSE_ON_EXIT=FALSE
-            username : sa
-            password :
-          max-pool-size: 20
-          borrow-connection-timeout: 1000
-        connectionfactory:
-          max-pool-size: 20
-          local-transaction-mode: true
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      filters: stat
+      max-active: 1000
+      initial-size: 5
+      min-idle: 5
+      max-wait: 50000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      validation-query: select 1
+      time-between-eviction-runs-millis: 60000
+      max-open-prepared-statements: 2000
+  #    jta:
+#      status: true
+#      atomikos:
+#        datasource:
+#          xa-data-source-class-name: com.alibaba.druid.pool.xa.DruidXADataSource
+#          xa-properties:
+#            url : jdbc:h2:file:./data/h2db;DB_CLOSE_ON_EXIT=FALSE
+#            username : sa
+#            password :
+#          max-pool-size: 200
+#          borrow-connection-timeout: 1000
+#        connectionfactory:
+#          max-pool-size: 200
+#          local-transaction-mode: true
     resources:
       static-locations: file:./hsweb-ui/,file:./static/,/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/, classpath:/public/
     http:
@@ -50,10 +51,20 @@ hsweb:
       name: hsweb-demo
       version: 3.0.0
     cors:
-      allowed-headers: "*"
-      allowed-methods: "*"
-      allowed-origins: "*"
       enable: true
+      configs:
+        - /**:
+            allowed-headers: "*"
+            allowed-methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+            allowed-origins: "*"
+            allow-credentials: true
+            maxAge: 1800
+    authorize:
+      two-factor:
+        enable: true # 开启双重验证
+        totp:
+          enable: true # 开启totp支持
+          domain: hsweb.me
 
 mybatis:
 #  mapper-location-excludes: classpath*:**/UserMapper.xml  # 不加载的配置

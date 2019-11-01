@@ -6,17 +6,18 @@
 
     <groupId>org.hswebframework.web</groupId>
     <artifactId>hsweb-demo</artifactId>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
-        <spring.boot.version>1.4.5.RELEASE</spring.boot.version>
+        <spring.boot.version>1.5.19.RELEASE</spring.boot.version>
 
         <java.version>1.8</java.version>
         <project.build.jdk>${java.version}</project.build.jdk>
 
-        <hsweb.framework.version>3.0-SNAPSHOT</hsweb.framework.version>
-        <hsweb.expands.version>3.0.1-SNAPSHOT</hsweb.expands.version>
+        <hsweb.framework.version>3.0.9</hsweb.framework.version>
+
+        <hsweb.expands.version>3.0.2</hsweb.expands.version>
 
     </properties>
 
@@ -29,10 +30,12 @@
             </resource>
         </resources>
         <plugins>
+            <!--编译插件-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
+                <!--指定编译器版本和字符集-->
                 <configuration>
                     <source>${project.build.jdk}</source>
                     <target>${project.build.jdk}</target>
@@ -40,11 +43,17 @@
                 </configuration>
             </plugin>
 
+            <!--
+            spring-boot插件
+            1. 可以使用命令 mvn spring-boot:run 直接运行项目
+            2. 使用mvn package命令打包为可执行jar,通过jar -jar 运行项目
+            -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
                 <configuration>
+                    <!--启动类-->
                     <mainClass>org.hswebframework.web.demo.Application</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
@@ -56,12 +65,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
 
             <plugin>
                 <groupId>org.asciidoctor</groupId>
@@ -90,6 +93,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.hswebframework</groupId>
+            <artifactId>hsweb-printer-core</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
         <!--test-->
 
         <dependency>
@@ -98,15 +106,39 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- 使用undertow作为servlet容器  -->
         <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-datasource-jta</artifactId>
-            <version>${hsweb.framework.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>org.hswebframework.web</groupId>-->
+        <!--<artifactId>hsweb-datasource-jta</artifactId>-->
+        <!--<version>${hsweb.framework.version}</version>-->
+        <!--</dependency>-->
         <!--权限管理-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
             <artifactId>hsweb-system-authorization-starter</artifactId>
+        </dependency>
+
+        <!--开发人员工具-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-dev-tools</artifactId>
+            <version>${hsweb.framework.version}</version>
         </dependency>
 
         <!--权限控制-->
@@ -140,12 +172,6 @@
             <version>${hsweb.framework.version}</version>
         </dependency>
 
-        <!--自定义模块-->
-        <dependency>
-            <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-system-module-starter</artifactId>
-            <version>${hsweb.framework.version}</version>
-        </dependency>
         <!--定时调度-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
@@ -238,12 +264,20 @@
             <artifactId>hsweb-system-workflow-starter</artifactId>
             <version>${hsweb.framework.version}</version>
         </dependency>
+
+        <!--首页仪表盘配置-->
         <dependency>
             <groupId>org.hswebframework.web</groupId>
-            <artifactId>hsweb-flowable-modeler</artifactId>
+            <artifactId>hsweb-system-dashboard-starter</artifactId>
             <version>${hsweb.framework.version}</version>
         </dependency>
 
+        <!--在线多数据源管理-->
+        <dependency>
+            <groupId>org.hswebframework.web</groupId>
+            <artifactId>hsweb-system-datasource-starter</artifactId>
+            <version>${hsweb.framework.version}</version>
+        </dependency>
         <!--swagger-->
 
         <dependency>
@@ -274,6 +308,11 @@
             <version>5.1.40</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.2</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>com.oracle</groupId>-->
         <!--<artifactId>ojdbc14</artifactId>-->
@@ -370,7 +409,7 @@
             <url>http://nexus.hsweb.me/content/groups/public/</url>
             <snapshots>
                 <enabled>true</enabled>
-                <!-- <updatePolicy>always</updatePolicy> -->
+                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
         <repository>

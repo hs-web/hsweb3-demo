@@ -1,0 +1,40 @@
+.mini-outlookbar-groupHeader {
+    background: #fafafa;
+}
+
+.mini-outlookbar-groupBody  {
+    background: #fff;
+    border-top:1px solid #d9d9d9;
+}
+
+.mini-outlookbar-group {
+    border-bottom:1px solid #d9d9d9;
+}
+
+.mini-outlookbar-groupHeader .mini-tools {
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    line-height:20px;
+}
+
+.mini-tools .mini-tools-collapse {
+    width: 20px;
+    height:20px;
+    line-height:20px;
+    text-align: center;
+    color: #666;
+    margin:0;
+    display: block;
+}
+
+/*.form-component {*/
+    /*margin-bottom:24px;*/
+/*}*/
+/*.dynamic-form .form-item {*/
+    /*margin: 0 0 10px 0;*/
+/*}*/
+/*.components .form-item {*/
+    /*margin:0 16px 0 0;*/
+    /*width:auto;*/
+/*}*/

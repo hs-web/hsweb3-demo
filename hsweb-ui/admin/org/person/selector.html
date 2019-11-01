@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>人员管理</title>
+    <script data-main="selector.js" src="../../boot.js" type="text/javascript"></script>
+</head>
+<body style="display: none">
+<div class="mini-fit">
+    <div class="mini-toolbar" style="border-bottom:0;">
+        <div id="search-box" class="mini-clearfix search-box">
+            <div class="mini-col-3 form-component">
+                <div class="form-item">
+                    <label class="form-label">姓名：</label>
+                    <div class="input-block component-body">
+                        <input name="name" style="width: 100%" class="mini-textbox"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-7 form-component">
+                <div class="form-item">
+                    <label class="form-label">所属机构：</label>
+                    <div class="input-block component-body">
+                        <input class="mini-treeselect" emptyText="机构" name="id$person-in-org" valuefield="id"
+                               showNullItem="true"
+                               textfield="name" valuefromselect="true" clearonload="true"
+                               allowinput="true" expandOnLoad="1" resultastree="false" parentfield="parentId"
+                               virtualscroll="true" style="width: 32.33%">
+                        <input class="mini-treeselect" showNullItem="true" parentfield="parentId" clearOnLoad="true" showNullItem="true"
+                               emptyText="部门" textField="name" name="id$person-in-department" style="width: 32.33%">
+                        <input class="mini-treeselect" showNullItem="true" parentfield="parentId" clearOnLoad="true"
+                               emptyText="岗位" textField="name" showNullItem="true" id="positionId"
+                               name="id$person-in-position" style="width: 32.33%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="operate-button">
+            <span autz="autz.hasPermission('person','add')">
+                <a class="mini-button ok-button" ><i class="fa fa-check"></i> 完成</a>
+            </span>
+        </div>
+    </div>
+    <div class="mini-fit">
+        <div id="data-grid" class="mini-datagrid" style="width:100%;height:100%;margin: auto;"
+             idField="id" pageSize="20" parentField="parentId" resultAsTree="false"
+             multiSelect="true">
+            <div property="columns">
+                <div type="checkcolumn" ></div>
+                <div field="name" headerAlign="center" align="center" width="150">姓名
+                </div>
+                <div field="sex" renderer="renderSex" headerAlign="center" align="center" width="50">性别
+                </div>
+                <div field="phone" width="150" headerAlign="center" align="center">联系电话
+                </div>
+                <div field="status" renderer="renderStatus" headerAlign="center" align="center" width="50">状态
+                </div>
+                <!--<div autz="autz.hasPermission('person', 'update','delete')" renderer="renderAction" width="80" headerAlign="center" align="center">-->
+                    <!--操作-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

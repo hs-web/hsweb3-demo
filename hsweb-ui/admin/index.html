@@ -1,61 +1,76 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+﻿<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
-    <title>后台管理首页</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>hsweb3.0 demo</title>
     <script data-main="index.js" src="boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        .dashboard .mini-panel
+        {
+            margin-right:12px;
+            margin-bottom:12px;
+        }
+    </style>
 </head>
-<body>
-<div id="layout" class="mini-layout" style="width:100%;height:100%;">
-    <div class="header" showProxyText="true" region="north" height="64" showSplit="false" showHeader="false" splitSize="0">
-        <div id="headerLayout" class="w-header">
-            <div style="width:100%;overflow:hidden;">
-                <div class="w-logo">
-                    hsweb3.0 demo
-                </div>
-                <div class="top-menu w-menus">
-                    <a class="link" onclick="window.onbeforeunload=function(){};window.location.reload()">
-                        <i class="fa fa-home"></i>
-                        首页
-                    </a>
+<body style="display: none">
 
-                    <a class="link settings">
-                        <i class="fa fa-gear"></i>
-                        <span class="username">请登录</span>
-                    </a>
+<div class="navbar">
+    <div class="navbar-header">
+        <div class="navbar-brand">hsweb企业后台管理</div>
+        <div class="navbar-brand navbar-brand-compact">h</div>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a id="toggle"><span class="fa fa-bars"></span></a></li>
+        <!--<li class="icontop"><a href="#"><i class="fa fa-hand-pointer-o"></i><span >系统演示</span></a></li>-->
+        <!--<li class="icontop"><a href="#"><i class="fa fa-puzzle-piece"></i><span >开发文档</span></a></li>-->
+        <!--<li class="icontop"><a href="#"><i class="fa fa-sort-amount-asc"></i><span >人力资源</span></a></li>-->
+        <!--<li class="icontop"><a href="#"><i class="fa  fa-cog"></i><span >系统设置</span></a></li>-->
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <!--<li ><a href="#"><i class="fa fa-paper-plane"></i> 代办事项</a></li>-->
+        <li><a href="http://github.com/hs-web/hsweb3-demo" target="_blank"><i class="fa fa-question-circle-o"></i> 获取源代码</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle userinfo">
+                <img class="user-img" src="index/res/images/user.jpg"/><span class="username">请登录</span> <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="javascript:void(0)" class="settings"><i class="fa fa-user"></i>个人设置</a></li>
+                <li class="divider"></li>
+                <li><a class="full-tab" href="javascript:void(0)"><i class="fa fa-arrows-alt"></i>全屏</a></li>
+                <li><a class="lock-system" href="javascript:void(0)"><i class="fa fa-lock"></i>锁定系统</a></li>
+                <li><a class="upload-lock-pwd" href="javascript:void(0)"><i class="fa fa-unlock"></i>修改解锁密码</a></li>
+                <li><a class="login-out" href="javascript:void(0)"><i class="fa fa-key"></i>注销</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="container">
 
-                    <a class="link login-out">
-                        <i class="fa fa-sign-out"></i>
-                        注销
-                    </a>
+    <div class="sidebar">
+        <div class="sidebar-toggle"><i class="fa fa-fw fa-dedent"></i></div>
+        <div id="mainMenu"></div>
+    </div>
+    <div class="main">
+        <div id="mainTabs" class="mini-tabs main-tabs" activeIndex="0" style="height:100%;width: 100%" plain="false"
+             buttons="#tabsButtons" arrowPosition="side">
+            <div name="index" iconCls="fa-android" title="首页">
+                <div class="mini-fix" >
+                    <div class="mini-clearfix dashboard" style="padding: 10px">
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div title="south" region="south" showSplit="false" showHeader="false" height="30" splitSize="0">
-        <div class="w-footer">
-            <a target="_blank" href="http://hsweb.io">hsweb.io</a>
-            <a target="_blank" href="http://github.com/hs-web/hsweb3-demo">源码</a>
-        </div>
-    </div>
-    <div showHeader="true" class="main-menu" title="导航" region="west" width="180" height="100%" maxWidth="250" minWidth="100" splitSize="0">
-        <div id="leftTree" class="mini-outlooktree" style="height: 100%"
-             expandOnLoad="false" resultAsTree="false" ajaxOptions="{type:'GET'}"
-             showTreeIcon="true" iconField="icon"
-             idField="id" parentField="parentId" textField="name" borderStyle="border:0">
-        </div>
-    </div>
-    <div title="center" region="center" bodyStyle="overflow:hidden;" splitSize="0">
-        <!--默认标签页-->
-        <div id="mainTabs" closeclick="oncloseclick" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;">
-            <div title="首页" name="first" style="text-align: center;width: 100%;margin: auto;">
-
-            </div>
+        <div id="tabsButtons">
+            <a title="切换到首页" class="tabsBtn go-index"><i class="fa fa-home"></i></a>
+            <a title="刷新当前页" class="tabsBtn reload-tab"><i class="fa fa-refresh"></i></a>
+            <a title="关闭当前页" class="tabsBtn remove-tab"><i class="fa fa-remove"></i></a>
         </div>
     </div>
 </div>
-<div id="loginWindow" class="mini-window" title="用户登录" style="width:350px;height:205px;display: none" showModal="true"
+
+<div id="loginWindow" class="mini-window" title="用户登录" style="width:310px;height:205px;display: none" showModal="true"
      showCloseButton="false">
     <div id="loginForm" style="padding:15px;padding-top:10px;">
         <table>
@@ -78,6 +93,50 @@
                 <td style="padding-top:5px;">
                     <a class="mini-button login-button" style="width:60px;">登录</a>
                     <a class="mini-button reset-button" style="width:60px;">重置</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="unLockWindow" class="mini-window" title="解锁系统" style="width:390px;height:140px;display: none" showModal="true"
+     showCloseButton="false">
+    <div id="unLockForm" style="padding:15px;padding-top:10px;">
+        <table>
+            <tr>
+                <td>
+                    <input id="unlockpwd" onenter="$('.unlock-button').click()" emptyText="解锁密码" name="lockPassword" class="mini-password" required="true"
+                           style="width:180px;"/>
+                    <a class="mini-button unlock-button" style="width:60px;">解锁</a>
+                    <a class="mini-button login-out" plain="true" style="width:60px;">注销</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="updateLockPwdWindow" class="mini-window" title="修改解锁密码" style="width:350px;height:200px;display: none" showModal="true"
+     showCloseButton="false">
+    <div id="updateLockPwdForm" style="padding:15px;padding-top:10px;">
+        <table>
+            <tr>
+                <td style="width:80px;"><label>帐号密码：</label></td>
+                <td>
+                    <input name="userPassword" class="mini-password" required="true" style="width:150px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:80px;"><label>解锁密码：</label></td>
+                <td>
+                    <input name="lockPassword" class="mini-password" required="true"
+                           requiredErrorText="密码不能为空" required="true" style="width:150px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top:5px;">
+                    <a class="mini-button do-update-lock-pwd-button" style="width:60px;">修改</a>
+                    <a class="mini-button" plain="true" onclick="mini.get('updateLockPwdWindow').hide()" style="width:60px;">取消</a>
                 </td>
             </tr>
         </table>

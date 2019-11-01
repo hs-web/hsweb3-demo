@@ -4,8 +4,8 @@ require(["authorize"], function (authorize) {
     authorize.parse(document.body);
     window.authorize = authorize;
     importMiniui(function () {
+        mini.parse();
         require(["miniui-tools"], function (tools) {
-            mini.parse();
             window.tools = tools;
             var grid = window.grid = mini.get("data-grid");
             tools.initGrid(grid);

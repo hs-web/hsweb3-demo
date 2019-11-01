@@ -1,0 +1,150 @@
+﻿
+.mini-tabs-scrollCt {
+    background: #f3f3f3;
+    border-width:0;
+    border-bottom-width:1px;
+    border-color:#D3D3D3;
+}
+
+.mini-tabs-position-top .mini-tabs-header
+{
+    margin-top:3px;
+}
+
+.mini-tabs-space div {
+    width:4px;
+}
+.mini-tabs-space,
+.mini-tabs-space2 {
+    border-bottom-color:#D3D3D3;
+}
+.mini-tabs .mini-tab {
+    padding:6px 14px 7px 14px;
+    border-radius: 5px 5px 0 0;
+    background: linear-gradient(to bottom,#F8F8F8 0,#eee 100%);
+    border-color:#D3D3D3;
+    color: #575765;
+}
+.mini-tab-text
+{
+    line-height:13px;
+    padding:3px 4px 3px 4px;    
+}
+.mini-tabs-body,
+.mini-tab-text
+{
+    font-family:微软雅黑;
+    font-size:13px;     
+}
+
+.mini-tab .mini-iconfont {
+    font-size:13px;
+    line-height: 16px;
+    text-align:center;
+    margin-right:2px;
+}
+.mini-tab-hover {
+    background:#e2e2e2;
+    color:#000;
+}
+.mini-tabs .mini-tab-active,
+.mini-tab-active.mini-tab-hover {
+    position:relative;
+    border-bottom-color:#fff;
+    /*background: linear-gradient(to bottom,#F8F8F8 0,#fff 100%);*/
+    background:#fff;
+    /*color:#444;*/
+    color:#000;
+    border-top-color:transparent;
+}
+.mini-tab-active {
+    /*font-weight:bold;*/
+    color:#000;
+}
+.mini-tab-close:before
+{
+    display:none;
+}
+.mini-tab-close, .mini-tab-close-hover, .mini-tab-close:hover {
+    margin-top:3px;
+    background: url(images/tabs_icons.png) no-repeat -34px -2px;
+    vertical-align:top;
+    position:relative;
+    left:2px;
+}
+.mini-tab-close:hover
+{
+    background-color:transparent;
+}
+.mini-tab-active:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    left: 0;
+    top: 0px;
+    background: #3c8dbc;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.mini-tabs-nav,
+.mini-tabs-leftnav {
+    top: 6px;
+}
+
+.mini-tabs .mini-tabs-space, .mini-tabs .mini-tabs-space2
+{
+    background:transparent;
+    border-color:#D3D3D3;
+}
+
+/* arrow */
+.mini-tabs-leftButton, .mini-tabs-rightButton {
+    background:none;
+    font: normal normal normal 16px/24px FontAwesome;
+    width: 24px;
+    height: 24px;
+    border-color:transparent;
+    color:#000;
+    text-align:center;
+}
+a:hover.mini-tabs-leftButton,a:hover.mini-tabs-rightButton
+{
+    background-color:#e2e2e2;
+}
+    .mini-tabs-leftButton:before {
+        content: "\f048";
+    }
+     .mini-tabs-rightButton:before {
+        content: "\f051";
+    }
+.mini-tabs-buttons
+{
+    padding-top:0;
+}    
+/** tabs-bodys ******************************************************************/
+.mini-tabs-bodys {
+    border-color:transparent;
+    background:transparent;
+}
+
+
+/* tabsbuttons */
+#tabsButtons {
+    border-left:1px solid #D3D3D3;       
+    height:35px; 
+    padding:6px 7px 4px 7px;
+}
+.tabsBtn {
+    font-size:16px;
+    display:inline-block;
+    width:24px;
+    height:24px;    
+    text-align:center;
+    cursor:pointer;
+    vertical-align:middle;
+    color:#575765;
+}
+.tabsBtn:hover {
+    background:#e2e2e2;
+}

@@ -1,0 +1,202 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script data-main="edit.js" src="../../boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        .activity-editor {
+            display: none;
+            padding: 10px;
+        }
+
+        .process-editor {
+            display: block;
+        }
+
+        #script-editor {
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ace_autocomplete {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+<div class="mini-splitter" style="width:100%;height:100%;">
+    <div size="60%" showCollapseButton="false" style="padding:5px;">
+        <iframe class="diagram-viewer" style="border: 0;width: 100%;height: 100%" frameborder="0"></iframe>
+    </div>
+    <div showCollapseButton="true">
+        <div id="user-task-form" class="mini-fit dynamic-form  user-task activity-editor mini-clearfix">
+            <h2 align="center" class="activity-name"></h2>
+            <div class="mini-col-12 form-component">
+                <div class="form-item brick"><label class="form-label">动态表单</label>
+                    <div class="input-block component-body">
+                        <input name="formId" textName="formId" style="width: 100%" class="mini-buttonedit" plain="true" iconCls="icon-edit"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-12 form-component">
+                <div class="form-item brick"><label class="form-label">表单页面模板</label>
+                    <div class="input-block component-body">
+                        <input name="properties.formTemplateId" textName="properties.formTemplateId" style="width: 100%" class="mini-buttonedit" plain="true" iconCls="icon-edit"/>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-12 form-component">
+                <div class="mini-col-12 form-component">
+                    <div class="form-item brick"><label class="form-label">候选人设置</label>
+                        <div class="input-block component-body">
+                            <span style="margin-left: 1em"></span>
+                            <a class="mini-button save-candidate-button" plain="true" iconCls="icon-edit"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-12 form-component">
+                <div class="mini-col-12 form-component">
+                    <div class="form-item brick"><label class="form-label">监听器</label>
+                        <div class="input-block component-body">
+                            <span style="margin-left: 1em"></span>
+                            <a class="mini-button save-task-listener-button" plain="true" iconCls="icon-edit"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="process-form" class="mini-fit dynamic-form activity-editor process-editor mini-clearfix">
+            <h2 align="center">流程设置</h2>
+            <div class="mini-col-12 form-component">
+                <div class="form-item brick"><label class="form-label">动态表单</label>
+                    <div class="input-block component-body">
+                        <a name="formId" textName="formId" style="width: 100%" class="mini-buttonedit" plain="true" iconCls="icon-edit"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-12 form-component">
+                <div class="form-item brick"><label class="form-label">表单页面模板</label>
+                    <div class="input-block component-body">
+                        <a name="properties.formTemplateId" textName="properties.formTemplateId" style="width: 100%" class="mini-buttonedit" plain="true" iconCls="icon-edit"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-12 form-component">
+                <div class="form-item brick"><label class="form-label">权限设置</label>
+                    <div class="input-block component-body">
+                        <span style="margin-left: 1em"></span>
+                        <a class="mini-button" plain="true" iconCls="icon-edit"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-12 form-component">
+                <div class="mini-col-12 form-component">
+                    <div class="form-item brick"><label class="form-label">监听器</label>
+                        <div class="input-block component-body">
+                            <span style="margin-left: 1em"></span>
+                            <a class="mini-button save-process-listener-button" plain="true" iconCls="icon-edit"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100px;margin: auto">
+            <a class="mini-button save-button" plain="true" iconCls="icon-save">保存</a>
+        </div>
+    </div>
+</div>
+<div id="candidate-window" class="mini-window" title="候选人设置" allowResize="true" style="width: 500px;height: 500px" showFooter="true">
+    <div property="footer" style="padding:5px;">
+        <a class="mini-button save-candidate">保存</a> <a class="mini-button" onclick='mini.get("candidate-window").close()' plain="true">关闭</a>
+    </div>
+    <div id="candidate-form" class="mini-fit mini-clearfix dynamic-form">
+        <div class="mini-col-12 form-component">
+            <div class="form-item form-text brick"><label class="form-label">固定人员 <i class="fa fa-plus select-person" style="cursor: pointer"></i></label>
+                <div class="input-block component-body">
+                    <input id="personCandidate" allowInput="false" inputmode="true"
+                           class="mini-textboxlist"
+                           name="personCandidate" textName="name" style="width:100%;height:50px"
+                           valueField="id" textField="name"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 form-component">
+            <div class="form-item form-text brick">
+                <label class="form-label">岗位 <i class="fa fa-plus"></i></label>
+                <div class="input-block component-body">
+                    <input id="positionCandidate" class="mini-textboxlist"
+                           name="positionCandidate" textName="name" style="width:100%;height:50px"
+                           valueField="id" textField="name"/>
+                </div>
+            </div>
+        </div>
+        <div class="mini-col-12 form-component">
+            <div class="form-item form-text brick">
+                <label class="form-label">部门 <i class="fa fa-plus"></i></label>
+                <div class="input-block component-body">
+                    <input id="departmentCandidate" class="mini-textboxlist"
+                           name="departmentCandidate" textName="name" style="width:100%;height:50px"
+                           valueField="id" textField="name"/>
+                </div>
+            </div>
+        </div>
+        <!--<div class="mini-col-12 form-component">-->
+        <!--<div class="form-item form-text brick">-->
+        <!--<label class="form-label">自定义</label>-->
+        <!--<div class="input-block component-body">-->
+        <!--<input id="scriptCandidate" class="mini-textarea"-->
+        <!--name="scriptCandidate" textName="name"  style="width:100%;height:80px"-->
+        <!--valueField="id" textField="name"/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+
+<div id="listener-window" class="mini-window" title="监听器设置" allowResize="true" style="width: 500px;height: 500px" showFooter="true">
+    <div property="footer" style="padding:5px;">
+        <a class="mini-button save-listener">保存</a> <a class="mini-button" onclick='mini.get("candidate-window").close()' plain="true">关闭</a>
+    </div>
+    <div id="listener-grid" class="mini-datagrid" allowCellEdit="true" allowCellSelect="true" style="width:100%;height:100%;margin: auto;" showPager="false">
+        <div property="columns">
+            <div field="eventType" headerAlign="center" align="center" width="80">事件类型
+                <input property="editor" id="eventType" allowInput="true" data="eventTypeData" textField="id" class="mini-combobox"/>
+            </div>
+            <div field="language" name="language" headerAlign="center" align="center" width="80">脚本语言
+                <input property="editor" data="scriptLanguages" textField="id" name="triggerLangData" class="mini-combobox"/>
+            </div>
+            <div field="script" name="script" headerAlign="center" align="center" width="80">脚本内容
+
+            </div>
+            <div name="action" width="50" headerAlign="center" align="center">
+                        <span class="title-button" style="width: 30px">
+                                操作
+                        </span>
+                <span class="title-button icon-add" onclick="mini.get('listener-grid').addRow({})"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="scriptEditor" class="mini-window" title="脚本编辑器" style="width:800px;height:600px;"
+     showMaxButton="false" showCollapseButton="false" showShadow="false"
+     showToolbar="true" showFooter="false" showModal="false" allowResize="true" allowDrag="true">
+    <div property="toolbar" style="padding:5px;">
+        <a class="mini-button save-script-editor">完成编辑</a>
+        <a class="mini-button" plain="true" onclick="mini.get('scriptEditor').hide()">取消</a>
+    </div>
+    <div id="script-editor" class="mini-fit">
+
+    </div>
+</div>
+
+</body>
+</html>

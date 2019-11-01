@@ -34,6 +34,16 @@ Component.prototype.getProperty = function (name) {
     }
     return {};
 };
+Component.prototype.hide = function () {
+    if (this.container) {
+        this.container.hide();
+    }
+}
+Component.prototype.show = function () {
+    if (this.container) {
+        this.container.show();
+    }
+}
 Component.prototype.removeProperty = function (name) {
     var indexOf = this.properties.indexOf(this.getProperty(name));
     if (indexOf !== -1) {
@@ -57,14 +67,17 @@ Component.prototype.setProperty = function (property, value, replace) {
     }
     prop.value = value;
 
-    if (property === 'size' || property === 'mdSize'|| property === 'height') {
+    if (property === 'size' || property === 'width' || property === 'mdSize' || property === 'height') {
         this.resize();
         return;
     }
     if (property === "type") {
-        if (!prop.value && prop.prototype.type === value) {
-            return;
-        }
+        // if (!prop.prototype) {
+        //     return;
+        // }
+        // if (!prop.value && prop.prototype.type === value) {
+        //     return;
+        // }
         var NewComponent = componentRepo.supportComponents[value];
         if (NewComponent) {
             var comp = new NewComponent(me.id);
@@ -126,21 +139,27 @@ Component.prototype.getContainer = function (newFunc) {
     return container;
 };
 Component.prototype.resize = function () {
-    var size = this.getProperty("size");
+    var size = this.getProperty("width").value || this.getProperty("size").value;
     var height = this.getProperty("height").value;
-    if (size) {
-        size = size.value;
-    }
     if (this.container) {
         this.container.removeClass();
-        this.container.addClass("mini-col-" + (size ? size : 4));
+        this.container.addClass("mini-col-" + (size || 4));
         this.container.addClass("form-component");
-
-        if(height&&height>1){
-            this.container.css("height",height+"px");
-        }else{
-            this.container.css("height","");
+        this.container.removeAttr("style");
+        if (this.setWidth) {
+            this.setWidth(size);
         }
+        if (this.setHeight) {
+            this.setHeight(height);
+        } else {
+            if (height && height > 1) {
+                this.container.css("height", height + "px");
+            } else {
+                this.container.css("height", "");
+            }
+        }
+        this.doEvent("resize", size, height);
+        mini.layout();
     }
 };
 Component.prototype.init = function () {
@@ -156,7 +175,8 @@ componentRepo.supportComponents = {};
 componentRepo.supportComponentsList = [];
 
 componentRepo.registerComponent = function (type, component) {
-    componentRepo.supportComponents[type] = component;
     component.prototype.type = type;
+
+    componentRepo.supportComponents[type] = component;
     componentRepo.supportComponentsList.push(component);
 };
